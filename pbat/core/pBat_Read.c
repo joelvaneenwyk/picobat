@@ -175,12 +175,6 @@ int pBat_GetLine_Cmdly(ESTR* lpesLine, INPUT_FILE* pIn)
 
 	} else {
 
-    /* Libcu8 kind of perturbates the C lib because libcu8 does not
-       perform byte to byte conversion, misleading file telling
-       positions ... Thus discard C buffering from libcu8*/
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
-        setvbuf(pFile, NULL, _IONBF, 0);
-#endif
         fseek(pFile, pIn->iPos, SEEK_SET);
 	}
 

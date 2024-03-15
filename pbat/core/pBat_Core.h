@@ -54,6 +54,7 @@
 #include "pBat_Exec.h"
 #include "pBat_Prompt.h"
 #include "pBat_Completion.h"
+#include "pBat_Pipe.h"
 
 #if defined(WIN32) && defined(PBAT_USE_LIBCU8)
 #include <libcu8.h>

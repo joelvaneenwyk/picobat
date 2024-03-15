@@ -74,8 +74,8 @@ extern __thread COLOR colColor; /* current command prompt colors */
 extern __thread INPUT_FILE ifIn; /* current parsed script */
 extern __thread ENVBUF* lpeEnv; /* environment variables local to threads */
 extern __thread FILE *fInput; /* current thread input stream */
-extern __thread FILE *fOutput, *_fOutput; /* current thread output stream */
-extern __thread FILE *fError, *_fError; /* current thread error stream */
+extern __thread FILE *fOutput; /* current thread output stream */
+extern __thread FILE *fError; /* current thread error stream */
 extern __thread ENVSTACK* lpesEnv;
 extern __thread char lpCurrentDir[FILENAME_MAX]; /* current path */
 extern __thread ESTRCACHE ecEstrCache; /* ESTR cache */

@@ -85,8 +85,6 @@ void* pBat_CloneTrampoline(void* data)
     fInput = cloned->fInput;
     fOutput = cloned->fOutput;
     fError = cloned->fError;
-    _fError = fError;
-    _fOutput = fOutput;
 
     lpAltPromptString = NULL;
 
@@ -100,6 +98,10 @@ void* pBat_CloneTrampoline(void* data)
     func(arg);
 
     pBat_Exit();
+
+    fclose(fInput);
+    fclose(fOutput);
+    fclose(fError);
 
     pBat_EndThread((void*)iErrorLevel);
 
@@ -146,9 +148,15 @@ int pBat_DuplicateData(struct clone_data_t* data)
                                 | PBAT_PRINT_C_ERROR, \
                                 __FILE__ "/pBat_DuplicateData()", -1)
 
-    DUPLICATE_STREAM(data->fInput, fInput, "r");
-    DUPLICATE_STREAM(data->fOutput, fOutput, "w");
-    DUPLICATE_STREAM(data->fError, fError, "w");
+    DUPLICATE_STREAM(data->fInput, fInput, "rb");
+    DUPLICATE_STREAM(data->fOutput, fOutput, "wb");
+    DUPLICATE_STREAM(data->fError, fError, "wb");
+
+    if (isatty(fileno(fOutput)))
+        setvbuf(fOutput, NULL, _IONBF, 0);
+
+    if (isatty(fileno(fError)))
+        setvbuf(fError, NULL, _IONBF, 0);
 
     return 0;
 }

@@ -172,7 +172,7 @@ int pBat_ForAdjustInput(char* lpInput);
 
 int pBat_ForInputParseFileList(FILE_LIST_T* lpList, ESTR* lpInput);
 
-int pBat_ForInputProcess(ESTR* lpInput, INPUTINFO* lpipInfo, int* iPipeFd);
+int pBat_ForInputProcess(ESTR* lpInput, INPUTINFO* lpipInfo, FILE** pipef);
 /* Start a new process for command input */
 
 int pBat_ForGetInputLine(ESTR* lpReturn, INPUTINFO* lpipInfo);

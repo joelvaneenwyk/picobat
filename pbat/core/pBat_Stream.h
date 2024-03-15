@@ -28,30 +28,33 @@
 
 #ifdef WIN32
 /* used for compatibility purpose */
-#include <io.h>
-#define pipe(a,b,c) _pipe(a,b,c)
-
-#define O_WRONLY _O_WRONLY
-#define O_RDONLY _O_RDONLY
-#define O_TRUNC _O_TRUNC
-
-#ifndef S_IRUSR
-#define S_IRUSR _S_IREAD
-#endif /* S_IRUSR */
-
-#ifndef S_IWUSR
-#define S_IWUSR _S_IWRITE
-#endif /* S_IWUSR */
-#else /* WIN32 */
 #include <unistd.h>
 #endif /* WIN32 */
 
-#define PBAT_STDIN STDIN_FILENO
-#define PBAT_STDOUT STDOUT_FILENO
-#define PBAT_STDERR STDERR_FILENO
+#define PBAT_STDIN                  0 /* redirect fInput */
+#define PBAT_STDOUT                 1 /* redirect fOutput */
+# define PBAT_STDERR                 2 /* redirect fError */
+#define PBAT_STREAM_MODE_ADD        0 /* Open in add mode eg `>>`*/
+#define PBAT_STREAM_MODE_TRUNCATE   4 /* Open in truncate mode eg. `>` */
+#define PBAT_STREAM_SUBST_FOUTPUT   8 /* also copy the new fError to fOutput*/
+#define PBAT_STREAM_SUBST_FERROR    16 /* also copy the fOutput to fError */
+#define PBAT_STREAM_LOCKED          32 /* locking status of stack */
 
-#define STREAM_MODE_ADD 0
-#define STREAM_MODE_TRUNCATE 0xffffffff
+#define pBat_SetStreamStackLockState(stack, state) \
+            ((stack) ? (stack->mode = (stack->mode & ~PBAT_STREAM_LOCKED) \
+                                        | ((state != 0) <<  5)) : 0)
+
+#define pBat_GetStreamStackLockState(stack) \
+            ((stack) ? (stack->mode & PBAT_STREAM_LOCKED) : 1 )
+
+
+/* structure used to store the state of stream redirections */
+typedef struct STREAMSTACK {
+    int mode; /* the file descriptor that has been redirected */
+    FILE* old; /* a duplicate of the previous FILE* associated with fInput, fOutput, fError */
+    FILE* subst; /* a operation of file substitution if either 2>&1 or 1>&2 is used */
+    struct STREAMSTACK* previous;
+} STREAMSTACK, *LPSTREAMSTACK;
 
 
 /* On windows, 0 is an invalid argument to setvbuf() */
@@ -60,6 +63,7 @@
 #else
 #define PBAT_DEF_BUF 0
 #endif
+
 
 #define PBAT_RESET_BUFFERING(fd, s) \
             if (isatty(fd)) \
@@ -97,33 +101,6 @@
                                         | PBAT_PRINT_C_ERROR, \
                                             __FILE__ "/PBAT_DUP_STD()", -1);
 
-#define pBat_SetStreamStackLockState(stack, state) \
-                                ((stack) ? (stack->lock = state) : 0)
-
-
-#define pBat_GetStreamStackLockState(stack) ((stack) ? stack->lock : 1)
-
-/* structure used to store the state of stream redirections */
-typedef struct STREAMSTACK {
-    int fd; /* the file descriptor that has been redirected */
-    int oldfd; /* a duplicate of the previous fd associated with fd */
-    int subst; /* a operation of file substitution if either 2>&1 or 1>&2 is used */
-    int lock; /* a lock to prevent element from being popped */
-    struct STREAMSTACK* previous;
-} STREAMSTACK, *LPSTREAMSTACK;
-
-
-#define PBAT_SUBST_FOUTPUT 0x1
-#define PBAT_SUBST_FERROR 0x2
-
-#define PBAT_APPLY_SUBST(state) \
-    fOutput = (state & PBAT_SUBST_FOUTPUT) ? _fOutput : _fError; \
-    fError = (state & PBAT_SUBST_FERROR) ? _fOutput : _fError
-
-#define PBAT_GET_SUBST() \
-    ((_fOutput == fOutput ) ? PBAT_SUBST_FOUTPUT : 0) \
-                    | ( (fError == _fOutput) ? PBAT_SUBST_FERROR : 0)
-
 
 /* initializes the stream stack */
 STREAMSTACK* pBat_InitStreamStack(void);
@@ -132,8 +109,8 @@ STREAMSTACK* pBat_InitStreamStack(void);
 void pBat_FreeStreamStack(STREAMSTACK* stack);
 
 /* Duplicate file based on a file name or a file descriptor */
-STREAMSTACK* pBat_OpenOutput(STREAMSTACK* stack, char* name, int fd, int mode);
-STREAMSTACK* pBat_OpenOutputD(STREAMSTACK* stack, int newfd, int fd);
+STREAMSTACK* pBat_OpenOutput(STREAMSTACK* stack, char* name, int mode);
+STREAMSTACK* pBat_OpenOutputF(STREAMSTACK* stack, FILE* f, int mode);
 
 /* Pop stream stack functions */
 STREAMSTACK* pBat_PopStreamStack(STREAMSTACK* stack);

@@ -78,8 +78,8 @@ __thread struct dirstack_t dsDirStack; /* current directory stack */
 
 __thread COLOR colColor=PBAT_COLOR_DEFAULT;
 __thread FILE* fInput; /* current thread input stream */
-__thread FILE *fOutput, *_fOutput; /* current thread output stream */
-__thread FILE *fError, *_fError; /* current thread error stream */
+__thread FILE *fOutput; /* current thread output stream */
+__thread FILE *fError; /* current thread error stream */
 /* Note : the underscore prefixed version are internally used to
    handle output substitution (eg. 2>&1) to be used as backup and
    so prevent unnecessary duplication of files */

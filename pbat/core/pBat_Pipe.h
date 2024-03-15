@@ -17,23 +17,10 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#ifndef PBAT_CORE_PIPE_H
+#define PBAT_CORE_PIPE_H
 
 #include <stdio.h>
-#include <stdlib.h>
 
-#include "pBat_Core.h"
-#include "../../config.h"
-
-
-void pBat_Exit(void)
-{
-	pBat_FreeCommandList(lpclCommands);
-	pBat_FreeStreamStack(lppsStreamStack);
-	pBat_FreeLocalBlock(lpvLocalVars);
-	pBat_FreeLocalBlock(lpvArguments);
-	pBat_FreeEnvStack();
-	pBat_EnvFree(lpeEnv);
-	pBat_DirStackFree();
-
-	pBat_EsCacheDrop(&ecEstrCache);
-}
+int pBat_Pipe(FILE** pipef);
+#endif // PBAT_CORE_PIPE_H

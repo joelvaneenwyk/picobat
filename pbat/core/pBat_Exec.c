@@ -441,12 +441,14 @@ int pBat_StartFile(EXECINFO* info, int* error)
     if (pBat_LockMutex(&mThreadLock))
         pBat_ShowErrorMessage(PBAT_LOCK_MUTEX_ERROR,
                                 __FILE__ "/pBat_StartFile()",
-                                    -1);
+                                -1);
+    PBAT_RUNFILE_LOCK();
     pBat_ApplyEnv(lpeEnv);
     pBat_ApplyStreams(lppsStreamStack);
 	status = !ShellExecuteExW(&shinfo);
 	pBat_UnApplyStreams(lppsStreamStack);
     pBat_UnApplyEnv(lpeEnv);
+    PBAT_RUNFILE_RELEASE();
 
     if (pBat_ReleaseMutex(&mThreadLock))
         pBat_ShowErrorMessage(PBAT_RELEASE_MUTEX_ERROR,
@@ -512,11 +514,13 @@ int pBat_StartFile(EXECINFO* info, int* error)
                                     -1);
 
     /* apply pBat internal environment variables */
+    PBAT_RUNFILE_LOCK();
 	pBat_ApplyEnv(lpeEnv);
 	pBat_ApplyStreams(lppsStreamStack);
 	status = !ShellExecuteExA(&shinfo);
 	pBat_UnApplyStreams(lppsStreamStack);
     pBat_UnApplyEnv(lpeEnv);
+    PBAT_RUNFILE_RELEASE();
 
     if (pBat_ReleaseMutex(&mThreadLock))
         pBat_ShowErrorMessage(PBAT_RELEASE_MUTEX_ERROR,

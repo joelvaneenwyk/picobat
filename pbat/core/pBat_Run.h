@@ -36,8 +36,8 @@
 #include "pBat_Core.h"
 
 struct pipe_launch_data_t {
-    int fdin;
-    int fdout;
+    FILE* in;
+    FILE* out;
     ESTR* str;
     PARSED_STREAM* stream;
 };

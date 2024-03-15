@@ -16,14 +16,6 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#ifndef _XOPEN_SOURCE
-#define _XOPEN_SOURCE 700
-
-#define S_IREAD S_IRUSR
-#define S_IWRITE S_IWUSR
-#endif
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -31,11 +23,12 @@
 
 #include <unistd.h>
 #include <sys/types.h>
-
 #include "pBat_Stream.h"
 #include "pBat_Core.h"
 
 #include "../errors/pBat_Errors.h"
+
+
 
 //#define PBAT_DBG_MODE
 #include "pBat_Debug.h"
@@ -73,29 +66,28 @@ void pBat_FreeStreamStack(STREAMSTACK* stack)
 }
 
 /* Duplicate file based on a file name or a file descriptor */
-STREAMSTACK* pBat_OpenOutput(STREAMSTACK* stack, char* name, int fd, int mode)
+STREAMSTACK* pBat_OpenOutput(STREAMSTACK* stack, char* name, int mode)
 {
-    int newfd, fmode;
-    STREAMSTACK* item;
+    FILE* f;
+    char *fmode;
 
-    /* try to malloc a new stack item */
-    if (!(item = malloc(sizeof(STREAMSTACK))))
-        pBat_ShowErrorMessage(PBAT_FAILED_ALLOCATION
-                                | PBAT_PRINT_C_ERROR,
-                                __FILE__ "/pBat_OpenOutput", -1);
+    switch (mode & (PBAT_STDIN | PBAT_STDOUT | PBAT_STDERR
+                | PBAT_STREAM_MODE_ADD | PBAT_STREAM_MODE_ADD)) {
 
+    case PBAT_STDOUT | PBAT_STREAM_MODE_ADD:
+    case PBAT_STDERR | PBAT_STREAM_MODE_ADD:
+        fmode = "ab";
+        break;
 
-    item->previous = stack;
-
-    switch (fd) {
-
-    case PBAT_STDIN:
-        fmode = O_RDONLY | O_BINARY;
+    case PBAT_STDOUT | PBAT_STREAM_MODE_TRUNCATE:
+    case PBAT_STDERR | PBAT_STREAM_MODE_TRUNCATE:
+        /* truncate mode */
+        fmode = "wb";
         break;
 
     default:
-        fmode = O_WRONLY | O_CREAT | O_APPEND | O_BINARY
-            | ((mode & PARSED_STREAM_MODE_TRUNCATE) ? O_TRUNC : 0);
+        /* we are redirecting stdin */
+        fmode = "rb";
 
     }
 
@@ -106,96 +98,70 @@ STREAMSTACK* pBat_OpenOutput(STREAMSTACK* stack, char* name, int fd, int mode)
     /* Serialize this with pBat_RunFile() */
     PBAT_RUNFILE_LOCK();
 
-    if ((newfd = open(name, fmode, S_IREAD | S_IWRITE)) == -1) {
-
+    if ((f = fopen(name, fmode)) == NULL) {
         pBat_ShowErrorMessage(PBAT_FILE_ERROR | PBAT_PRINT_C_ERROR,
                                 name, 0);
-        free(item);
-        item = stack;
-        goto error;
+        PBAT_RUNFILE_RELEASE();
+        return NULL;
 
     }
 
-    item->lock = 0;
-    item->fd = fd;
-    item->subst = PBAT_GET_SUBST();
+    /* Set the fd to non inheritable */
+    pBat_SetStdInheritance(f, 0);
 
-    /* do not forget to update the standard thread specific streams */
-    switch (fd) {
-
-    case PBAT_STDIN:
-        PBAT_XDUP(item->oldfd, fInput);
-        PBAT_DUP_STDIN(newfd, fInput);
-        close(newfd);
-        break;
-
-    case PBAT_STDOUT:
-        PBAT_XDUP(item->oldfd, _fOutput);
-        PBAT_DUP_STD(newfd, _fOutput);
-        fOutput = _fOutput;
-        close(newfd);
-        break;
-
-    case PBAT_STDERR:
-        PBAT_XDUP(item->oldfd, _fError);
-        PBAT_DUP_STD(newfd, _fError);
-        fError = _fError;
-        close(newfd);
-        break;
-
-    case PBAT_STDERR | PBAT_STDOUT:
-        break;
-
-    default:;
-    }
-
-error:
     PBAT_RUNFILE_RELEASE();
-    return item;
+
+    return  pBat_OpenOutputF(stack, f, mode);
 }
 
-STREAMSTACK* pBat_OpenOutputD(STREAMSTACK* stack, int newfd, int fd)
+STREAMSTACK* pBat_OpenOutputF(STREAMSTACK* stack, FILE* f, int mode)
 {
     STREAMSTACK* item;
 
-    /* try to malloc a new stack item */
+     /* try to malloc a new stack item */
     if (!(item = malloc(sizeof(STREAMSTACK))))
         pBat_ShowErrorMessage(PBAT_FAILED_ALLOCATION
                                 | PBAT_PRINT_C_ERROR,
                                 __FILE__ "/pBat_OpenOutput", -1);
 
-
     item->previous = stack;
+    item->mode = mode;
 
-    item->lock = 0;
-    item->fd = fd;
-    item->subst = PBAT_GET_SUBST();
-
-    /* Serialize this with pBat_RunFile() */
-    PBAT_RUNFILE_LOCK();
-
-    /* do not forget to update the standard thread specific streams */
-    switch (fd) {
+    /* save old file and perform the swap */
+    switch (mode & (PBAT_STDIN | PBAT_STDOUT | PBAT_STDERR)) {
 
     case PBAT_STDIN:
-        PBAT_XDUP(item->oldfd, fInput);
-        PBAT_DUP_STDIN(newfd, fInput);
+        item->old = fInput;
+        fInput = f;
         break;
 
     case PBAT_STDOUT:
-        PBAT_XDUP(item->oldfd, _fOutput);
-        PBAT_DUP_STD(newfd, _fOutput);
+        item->old = fOutput;
+        fOutput = f;
         break;
 
     case PBAT_STDERR:
-        PBAT_XDUP(item->oldfd, _fError);
-        PBAT_DUP_STD(newfd, _fError);
-        break;
-
-    default:;
+        item->old = fError;
+        fError = f;
     }
 
-    PBAT_RUNFILE_RELEASE();
+    /* check if this is also either 1>&2 or 2>&1 */
+    switch (mode & (PBAT_STDOUT | PBAT_STDERR | PBAT_STREAM_SUBST_FERROR
+                       | PBAT_STREAM_SUBST_FOUTPUT)) {
+
+    /* fOutput redirected to fError */
+    case PBAT_STDOUT | PBAT_STREAM_SUBST_FERROR:
+        item->subst = fError;
+        fError = f;
+        break;
+
+    /* fError redirected to fOutput */
+    case PBAT_STDERR | PBAT_STREAM_SUBST_FOUTPUT:
+        item->subst = fOutput;
+        fOutput = f;
+        break;
+
+    }
 
     return item;
 }
@@ -206,37 +172,44 @@ STREAMSTACK* pBat_PopStreamStack(STREAMSTACK* stack)
     STREAMSTACK* item;
 
     /* Do not pop if locked or if stack is NULL*/
-    if (stack == NULL || stack->lock)
+    if (stack == NULL
+        || stack->mode & PBAT_STREAM_LOCKED)
         return stack;
 
     item = stack->previous;
 
-    /* Serialize this with pBat_RunFile() */
-    PBAT_RUNFILE_LOCK();
-
-    switch (stack->fd) {
+    /* try to reverse the changes made when item was pushed,
+       close substituted stream and replace it by its save*/
+    switch (stack->mode & (PBAT_STDIN | PBAT_STDOUT | PBAT_STDERR)) {
 
     case PBAT_STDIN:
-        PBAT_DUP_STDIN(stack->oldfd, fInput);
-        close(stack->oldfd);
+        fclose(fInput);
+        fInput = stack->old;
         break;
 
     case PBAT_STDOUT:
-        PBAT_DUP_STD(stack->oldfd, _fOutput);
-        close(stack->oldfd);
+        fclose(fOutput);
+        fOutput = stack->old;
         break;
 
     case PBAT_STDERR:
-        PBAT_DUP_STD(stack->oldfd, _fError);
-        close(stack->oldfd);
-        break;
-
-    default:;
+        fclose(fError);
+        fError = stack->old;
     }
 
-    PBAT_RUNFILE_RELEASE();
+    /* check if this is also either 1>&2 or 2>&1 */
+    switch (stack->mode & (PBAT_STDOUT | PBAT_STDERR | PBAT_STREAM_SUBST_FERROR
+                       | PBAT_STREAM_SUBST_FOUTPUT)) {
 
-    PBAT_APPLY_SUBST(stack->subst);
+    /* fOutput redirected to fError */
+    case PBAT_STDOUT | PBAT_STREAM_SUBST_FERROR:
+        fError = stack->subst;
+        break;
+
+    /* fError redirected to fOutput */
+    case PBAT_STDERR | PBAT_STREAM_SUBST_FOUTPUT:
+        fOutput = stack->subst;
+    }
 
     free(stack);
 
@@ -253,8 +226,6 @@ STREAMSTACK* pBat_PopStreamStackUntilLock(STREAMSTACK* stack)
 
 void pBat_ApplyStreams(STREAMSTACK* stack)
 {
-    /* Serialize this with pBat_RunFile() */
-    PBAT_RUNFILE_LOCK();
 
     /* simple fast method */
     PBAT_XDUP(fdStdin, stdin);
@@ -265,19 +236,14 @@ void pBat_ApplyStreams(STREAMSTACK* stack)
     PBAT_DUP_STD(fileno(fOutput), stdout);
     PBAT_DUP_STD(fileno(fError), stderr);
 
-    PBAT_RUNFILE_RELEASE();
 }
 
 void pBat_UnApplyStreams(STREAMSTACK* stack)
 {
-    /* Serialize this with pBat_RunFile() */
-    PBAT_RUNFILE_LOCK();
 
     PBAT_DUP_STDIN(fdStdin, stdin);
     PBAT_DUP_STD(fdStdout, stdout);
     PBAT_DUP_STD(fdStderr, stderr);
-
-    PBAT_RUNFILE_RELEASE();
 
     close(fdStdout);
     close(fdStdin);

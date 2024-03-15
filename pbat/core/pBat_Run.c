@@ -1,7 +1,7 @@
 /*
  *
  *   pBat - A Free, Cross-platform command prompt - The pBat project
- *   Copyright (C) 2010-2018 Romain GARBI
+ *   Copyright (C) 2010-2024 Romain GARBI
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -108,13 +108,13 @@ int pBat_RunBatch(INPUT_FILE* pIn)
 #define EXECOPERATORS_END 2
 int pBat_ExecOperators(PARSED_LINE** lpLine)
 {
-    int pipedes[2];
+    FILE *pipef[2],
+         *lastin=NULL;
     THREAD res;
     struct pipe_launch_data_t* infos;
     PARSED_LINE* line=*lpLine;
     char *pch;
-    int status = 0,
-        lastin = -1;
+    int status = 0;
 
     pch = line->lpCmdLine->str;
     pch = pBat_SkipAllBlanks(pch);
@@ -162,7 +162,7 @@ int pBat_ExecOperators(PARSED_LINE** lpLine)
         /* Serialize this withs calls to pBat_RunFile() */
         PBAT_RUNFILE_LOCK();
 
-        if (_pBat_Pipe(pipedes, 4096, O_BINARY) == -1)
+        if (pBat_Pipe(pipef) == -1)
             pBat_ShowErrorMessage(PBAT_CREATE_PIPE | PBAT_PRINT_C_ERROR,
                                     __FILE__ "/pBat_ExecOperators()",
                                     -1);
@@ -174,8 +174,8 @@ int pBat_ExecOperators(PARSED_LINE** lpLine)
                                     __FILE__ "/pBat_ExecOperators()", -1);
 
         /* prepare data to launch threads */
-        infos->fdout = pipedes[1];
-        infos->fdin = lastin;
+        infos->out = pipef[1];
+        infos->in = lastin;
 
         infos->str = pBat_EsInit();
         pBat_EsCpyE(infos->str, line->lpCmdLine);
@@ -187,7 +187,7 @@ int pBat_ExecOperators(PARSED_LINE** lpLine)
         res = pBat_CloneInstance((void(*)(void*))pBat_LaunchPipe, infos);
         pBat_CloseThread(&res);
 
-        lastin = pipedes[0];
+        lastin = pipef[0];
         if (line->lppsNode)
             line = *lpLine = line->lppsNode;
         else
@@ -195,26 +195,20 @@ int pBat_ExecOperators(PARSED_LINE** lpLine)
 
     }
 
-    if (lastin != -1) {
-
-        lppsStreamStack = pBat_OpenOutputD(lppsStreamStack, lastin, PBAT_STDIN);
-        close(lastin);
-    }
+    /* get input on the end of pipe chain*/
+    if (lastin != NULL)
+        lppsStreamStack = pBat_OpenOutputF(lppsStreamStack, lastin, PBAT_STDIN);
 
     return status;
-
 }
 
 void pBat_LaunchPipe(struct pipe_launch_data_t* infos)
 {
 
-    lppsStreamStack = pBat_OpenOutputD(lppsStreamStack, infos->fdout, PBAT_STDOUT);
-    close(infos->fdout);
+    lppsStreamStack = pBat_OpenOutputF(lppsStreamStack, infos->out, PBAT_STDOUT);
 
-    if (infos->fdin !=-1) {
-        lppsStreamStack = pBat_OpenOutputD(lppsStreamStack, infos->fdin, PBAT_STDIN);
-        close(infos->fdin);
-    }
+    if (infos->in == NULL)
+        lppsStreamStack = pBat_OpenOutputF(lppsStreamStack, infos->in, PBAT_STDIN);
 
     bIgnoreExit = TRUE;
 
@@ -260,43 +254,20 @@ int pBat_ExecOutput(PARSED_STREAM* lppssStart)
 	if (lppssStart->lpInputFile)
 		lppsStreamStack = pBat_OpenOutput(lppsStreamStack,
 		                lppssStart->lpInputFile,
-		                PBAT_STDIN,
-		                0
-		               );
+		                PBAT_STDIN
+                        );
 
 	if (lppssStart->lpOutputFile)
 		lppsStreamStack = pBat_OpenOutput(lppsStreamStack,
 		                lppssStart->lpOutputFile,
-		                PBAT_STDOUT,
-		                lppssStart->cOutputMode
+		                PBAT_STDOUT | lppssStart->cOutputMode | lppssStart->cRedir
 		               );
 
     if (lppssStart->lpErrorFile)
 		lppsStreamStack = pBat_OpenOutput(lppsStreamStack,
 		                lppssStart->lpErrorFile,
-		                PBAT_STDERR,
-		                lppssStart->cErrorMode
+		                PBAT_STDERR | lppssStart->cErrorMode | lppssStart->cRedir
 		               );
-
-    switch (lppssStart->cRedir) {
-
-    case PARSED_STREAM_STDERR2STDOUT:
-
-        lppsStreamStack = pBat_OpenOutputD(lppsStreamStack,
-		                -1,
-		                -1
-		               );
-        fError = _fOutput;
-        break;
-
-    case PARSED_STREAM_STDOUT2STDERR:
-        lppsStreamStack = pBat_OpenOutputD(lppsStreamStack,
-		                -1 ,
-		                -1
-		               );
-        fOutput = _fError;
-
-    }
 
 	return 0;
 }

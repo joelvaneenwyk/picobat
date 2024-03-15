@@ -1183,8 +1183,8 @@ int pBat_ForVarCheckAssignment(FORINFO* lpfrInfo)
 int pBat_ForMakeInputInfo(ESTR* lpInput, INPUTINFO* lpipInfo, FORINFO* lpfrInfo)
 {
 	int bUsebackq=lpfrInfo->bUsebackq,
-	    iInputType,
-	    iPipeFd[2];
+	    iInputType;
+    FILE *pipef[2];
     int status;
 
 	char *lpToken=pBat_EsToChar(lpInput);
@@ -1295,7 +1295,7 @@ int pBat_ForMakeInputInfo(ESTR* lpInput, INPUTINFO* lpipInfo, FORINFO* lpfrInfo)
             /* Serialize this with pBat_RunFile() */
             PBAT_RUNFILE_LOCK();
 
-			if (_pBat_Pipe(iPipeFd, 4096, O_BINARY) == -1)
+			if (pBat_Pipe(pipef) == -1)
 				pBat_ShowErrorMessage(PBAT_CREATE_PIPE | PBAT_PRINT_C_ERROR ,
                                         __FILE__ "/pBat_MakeInputInfo()",
                                         PBAT_CREATE_PIPE);
@@ -1304,7 +1304,7 @@ int pBat_ForMakeInputInfo(ESTR* lpInput, INPUTINFO* lpipInfo, FORINFO* lpfrInfo)
 
 			/* Launch the actual command from which we get input on a separate
                pBat thread */
-			if ((status = pBat_ForInputProcess(lpInput, lpipInfo, iPipeFd)))
+			if ((status = pBat_ForInputProcess(lpInput, lpipInfo, pipef)))
 				return status;
 
 
@@ -1351,8 +1351,7 @@ void pBat_ExecuteForSubCommand(struct pipe_launch_data_t* arg)
 {
     BLOCKINFO bkBlock;
 
-    lppsStreamStack = pBat_OpenOutputD(lppsStreamStack, arg->fdout, PBAT_STDOUT);
-    close(arg->fdout);
+    lppsStreamStack = pBat_OpenOutputF(lppsStreamStack, arg->out, PBAT_STDOUT);
 
     bIgnoreExit = TRUE;
 
@@ -1368,30 +1367,16 @@ void pBat_ExecuteForSubCommand(struct pipe_launch_data_t* arg)
 
 }
 
-int pBat_ForInputProcess(ESTR* lpInput, INPUTINFO* lpipInfo, int* iPipeFd)
+int pBat_ForInputProcess(ESTR* lpInput, INPUTINFO* lpipInfo, FILE** pipef)
 {
     struct pipe_launch_data_t* param;
-    FILE* pFile;
-
-    if (!(pFile=fdopen(iPipeFd[0], "rb"))) {
-
-        pBat_ShowErrorMessage(PBAT_UNABLE_DUPLICATE_FD,
-                              iPipeFd[0],
-                              FALSE);
-
-        close(iPipeFd[0]);
-        close(iPipeFd[1]);
-
-        return PBAT_UNABLE_DUPLICATE_FD;
-
-    }
 
     if ((param = malloc(sizeof(struct pipe_launch_data_t))) == NULL)
         pBat_ShowErrorMessage(PBAT_FAILED_ALLOCATION | PBAT_PRINT_C_ERROR,
                                 __FILE__ "/pBat_ForInputProcess()", -1);
 
 
-    param->fdout = iPipeFd[1];
+    param->out = pipef[1];
     param->str = pBat_EsInit();
 
     pBat_EsCpyE(param->str, lpInput);
@@ -1399,7 +1384,7 @@ int pBat_ForInputProcess(ESTR* lpInput, INPUTINFO* lpipInfo, int* iPipeFd)
     lpipInfo->Info.InputFile.handle
         = pBat_CloneInstance((void (*)(void *))pBat_ExecuteForSubCommand, param);
 
-	lpipInfo->Info.InputFile.pFile=pFile;
+	lpipInfo->Info.InputFile.pFile=pipef[0];
 
 	lpipInfo->Info.InputFile.lpesFiles[1]=NULL;
 	lpipInfo->Info.InputFile.index=0;

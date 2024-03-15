@@ -90,6 +90,12 @@ void pBat_AssignCommandLine(int c, char** argv)
 
 void pBat_DuplicateStdStreams(void)
 {
+    fInput = stdin;
+    fOutput = stdout;
+    fError = stderr;
+
+
+    #if 0
     int newInput, newOutput, newErr; /* descriptors to duplicate std streams */
 
     if ((newInput = dup(PBAT_STDIN)) == -1
@@ -101,12 +107,10 @@ void pBat_DuplicateStdStreams(void)
         exit(-1);
     }
 
-    fInput = fdopen(newInput, "r");
-    _fOutput = fdopen(newOutput, "w");
-    _fError = fdopen(newErr, "w");
 
-    fOutput = _fOutput;
-    fError = _fError;
+    fInput = fdopen(newInput, "r");
+    fOutput = fdopen(newOutput, "w");
+    fError = fdopen(newErr, "w");
 
     if (!fInput || !fOutput || !fError) {
 
@@ -116,7 +120,7 @@ void pBat_DuplicateStdStreams(void)
     }
 
     /* Re-set appropriate flags for the standard streams if they
-       actually refer to a tty (no reason not to buffer files that
+       actually refer to a tty (no reason not to have buffer files that
        are not referring to tty) */
 
     if (isatty(newOutput))
@@ -124,6 +128,7 @@ void pBat_DuplicateStdStreams(void)
 
     if (isatty(newErr))
         setvbuf(fError, NULL, _IONBF, 0);
+    #endif
 }
 
 void pBat_Init(void)
