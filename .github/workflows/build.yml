@@ -8,7 +8,12 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: '${{ matrix.os }}-latest'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows]
 
     permissions:
       contents: write
@@ -17,7 +22,9 @@ jobs:
 
     defaults:
       run:
-        shell: msys2 {0}
+        # set shell to be either bash or msys2 depending on runner
+        shell: ${{ matrix.os == 'windows' && 'msys2 {0}' || 'bash' }}
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,6 +32,7 @@ jobs:
           submodules: recursive
 
       - uses: msys2/setup-msys2@v2
+        if: matrix.os == 'windows'
         with:
           msystem: MINGW64
           update: true
