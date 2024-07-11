@@ -1,25 +1,43 @@
-name: Realease
-on: [push, pull_request]
+name: Build
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
     defaults:
       run:
         shell: msys2 {0}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
       - uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW64
           update: true
-          install: git base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-dlfcn zip
+          install: >-
+            git base-devel mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-dlfcn zip
+
       - name: CI-Build
         run: |
           make config use-libcu8
           LDFLAGS='-static -s' make dist
-          
-      - uses: "marvinpinto/action-automatic-releases@latest"
+
+      - uses: marvinpinto/action-automatic-releases@master
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
