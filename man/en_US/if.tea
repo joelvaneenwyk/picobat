@@ -65,7 +65,7 @@ ${	IF [/i] string1 cmp string2 (
 	   Where {cmp} can be one of the following:
 
 		- {EQU} : (EQUal) {string1} and {string2} are the same.
-		
+
 		- {NEQ} : (Not EQual). Exact opposite of preceeding condition.
 
 		- {LEQ} : (Less or EQual). The value associated to
@@ -82,32 +82,32 @@ ${	IF [/i] string1 cmp string2 (
 
 	{LSS}, {GTR}, {LEQ} and {GEQ} conditions require {string1} and {string2}
 	to represent integers otherwise the result is unspecified.
-	
+
 	Before attempting any comparisons, the {IF} command checks if both
 	{string1} and {string2} can be converted to integers. Strings that can
 	be converted to integers are numbers written either decimal, hexadecimal
 	(in which case the number have to be prefixed with {0x}) or octal
-	(which prefix is {0}) base. The said integer value must be between 	
+	(which prefix is {0}) base. The said integer value must be between
 	{-2147483648} and {2147483647}. If both {string1} and {string2} can
 	be converted to integers, {IF} compares the two integers.
-	
+
 	If either {string1} or {string2} does not meet this criteria, {IF}
 	checks if {string1} and {string2} can be converted to floating point.
 	The only syntax authorized for floating point value is of the form
 	{value[e][exponant]}. If both {string1} and {string2} can be converted
 	to floats, then {IF} compares the floats values.
-	
+
 	If {string1} and {string2} cannot be converted, then {IF} compares
 	{string1} and {string2}. If any of {LEQ}, {LSS}, {GTR} or {GEQ}
 	comparisons is used, then {IF} bases comparison on lexicographical order.
 	For example is if {string1} is before {string2} in lexicographical order,
 	then {string1} is considered to be below {string2}.
-	
+
 	To force string comparisons, it is possible to add a prefix to the
 	comparison. For example :
-	
+
 ${IF x!value1! EQU x!value2! command}
-	
+
 {{Synopsis - Third syntax}}
 
 	The last syntax allows to perform test on a object. Obviously, the specified command
@@ -145,15 +145,15 @@ ${IF [/i] [ expression ] (
 	:: code to run
 ...
 )}
-	
+
 	Run the code if the conditions specified by {expression} are met.
-	
+
 		- {/i} : Discard case-sensitiveness.
 
 		- {[ expression ]} : A list of conditions to be met for the code
 		to be executed. The use of brackets and space around elements is
 		mandatory.
-		
+
 		@- An expression should be built made of comparisons connected
 		together with some logical operators.
 
@@ -173,8 +173,8 @@ ${[NOT] cmp1 comparison cmp2
 		@-- The {and} operator own precedence over {or} operators.
 
 		@- Finally, one can affect precedence using brackets {[]}.
-	
-	
+
+
 {{Synopsis - ELSE subcommand}}
 
 	After any kind of previously described {IF}, an {ELSE} keyword may be inserted
@@ -187,7 +187,7 @@ ${	IF /i %var1%==%var2% (
 )}
 
 	Both {ELSE} keyword preceeding and following codes must be enclosed in brackets,
-	so that it defines two different {spec/block|code blocks}. Otherwise, the interpretor
+	so that it defines two different {spec/block|code blocks}. Otherwise, the interpreter
 	should interpret it like a single line.
 
 	Both of these codes will work as {expected}:

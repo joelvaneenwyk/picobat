@@ -18,42 +18,42 @@
 {{Index of commands}}
 
 	This is an index containing all the name of {pbat|pBat} internal and external
-	commands, along with global variable and some miscelaneous topics.
+	commands, along with global variable and some miscellaneous topics.
 	The command tagged with {[int]} are internal, and those tagged with
 	{[ext]} are external.
 
-	An internal command is a command which is directly intergrated on {pbat|pBat}, so
+	An internal command is a command which is directly integrated on {pbat|pBat}, so
 	that it does not need any additional binaries to work. These commands are the faster
 	and the most compatible.
 
-	An external command is a command which needs an additionnal binaries. These commands
+	An external command is a command which needs an additional binaries. These commands
 	provide more flexibility to batch programs.
-	
+
 	The specifications can be found in {spec/index|specifications index}.
 
-	To get started using Picobat, see the 
+	To get started using Picobat, see the
 	{readme|quick starting guide}.
 
 {{User-interface commands}}
 
 	- {break|BREAK} {[int]} : Enables/disables CTRL-C handling.
-	
+
 	- {color|COLOR}  {[int]} : Changes the console screen color.
 
 	- {cls|CLS}    {[int]} : Clears the console screen.
 
 	- {echo|ECHO}   {[int]} : Displays text in the console.
-	
+
 	- {help|HELP} {[int]} : Shows Picobat internal help|HELP
 	messages (provided for compatibility, alias of {HLP} when
 	possible).
-	
-	- {hlp|HLP} {[int]} : Shows Picobat full help.  
-	
+
+	- {hlp|HLP} {[int]} : Shows Picobat full help.
+
 	- {pause|PAUSE}  {[int]} : Makes a pause in a batch script
 
 	- {prompt|PROMPT} {[int]} : Changes pBat command prompt.
-	
+
 	- {pecho|PECHO} {[int]} : Displays a text formatted for {PROMPT}
 
 	- {timeout|TIMEOUT} {[int]} : Introduces a delay in a
@@ -64,27 +64,27 @@
 {{Scripting commands}}
 
 	- {def|DEF} {[int]} : Defines a procedure or an alias.
-	
+
 	- {call|CALL} {[int]} : Calls a external script or a routine, within
 	the current command context.
-	
+
 	- {endlocal|ENDLOCAL} {[int]} : Reverts changes to local environment after {setlocal|SETLOCAL} call.
-	
-	- {exit|EXIT} {[int]} : Exits {pbat|pBat}.	
-	
+
+	- {exit|EXIT} {[int]} : Exits {pbat|pBat}.
+
 	- {for|FOR}      {[int]} : Loops through items a script.
 
 	- {goto|GOTO}     {[int]} : Jumps to a label in a script.
-	
+
 	- {if|IF} {[int]} : Executes conditionnaly depending on
 	test success.
-	
+
 	- {pbat|PBAT} {[int]} : The main Picobat executable.
 	Interprets batch scripts.
-	
+
 	- {set|SET}    {[int]} : Modifies an environment variable. Either
 	through a string litteral, a mathematical expression or an user input.
-		
+
 	- {shift|SHIFT} {[int]} : Changes position of command-line arguments
 	in batch files.
 
@@ -95,15 +95,15 @@
 	- {rem|REM}		 {[int]} : Introduces a comment.
 
 {{File commands}}
-	
+
 	- {cd|CD, CHDIR}  {[int]} : Changes current directory.
-	
+
 	- {copy|COPY}	{[int]} : Copies files.
 
 	- {dir|DIR}        {[int]} : Browses subdirectories.
 
 	- {del|DEL, ERASE} {[int]} : Deletes files.
-	
+
 	- {dump|DUMP} {[int]} : Dumps hexadecimal content of a
 	file.
 
@@ -117,52 +117,51 @@
 
 	- {pushd|PUSHD}    {[int]} : Changes current directory and push the
 	  previous on the directory stack.
- 
+
 	- {popd|POPD}     {[int]} : Pulls a directory on the directory stack to
 	  define the current directory.
 
 	- {rd|RD, RMDIR}  {[int]} : Deletes directory.
-	
+
 	- {ren|RENAME, REN} {[int]} : Renames files.
-	
+
 	- {tea|TEA} {[ext]} : Fast and simple text preprocessor.
-	
+
 	- {type|TYPE} {[int]} : Types files.
-	
+
 	- {type|VER} {[int]} : Prints current OS version.
-	
+
 	- {wc|WC} {[int]} : Displays file counts.
-	
-	- {xargs|XARGS} {[int]} : Runs a command taking argument on standard input.	
-	
+
+	- {xargs|XARGS} {[int]} : Runs a command taking argument on standard input.
+
 {{Modules commands}}
-	
+
 	- {batbox|BATBOX} {[int]} : A module implementation of the
 	well known {BATBOX} graphics tool.
-	
+
 	- {mod|MOD} {[int]} : Loads a module from a file.
 
 {{Picobat-defined variables}}
 
 	- {errorlevel|%ERRORLEVEL%} : Stores the return status of the
 	preceeding command.
-	
+
 	- {pbatvar|Picobat-defined variable} : A list of all variable
 	defined by Picobat.
-	
+
 	- {random|%RANDOM%} : A variable used to generate random
 	integral values.
-	
+
 	- {time|%TIME% and %DATE%} : Variables for dealing with
 	date and time.
-	
+
 {{Miscellanious topics}}
 
 	- {license|LICENSES} : About the license applying to Picobat.
 
 	- {pbatauto|pBat_Auto.bat} : About Picobat initialisations
 	script.
-	
+
 	- {pbatstartscript|Picobat START script} : About scripts used
 	on *nices to implement the {START} command.
-	
