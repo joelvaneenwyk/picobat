@@ -587,8 +587,9 @@ int pBat_StartFile(EXECINFO* info, int* error)
 
         arg[i + 1] = NULL;
 
-        lppsStreamStack = pBat_OpenOutput(lppsStreamStack, "/dev/null",
-                                                   PBAT_STDOUT, 0);
+        lppsStreamStack = pBat_OpenOutput(lppsStreamStack,
+                                          "/dev/null",
+                                          PBAT_STDOUT);
 
         /* apply pBat internal environment variables */
         pBat_ApplyEnv(lpeEnv);
