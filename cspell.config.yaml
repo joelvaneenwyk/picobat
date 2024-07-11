@@ -1,0 +1,10 @@
+version: "0.2"
+ignorePaths: []
+dictionaryDefinitions:
+  - name: picobat
+    path: ./.cspell/picobat.dict
+    addWords: true
+dictionaries:
+  - picobat
+ignoreWords: []
+import: []
