@@ -428,7 +428,7 @@ void pBat_InitConsoleTitles(char *lpFileName, int bQuiet)
         pBat_SetEnv(lpeEnv, "PBAT_IS_SCRIPT", "true");
         bIsScript = 1;
 
-        PBAT_DBG("[pbat] Runing \"%s\"\n", lpFileName);
+        PBAT_DBG("[pbat] Running \"%s\"\n", lpFileName);
 
     }
 

@@ -318,7 +318,7 @@ int pBat_CmdMod(char* line)
 
             if (!PBAT_TEST_ABSOLUTE_PATH(param->str)) {
 
-                /* if the path is not absolute, then the command is refferring
+                /* if the path is not absolute, then the command is referencing
                    to something in %PBAT_PATH%/modules */
 
                 ESTR* tmp = pBat_EsInit_Cached();
