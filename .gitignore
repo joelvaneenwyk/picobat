@@ -59,3 +59,4 @@ femto-test.out
 /man/en_US/readme.tea
 
 obj/
+*.vcxproj.user
