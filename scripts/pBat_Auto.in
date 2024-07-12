@@ -34,14 +34,13 @@ IF %PBAT_OS%==WINDOWS (
 	SET COMSPEC=!PBAT_PATH!/pbat
 	SET APPDATA=!HOME!/.local
 	SET LOCALPPDATA=!HOME!/.local
-	
+
 	SET PROGRAMFILES=!PBAT_PATH!/bin
 	SET USERPROFILE=!HOME!
 	id -un | SET /p USERNAME=
 	uname -n | SET /p USERDOMAIN=
-	
-	
-	:: Define additionnal paths for sub-programs
+
+	:: Define additional paths for sub-programs
 	SET PBAT_SHARE=!PBAT_PATH!/share
 	SET PBAT_ETC=!PBAT_PATH!/etc
 
@@ -55,12 +54,12 @@ IF exist !PBAT_ETC!/PBAT_Auto.bat CALL !PBAT_ETC!/PBAT_Auto.bat
 IF exist !USERPROFILE!/.PBAT/PBAT_Auto.bat CALL !USERPROFILE!/.PBAT/PBAT_Auto.bat
 
 IF %PBAT_IS_SCRIPT%==false (
-PECHO $x9E; _____ _           ____        _     Picobat [%PBAT_VERSION%]                         
-ECHO ^|  __ (_^)         ^|  _ \      ^| ^|    Copyright (c^) 2010-@YEAR@                 
-ECHO ^| ^|__^) ^|  ___ ___ ^| ^|_^) ^| __ _^| ^|_         Romain Garbi, Teddy Astie ^&c.     
-ECHO ^|  ___/ ^|/ __/ _ \^|  _ ^< / _` ^| __^|                                          
-ECHO ^| ^|   ^| ^| (_^| (_^) ^| ^|_^) ^| (_^| ^| ^|_   This is free software, under the GPLv3. 
-ECHO ^|_^|   ^|_^|\___\___/^|____/ \__,_^|\__^|  Learn more at ^<http://picobat.org^> or   
+PECHO $x9E; _____ _           ____        _     Picobat [%PBAT_VERSION%]
+ECHO ^|  __ (_^)         ^|  _ \      ^| ^|    Copyright (c^) 2010-@YEAR@
+ECHO ^| ^|__^) ^|  ___ ___ ^| ^|_^) ^| __ _^| ^|_         Romain Garbi, Teddy Astie ^&c.
+ECHO ^|  ___/ ^|/ __/ _ \^|  _ ^< / _` ^| __^|
+ECHO ^| ^|   ^| ^| (_^| (_^) ^| ^|_^) ^| (_^| ^| ^|_   This is free software, under the GPLv3.
+ECHO ^|_^|   ^|_^|\___\___/^|____/ \__,_^|\__^|  Learn more at ^<http://picobat.org^> or
 PECHO                                      type : help "quick starting"            $x..;
 )
 

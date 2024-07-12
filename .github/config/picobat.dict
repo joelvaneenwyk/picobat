@@ -1,6 +1,7 @@
 # Custom Dictionary Words
 ADDITIONALVARS
 alwayseeded
+APPDATA
 Astie
 autotools
 basetmp
@@ -64,8 +65,10 @@ libintl
 libmatheval
 libmicrogettext
 libpbat
+Licence
 linenoise
 localmk
+LOCALPPDATA
 lpcl
 LPFILELIST
 lpfl
@@ -87,10 +90,12 @@ PARAMLIST
 PATHEXT
 pbat
 pbatize
+PECHO
 perfomances
 picobat
 Picobat
 poedit
+PROGRAMFILES
 pthread
 Realease
 Redirections
@@ -112,15 +117,20 @@ SUBCONF
 SUBCONFIG
 subdirs
 sugested
+SYSTEMDRIVE
+SYSTEMROOT
 TEAFILES
 unefficient
 USEOPTIONS
 USEOPTIONSX
+USERDOMAIN
+USERPROFILE
 wcurrdir
 wdir
 wenvblock
 wfile
 wfullline
 WHATSNEW
+WINDIR
 xconvert
 XDUP

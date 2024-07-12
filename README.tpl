@@ -1,4 +1,4 @@
-# This file is kept in sync with both website and git, this is
+# This file is kept in sync with both the website and git, this is
 # why a preprocessing step is required to get rid of links to
 # doc/* when producing the same document for git instead of
 # the website
@@ -144,4 +144,3 @@ dir /s /b /a:-D . | xargs wc /l}
 If you have some questions about or need some help with Picobat, please feel free
 to join {Picobat}'s official discord at:
 {https://discord.gg/w4KtdCv|https://discord.gg/w4KtdCv}
-
