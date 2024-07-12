@@ -13,7 +13,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows]
+        options:
+          - use-libcu8
+          - no-libcu8
+        include:
+          - { os: windows, sys: mingw64, env: x86_64 }
+          # - { os: windows, sys: mingw32, env: i686 }
+          # - { os: windows, sys: ucrt64,  env: ucrt-x86_64 }
+          # - { os: windows, sys: clang64, env: clang-x86_64 }
 
     permissions:
       contents: write
@@ -34,18 +41,19 @@ jobs:
       - uses: msys2/setup-msys2@v2
         if: matrix.os == 'windows'
         with:
-          msystem: MINGW64
-          update: true
+          msystem: ${{ matrix.sys }}
           install: >-
-            git
+            git zip
             base-devel
-            mingw-w64-x86_64-toolchain
-            mingw-w64-x86_64-dlfcn
-            zip
+            mingw-w64-${{ matrix.env }}-toolchain
+            mingw-w64-${{ matrix.env }}-dlfcn
 
-      - name: CI-Build
+      - name: Configure
         run: |
-          make config use-libcu8
+          make config ${{ matrix.options }}
+
+      - name: Make Distribution
+        run: |
           LDFLAGS='-static -s' make dist --keep-going
 
       - uses: marvinpinto/action-automatic-releases@master
