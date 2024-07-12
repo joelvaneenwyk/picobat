@@ -47,7 +47,7 @@ LIBPBAT_INC = -I$(LIBPBAT_DIR)
 LIBPBAT_LD = -L$(LIBPBAT_DIR) -lpBat
 
 ifneq (,$(wildcard $(ROOTDIR)/femto-config.mk))
-    include $(ROOTDIR)/femto-config.mk
+	include $(ROOTDIR)/femto-config.mk
 endif
 
 LIBMATHEVAL_DIR = $(ROOTDIR)/libfasteval

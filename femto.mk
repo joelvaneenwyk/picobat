@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 
 ifneq (,$(wildcard ./femto-config.mk))
-    include femto-config.mk
+	include femto-config.mk
 endif
 
 USEOPTIONS =$(addprefix use-,$(OPTIONS))
@@ -30,13 +30,13 @@ NOOPTIONSX = $(addsuffix .no-gen,$(NOOPTIONS))
 DEFAULTOPTIONSX = $(addsuffix .no-gen,$(DEFAULTOPTIONS))
 SUBCONF =$(addsuffix .config,$(SUBCONFIG))
 SUBCLEAN =$(addsuffix .femto-clean,$(SUBCONFIG))
-CONFIGVARS = $(addprefix prg_,$(PROGRAMS)) \
-			  $(addprefix path_,$(PROGRAMS)) \
-			  $(addprefix fn_,$(FUNCTIONS)) \
-			  $(addprefix lib_,$(LIBS)) \
-			  $(addprefix use_,$(OPTIONS)) \
-			  $(ADDITIONALVARS)
-
+CONFIGVARS =                                 \
+	$(addprefix prg_,$(PROGRAMS))            \
+	$(addprefix path_,$(PROGRAMS))           \
+	$(addprefix fn_,$(FUNCTIONS))            \
+	$(addprefix lib_,$(LIBS))                \
+	$(addprefix use_,$(OPTIONS))             \
+	$(ADDITIONALVARS)
 
 $(PROGRAMS):
 	@echo "Looking for program : $@ ..."
@@ -54,21 +54,21 @@ $(LIBS):
 	@echo "Looking for lib : $@ ..."
 	@echo "int main() { return 0;}" > config.c
 	@if $(CC) -o femto-test.out config.c $(CFLAGS) $(LDFLAGS) -l$@ -O0 -s 2> /dev/null;	then \
-		echo "lib_$@ = 1" >>  femto-config.mk; \
+		echo "lib_$@ = 1" >> femto-config.mk; \
 		echo "	found"; \
 	else \
 		echo "	none"; \
-		echo "lib_$@ = 0" >>  femto-config.mk; \
+		echo "lib_$@ = 0" >> femto-config.mk; \
 	fi;
 
 $(FUNCTIONS):
 	@echo "Looking for : $@ ..."
 	@sed -e 's,[@]fn[@],$@,g' -e 's,[@]fnp[@],$(shell echo $@ | sed -e 's,/,_,g' -e 's,[.],_,g'),g'< config.c.in > config.c
 	@if $(CC) -o femto-test.out config.c $(CFLAGS) $(LDFLAGS) -O0 -s 2> /dev/null; then \
-		echo "fn_$@ = 1" >>  femto-config.mk; \
+		echo "fn_$@ = 1" >> femto-config.mk; \
 		echo "	found"; \
 	else \
-		echo "fn_$@ = 0" >>  femto-config.mk; \
+		echo "fn_$@ = 0" >> femto-config.mk; \
 		echo "	none"; \
 	fi;
 
@@ -76,10 +76,10 @@ $(FLAGS):
 	@echo "Looking for flag $@ ..."
 	@sed -e 's,[@]fn[@],$@,g' -e 's,[@]fnp[@],$(shell echo $@ | sed -e 's,/,_,g' -e 's,[.],_,g'),g'< config.c.in > config.c
 	@if $(CC) -o femto-test.out config.c $(CFLAGS) $(LDFLAGS) -f$@ -O0 -s 2> /dev/null; then \
-		echo "flag_$@ = 1" >>  femto-config.mk; \
+		echo "flag_$@ = 1" >> femto-config.mk; \
 		echo "	supported"; \
 	else \
-		echo "flag_$@ = 0" >>  femto-config.mk; \
+		echo "flag_$@ = 0" >> femto-config.mk; \
 		echo "	not supported"; \
 	fi;
 
