@@ -214,7 +214,7 @@ int libcu8_try_convert(iconv_t context, char* in, size_t* insize,
            outlen = *outsize;
     int ret;
 
-    ret = iconv(context, &in, &inlen, &utf8, &outlen);
+    ret = iconv(context, (const char**)&in, &inlen, &utf8, &outlen);
 
     if (ret == (size_t)-1) {
 
@@ -459,7 +459,7 @@ int libcu8_readconsole(int fd, char* buf, size_t size, size_t* written)
         wlen_tmp = wlen;
         pin = wcs;
         pout = utf8;
-        if (iconv(context, &pin, &wlen_tmp, &pout, &len) == (size_t)-1)
+        if (iconv(context, (const char**)&pin, &wlen_tmp, &pout, &len) == (size_t)-1)
             goto err;
 
         switch (*utf8) {

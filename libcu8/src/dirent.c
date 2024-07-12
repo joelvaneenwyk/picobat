@@ -38,7 +38,8 @@
 #include <assert.h>
 
 #include "internals.h"
-#include "libcu8.h"
+
+#include <libcu8.h>
 
 /* this is an posix-compatible dirent.h layer added to libcu8 to prevent
    programs from using non-utf8 aware version of dirent.h for windows

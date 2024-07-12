@@ -125,6 +125,10 @@
 
 #define PBAT_NL "\n"
 
+#else
+
+#error Unsupported platform.
+
 #endif
 
 /* define TRUE and FALSE CONSTANTS if they are not

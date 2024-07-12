@@ -193,13 +193,13 @@ int pBat_RunFile(EXECINFO* info, int* error)
 
     envblock = pBat_GetEnvBlock(lpeEnv, &size);
 
-    if (!(wfullline = libcu8_xconvert(LIBCU8_TO_U16, info->cmdline,
+    if (!(wfullline = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, info->cmdline,
                                         strlen(info->cmdline) + 1, &ret))
-        || !(wfilename = libcu8_xconvert(LIBCU8_TO_U16, info->file,
+        || !(wfilename = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, info->file,
                                             strlen(info->file) + 1, &ret))
-        || !(wcurrdir = libcu8_xconvert(LIBCU8_TO_U16, info->dir,
+        || !(wcurrdir = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, info->dir,
                                             strlen(info->dir) + 1, &ret))
-        || !(wenvblock = libcu8_xconvert(LIBCU8_TO_U16, envblock, size, &ret)))
+        || !(wenvblock =(wchar_t*) libcu8_xconvert(LIBCU8_TO_U16, envblock, size, &ret)))
         pBat_ShowErrorMessage(PBAT_FAILED_ALLOCATION | PBAT_PRINT_C_ERROR,
                                 __FILE__ "/pBat_RunExternalFile()", -1);
 
@@ -227,9 +227,9 @@ int pBat_RunFile(EXECINFO* info, int* error)
         pBat_SetFdInheritance(fileno(fError), 1);
 
         si.dwFlags = STARTF_USESTDHANDLES;
-        si.hStdInput = _get_osfhandle(fileno(fInput));
-        si.hStdOutput = _get_osfhandle(fileno(fOutput));
-        si.hStdError = _get_osfhandle(fileno(fError));
+        si.hStdInput = (LPWSTR)_get_osfhandle(fileno(fInput));
+        si.hStdOutput = (LPWSTR)_get_osfhandle(fileno(fOutput));
+        si.hStdError = (LPWSTR)_get_osfhandle(fileno(fError));
     }
 
     if (!CreateProcessW(wfilename,
@@ -249,7 +249,7 @@ int pBat_RunFile(EXECINFO* info, int* error)
 
     if (info->flags & PBAT_EXEC_WAIT) {
         WaitForSingleObject(pi.hProcess, INFINITE);
-        GetExitCodeProcess(pi.hProcess, &status);
+        GetExitCodeProcess(pi.hProcess, (LPDWORD)&status);
     }
 
     CloseHandle(pi.hProcess);
@@ -402,9 +402,9 @@ int pBat_StartFile(EXECINFO* info, int* error)
 	shinfo.lpParameters = NULL;
 	shinfo.nShow = SW_SHOW;
 
-    if (!(shinfo.lpFile = libcu8_xconvert(LIBCU8_TO_U16, info->file,
+    if (!(shinfo.lpFile = (LPCWSTR)libcu8_xconvert(LIBCU8_TO_U16, info->file,
                                         strlen(info->file) + 1, &cvt))
-        || !(shinfo.lpParameters = libcu8_xconvert(LIBCU8_TO_U16, info->cmdline,
+        || !(shinfo.lpParameters = (LPCWSTR)libcu8_xconvert(LIBCU8_TO_U16, info->cmdline,
                                                     strlen(info->cmdline)+1, &cvt))) {
 
             pBat_ShowErrorMessage(PBAT_FAILED_ALLOCATION, "libcu8_xconvert()", FALSE);
@@ -415,7 +415,7 @@ int pBat_StartFile(EXECINFO* info, int* error)
 
     if (info->dir) {
 
-        if  (!(shinfo.lpDirectory = libcu8_xconvert(LIBCU8_TO_U16, info->dir,
+        if  (!(shinfo.lpDirectory = (LPCWSTR)libcu8_xconvert(LIBCU8_TO_U16, info->dir,
                                                     strlen(info->dir)+1, &cvt))) {
 
             pBat_ShowErrorMessage(PBAT_FAILED_ALLOCATION, "libcu8_xconvert()", FALSE);
@@ -460,7 +460,7 @@ int pBat_StartFile(EXECINFO* info, int* error)
 
 	if (info->flags & PBAT_EXEC_WAIT) {
 		WaitForSingleObject(shinfo.hProcess, INFINITE);
-		GetExitCodeProcess(shinfo.hProcess, &status);
+		GetExitCodeProcess(shinfo.hProcess, (LPDWORD)&status);
 	}
 
 	CloseHandle(shinfo.hProcess);

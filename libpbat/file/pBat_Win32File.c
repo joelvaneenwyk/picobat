@@ -41,7 +41,7 @@ int pBat_GetExeFilename(char* lpBuf, size_t iBufSize)
 
     GetModuleFileNameW(NULL, wname, MAX_PATH+1);
 
-    if ((str = (wchar_t*)libcu8_xconvert(LIBCU8_FROM_U16, wname,
+    if ((str = (char*)libcu8_xconvert(LIBCU8_FROM_U16, (const char*)wname,
                     (wcslen(wname)+1)*sizeof(wchar_t), &cnt)) == NULL) {
 
         return 0;
