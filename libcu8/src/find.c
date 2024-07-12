@@ -68,7 +68,7 @@ struct _xwfinddata64_t {
 #define __libcu8_wfindnext   _wfindnext64
 #define __libcu8_findfirst   libcu8_findfirst64
 #define __libcu8_findnext    libcu8_findnext64
-#include "find_gen.c"
+#include "find_gen.inl"
 #endif
 
 #ifdef HAVE__FINDFIRST64I32
@@ -104,7 +104,7 @@ struct _xwfinddata64i32_t {
 #define __libcu8_wfindnext   _wfindnext64i32
 #define __libcu8_findfirst   libcu8_findfirst64i32
 #define __libcu8_findnext    libcu8_findnext64i32
-#include "find_gen.c"
+#include "find_gen.inl"
 #undef __libcu8_find_suffix
 #endif
 
@@ -141,7 +141,7 @@ struct _xfinddata32_t {
 #define __libcu8_wfindnext   _wfindnext32
 #define __libcu8_findfirst   libcu8_findfirst32
 #define __libcu8_findnext    libcu8_findnext32
-#include "find_gen.c"
+#include "find_gen.inl"
 #endif
 
 #ifdef HAVE__FINDFIRST32I64
@@ -177,7 +177,7 @@ struct _xwfinddata32i64_t {
 #define __libcu8_wfindnext   _wfindnext32i64
 #define __libcu8_findfirst   libcu8_findfirst32i64
 #define __libcu8_findnext    libcu8_findnext32i64
-#include "find_gen.c"
+#include "find_gen.inl"
 #endif
 
 #ifdef HAVE__FINDFIRST
@@ -193,5 +193,5 @@ struct _xwfinddata32i64_t {
 #define __libcu8_wfindnext   _wfindnext
 #define __libcu8_findfirst   libcu8_findfirst
 #define __libcu8_findnext    libcu8_findnext
-#include "find_gen.c"
+#include "find_gen.inl"
 #endif
