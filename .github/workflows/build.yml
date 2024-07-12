@@ -46,7 +46,7 @@ jobs:
       - name: CI-Build
         run: |
           make config use-libcu8
-          LDFLAGS='-static -s' make dist
+          LDFLAGS='-static -s' make dist --keep-going
 
       - uses: marvinpinto/action-automatic-releases@master
         with:

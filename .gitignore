@@ -6,6 +6,8 @@
 *.mo
 *.txt
 
+.vs/
+
 bin/
 
 # These are created in the root directory and in the project subdirectories
