@@ -76,6 +76,7 @@ __LIBCU8__IMP __cdecl intptr_t __libcu8_findfirst (const char* file,
     free (wcs);
     return handle;
 }
+
 __LIBCU8__IMP __cdecl int __libcu8_findnext (intptr_t handle,
                                         void* findinf)
 {

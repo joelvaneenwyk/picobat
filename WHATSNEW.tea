@@ -19,7 +19,7 @@ new code.
 
 	- Added support for current directory.
 
-{{Thursday 6th, December}}
+{{Thursday 6th, December 2012}}
 
 	- Added support of end of line.
 
@@ -35,7 +35,7 @@ new code.
 
 	- added support for english and french.
 
-{{Thursday 11th, February}}
+{{Thursday 11th, February 2013}}
 
 	- added api function for file matching (i.e. paths using '*' and '?').
 
@@ -43,9 +43,9 @@ new code.
 
 	- added function to extended strings.
 
-{{Wednesday 20th, February}}
+{{Wednesday 20th, February 2013}}
 
-	- fixed many portabiility issues for api.
+	- fixed many portability issues for api.
 
 	- api is now cross-platform.
 
@@ -69,7 +69,7 @@ new code.
 
 		-- %PBAT_PATH% : The path of pBat interpreter.
 
-{{Monday 11th, March}}
+{{Monday 11th, March 2013}}
 
 	- Solve many portability issues (i.e some programs did not work under
 	  Linux).
@@ -1446,7 +1446,7 @@ goto :loop}
 
 	- Fixed some bugs with the move command.
 
-{{Thursday 9th, February}}
+{{Thursday 9th, February 2017}}
 
 	- Fixed a major bug of the IF command. Before that, it had fuzzy behaviour with blocks
 	that were part of a later command. Indeed, when combined with a command that required
@@ -1463,7 +1463,7 @@ ${if a==a (if b==b (
 echo test
 ))}
 
-{{Saturday 12th, February}}
+{{Saturday 12th, February 2017}}
 
 	- Fixed minor bugs with the {START} command.
 
@@ -1471,7 +1471,7 @@ echo test
 
     - Fixed if pbat extension bug.
 
-{{Monday 13th, February}}
+{{Monday 13th, February 2017}}
 
 	- Fixed libcu8 so that it runs flawlessly under windows XP. The bug consisted of a
 	CRITICAL_SECTION that was wrongly initialized. A second bug involving libcu8_closedir()
@@ -1479,7 +1479,7 @@ echo test
 
 	- Fixed errors with the hlp script.
 
-{{Wednesday 15th, February}}
+{{Wednesday 15th, February 2017}}
 
 	- Fixed a lot of memory leaks.
 
@@ -1488,7 +1488,7 @@ echo test
 
 	- Fixed libcu8_dup() functions to handle standard input the right way.
 
-{{Friday 17th, February}}
+{{Friday 17th, February 2017}}
 
 	- Fixed libcu8 so that libcu8 ignores invalid utf-8 bytes sequences, instead of
 	returning errors.
@@ -1497,13 +1497,13 @@ echo test
 
 	- Fixed some manual pages.
 
-{{Thursday 16th, February}}
+{{Thursday 16th, February 2017}}
 
     - Update hlp.bat and man.
 
     - Fix a bug with some libc when display the current directory (with Echo on).
 
-{{Wednesday 22th, February}}
+{{Wednesday 22th, February 2017}}
 
 	- Added a new feature to the {FOR} command that allows using regular
 	expressions with simple {FOR} loops. (eg. such syntaxes are now correct)
@@ -1530,7 +1530,7 @@ ${for %%a in (*.exe) do echo %%a}
 	- Changed libpBat functions to search files with a totally new
 	implementation.
 
-{{Saturday 25th, February}}
+{{Saturday 25th, February 2017}}
 
 	- Fixed some errors with libcu8 that was unable to behave properly using
 	pipe as it sometimes blocked on input.
@@ -1541,12 +1541,12 @@ ${for %%a in (*.exe) do echo %%a}
 	- Fixed errors with propagation of environment variables during
 	application launch affecting batch and external command launch.
 
-{{Tuesday 28th, February}}
+{{Tuesday 28th, February 2017}}
 
 	- Fixed libcu8 handling of pipe that did not allowed interaction
 	with programs such as {darkbox}.
 
-{{Thursday 16th, March}}
+{{Thursday 16th, March 2017}}
 
 	- Fixed some error of libcu8. Sped up the library by determining when
 	charset conversion is really necessary (ie. do not convert blindly
@@ -1565,7 +1565,7 @@ ${for %%a in (*.exe) do echo %%a}
 	are ran asynchronously (ie. at the same time), which is different
 	from cmd behaviour.
 
-{{Tuesday 21th, March}}
+{{Tuesday 21th, March 2017}}
 
 	- Fixed some typos that caused some minor bugs depending on
 	configuration.
@@ -1578,13 +1578,13 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Made the {/b} switch working with unices.
 
-{{Wednesday 29th, March}}
+{{Wednesday 29th, March 2017}}
 
 	- Fixed some error in file search handling (the origin folder of a
 	static string was not added to matches, as if PBAT_DIR_MODE was
 	the default behaviour).
 
-{{Thursday 30th March}}
+{{Thursday 30th March 2017}}
 
 	- Fixed a bug with {FOR} command that created more variable that it
 	it was necessary when using a joker {*} as the final token specifier.
@@ -1603,11 +1603,11 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed block parsing systems.
 
-{{Sunday 2nd April}}
+{{Sunday 2nd April 2017}}
 
 	- Fixed a compilation error on *NIXes.
 
-{{Wednesday 5th, March}}
+{{Wednesday 5th, March 2017}}
 
 	- Fixed lots of bugs caused by the new parsing system.
 
@@ -1615,7 +1615,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed the {TYPE} to make it capable of handling binary files.
 
-{{Sunday 9th, March}}
+{{Sunday 9th, March 2017}}
 
 	- Fixed the expansion system to behave closely like cmd does.
 	(ie. made two distinct level of special var expansion, one for
@@ -1629,7 +1629,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Merged po files for pBat.
 
-{{Wednesday 12th, April}}
+{{Wednesday 12th, April 2017}}
 
 	- Fixed incorrect block parsing that did not handled properly escaped
 	new line characters that resulted in executing commands as if there was
@@ -1642,7 +1642,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed plenty of tiny bugs.
 
-{{Thursday 13th, April}}
+{{Thursday 13th, April 2017}}
 
 	- Added new system that loads the entire script file at once, instead of
 	the weird old mechanics that consisted in opening/reading/closing script
@@ -1657,7 +1657,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed some manual pages.
 
-{{Friday 14th, April}}
+{{Friday 14th, April 2017}}
 
     - Fixed some interpretation error with the {SET /p} command.
 
@@ -1677,7 +1677,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed {pBat_Auto.bat} man page that was in ANSI instead of utf-8.
 
-{{Tuesday 18th, April}}
+{{Tuesday 18th, April 2017}}
 
 	- Added new file searching functions to speed up file search under windows.
 
@@ -1685,7 +1685,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed issues of both libinteval and libmatheval in determining delimiters.
 
-{{Thursday 20th, April}}
+{{Thursday 20th, April 2017}}
 
 	- Fixed errors in unicodes files search functions.
 
@@ -1695,7 +1695,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed some typos.
 
-{{Monday 24th, April}}
+{{Monday 24th, April 2017}}
 
 	- Fixed errors in unicode file searching function and functions.
 
@@ -1703,7 +1703,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed the set command.
 
-{{Friday 5th, May}}
+{{Friday 5th, May 2017}}
 
 	- Added support for concatenation using '+' with the the {COPY} command.
 
@@ -1714,7 +1714,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed manual pages.
 
-{{Friday 25th, May}}
+{{Friday 25th, May 2017}}
 
 	- Fixed lots of little bugs
 
@@ -1736,7 +1736,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed man pages and i18n messages.
 
-{{Tuesday 30th, May}}
+{{Tuesday 30th, May 2017}}
 
 	- Fixed dir search function for non-unicode and unicode versions.
 
@@ -1748,7 +1748,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed call bug.
 
-{{Friday 2nd, June}}
+{{Friday 2nd, June 2017}}
 
 	- Fixed extra newline bug after {echo} off.
 
@@ -1760,7 +1760,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed file search bug for vanilla functions under windows.
 
-{{Friday 21st, July}}
+{{Friday 21st, July 2017}}
 
 	- Heavily modified the interpreter that no uses threads instead of
 	  of separated processes.
@@ -1769,7 +1769,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Lots of bugfixes.
 
-{{Sunday 3rd, December}}
+{{Sunday 3rd, December 2017}}
 
 	- Fixes for path name handling in pBat_GetMatchFileList
 
@@ -1779,7 +1779,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Added fixes for pBat_EsToFullPath().
 
-{{Sunday 7th, April}}
+{{Sunday 7th, April 2018}}
 
 	- Fixed hlp.bat bug related to the behaviour change of %~pA.
 
@@ -1787,14 +1787,14 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Added a /C:MD file to generate html files compatible with pico
 
-{{Wednesday 11th, April}}
+{{Wednesday 11th, April 2018}}
 
 	- Fixed error on handling {2>&1} redirection.
 
 	- Fixed pBat_FilePath.c error that led pBat to check for {file}
 	before using {%PATHEXT%}.
 
-{{Sunday 23rd, April}}
+{{Sunday 23rd, April 2018}}
 
 	- Changed conditional operators and redirections semantics (ie.
 	conditional operators now own precedence over redirections,
@@ -1807,7 +1807,7 @@ ${for %%a in (*.exe) do echo %%a}
 	- Fixed compatibility issue due to msvcrt inconsistent
 	structures name for {finddata} and {stat}.
 
-{{Thursday 26th, April}}
+{{Thursday 26th, April 2018}}
 
 	- Fixed some manual pages.
 
@@ -1819,7 +1819,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed some invalid casts in search functions.
 
-{{Saturday 29th, April}}
+{{Saturday 29th, April 2018}}
 
     - Fixed a memory leak.
 
@@ -1828,7 +1828,7 @@ ${for %%a in (*.exe) do echo %%a}
     - Fixed {pBat_RunExternalCommand()} which add a pretty big footprint on
     the stack, sometimes causing stack overflows with Musl libc.
 
-{{Tuesday 15th, May}}
+{{Tuesday 15th, May 2018}}
 
 	- Added new build system based on femto.
 
@@ -1845,12 +1845,12 @@ ${for %%a in (*.exe) do echo %%a}
 	the same behaviour as the one used with {DIR} is used so that files inside
 	that dir get deleted.
 
-{{Thursday 17th, May}}
+{{Thursday 17th, May 2018}}
 
 	- Fixed CTRC-C handling. Sadly the new multi-thread implementation makes it
 	impossible to grab any current directory or modified environment.
 
-{{Tuesday 22nd, May}}
+{{Tuesday 22nd, May 2018}}
 
 	- Fixed Mutex locking error in the SET command.
 
@@ -1858,7 +1858,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Added the local variable environment creation via {SETLOCAL} and {ENDLOCAL}.
 
-{{Wednesday 23rd, May}}
+{{Wednesday 23rd, May 2018}}
 
 	- Added new manual and functionalities to {START}. When calling internal
 	command with {/b} option, The command is launched as an internal thread.
@@ -1885,7 +1885,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed error with conversion of local var blocks to unicode.
 
-{{Friday 25th, May}}
+{{Friday 25th, May 2018}}
 
 	- Added femto-style configuration to libmatheval. Provide a @fnp@ symbol
 	to be conformant will preprocessor macros.
@@ -1896,7 +1896,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Fixed a lot of compilation warnings.
 
-{{Tuesday 29th, May}}
+{{Tuesday 29th, May 2018}}
 
 	- Fixed libintl messages directories and initialisation of current
 	locale.
@@ -1910,7 +1910,7 @@ ${for %%a in (*.exe) do echo %%a}
 	case anymore. Commands now return an {%ERRORLEVEL%} value equal to
 	the error code associated with the message printed.
 
-{{Wednesday 30th, May}}
+{{Wednesday 30th, May 2018}}
 
 	- Fixed if behaviour to be more compatible with {cmd.exe}. It now
 	supports the use of {&} and {\|} inside the if without specifying
@@ -1922,7 +1922,7 @@ ${for %%a in (*.exe) do echo %%a}
 	linking with -lm was necessary. Also fixed makefiles trying to
 	build libcu8 even on linux
 
-{{Friday 1st, June}}
+{{Friday 1st, June 2018}}
 
     - Added a brand new editing system to the libcu8 library so that pBat's
     utf-8 versions supports decent editing facilities like hability to insert
@@ -1935,7 +1935,7 @@ ${for %%a in (*.exe) do echo %%a}
 
     - Fixed Broken console functions for linux.
 
-{{Wednesday 6th}}
+{{Wednesday 6th 2018}}
 
 	- Fixed {%ERRORLEVEL%} variable which is now implemented as a read-only
 	variable to avoid polluting child processes environment (especially
@@ -1968,7 +1968,7 @@ ${for %%a in (*.exe) do echo %%a}
 
 	- Enabled version 218.2.
 
-{{Friday 8th}}
+{{Friday 8th 2018}}
 
 	- Fixed segmentation fault happening when calling a batch file with no
 	arguments and calling the {SHIFT} command from within the script
@@ -1981,7 +1981,7 @@ ${for %%a in (*.exe) do echo %%a}
     - Fixed build errors under linux.
 
     - Fixed {pBat_RunFile()} command to be able to detect failures due to non
-    existant file or no executable files under UNIX compatible operating
+    existent file or no executable files under UNIX compatible operating
     systems.
 
     - Introduced the {%PBAT_START_SCRIPT%} variable which must contain a
@@ -2401,14 +2401,14 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
     - Fixed a bug with {%~d} under *nices causing double root symbol on
     paths.
 
-{{Monday, Junuary 14th}}
+{{Monday, January 14th 2019}}
 
 	- Added {src-dist} target to {Makefile} to automatically build source
 	code tarballs ready to be distributed and/or uploaded on the website.
 
 	- Fixed a bug involving {pBat_RunBlock()} not parsing blocks correctly.
 
-{{Thursday 17th}}
+{{Thursday 17th 2019}}
 
 	- Finally fixed {hlp.bat} to make it able to be run from any directory,
 	especially when the said directory names contains parenthesis or
@@ -2439,7 +2439,7 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 	- Fixed Makefile for building po files. Some builds of gmake
 	automatically
-	remove files that are not explicitelly a target of the make file so that
+	remove files that are not explicitly a target of the make file so that
 	the po files ({*.pot} => {*.po} => {*.mo}) where identified as such and
 	deleted.
 
