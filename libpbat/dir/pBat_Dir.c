@@ -905,7 +905,7 @@ int pBat_GetFileAttributes(const char* file)
     int ret;
     size_t conv;
 
-    if (!(wfile= libcu8_xconvert(LIBCU8_TO_U16, file,
+    if (!(wfile = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, file,
                                         strlen(file)+1, &conv)))
         return -1;
 
@@ -915,10 +915,14 @@ int pBat_GetFileAttributes(const char* file)
 
     return ret;
 }
-
 #elif defined(WIN32) && !defined(PBAT_USE_LIBCU8)
 int pBat_GetFileAttributes(const char* file)
 {
     return GetFileAttributes(file);
+}
+#else
+int pBat_GetFileAttributes(const char* file)
+{
+    return 0;
 }
 #endif // defined
