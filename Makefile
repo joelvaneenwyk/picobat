@@ -63,7 +63,7 @@ clean: $(SUBDIRS_CLEAN)
 $(SUBDIRS_CLEAN):
 	$(MAKE) -C $(basename $@) clean
 
-bin: all bindir $(SUBDIRS_BIN) 
+bin: all bindir $(SUBDIRS_BIN)
 
 dist: bin
 	mv bin picobat-$(VERSION)
@@ -91,7 +91,7 @@ doc.md: README.tpl
 	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md .README.tea .doc.md
 	cat doc.hd .doc.md > doc.md
 	rm .README.tea .doc.md
-	
+
 .tpl.tea:
 	cat $< repo.ft | sed -e s,\{doc[^}]*\|,\{,g > $@
 
@@ -110,7 +110,7 @@ FUNCTIONS = WIN32 MINGW_W64
 LIBS = pthread m dl
 FLAGS = PIC
 OPTIONS = libcu8 nls cmdlycorrect console modules linenoise w10ansi
-DEFAULTOPTIONS = no-libcu8 use-nls no-cmdlycorrect use-console use-modules \
+DEFAULTOPTIONS = no-libcu8 use-nls no-cmdlycorrect use-console no-modules \
 				 use-linenoise no-w10ansi
 SUBCONFIG = libcu8
 ADDITIONALVARS = HOST BINDIR YEAR VERSION PACKAGE PACKAGE_URL PACKAGE_BUGREPORT
