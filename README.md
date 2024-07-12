@@ -160,3 +160,4 @@ There is a few interesting things in this directory that you might need:
   modify Picobat.
 
 * **COPYING.\*** : The license of the project and of projects used by Picobat.
+

@@ -222,7 +222,7 @@ ${ /* Match everything in the directory */
  #define PBAT_SEARCH_RECURSIVE
  /* Stop after the first match is found */
  #define PBAT_SEARCH_GET_FIRST_MATCH
- /* Do not grab informations about files */
+ /* Do not grab information about files */
  #define PBAT_SEARCH_NO_STAT
  /* Do not list pseudo dirs '.' and '..' */
  #define PBAT_SEARCH_NO_PSEUDO_DIR
@@ -293,7 +293,7 @@ ${int MyLookAheadCommand(const char* cmd, PARSED_LINE** line);}
     The field {**line}, is a pointer to the {pBat_RunParsedLine()} copy of the
     current {PARSED_LINE*} being executed. Thus {*line} can be set to NULL
     without causing any memory leakage as it is a copy of the original pointer.
-    The lookahed commands are allowed to mess with the PARSED_LINE for
+    The lookahead commands are allowed to mess with the PARSED_LINE for
     subsequent execution.
 
     To add a block at the beginning of the PARSED_LINE, the following function
