@@ -15,6 +15,7 @@ BUILDYEAR
 CALLSTACK
 CFLAGS
 CHCP
+classpath
 cmdline
 Cmdly
 cmdlycorrect

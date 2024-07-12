@@ -8,13 +8,13 @@
     <option name="linkedExternalProjectsSettings">
       <MakefileProjectSettings>
         <option name="buildOptions" value="--debug=all" />
+        <option name="buildTarget" value="config" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
           </set>
         </option>
-        <option name="preConfigureCommands" value="make --debug=all config" />
         <option name="switches" value="--debug=all" />
         <option name="version" value="2" />
       </MakefileProjectSettings>
