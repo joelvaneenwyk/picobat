@@ -41,6 +41,7 @@ exitcode
 EXITCODEASCII
 femto
 FILELIST
+findinf
 FOUTPUT
 fprintf
 GARBI
@@ -56,6 +57,7 @@ GETNEXTPARAMETERES
 gettext
 ggdb
 gmake
+initialisation
 itemvalue
 LDFLAGS
 lfasteval

@@ -9,5 +9,7 @@ tasks:
 
   build:
     cmds:
+      - cmd: cmd.exe /D /C del femto-config.mk
+        ignore_error: true
       - cmd: make config
       - cmd: make all
