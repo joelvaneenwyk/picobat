@@ -19,7 +19,7 @@
 {{GOTO command}}
 
 	Jump to a label in a batch script. This command is among the first
-	commands learned while learning batch script, and it is usefull since
+	commands learned while learning batch script, and it is useful since
 	it allow {conditional execution}.
 
 	It might be preferable to use {if|multiline if}, especially in the case
@@ -49,10 +49,10 @@ ${GOTO [:]label [file] [/Q]}
 	If the {GOTO} command is called within a command bloc (such as within a {for|FOR
 	loop} or within a {if|IF}), then block execution is aborted and execution
 	restart at given label.
-	
+
 	The command {GOTO} does not affect {errorlevel|%ERRORLEVEL%} variable. If a jump
 	failed, the execution continues after the command.
-	
+
 	If {:label} is {:eof} then the {GOTO} command returns from the current subroutine
 	to the previous execution level.
 

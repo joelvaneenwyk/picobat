@@ -50,7 +50,7 @@ ${	IF [/i] [NOT] string1==string2 (
 	The second syntax is used to compare either strings and numbers.
 	It allows scripts to perform
 	more advanced test such as testing if one number is greater than another one.
-	This syntax should also be prefered since it is more robust, and if well used,
+	This syntax should also be preferred since it is more robust, and if well used,
 	this syntax is much more resistant to {spec/exp|expansion} bugs. As explained
 	later.
 
@@ -66,7 +66,7 @@ ${	IF [/i] string1 cmp string2 (
 
 		- {EQU} : (EQUal) {string1} and {string2} are the same.
 
-		- {NEQ} : (Not EQual). Exact opposite of preceeding condition.
+		- {NEQ} : (Not EQual). Exact opposite of preceding condition.
 
 		- {LEQ} : (Less or EQual). The value associated to
 		  {string1} is lesser or equal to {string2}.
@@ -186,7 +186,7 @@ ${	IF /i %var1%==%var2% (
 :: code to be executed if %var1% differs form %var2%
 )}
 
-	Both {ELSE} keyword preceeding and following codes must be enclosed in brackets,
+	Both {ELSE} keyword preceding and following codes must be enclosed in brackets,
 	so that it defines two different {spec/block|code blocks}. Otherwise, the interpreter
 	should interpret it like a single line.
 
@@ -249,7 +249,7 @@ ${IF %my_var%==test (
 		after the line parsing, and thus no character can cause issue.
 
 	Therefore, if you really need avoiding these errors (for scripts that modify windows registry),
-	for exemple, you should use the most robust solution, ie:
+	for example, you should use the most robust solution, ie:
 
 ${SETLOCAL EnableDelayedExpansion
 

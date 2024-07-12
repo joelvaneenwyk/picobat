@@ -99,6 +99,7 @@ PARAMLIST
 PATHEXT
 pbat
 pbatize
+pbatvar
 PECHO
 perfomances
 picobat

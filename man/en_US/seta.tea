@@ -34,50 +34,50 @@
 	command also provide support for floating point numbers, if floating-point
 	values are given inside the expression. This behaviour is explained in detail
 	in the {Toogling floating-point expression} section.
-	
+
 	The {=} sign can be prefixed with one the of the supported binary operator,
-	in which case, {SET /a} stores the result of {variable} {binary_operator} 
+	in which case, {SET /a} stores the result of {variable} {binary_operator}
 	{(expression)} inside {variable}. For instance:
-	
+
 ${:: equivalent to SET /a var=var+3
 SET /a var+=3}
-		
-	The given {expression} must consist of a sequence of {operands} separated by 
+
+	The given {expression} must consist of a sequence of {operands} separated by
 	{operators}.
-	
+
 {{Operands}}
 
 	{Operands} represent the numbers to which a sequence of operations will be
 	applies. Operands must be of one the following types:
-	
+
 	- A number litteral, that is a string representing a number. Number can
 	be specified using one of the following syntaxes:
-	
+
 		-- As floating point value, if the number conforms to the following
 		format : {[+\|-]d.ddddd[E[+\|-]nnn]}. If any floating point value are
 		specified, then the evaluating mode switches to floating-point mode
 		and divisions are handled as floating point division.
-		
+
 		-- As integer values. Three different numeric bases are available:
 		decimal, octal and hexadecimal. By default, numbers are suposed to
 		be decimal, unless it is prefixed by one of the following prefix:
-		
+
 			--- {0x} : Hexadecimal number.
 
 			--- {0} : Octal number.
-			
+
 	- A function call, that is a function name followed by a expression :
 
 	${function_name(expression)}
-	
+
 	@- A list of functions provided by the {SET} command is provided in the
 	{Functions} subsection. Note that using functions also toogles the use of
 	floating-point mode.
-	
+
 	- A mathematical constant name. A list of constant names are provided in
 	the constant section. Note that using constants also trigger the use of
 	floating-point mode.
-	
+
 	- Special numbers, that are values that are not techniacally numbers but
 	are encountered when an illegal operation (dividing by 0 for example) is
 	performed, or when a operation overflows the capacity of the integer.
@@ -85,8 +85,8 @@ SET /a var+=3}
 		- {inf} (INFINITY) : Infinite value.
 
 		- {nan} (NotANumber) : not a number.
-			
-	- If the operand does not meet any of the preceeding rules, then the
+
+	- If the operand does not meet any of the preceding rules, then the
 	operand is considered to be a variable name which will be expanded to
 	the variable value when computing the expression result.
 
@@ -94,23 +94,23 @@ SET /a var+=3}
 
 	The {SET /a} provides a wide variety of operators that can be
 	used with both integers and floating point numbers.
-   
+
 	The topmost precedence is given to the 3 following unary operators (an unary
 	operator is an operator that only takes one operand to the right):
-		
+
 		- {-} : Minus sign.
-		
+
 		- {!} : Logical negation. Note this operation is usually only applied to integer
 		numbers. If the {expression} toogles the use of floating-point numbers, then
 		the value of the operand is converted to integer (that is, the value is
 		truncated toward 0), then the logical negation is applied and the result is
 		converted back to floating-point number.
-		
+
 		- {~} : Bitwise negation. The same remark as above also applies to this operator.
-   
-	Then, the following binary operators are processed (a binary operator is 
+
+	Then, the following binary operators are processed (a binary operator is
 	an operator that takes two operands):
-			
+
 		- {*} : Multiplication.
 
 		- {/} : Division. Note that if floating-point is not toogled by {expression} (see
@@ -122,48 +122,48 @@ SET /a var+=3}
 		- {+} : Addition.
 
 		- {-} : Subtraction.
-		
+
 		-- {>>} : Right shift. As for the {!} operator, this operation is usually only
 		applied to integers. Thus if floating point numbers are used, both operands are
 		rounded towards 0, the operation is performed and the result is converted back.
 
 		-- {<<} : Left shift. Same remark as above apply.
-				
+
 		-- {&} : Bitwise and. Same remark as above apply.
 
 		-- {^} : Bitwise xor. Same remark as above apply.
-		
+
 		-- {\|} : Bitwise or. Same remark as above apply.
-		
+
 		-- {&&} : Logical and. Same remark as above apply.
-		
+
 		-- {\|\|} : Logical or. Same remark as above apply.
-		 
+
 		- {=} : Assignment.
-		
+
 
 	Operators have the following precedence (from greatest to lowest):
 
 	- {unary operators}
-	
+
 	- {^}
-	
+
 	- {=}
-	
+
 	- {*}, {/}, {%}
 
 	- {+}, {-}
-	
+
 	- {<<}, {>>}
-	
+
 	- {&}
-	
+
 	- {^}
-	
+
 	- {\|}
-	
+
 	- {&&}
-	
+
 	- {\|\|}
 
 	To avoid precedence issues, use the parenthesis {(} and {)}.
@@ -225,15 +225,15 @@ SET /a var+=3}
 		- Reverse hyperbolic trigonometry :
 
 		-- {asinh} : Reverse hyperbolic sine.
-                                        
+
 		-- {acosh} : Reverse hyperbolic cosine.
-                                        
+
 		-- {atanh} : Reverse hyperbolic tangent.
-                                        
+
 		-- {acoth} : Reverse hyperbolic cotangent.
-                                        
+
 		-- {acech} : Reverse hyperbolic secant.
-                                        
+
 		-- {acsch} : Reverse hyperbolic cosecant.
 
 		- {abs} : Absolute value.
@@ -275,22 +275,22 @@ SET /a var+=3}
 		- {sqrt2} : sqrt(2)
 
 		- {sqrt1_2} : sqrt(1/2), or 1/sqrt(2) or sqrt(2)/2.
-		
+
 {{Toogling floating-point expressions}}
 
 	The use of floating-point arithmetics is triggered by the use of one of
 	the following features :
-	
+
 	- Specifying a number as a floating-point value
-	
+
 	- Using one of the provided functions
-	
+
 	- Using one of the provided constants
-	
+
 	If none of these conditions are met and the use of floating point is required,
 	one can force it using an operation that does not change the result but
 	use floats (for example adding {0.0}) as in the following sample:
-	
+
 ${:: By default this use integers arithmetics
 SET /a var=a/b
 :: Trigger the use of floating point arithmetics
@@ -298,10 +298,10 @@ SET /a var=a/b+0.0}
 
 {{Precisness}}
 
-	Integers wich are usually bound between {-2 147 483 648} and {+2 147 483 647}.
-	
+	Integers which are usually bound between {-2 147 483 648} and {+2 147 483 647}.
+
 	Floating-point numbers offer a much greater range, between
-	{2,2250738585072014e-308} à {1,7976931348623157e+308}. However, this gain on 
+	{2,2250738585072014e-308} à {1,7976931348623157e+308}. However, this gain on
 	range causes a loss of precision because of approached computing.
 
 {{Bugs}}
@@ -316,7 +316,7 @@ ${(2e60+1)-2e60)}
 	Computing this expression using floating points arithmetics will lead to
 	a precision error as the result would be 0 even though it is clearly 1.
 	This happen because {10^60} is several orders of magnitude greater than 1.
-	Changing slightly the expression can fix this issue : 
+	Changing slightly the expression can fix this issue :
 
 ${2e60-2e60+1}
 
@@ -324,7 +324,7 @@ ${2e60-2e60+1}
 {{Notes}}
 
 	This command uses a modified version of the {GNU libmatheval} library.
-	
+
 {{Compatibility}}
 
 	Available since {0.7.1.0}, before the support of expressions was
