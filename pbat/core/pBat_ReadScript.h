@@ -57,7 +57,7 @@ struct labels_t {
 
 struct batch_script_t {
     char name[FILENAME_MAX]; /* name of the batch script */
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
     wchar_t *wname; /* wide character version of wname to speed script up  */
 #endif
     int cpy; /* if this struct is a copy (i.e. not the original one) */

@@ -30,7 +30,7 @@
 #endif
 
 #include "../../config.h"
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif
 

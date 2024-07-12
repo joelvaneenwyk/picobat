@@ -42,7 +42,7 @@
 
 #include "core/pBat_Core.h"
 
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif
 
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
 
     ESTR* lpesCmd;
 
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 
     if (libcu8_init(&argv) == -1) {
 

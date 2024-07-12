@@ -45,7 +45,7 @@
 #endif /* LIBPBAT  */
 
 
-#if defined PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif
 

@@ -30,7 +30,7 @@
 
 #include "../core/pBat_Core.h"
 
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif
 
@@ -87,7 +87,7 @@ int pBat_CmdChcp(char* line)
     if (enc && *enc != '\0') {
 
         /* param->str is not a valid number */
-#if defined(PBAT_USE_LIBCU8)
+#if defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
         if (libcu8_set_fencoding(param->str) == -1
             || !SetConsoleCP(cp))
 #else
@@ -105,7 +105,7 @@ int pBat_CmdChcp(char* line)
 
         /* param->str is a valid number */
 
-#if defined(PBAT_USE_LIBCU8)
+#if defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
         if ((enc = pBat_ConsoleCP2Encoding(cp)) == NULL
             || libcu8_set_fencoding(enc) == -1
             || !SetConsoleCP(cp))

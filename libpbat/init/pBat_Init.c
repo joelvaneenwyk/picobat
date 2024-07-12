@@ -40,7 +40,7 @@ LIBPBAT int pBat_LibInit(void)
     SetConsoleMode(hOut, mode);
     #endif
 
-    #if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+    #if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
     if (libcu8_init(NULL) ==  -1)
         return -1;
     #endif // defined

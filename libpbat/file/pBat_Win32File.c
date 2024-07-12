@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif
 
@@ -34,7 +34,7 @@ static char lpCurrentDir[FILENAME_MAX+3]="CD=";
 
 int pBat_GetExeFilename(char* lpBuf, size_t iBufSize)
 {
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
     wchar_t wname[MAX_PATH+1];
     char* str;
     size_t cnt;
@@ -74,7 +74,7 @@ int pBat_GetExePath(char* lpBuf, size_t iBufSize)
 
 int pBat_FileExists(const char* ptrName)
 {
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
     int iAttrib;
     wchar_t* name;
     size_t conv;
@@ -97,7 +97,7 @@ int pBat_FileExists(const char* ptrName)
 
 int pBat_DirExists(const char *ptrName)
 {
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
     int iAttrib;
     wchar_t* name;
     size_t conv;

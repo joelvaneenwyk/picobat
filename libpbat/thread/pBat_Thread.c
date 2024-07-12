@@ -143,7 +143,7 @@ LIBPBAT WINAPI DWORD _pBat_BeginThreadTrampoline(LPVOID data)
 
     free(s);
 
-    return (DWORD)ret;
+    return (DWORD)(size_t)ret;
 }
 
 LIBPBAT int  pBat_BeginThread(THREAD* lpThId, void*(*pFunc)(void*), int iMemAmount, void* arg)

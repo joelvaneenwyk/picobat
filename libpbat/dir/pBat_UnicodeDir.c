@@ -27,10 +27,11 @@
 #include "../libpBat-int.h"
 #include "../../config.h"
 
-#if defined(PBAT_USE_LIBCU8)
+
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
+#include <libcu8.h>
 #include <windows.h>
 #include <shlwapi.h>
-#include <libcu8.h>
 
 #define XSIZE(a) sizeof(a)/sizeof(a [0])
 
@@ -165,7 +166,7 @@ static FILELIST* pBat_AddMatch(wchar_t* wname, FILELIST* files, struct match_arg
     char *name;
     size_t cvt;
 
-    if (!(name = libcu8_xconvert(LIBCU8_FROM_U16, wname,
+    if (!(name = libcu8_xconvert(LIBCU8_FROM_U16, (const char*)wname,
                                     (wcslen(wname)+1)*sizeof(wchar_t), &cvt)))
         goto err;
 
@@ -559,7 +560,7 @@ LIBPBAT LPFILELIST  pBat_GetMatchFileList(char* lpPathMatch, int iFlag)
     wchar_t *wpath;
     size_t cvt;
 
-    if (!(wpath = libcu8_xconvert(LIBCU8_TO_U16, lpPathMatch,
+    if (!(wpath = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, lpPathMatch,
                                         strlen(lpPathMatch)+1, &cvt)))
         return NULL;
 
@@ -593,9 +594,9 @@ LIBPBAT int pBat_GetMatchFileCallback(char* lpPathMatch, int iFlag, void(*pCallB
     wchar_t *wpath;
     size_t cvt;
 
-    if (!(wpath = libcu8_xconvert(LIBCU8_TO_U16, lpPathMatch,
+    if (!(wpath = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, lpPathMatch,
                                         strlen(lpPathMatch)+1, &cvt)))
-        return NULL;
+        return 0;
 
 
     args.callback = pCallBack;

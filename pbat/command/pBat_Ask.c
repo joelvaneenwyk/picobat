@@ -35,7 +35,7 @@
 #include "../lang/pBat_Lang.h"
 #include "../../config.h"
 
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 
 /* A function to override the hook that libcu8 adds on read()
    that automatically enable autocompletion, which can get

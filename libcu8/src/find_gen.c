@@ -49,7 +49,7 @@ __LIBCU8__IMP __cdecl intptr_t __libcu8_findfirst (const char* file,
     handle = __libcu8_wfindfirst(wcs, &info);
 
     if (handle != -1
-        && (name = libcu8_xconvert(LIBCU8_FROM_U16, info.name,
+        && (name = (char*)libcu8_xconvert(LIBCU8_FROM_U16, info.name,
                                 (wcslen(info.name)+1)*sizeof(wchar_t), &cvt))) {
 
         printf("returning %s\n", name);
@@ -91,7 +91,7 @@ __LIBCU8__IMP __cdecl int __libcu8_findnext (intptr_t handle,
     printf("Called findnext !\n");
 
     if (ret != -1
-        && (name =  libcu8_xconvert(LIBCU8_FROM_U16, info.name,
+        && (name = (char*)libcu8_xconvert(LIBCU8_FROM_U16, info.name,
                                 (wcslen(info.name)+1)*sizeof(wchar_t), &cvt))) {
 
         if (cvt > FILENAME_MAX) {

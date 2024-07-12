@@ -26,7 +26,7 @@
 #include "../libpBat-int.h"
 #include "../../config.h"
 
-#if defined(PBAT_USE_LIBCU8)
+#if defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif /* PBAT_USE_LIBCU8 */
 
@@ -116,11 +116,11 @@ char* pBat_GetFirstExistingFile(char** files)
 
 int pBat_SetFileMode(const char* file, int attr)
 {
-#if defined(PBAT_USE_LIBCU8)
+#if defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
     wchar_t* wfile;
     size_t cvt;
 
-    if ((wfile = libcu8_xconvert(LIBCU8_TO_U16,
+    if ((wfile = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16,
                         file, strlen(file) + 1, &cvt)) == NULL) {
 
         return -1;

@@ -58,7 +58,7 @@ int pBat_TestLocalVarName(char cVar)
 	return 0;
 }
 
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
 /* count the number of u8 chars in the string, this is
    useful to prevent cutting var inside a u8 char */
 size_t __inline__ pBat_CountU8Chars(const char* ch)
@@ -190,7 +190,7 @@ int pBat_GetVar(char* lpName, ESTR* lpRecieve)
 	}  else if (!(stricmp(lpNameCpy, "=EXITCODEASCII"))) {
 
 		lpVarContent=lpBuf;
-#if defined(PBAT_USE_LIBCU8)
+#if defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
         snprintf(lpBuf, sizeof(iErrorLevel)+1, "%s", &iErrorLevel);
 #else
         snprintf(lpBuf, 2, "%c", iErrorLevel);
@@ -223,7 +223,7 @@ int pBat_GetVar(char* lpName, ESTR* lpRecieve)
 	}
 
 	if (iVarState==2) {
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
         /* prevent strings from being cut in the middle of an u8 character */
         iTotalLen = pBat_CountU8Chars(lpVarContent);
 #else
@@ -260,7 +260,7 @@ int pBat_GetVar(char* lpName, ESTR* lpRecieve)
 			if ((iBegin+iLen)<= iTotalLen) {
 				/* if the strings is right */
 
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
                 lpZeroPos = pBat_SkipU8Chars(lpVarContent, iBegin+iLen);
                 lpVarContent = pBat_SkipU8Chars(lpVarContent, iBegin);
 #else
@@ -284,7 +284,7 @@ int pBat_GetVar(char* lpName, ESTR* lpRecieve)
 				   the string)
 				*/
 
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
                 lpZeroPos=pBat_SkipU8Chars(lpVarContent, iTotalLen+iLen);
                 lpVarContent =pBat_SkipU8Chars(lpVarContent, iBegin);
 #else

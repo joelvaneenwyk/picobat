@@ -18,7 +18,7 @@
 
 #include "../../config.h"
 
-#if defined(PBAT_USE_LIBCU8)
+#if defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif /* PBAT_USE_LIBCU8*/
 
@@ -28,7 +28,7 @@
 
 void pBat_InitCompletion(void)
 {
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
     libcu8_completion_handler = pBat_CompletionHandler;
     libcu8_completion_handler_free = pBat_CompletionHandlerFree;
 #elif !defined(WIN32) && !defined(PBAT_NO_LINENOISE)

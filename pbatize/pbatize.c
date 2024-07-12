@@ -28,9 +28,9 @@
     Do some adjustments to batch inputs to make them running using pBat.
 
 	- input: file from which the command will get its input
-	
+
 	- output : file to which the ouput will be written
-	
+
 	- /c config : path of a configuration file used to define command and switches
     associated to them. The default path for the configuration file is
 	~/.pbat/pbatize.lst or /etc/pbat/pbatize.lst for unices and
@@ -44,7 +44,7 @@
 
 */
 
-#define ERROR(...) do { \
+#define PBATIZE_ERROR(...) do { \
 	fprintf(stderr, "pbatize: "); \
 	fprintf(stderr, __VA_ARGS__ ); \
 	exit(-1); \
@@ -72,7 +72,7 @@ command commands[] = {
 void read_file(FILE* file, ESTR* content)
 {
 	ESTR* tmp = pBat_EsInit();
-	
+
 	while(!pBat_EsGet(tmp, file))
 		pBat_EsCatE(content, tmp);
 
@@ -92,23 +92,23 @@ int main(int argc, char* argv[])
 
 	/* Check command line integrity */
 	if (argc <= 1)
-		ERROR("Bad command line\n");
+		PBATIZE_ERROR("Bad command line\n");
 
 	/* Open input and output files */
 	if (!(input = fopen(argv[1], "r")))
-		ERROR("Unable to open \"%s\".\n", argv[1]);
+		PBATIZE_ERROR("Unable to open \"%s\".\n", argv[1]);
 
 	if (argc > 2) {
-	
+
 		if (!(output = fopen(argv[2], "w+")))
-			ERROR("Unable to open \"%s\".\n", argv[2]);
-	
+			PBATIZE_ERROR("Unable to open \"%s\".\n", argv[2]);
+
 	} else {
 
 		output = stdout;
-	
+
 	}
-	
+
 	/* Get the content of the input file */
 	read_file(input, content);
 	fclose(input);
@@ -128,7 +128,7 @@ int main(int argc, char* argv[])
         i++;
 
     }
-	
+
     /* Next replace exessive numbers of escaping character (^) */
 
 	fprintf(output, "%s", content->str);

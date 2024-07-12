@@ -56,7 +56,7 @@
 #include "pBat_Completion.h"
 #include "pBat_Pipe.h"
 
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif
 

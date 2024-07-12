@@ -31,7 +31,7 @@
 #include <strings.h>
 #endif
 
-#if !defined(PBAT_USE_LIBCU8)
+#if !defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1 || PBAT_USE_LIBCU8!=1
 
 struct match_args_t {
     int flags;
@@ -896,7 +896,7 @@ LIBPBAT int pBat_FreeFileList(LPFILELIST lpflFileList)
 
 }
 
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 
 int pBat_GetFileAttributes(const char* file)
@@ -915,7 +915,7 @@ int pBat_GetFileAttributes(const char* file)
 
     return ret;
 }
-#elif defined(WIN32) && !defined(PBAT_USE_LIBCU8)
+#elif defined(WIN32) && !defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 int pBat_GetFileAttributes(const char* file)
 {
     return GetFileAttributes(file);

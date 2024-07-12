@@ -56,7 +56,7 @@ __LIBCU8__IMP __cdecl int libcu8_getcwd(char* dir, size_t size)
 
     }
 
-    if (code = _wgetcwd(wdir, size) == -1) {
+    if ((code = _wgetcwd(wdir, size)) == -1) {
 
         free(wdir);
         return -1;

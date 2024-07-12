@@ -29,7 +29,7 @@
 #endif
 
 #include "../../config.h"
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif
 
@@ -384,7 +384,7 @@ int pBat_RunFile(EXECINFO* info, int* error)
 
 #define SEE_MASK_NOASYNC 0x00000100
 
-#if defined(PBAT_USE_LIBCU8)
+#if defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 
 int pBat_StartFile(EXECINFO* info, int* error)

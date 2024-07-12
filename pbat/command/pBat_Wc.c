@@ -105,7 +105,7 @@ int pBat_FileCounts(int mode, const char* file, struct wc_count_t* cnt)
                the case;
 
                We do not bother of actual conformance of the file. */
-#if !defined(WIN32) || defined(PBAT_USE_LIBCU8)
+#if !defined(WIN32) || defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
             if (!(*pch & 0x80) || (*pch & 0xC0) == 0xC0)
 #endif
                 cnt->chars ++;

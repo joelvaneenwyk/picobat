@@ -129,7 +129,7 @@ int pBat_JumpToLabel_Cmdly(char* lpLabelName, char* lpFileName)
     /* Libcu8 kind of perturbate the C lib because libcu8 does not
        perform byte to byte conversion, misleading file telling
        positions ... */
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
         setvbuf(pFile, NULL, _IONBF, 0);
 #endif
 

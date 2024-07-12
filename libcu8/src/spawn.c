@@ -185,7 +185,7 @@ error :
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnvp(int mode, const char* file,
                                                 const char* const *argv)
 {
-    return libcu8_spawnvpe(mode, file, argv, _environ);
+    return libcu8_spawnvpe(mode, file, argv, (const char *const *)_environ);
 }
 
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnvpe(int mode, const char* file,
@@ -214,7 +214,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnvpe(int mode, const char* file,
 
     wargv[j] = NULL;
 
-    ret = _wspawnvpe(mode, wfile, wargv, _wenviron);
+    ret = _wspawnvpe(mode, wfile, wargv, (const char *const *)_wenviron);
 
     free(wfile);
 

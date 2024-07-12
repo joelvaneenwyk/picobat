@@ -34,7 +34,7 @@
 
 #include "../../config.h"
 
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif
 
@@ -47,7 +47,7 @@ int pBat_OpenBatchScript(struct batch_script_t* restrict script,
 {
     strncpy(script->name, name, sizeof(script->name));
     script->name[sizeof(script->name)-1] = '\0';
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
     script->wname = NULL;
 #endif // defined
 
@@ -95,7 +95,7 @@ __inline__ size_t pBat_GetScriptSize(struct batch_script_t* script, int* restric
 
     *err = 0;
 
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
     size_t cvt;
 
     if (script->wname == NULL
@@ -165,7 +165,7 @@ int pBat_LoadBatchScript(struct batch_script_t* script)
     script->curr = NULL;
     script->lbls = NULL;
     script->cmds = NULL;
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
     script->wname = NULL;
 #endif /* WIN32 && PBAT_USE_LIBCU8 */
     script->cpy = 0;
@@ -339,7 +339,7 @@ void pBat_FreeBatchScript(struct batch_script_t* script)
     if (script->cpy)
         return;
 
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8)
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
     if (script->wname)
         free(script->wname);
 #endif
