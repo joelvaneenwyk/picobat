@@ -56,11 +56,11 @@ jobs:
         run: |
           LDFLAGS='-static -s' make dist --keep-going
 
-      - uses: marvinpinto/action-automatic-releases@master
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Development Build"
-          files: |
-            ./picobat-*.zip
+      # - uses: marvinpinto/action-automatic-releases@master
+      #   with:
+      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+      #     automatic_release_tag: "latest"
+      #     prerelease: true
+      #     title: "Development Build"
+      #     files: |
+      #       ./picobat-*.zip
