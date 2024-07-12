@@ -46,7 +46,7 @@ void xread(int fd, void* p, size_t sz)
 
     do {
 
-        ReadFile(_get_osfhandle(fd), p, sz, &cnt, NULL);
+        ReadFile(_get_osfhandle(fd), (LPDWORD)p, sz, &cnt, NULL);
 
     } while (!cnt);
 
