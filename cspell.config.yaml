@@ -3,7 +3,7 @@ ignorePaths:
   - '*.o'
 dictionaryDefinitions:
   - name: picobat
-    path: ./.cspell/picobat.dict
+    path: ./.github/config/picobat.dict
     addWords: true
 dictionaries:
   - picobat
