@@ -57,7 +57,7 @@ int pBat_CmdVer(char* lpArg)
         DATA.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 
         GetVersionEx(&DATA);
-        pBat_CmdVerCheckWinVer(&CurrentWindowsVersion,
+        pBat_CmdVerCheckWinVer((char **)&CurrentWindowsVersion,
                                 (int) DATA.dwMajorVersion,
                                 (int) DATA.dwMinorVersion);
 

@@ -356,7 +356,7 @@ error:
         *lpplLine = NULL;
 
 	if (!lpplLine && line)
-        pBat_FreeParsedStream(line);
+        pBat_FreeParsedStream((PARSED_STREAM*)line);
 
 	return status;
 }

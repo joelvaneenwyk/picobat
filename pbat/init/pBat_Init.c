@@ -240,37 +240,37 @@ int pBat_InitSetModes(char* str)
     return bQuiet;
 }
 
-#ifdef ENABLE_NLS
+#if ENABLE_NLS==1
 #define NLS_CONFIG "use-nls"
 #else
 #define NLS_CONFIG "no-nls"
 #endif // ENABLE_NLS
 
-#ifdef PBAT_USE_LIBCU8
+#if PBAT_USE_LIBCU8==1
 #define LIBCU8_CONFIG "use-libcu8"
 #else
 #define LIBCU8_CONFIG "no-libcu8"
 #endif // PBAT_USE_LIBCU8
 
-#ifdef PBAT_USE_MODULES
+#if PBAT_USE_MODULES==1
 #define MODULE_CONFIG "use-modules"
 #else
 #define MODULE_CONFIG "no-modules"
 #endif // PBAT_USE_MODULES
 
-#ifdef LIBPBAT_NO_CONSOLE
+#if LIBPBAT_NO_CONSOLE==1
 #define CONSOLE_CONFIG "no-console"
 #else
 #define CONSOLE_CONFIG "use-console"
 #endif // LIBPBAT_NO_CONSOLE
 
-#ifdef PBAT_NO_LINENOISE
+#if PBAT_NO_LINENOISE==1
 #define LINENOISE_CONFIG "no-linenoise"
 #else
 #define LINENOISE_CONFIG "use-linenoise"
 #endif // PBAT_NO_LINENOISE
 
-#ifdef PBAT_STATIC_CMDLYCORRECT
+#if PBAT_STATIC_CMDLYCORRECT==1
 #define CMDLYCORRECT_CONFIG "use-cmdlycorrect"
 #else
 #define CMDLYCORRECT_CONFIG "no-cmdlycorrect"

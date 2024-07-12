@@ -183,7 +183,7 @@ LIBPBAT void     pBat_EndThread(void* iReturn)
 LIBPBAT int      pBat_WaitForThread(THREAD* thId, void** lpRet)
 {
     return WaitForSingleObject(*thId, INFINITE)
-            || !GetExitCodeThread(*thId, lpRet);
+            || !GetExitCodeThread(*thId, (LPDWORD)lpRet);
 }
 
 LIBPBAT int      pBat_CreateMutex(MUTEX* lpMuId)

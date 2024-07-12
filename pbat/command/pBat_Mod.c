@@ -31,7 +31,7 @@
 
 #include "pBat_Mod.h"
 
-#ifdef PBAT_USE_MODULES
+#if PBAT_USE_MODULES==1
 #include <dlfcn.h>
 #endif
 

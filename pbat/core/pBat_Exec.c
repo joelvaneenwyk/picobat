@@ -138,9 +138,9 @@ int pBat_RunFile(EXECINFO* info, int* error)
 
 
         si.dwFlags = STARTF_USESTDHANDLES;
-        si.hStdInput = _get_osfhandle(fileno(fInput));
-        si.hStdOutput = _get_osfhandle(fileno(fOutput));
-        si.hStdError = _get_osfhandle(fileno(fError));
+        si.hStdInput = (char**)_get_osfhandle(fileno(fInput));
+        si.hStdOutput = (char**)_get_osfhandle(fileno(fOutput));
+        si.hStdError = (char**)_get_osfhandle(fileno(fError));
 
     }
 
@@ -162,7 +162,7 @@ int pBat_RunFile(EXECINFO* info, int* error)
     if (info->flags & PBAT_EXEC_WAIT) {
 
         WaitForSingleObject(pi.hProcess, INFINITE);
-        GetExitCodeProcess(pi.hProcess, &status);
+        GetExitCodeProcess(pi.hProcess, (LPDWORD)&status);
 
     }
 
@@ -530,7 +530,7 @@ int pBat_StartFile(EXECINFO* info, int* error)
 
 	if (info->flags & PBAT_EXEC_WAIT) {
 		WaitForSingleObject(shinfo.hProcess, INFINITE);
-		GetExitCodeProcess(shinfo.hProcess, &status);
+		GetExitCodeProcess(shinfo.hProcess, (LPDWORD)&status);
 	}
 
 	CloseHandle(shinfo.hProcess);
