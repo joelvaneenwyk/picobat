@@ -56,7 +56,9 @@ GETNEXTPARAMETERES
 gettext
 ggdb
 gmake
+itemvalue
 LDFLAGS
+lfasteval
 libcu
 libfasteval
 libiconv
@@ -67,6 +69,7 @@ libmicrogettext
 libpbat
 Licence
 linenoise
+lmicrogettext
 localmk
 LOCALPPDATA
 lpcl
@@ -74,15 +77,19 @@ LPFILELIST
 lpfl
 lpps
 LPSTREAMSTACK
+lpthread
+LPTHREAD
 MANFILES
 marvinpinto
 MDFILES
 microgettext
 mimeopen
+msvc
 msys
 msystem
 myfile
 mylabel
+NDEBUG
 NOOPTIONS
 NOOPTIONSX
 openned
@@ -101,6 +108,7 @@ Realease
 Redirections
 REGISTERCOMMAND
 Romain
+ROOTDIR
 RUNFILE
 RUNLINE
 SETCURRENTDIR
@@ -132,5 +140,9 @@ wfile
 wfullline
 WHATSNEW
 WINDIR
+windres
+WINDRES
 xconvert
 XDUP
+xfinddata
+xwfinddata
