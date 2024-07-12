@@ -1,16 +1,16 @@
-# What's New ?
+# What's New?
 
 This a list of fixed bugs and improvements made :
 
-**NOTE** : This list is not a complete list of improvements. The changes made 
-before October 2012 were not included since the version started in this dates 
+**NOTE** : This list is not a complete list of improvements. The changes made
+before October 2012 were not included since the version started in this dates
 used almost new code.
 
 ## Friday 11st, October 2012
 
 * Added welcome screen \(Two versions\).
 
-* Fixed a parsing bug \(The Function pBat\_ParseStream\(\) always returned 
+* Fixed a parsing bug \(The Function pBat\_ParseStream\(\) always returned
   NULL\).
 
 * Added initialisation routine \( main\(\) \).
@@ -19,7 +19,7 @@ used almost new code.
 
 * Added support for current directory.
 
-## Thursday 6th, December
+## Thursday 6th, December 2012
 
 * Added support of end of line.
 
@@ -29,13 +29,13 @@ used almost new code.
 
 * Sorted code files for a better understandability.
 
-## Friday 4th, Junuary, 2013
+## Friday 4th, January, 2013
 
 * added several commands \(TYPE/MORE, CLS, COLOR, TITLE, GOTO\).
 
 * added support for english and french.
 
-## Thursday 11th, February
+## Thursday 11th, February 2013
 
 * added api function for file matching \(i.e. paths using '\*' and '?'\).
 
@@ -43,9 +43,9 @@ used almost new code.
 
 * added function to extended strings.
 
-## Wednesday 20th, February
+## Wednesday 20th, February 2013
 
-* fixed many portabiility issues for api.
+* fixed many portability issues for api.
 
 * api is now cross-platform.
 
@@ -57,7 +57,7 @@ used almost new code.
 
 * thought about use of dynamic files to easily change language.
 
-* pBat runs 'pBat\_Auto.bat' at launch, that initializes Variables to be 
+* pBat runs 'pBat\_Auto.bat' at launch, that initializes Variables to be
   Cross-platform.
 
 * pBat has now 3 native variables :
@@ -68,17 +68,17 @@ used almost new code.
 
   * %PBAT\_PATH% : The path of pBat interpreter.
 
-## Monday 11th, March
+## Monday 11th, March 2013
 
-* Solve many portability issues \(i.e some programs did not work under 
+* Solve many portability issues \(i.e some programs did not work under
   Linux\).
 
-* Reprogrammed whole Man utility, which has been named "dman" to avoid 
+* Reprogrammed whole Man utility, which has been named "dman" to avoid
   confusion on POSIX-compatible Systems.
 
   * DMan is able to run on several platforms natively.
 
-  * DMan is more simple to use, since it makes it possible to use links man 
+  * DMan is more simple to use, since it makes it possible to use links man
     pages.
 
 * Fixed some bugs on BatMan.
@@ -89,20 +89,20 @@ used almost new code.
 
 ## Thursday 11th, April
 
-* Corrected support of delayed expansion that didn't match to the way cmd.exe 
+* Corrected support of delayed expansion that didn't match to the way cmd.exe
   parses it.
 
-* Added support of expression evaluating \(might migrate to GNU LibMathEval 
+* Added support of expression evaluating \(might migrate to GNU LibMathEval
   soon\).
 
-* Added new kind of page support for dMan, it uses now a zip-compressed file 
+* Added new kind of page support for dMan, it uses now a zip-compressed file
   that contains several pages and saves up disk.
 
 * Added a console-side text editor \(an alternative to BatMan\), GNU Nano.
 
 * Modified nano to highlight batch code.
 
-* Fixed a bug in a parameter for delayed expansion \(cEnableDelayedExpansion 
+* Fixed a bug in a parameter for delayed expansion \(cEnableDelayedExpansion
   was not taken account\).
 
 ## Thursday 12th, September
@@ -123,21 +123,21 @@ used almost new code.
 
 ## Tuesday 17th, September
 
-* Fixed bug with the message **Error : "..." is not recognized as ...** 
+* Fixed bug with the message **Error : "..." is not recognized as ...**
   message in linux version.
 
-* Fixed bug with the wait\(\) function in that made the program hold 
+* Fixed bug with the wait\(\) function in that made the program hold
   indefinitely.
 
 ## Thursday 16th, October
 
-* Changed build architecture. Now, the package can be built through a single 
+* Changed build architecture. Now, the package can be built through a single
   command line, that build all dependencies, i.e.:
 
         Make -B
 
-* Added a lock specifier to the structure STREAMLVL that enables to fix bugs 
-  with nested redirection levels. Like those that occured running the 
+* Added a lock specifier to the structure STREAMLVL that enables to fix bugs
+  with nested redirection levels. Like those that occurred running the
   following script:
 
         IF 1==1 (
@@ -146,14 +146,14 @@ used almost new code.
          ECHO This goes to file2, again
         ) > file 2
 
-* Added a kind of old allocated ESTR structure reuser, that avoid reallocating 
+* Added a kind of old allocated ESTR structure reuser, that avoid reallocating
   new estr structures. \(Saves up speed\).
 
 ## Sunday 27th, October
 
 * Some bug fixes, including a bug that appeared with **%\~A**.
 
-* Added primary support of **FOR** loops \(ie. simple for loop without 
+* Added primary support of **FOR** loops \(ie. simple for loop without
   options\).
 
 ## Friday 13th, December
@@ -164,7 +164,7 @@ used almost new code.
 
 ## Thursday 2nd, January 2014
 
-* Corrected **pBat\_ScriptCommand.c** bugs in which the delayed expansion was 
+* Corrected **pBat\_ScriptCommand.c** bugs in which the delayed expansion was
   not executed even if it was enabled.
 
 * Corrected some manual page
@@ -173,7 +173,7 @@ used almost new code.
 
 * added new **make** system.
 
-* added expressions \(both **interger** and **float** mode\) for the **SET 
+* added expressions \(both **interger** and **float** mode\) for the **SET
   /A** command.
 
 * added **FOR /F** loop support with string as input.
@@ -182,27 +182,27 @@ used almost new code.
 
 ## Thursday 14th, January
 
-* added final support of **FOR /F** including the use of command outputs as 
+* added final support of **FOR /F** including the use of command outputs as
   **FOR** input.
 
-* added **PBAT\_SEARCH\_NO\_CURRENT\_DIR** which does not include the pseudo 
+* added **PBAT\_SEARCH\_NO\_CURRENT\_DIR** which does not include the pseudo
   directories '..' and '.'.
 
-* corrected a compatibility bug with **cmd.exe**: **DIR /b** returned the 
+* corrected a compatibility bug with **cmd.exe**: **DIR /b** returned the
   pseudo directories '..' and '.'.
 
-* corrected an expansion bug with **%%\~a** \(and similar var because the 
-  interpretor missinterpreted the command if, for example **%%\~ax** was badly 
-  expanded if **%%x** was not defined\). Now, the choosed varaible is the 
+* corrected an expansion bug with **%%\~a** \(and similar var because the
+  interpreter missinterpreted the command if, for example **%%\~ax** was badly
+  expanded if **%%x** was not defined\). Now, the choosed varaible is the
   largest match defined.
 
 * corrected bug with simple **FOR** processing.
 
-* added partial support of **FOR /R**. \(Note: this is provided for 
-  compatibility purpose, and that new scripts should not use theses switches 
+* added partial support of **FOR /R**. \(Note: this is provided for
+  compatibility purpose, and that new scripts should not use theses switches
   any-more.\)
 
-* added version information as a header file, making version management 
+* added version information as a header file, making version management
   easier.
 
 * added a function to be executed automatically on exit.
@@ -213,19 +213,19 @@ used almost new code.
 
 ## Wednesday 15th, January
 
-* fixed a bug that prevented both **FOR /R** and **FOR /D** to be executed the 
+* fixed a bug that prevented both **FOR /R** and **FOR /D** to be executed the
   right way.
 
 * fixed a bug with use of **.** in file searches.
 
 ## Friday 17th, January
 
-* Fixed a bug that caused some particular redirections to be misinterpreted, 
-  particularly, in blocks **\(echo test>NUL\)** triggered an error, because 
-  the output was interpreted to be a redirection to file **NUL\)**. This has 
+* Fixed a bug that caused some particular redirections to be misinterpreted,
+  particularly, in blocks **\(echo test>NUL\)** triggered an error, because
+  the output was interpreted to be a redirection to file **NUL\)**. This has
   been solved, and both '\(' , '\|' and '&' operators are know prioritary.
 
-* Modified version information management. Now version are numbered in the 
+* Modified version information management. Now version are numbered in the
   following way: **YYYY.major.minor\[tag\]**. Where :
 
   * **YYYY** : Is the year the version was released.
@@ -242,13 +242,13 @@ used almost new code.
 
 * Fixed problem with broken make.
 
-* Enhanced features of **FILELIST\*** functions of libpBat. Search is now 
-  quicker. It also resulted in better execution times of the **FOR /R** 
+* Enhanced features of **FILELIST\*** functions of libpBat. Search is now
+  quicker. It also resulted in better execution times of the **FOR /R**
   function \(even though still deprecated\).
 
 ## Monday 20th, January
 
-* Corrected a but that caused line like **:: comment & command** to execute 
+* Corrected a but that caused line like **:: comment & command** to execute
   the command **command**, unlike **cmd.exe**'s behaviour.
 
 * Added **REM** command and comments manual page.
@@ -265,15 +265,15 @@ used almost new code.
 
 * Added copyright notice to all manual pages.
 
-* Fixed a bug with an added extra space with redirection placed at end of 
+* Fixed a bug with an added extra space with redirection placed at end of
   input line.
 
 ## Thursday 23th, January
 
-* Fixed a bug with the **TITLE** command. The **TITLE** command set a title 
+* Fixed a bug with the **TITLE** command. The **TITLE** command set a title
   that was the whole command line \(including **TITLE** statement\).
 
-* Fixed a bug with the **FILELIST** features. It now works as expected with 
+* Fixed a bug with the **FILELIST** features. It now works as expected with
   both '/' \(filesystem root sign\) and '\[driveletter\]:/' with windows.
 
 ## Friday 24th, January
@@ -282,14 +282,14 @@ used almost new code.
 
 ## Saturday 1st, February
 
-* Final version of **TEAv2**. Added support for both **HTML 5**, **HTML 
+* Final version of **TEAv2**. Added support for both **HTML 5**, **HTML
   4.01** and **xHTML**. Others formats have been dropped.
 
-* Fixed a bug with the parsing of command line parameter. If, the final 
-  parameter was enclosed in quotes \(simple or double\), it resulted in 
+* Fixed a bug with the parsing of command line parameter. If, the final
+  parameter was enclosed in quotes \(simple or double\), it resulted in
   undefined behaviour.
 
-* Fixed a bug that prevented user from include pipes in **FOR /F** command 
+* Fixed a bug that prevented user from include pipes in **FOR /F** command
   input.
 
 * Enhanced pipe features.
@@ -298,126 +298,125 @@ used almost new code.
 
         Error : Unable to release mutex
 
-  to be printed at exit, due to an undefined behaviour with **atexit\(\)** 
+  to be printed at exit, due to an undefined behaviour with **atexit\(\)**
   function.
 
 ## Friday 7th, February
 
-* Fixed a bug of **SET /P** subcommand. The bug caused a SEGFAULT to be raised 
+* Fixed a bug of **SET /P** subcommand. The bug caused a SEGFAULT to be raised
   on execution.
 
-* Fixed a major bug that prevented command search to be executed normally, it 
+* Fixed a major bug that prevented command search to be executed normally, it
   returned the shortest match available instead of the largest available one.
 
-* Added an error message if the **SET** command is unable to set environment 
+* Added an error message if the **SET** command is unable to set environment
   variable.
 
 ## Wednesday 12th, February
 
-* Fixed a bug of **SET /P** subcommand, that didn't not removed the carriage 
+* Fixed a bug of **SET /P** subcommand, that didn't not removed the carriage
   return at the end of the input.
 
 ## Thursday 13th, February
 
-* Found a bug that occurs when using **CD** command from inside a batch 
-  script, if the path to the script given is relative, **pBat** tries to open 
-  it in the new current path, and fail, or execute a different script 
-  depending on circumstances. This is to be fixed in next release \(that will 
+* Found a bug that occurs when using **CD** command from inside a batch
+  script, if the path to the script given is relative, **pBat** tries to open
+  it in the new current path, and fail, or execute a different script
+  depending on circumstances. This is to be fixed in next release \(that will
   include a bunch of improvements, like **CALL**, I hope\).
 
 ## Friday 14th, February
 
-* Started working in version **2014.0.8**, a version that will include more 
-  features, \(including use of intelligent help browsing, and improved command 
+* Started working in version **2014.0.8**, a version that will include more
+  features, \(including use of intelligent help browsing, and improved command
   searching \(through a own procedure, instead of what was used previously\).
 
 * Fixed a bug with multiple lists in **TEA** html mode.
 
-* Added own function to search files in path. It is not used everywhere 
+* Added own function to search files in path. It is not used everywhere
   though.
 
 ## Friday 21th, February
 
 * Added support of new threaded function, through a particular header.
 
-* The issue of uncontrolled sub-threads that continued to be executed was a 
+* The issue of uncontrolled sub-threads that continued to be executed was a
   major concerns, this is fixed thanks to the new thread functions.
 
-* Solved some errors that occurred when forcing binary input. A few too 
-  hopeful assumption were corrected, so that the interpretor will not fail if 
-  a binary file \(e.g. randomly generated bytes, such as executables\) is 
-  given as batch script, it will just printf a few \(or more\) errors messages 
+* Solved some errors that occurred when forcing binary input. A few too
+  hopeful assumption were corrected, so that the interpreter will not fail if
+  a binary file \(e.g. randomly generated bytes, such as executables\) is
+  given as batch script, it will just printf a few \(or more\) errors messages
   at the prompt.
 
 ## Monday 24th, February
 
-* Solve a bug that prevented correct **%ERROLEVEL%** values from being 
+* Solve a bug that prevented correct **%ERRORLEVEL%** values from being
   correctly used, it used to be ignored when using internal commands.
 
-* Decided of a change in the way to deal with variables, in order to enable 
-  more compatibility between **pBat** and **CMD.exe**. The changes resides in 
+* Decided of a change in the way to deal with variables, in order to enable
+  more compatibility between **pBat** and **CMD.exe**. The changes resides in
   the way var and special vars are parsed.
 
-  On the one hand, to make the difference between the two kind of variables, I 
-  decided the only way to denote a special var \(ie. like **%%A**\) is to 
-  prefix it with two percent. Except for variables like **%0, %1** and so on, 
-  which can be accessed with a single **%** for compatibility purposes. This 
-  new conventions provides more stylished script and prevent name clashes, 
-  \(ie. unexpected behaviour caused for exemple by the following code\) :
+  On the one hand, to make the difference between the two kind of variables, I
+  decided the only way to denote a special var \(ie. like **%%A**\) is to
+  prefix it with two percent. Except for variables like **%0, %1** and so on,
+  which can be accessed with a single **%** for compatibility purposes. This
+  new conventions provides a more stylish script and prevents name clashes
+  e.g., prevents unexpected behaviour from the following code:
 
         ECHO %1 test%
         :: since spaces in variables names are valid, the result can
         :: be unexpected depending whether "%1" or "%1 test%" are
         :: expanded first.
-        
 
-  On the other, the only way to specify environment variables is the 
-  conventionnal way, with single **%**. Note that this behaviour has also 
-  changed, undefined variables will be replaced by a void string \(they'll be 
+  On the other, the only way to specify environment variables is the
+  conventional way, with single **%**. Note that this behaviour has also
+  changed, undefined variables will be replaced by a void string \(they'll be
   just stripped from the output\).
 
-  Finally, in some cases, using **%a** to specify the special variable will 
-  work either, but well, it can just happen on a very few cases, so that it is 
+  Finally, in some cases, using **%a** to specify the special variable will
+  work either, but well, it can just happen on a very few cases, so that it is
   preferable not to use this notation.
 
-* Changed **pBat** behaviour towards **%0, ..., %9** variables. Those which 
-  are not explicitelly specified at startup will be filled with an empty 
-  string, and will expand to the empty string.
+* Changed **pBat** behaviour towards **%0, ..., %9** variables. Those which
+  are not explicitly specified at startup will be filled with an empty string,
+  and will expand to the empty string.
 
 ## Thursday 25th, February
 
-* Finalized behaviour change for variables. Singles **%** are now split from 
-  the input at parsing, exception made for the special variables **%0, ..., 
-  %9** for which the use of a single percent is still valid \(for 
-  compatibility purposes\) as stated previously. This prevent users from using 
+* Finalized behaviour change for variables. Singles **%** are now split from
+  the input at parsing, exception made for the special variables **%0, ...,
+  %9** for which the use of a single percent is still valid \(for
+  compatibility purposes\) as stated previously. This prevent users from using
   single '%' to denote a special var other than these specified previously.
 
-* Fixed a bug that made **SET /P** subfunction to return inconsistent 
-  **%ERRORLEVEL%** codes. In fact, it was the reverse of normal behaviour, 
+* Fixed a bug that made **SET /P** subfunction to return inconsistent
+  **%ERRORLEVEL%** codes. In fact, it was the reverse of normal behaviour,
   that is :
 
   * Returning **-1** on error.
 
   * Returning **0** on success.
 
-* Added an example of batch powered by pBat, a multifunction caculator using 
+* Added an example of batch powered by pBat, a multifunction caculator using
   both floating point arithmetics and integer arithmetics.
 
 ## Thursday 6th, March
 
-* Changed the behaviour of the function which decide wether the command is 
-  multiline or not. It now correctly handles parenthesis that are not 
-  multiline. For example, the following code used to be expected to continue 
+* Changed the behaviour of the function which decide wether the command is
+  multiline or not. It now correctly handles parenthesis that are not
+  multiline. For example, the following code used to be expected to continue
   on next lines :
 
         echo(some test&if 1 equ 1 echo some other test
 
-  However, this behaviour is not actually resolved, indeed, some error might 
-  occurs \(in some very special case\) if the previous is run. This is still 
+  However, this behaviour is not actually resolved, indeed, some error might
+  occurs \(in some very special case\) if the previous is run. This is still
   to be fixed.
 
-* Added more compatible version of **ECHO** command. The command now tolerates 
-  various non-mainstream syntax \(ie. using other characters than '.' to force 
+* Added more compatible version of **ECHO** command. The command now tolerates
+  various non-mainstream syntax \(ie. using other characters than '.' to force
   print\). The following variants are accepted :
 
         echo!
@@ -442,287 +441,287 @@ used almost new code.
         echo_
         echo`
 
-  Most of these syntax are however not recommended, because they can cause 
+  Most of these syntax are however not recommended, because they can cause
   obvious syntax errors, and are only provided for compatibility purposes.
 
-  The characters that were given are those specified by the **ISO-C 90** 
+  The characters that were given are those specified by the **ISO-C 90**
   standard, so that some locale may provide additional characters.
 
-* Switched to **Autoconf** build system. This allows more standard builds, 
-  with **GNU** build toolchain. It can be compiled through a **\*NIX**-shell 
+* Switched to **Autoconf** build system. This allows more standard builds,
+  with **GNU** build toolchain. It can be compiled through a **\*NIX**-shell
   typing:
 
         ./configure
         make
 
-  The install target is not supported yet. It also does not use **Automake**, 
-  since it is hard to see the point of writing awful Makefile.am in order to 
+  The install target is not supported yet. It also does not use **Automake**,
+  since it is hard to see the point of writing awful Makefile.am in order to
   produce a Makefile that can be written by hand.
 
 ## Friday 7th, March
 
-* Started to work on a safer block determination. This should not be to 
+* Started to work on a safer block determination. This should not be to
   difficult to obtain.
 
-* Started to refresh a large part of the core, which includes rewriting what 
-  were called modules, and are now just outdated piece of code. I hope those 
-  changes to be functional within a short delay. It is mainly about getting 
-  rid of old and ugly pieces of codes i've been writing about two years ago. 
-  Some function have also been transfered to libpBat, this is limited however, 
-  since pBat is not stable enough to get it in a whole library.
+* Started to refresh a large part of the core, which includes rewriting what
+  were called modules, and are now just outdated piece of code. I hope those
+  changes to be functional within a short delay. It is mainly about getting
+  rid of old and ugly pieces of codes i've been writing about two years ago.
+  Some function have also been transferred to libpBat, this is limited
+  however, since pBat is not stable enough to get it in a whole library.
 
 ## Saturday 8th, March
 
-* Added brand new parser, and also, brand new file reader. The new 
-  implementations are much more safe and elegant. Lots of repetitions in the 
+* Added brand new parser, and also, brand new file reader. The new
+  implementations are much more safe and elegant. Lots of repetitions in the
   code have be gathered into singles function to make it more maintainable.
 
 * Silenced **pBat\_Jump.c**, but hoping to get it works within a short time.
 
-* Added new string search based that take account of escaped-characters \(ie. 
+* Added new string search based that take account of escaped-characters \(ie.
   Characters preceded by '^'\).
 
 * Lots of bugfixes, particularly with the new parser and reader.
 
-* **pBat** is much more unstable than it was, but it is to be fixed quickly 
+* **pBat** is much more unstable than it was, but it is to be fixed quickly
   since new version are easier to maintain.
 
-* Changed behaviour of function than are used to get command-line arguments. 
-  It already did line delayed expansion, but is include now unescaping \(ie. 
+* Changed behaviour of function than are used to get command-line arguments.
+  It already did line delayed expansion, but is include now unescaping \(ie.
   removing '^'\). Thus some syntax have became valid, such as :
 
         echo ^!test^!
 
-  This will output **!test!**, without expanding the variable, even if 
+  This will output **!test!**, without expanding the variable, even if
   **test** is defined.
 
-  It is also important to note that, syntax with escaping and with quotes are 
+  It is also important to note that, syntax with escaping and with quotes are
   **strictly** equivalent. As an example, take the following code :
 
         if foo^ bar equ "foo bar" echo YES
 
-  Using, **pBat**, the code will output **YES**. However, **cmd.exe** will 
-  not. It as been chosen to promote the first syntax since it is more easy to 
-  handle and far less tricky than escaping characters with **cmd.exe**, which 
+  Using, **pBat**, the code will output **YES**. However, **cmd.exe** will
+  not. It as been chosen to promote the first syntax since it is more easy to
+  handle and far less tricky than escaping characters with **cmd.exe**, which
   require an almost random number of '^' to escape some character.
 
 * Optimised **pBat\_RunBlock\(\)** function.
 
 ## Wednesday 12th, March
 
-* Changed behaviour of the thread functions of libpBat. The **THREAD** 
-  structure now refers to the thread ID rather than to a handle to that 
-  thread. This new behaviour make it possible to work with thread without left 
-  a handle on this thread opened. It also enables the stack to contain 
+* Changed behaviour of the thread functions of libpBat. The **THREAD**
+  structure now refers to the thread ID rather than to a handle to that
+  thread. This new behaviour make it possible to work with thread without left
+  a handle on this thread opened. It also enables the stack to contain
   **THREAD** structures on both **\*nix** and **windows**.
 
-* Added time-out to the pBat\_WaitForAllThreads function. This is useful in 
+* Added time-out to the pBat\_WaitForAllThreads function. This is useful in
   case of deadlocks or in case of thread that does not terminate.
 
-* Added pBat\_AbortAllThread function, that kills all remaining thread \(only 
+* Added pBat\_AbortAllThread function, that kills all remaining thread \(only
   those that were launched through pBat\_BeginThread\)
 
 * Added pBat\_AbortThread function, that kills a thread.
 
-* fixed a bug in the thread library that sometimes causes pBat to wait 
-  indefinitely, because function pBat\_WaitForAllThread and pBat\_EndThread 
+* fixed a bug in the thread library that sometimes causes pBat to wait
+  indefinitely, because function pBat\_WaitForAllThread and pBat\_EndThread
   sometimes deadlocked, in a random basis.
 
-* Re-enable **GOTO** function, that works now \(even with cross file 
+* Re-enable **GOTO** function, that works now \(even with cross file
   argument\).
 
-* Added **TEXT-ANSI** target to the **tea** text processor. It enables 
-  creation of colourized output using ANSI escapes code. the use of this is 
+* Added **TEXT-ANSI** target to the **tea** text processor. It enables
+  creation of colourized output using ANSI escapes code. the use of this is
   native in **\*nix** and requires ansicon in **windows**.
 
-* Fixed a bug that caused infinite loop if the file read was no more 
+* Fixed a bug that caused infinite loop if the file read was no more
   accessible. It now returns and just prints error message.
 
 * Fixed a bug causing **eof** not to be detected in some circumstances.
 
-* Fixed a bug that caused an error to be printed in the case that a script 
-  that was loaded with the **GOTO** command contained a **CD** command so that 
+* Fixed a bug that caused an error to be printed in the case that a script
+  that was loaded with the **GOTO** command contained a **CD** command so that
   the file could not be retrieved because it was kept with a relative path.
 
 ## Thursday 13th, March
 
-* Fixed bugs with the run functions. The use of **program \|\| goto error** to 
-  perform feature test is avaliable for both windows and \*nix.
+* Fixed bugs with the run functions. The use of **program \|\| goto error** to
+  perform feature test is available for both windows and \*nix.
 
 * Fixed bugs with **pBat\_SplitPath** command in \*nix.
 
-* Added a search in **%PATH%** and **%PATHEXT%** \(only in windows\) before 
+* Added a search in **%PATH%** and **%PATHEXT%** \(only in windows\) before
   running any command.
 
-* Added a redirection for command that have **.cmd** or **.bat** as extension. 
-  Those files are now executed by a sub process of **pBat** instead of being 
+* Added a redirection for command that have **.cmd** or **.bat** as extension.
+  Those files are now executed by a sub process of **pBat** instead of being
   loaded by **cmd.exe**.
 
-* Fixed bug with **pBat\_GetFilePath** function. It prevented executables that 
-  were in one of the **%PATH%** directory to be found if a folder with the 
+* Fixed bug with **pBat\_GetFilePath** function. It prevented executables that
+  were in one of the **%PATH%** directory to be found if a folder with the
   same name was in the same directory.
 
-* Fixed bug with the **pBat\_FileExists** function from libpBat. It sometimes 
-  returned true for files that where in the path though not in the current 
+* Fixed bug with the **pBat\_FileExists** function from libpBat. It sometimes
+  returned true for files that where in the path though not in the current
   directory.
 
-* Fixed a bug with several encapsulated blocks. The previous parser did not 
+* Fixed a bug with several encapsulated blocks. The previous parser did not
   searched for block after a block was solved \(this is is now corrected\)
 
-* Improved block support by providing more routines and by making the code 
+* Improved block support by providing more routines and by making the code
   more efficient.
 
-* Fixed a bug in **pBat\_ExpandVar** function that was introduced build ago 
+* Fixed a bug in **pBat\_ExpandVar** function that was introduced build ago
   when rules for expansion changed. I'm affraid not to have seen it before.
 
-* Fixed a bug with **pBat\_EsCpyN** function in libpBat. If the functions with 
-  0 as iSize argument, although the function is expected to produce a void 
-  string, it failed in windows, thanks to microsoft's crt implementation, that 
+* Fixed a bug with **pBat\_EsCpyN** function in libpBat. If the functions with
+  0 as iSize argument, although the function is expected to produce a void
+  string, it failed in windows, thanks to microsoft's crt implementation, that
   throws a SIGSEGV if the last parameter of **strncpy** is 0.
 
-* Fixed a bug with **FOR** command. The tokenizer did not behave like it is 
-  described in the documentation : If several delimiters were encountered in a 
+* Fixed a bug with **FOR** command. The tokenizer did not behave like it is
+  described in the documentation : If several delimiters were encountered in a
   raw, they were not skipped.
 
-* Fixed a bug with the **ECHO** command. The prompt line \(ie. **PBAT 
-  ...>**\) was displayed whenever the **ECHO off** flag was set, on direct 
+* Fixed a bug with the **ECHO** command. The prompt line \(ie. **PBAT
+  ...>**\) was displayed whenever the **ECHO off** flag was set, on direct
   input mode.
 
-* Fixed a bug that caused some commands to print error messages on **FOR** 
-  commands. Most notably, the **FIND** command \(or at least, windows's 
-  implementation\) fails if there is no space at end of line, so it added 
+* Fixed a bug that caused some commands to print error messages on **FOR**
+  commands. Most notably, the **FIND** command \(or at least, windows's
+  implementation\) fails if there is no space at end of line, so it added
   automatically now.
 
-* Fixed a bug with **SET /A** subcommand. It prefixed variable name with a 
+* Fixed a bug with **SET /A** subcommand. It prefixed variable name with a
   space, making the result inconsistent.
 
-* Made the hlp to work again, without problem, since version **0.7** and the 
+* Made the hlp to work again, without problem, since version **0.7** and the
   deep changes made into **pBat** core to get something more modern.
 
 ## Sunday 16th, March
 
-* Started building a **x64** version of pBat. I experienced troubles because 
-  of the lack of **x64** version of **MinGW**. However, I managed to get a 
-  distribution of mingw-w64, the **MinGW** compiler adapted for **x64**, in 
-  the TDM-gcc. The install of **libintl** \(and libiconv, on which libintl 
-  depends\) must be done by downloading packages from GNU ports, and do some 
-  tricks to get it compiled in the x64 version. This is actually difficult to 
+* Started building a **x64** version of pBat. I experienced troubles because
+  of the lack of **x64** version of **MinGW**. However, I managed to get a
+  distribution of mingw-w64, the **MinGW** compiler adapted for **x64**, in
+  the TDM-gcc. The install of **libintl** \(and libiconv, on which libintl
+  depends\) must be done by downloading packages from GNU ports, and do some
+  tricks to get it compiled in the x64 version. This is actually difficult to
   build, and unstable as a did not perform further tests.
 
-* Started profiling the **pBat** code base, looking for making **pBat** more 
-  fast. The use of **gprof** has brought several interesting analysis. On the 
-  one hand, I can't get explanation why is **cmd.exe** faster for long files, 
-  although if both are run at the same time, **pBat** perform about twice as 
+* Started profiling the **pBat** code base, looking for making **pBat** more
+  fast. The use of **gprof** has brought several interesting analysis. On the
+  one hand, I can't get explanation why is **cmd.exe** faster for long files,
+  although if both are run at the same time, **pBat** perform about twice as
   much commands by second. The things to be updated are:
 
-  * **pBat\_EsInit** and **pBat\_EsFree** function are far too expensive. It 
-    sometimes consumes **10%** of the global time-run, thus, we removed parts 
+  * **pBat\_EsInit** and **pBat\_EsFree** function are far too expensive. It
+    sometimes consumes **10%** of the global time-run, thus, we removed parts
     of code from the **libpBat** library.
 
-  * **pBat\_GetCommandProc** is far too expensive. I'm currently looking for 
-    an alternative, such as hash function. I haven't found a good one yet 
+  * **pBat\_GetCommandProc** is far too expensive. I'm currently looking for
+    an alternative, such as hash function. I haven't found a good one yet
     \(however\), and i will probably write it by myself.
 
-  * I'm also to optimise the execution times of **pBat\_String.h**. Those 
-    functions are almost ubiquitous in the code, so that large parts of code 
-    will benefit from better execution rates. I'm especially targeting 
-    **pBat\_SearchChar** and **pBat\_SearchToken**, that account for a large 
+  * I'm also to optimise the execution times of **pBat\_String.h**. Those
+    functions are almost ubiquitous in the code, so that large parts of code
+    will benefit from better execution rates. I'm especially targeting
+    **pBat\_SearchChar** and **pBat\_SearchToken**, that account for a large
     share \(about 10% time execution overall\).
 
-  All those test have be made for normal script optimisation, it was tested 
-  from a file that implement **goto**, **if**, **set** and **echo command**. I 
-  also performed some tests on **for** command, as expected, functions that 
-  are the most time consuming are not the same. Though, the functions i listed 
+  All those test have be made for normal script optimisation, it was tested
+  from a file that implement **goto**, **if**, **set** and **echo command**. I
+  also performed some tests on **for** command, as expected, functions that
+  are the most time consuming are not the same. Though, the functions i listed
   before were also much more time consuming than they need to be.
 
-* Improved efficiency of **pBat\_String.h** and **pBat\_Estr.c** from the 
-  **libpBat** library. Also disabled some piece of code that ran thread in 
-  some functions, that basically made them slow down. **pBat** now achieve 
-  almost equivalent performances in **for** loops \(about 100 lines/s less 
-  than **cmd.exe**, without further optimisation\), it also reach got 
-  execution rates at script level \(with about 3250 lines/s while cmd.exe runs 
-  at 2720 lines/s on average\). It is surprisingly good because I did not even 
+* Improved efficiency of **pBat\_String.h** and **pBat\_Estr.c** from the
+  **libpBat** library. Also disabled some piece of code that ran thread in
+  some functions, that basically made them slow down. **pBat** now achieve
+  almost equivalent performances in **for** loops \(about 100 lines/s less
+  than **cmd.exe**, without further optimisation\), it also reach got
+  execution rates at script level \(with about 3250 lines/s while cmd.exe runs
+  at 2720 lines/s on average\). It is surprisingly good because I did not even
   finished optimisation yet, so much better performances can be expected.
 
-* Fixed a bug of **IF** command. The **lss** comparison operator was 
+* Fixed a bug of **IF** command. The **lss** comparison operator was
   interpreted as **leq**.
 
 ## Thursday 20th, March
 
 * Started comparisons between **GCC** optimisation levels.
 
-* Fixed a bug introduced in the function **pBat\_SearchLastToken**. It appears 
-  that, on windows, the code runs faster using **-O2** than using **-O3** 
-  optimisation switches, this might be caused by processor caching, but 
-  however, this should not be expected to have the same effect on variouss 
-  platform however. I ended up optimisation operations there, since the 
-  functions used by gprof account for about **70%** of the execution time, so 
-  that I'm not sure it is reliable now. With **gprof** version, i've be able 
-  to achieve speeds of about **3700 l/s**, so the result are expected to be at 
-  least double. In fact, by experimenting, I got only about **4000 l/s**, 
-  which it the speed of **cmd** on my computer when it consumes about 80%-90% 
-  of the cpu, in random occasion, because cmd.exe's has really random 
+* Fixed a bug introduced in the function **pBat\_SearchLastToken**. It appears
+  that, on windows, the code runs faster using **-O2** than using **-O3**
+  optimisation switches, this might be caused by processor caching, but
+  however, this should not be expected to have the same effect on variouss
+  platform however. I ended up optimisation operations there, since the
+  functions used by gprof account for about **70%** of the execution time, so
+  that I'm not sure it is reliable now. With **gprof** version, i've be able
+  to achieve speeds of about **3700 l/s**, so the result are expected to be at
+  least double. In fact, by experimenting, I got only about **4000 l/s**,
+  which it the speed of **cmd** on my computer when it consumes about 80%-90%
+  of the cpu, in random occasion, because cmd.exe's has really random
   performances. Instead, **pBat** is limited to approximately **25%**.
 
 ## Saturday 23th, March
 
 * Fixed a bug in **pBat\_SearchLastChar** function.
 
-* Fixed a bug with redirection that was not right dealt with. **pBat** did not 
+* Fixed a bug with redirection that was not right dealt with. **pBat** did not
   check whether several block are in a row on the same line.
 
-* Added some functionalities to the **cmd/hlp.bat** script, which is meant to 
-  replace old-fashioned **hlp** manual page viewer. It is basically designed 
-  to act as a manual page manager rather than just a viewer, by providing 
-  interfaces to build manual trees, and to get manual tress from the 
+* Added some functionalities to the **cmd/hlp.bat** script, which is meant to
+  replace old-fashioned **hlp** manual page viewer. It is basically designed
+  to act as a manual page manager rather than just a viewer, by providing
+  interfaces to build manual trees, and to get manual tress from the
   repositories at **picobat.org** \(this is to be implemented later\).
 
-* Changed names of the manual-pages subdirectories, they now match up with 
-  traditional \*NIX-like local names that are widely used. Note that only 
+* Changed names of the manual-pages subdirectories, they now match up with
+  traditional \*NIX-like local names that are widely used. Note that only
   useful locales should be implemented \(at most one for every language\).
 
 ## Tuesday 25th, March
 
-* Implemented replacement for old **ENABLE/DISABLEPBATMODE**. Instead of the 
-  variable, **pBat** provides the **CMDLYCORRECT** options that can be set 
-  through **SETLOCAL**, and that enables more compatibility features for 
+* Implemented replacement for old **ENABLE/DISABLEPBATMODE**. Instead of the
+  variable, **pBat** provides the **CMDLYCORRECT** options that can be set
+  through **SETLOCAL**, and that enables more compatibility features for
   **cmd.exe**.
 
-* Option **CMDLYCORRECT** now affects **FOR** loops: If the option is set, 
+* Option **CMDLYCORRECT** now affects **FOR** loops: If the option is set,
   then all blank lines are to be stripped for the output.
 
-* Changed switch to specify part of lines that are not constituted of switches 
+* Changed switch to specify part of lines that are not constituted of switches
   but by text. It is now **//**, a bit like \*NIX's **--**.
 
 ## Wednesday 26th, March
 
-* Added a short internal documentation to get help for internal functions. 
-  These are however much tinier that the full documentation given in **HLP**. 
+* Added a short internal documentation to get help for internal functions.
+  These are however much tinier that the full documentation given in **HLP**.
   This is voluntary, to fit in the executable.
 
-* First implementation of the **CALL** command is now working. This is 
-  somewhat blurred because i've not written the full man page now, but it 
+* First implementation of the **CALL** command is now working. This is
+  somewhat blurred because i've not written the full man page now, but it
   seems functional.
 
 * Fixed bug in Makefiles.
 
-* Fixed a file from libpBat that still used old name **CALLSTACK** instead of 
+* Fixed a file from libpBat that still used old name **CALLSTACK** instead of
   stack.
 
-* Found out that in some cases, **tea** breaks unicode sequences by intruding 
-  some line feed in the file, This remains to be fixed. This was actually 
+* Found out that in some cases, **tea** breaks unicode sequences by intruding
+  some line feed in the file, This remains to be fixed. This was actually
   fixed quickly.
 
-* Fixed a bug that cause **tea** to loop infinitely if a word turned out to be 
-  to wide to fit on a single line. This is now fixed and long words are now 
+* Fixed a bug that cause **tea** to loop infinitely if a word turned out to be
+  to wide to fit on a single line. This is now fixed and long words are now
   split in multiple lines.
 
-* Fixed numerous bugs introduced by use of various encoding in the 
-  documentation, that is, some file were not built by **hlp** because iconv 
-  was not able to convert file from erroneous encoding. This has been fixed 
+* Fixed numerous bugs introduced by use of various encoding in the
+  documentation, that is, some file were not built by **hlp** because iconv
+  was not able to convert file from erroneous encoding. This has been fixed
   and all pages builds up well with **hlp**.
 
-* Added a couple of manual pages. It is also combined with new pages and 
+* Added a couple of manual pages. It is also combined with new pages and
   translations.
 
 ## Wednesday 2nd, April
@@ -733,10 +732,10 @@ used almost new code.
 
 * Improved robustness of **pBat\_AddCommandDynamic**.
 
-* Fixed some bugs with **CALL** function that was not really functional. It 
+* Fixed some bugs with **CALL** function that was not really functional. It
   works much better now, but the features have not been all tested yet.
 
-* Fixed a bug that caused **%0** not to be set to the correct value by the 
+* Fixed a bug that caused **%0** not to be set to the correct value by the
   **CALL** command. Now, the behaviour is the following:
 
   * if a **label** was given, **%0** contains this label.
@@ -745,136 +744,136 @@ used almost new code.
 
 ## Tuesday 3rd, April
 
-* Updated build system, so that building **pBat** can allmost be done without 
+* Updated build system, so that building **pBat** can allmost be done without
   user intervention. It's as simple as typing the following line:
 
         make
 
-* Switched to version **2014.0.9**, because **pbat** is becoming pretty 
+* Switched to version **2014.0.9**, because **pbat** is becoming pretty
   develloped now.
 
 ## Monday 7th, April
 
-* Fixed numerous bugs on the **GNU/Linux** version. Before that update, it 
-  would have been fairly difficult to make it work. I posted only fixes for 
-  GNU/Linux, but very few incompatibilities can be expected for BSD based 
-  operating systems \(and anyway, the only BSD based os i've got is NetBSD, so 
-  that compatibility may not be achieved for other versions. The major fixes 
+* Fixed numerous bugs on the **GNU/Linux** version. Before that update, it
+  would have been fairly difficult to make it work. I posted only fixes for
+  GNU/Linux, but very few incompatibilities can be expected for BSD based
+  operating systems \(and anyway, the only BSD based os i've got is NetBSD, so
+  that compatibility may not be achieved for other versions. The major fixes
   included are :
 
-  * A fix for the **autotools** build system, indeed, the old 
-    **configure.ac** did not appended needed libraries \(for examples, there 
-    was confusions for **libintl**, that is included in **GLibc** on 
-    **GNU/linux**\). I think i'll consider choosing a better build systems, 
-    because in facts, **autotools** adds endless complications even for 
-    building quite simple code. The most Annoying drawback is that in fact, 
-    you can't use **autoconf** without using **automake**, otherwise, some 
-    bugs are introduced that you'll never hear of reading the documentation. 
-    Nevertheless, we don't need using **automake** to generate Makefile that 
-    we could write, especially when the output Makefile is about hundreds of 
-    KiB, and is constituted of almost hacks to make it work with **make**. 
-    Thus, it's a bit like using a program to produce garbage. **autoconf** 
-    provides lots of interesting features, but these advantages are superseded 
-    by its drawbacks. In particular, the fact that it does not meet the UNIX 
-    conception standards \(e.g. each program should do only do one thing, and 
-    do it the best\), so that the dependencies between apparently distinct 
-    **autotools** programs make the developer to use all the **autotools** 
+  * A fix for the **autotools** build system, indeed, the old
+    **configure.ac** did not appended needed libraries \(for examples, there
+    was confusions for **libintl**, that is included in **GLibc** on
+    **GNU/linux**\). I think i'll consider choosing a better build systems,
+    because in facts, **autotools** adds endless complications even for
+    building quite simple code. The most Annoying drawback is that in fact,
+    you can't use **autoconf** without using **automake**, otherwise, some
+    bugs are introduced that you'll never hear of reading the documentation.
+    Nevertheless, we don't need using **automake** to generate Makefile that
+    we could write, especially when the output Makefile is about hundreds of
+    KiB, and is constituted of almost hacks to make it work with **make**.
+    Thus, it's a bit like using a program to produce garbage. **autoconf**
+    provides lots of interesting features, but these advantages are superseded
+    by its drawbacks. In particular, the fact that it does not meet the UNIX
+    conception standards \(e.g. each program should do only do one thing, and
+    do it the best\), so that the dependencies between apparently distinct
+    **autotools** programs make the developer to use all the **autotools**
     programs.
 
-  * A fix for the **pBat** code itself. The last revisions of **pBat** 
-    included a lot of features that had not been tested on \*NIX operating 
-    systems. So that numerous incompatibilities were introduced along source 
-    code modification. Mainly, the **thread** part of **libpBat** had been 
-    left totally untested on real system for versions. I apologize for that, I 
-    should not have been waiting for such a long time to upgrade. So, fixes in 
+  * A fix for the **pBat** code itself. The last revisions of **pBat**
+    included a lot of features that had not been tested on \*NIX operating
+    systems. So that numerous incompatibilities were introduced along source
+    code modification. Mainly, the **thread** part of **libpBat** had been
+    left totally untested on real system for versions. I apologize for that, I
+    should not have been waiting for such a long time to upgrade. So, fixes in
     the code that have been made are:
 
-    * Make wrapper around undefined symbols coming from windows like 
+    * Make wrapper around undefined symbols coming from windows like
       **stricmp** \(**strcasecmp** is used instead\).
 
-    * Fixed bugs from **libpBat/threads**, It caused double free exception for 
+    * Fixed bugs from **libpBat/threads**, It caused double free exception for
       some errors.
 
-    * Fixed used of **strupr** in **tea**. In fact, the symbol for **strupr** 
-      that was intended to be used on **GNU/Linux** was used on **Windows** 
+    * Fixed used of **strupr** in **tea**. In fact, the symbol for **strupr**
+      that was intended to be used on **GNU/Linux** was used on **Windows**
       platforms instead.
 
-    * Fixed incompatibilities in **libpBat/file**. In fact, default routines 
-      for \*NIX used the functions **fopen** to check whether a file existed 
-      or not. The bug was introduced because in many \*NIX systems, 
-      directories are indeed files that can be opened. **libpBat** now checks 
+    * Fixed incompatibilities in **libpBat/file**. In fact, default routines
+      for \*NIX used the functions **fopen** to check whether a file existed
+      or not. The bug was introduced because in many \*NIX systems,
+      directories are indeed files that can be opened. **libpBat** now checks
       for regular files using the **lstat** function instead.
 
-    * Fixed incompatibilities with environment variables. This issue was 
-      caused by the fact that environment variables are case-sensitive for 
-      \*NIX operating systems while they are not for Windows systems. In fact, 
-      **pBat** already capitalized variable names when variables were set, 
-      however, similar feature was not provided for expansion. This is now 
+    * Fixed incompatibilities with environment variables. This issue was
+      caused by the fact that environment variables are case-sensitive for
+      \*NIX operating systems while they are not for Windows systems. In fact,
+      **pBat** already capitalized variable names when variables were set,
+      however, similar feature was not provided for expansion. This is now
       fixed.
 
-  * Fixes on other files, \(I mean, on files that are not required in order to 
-    make **pBat** runing\). Those fixes include:
+  * Fixes on other files, \(I mean, on files that are not required in order to
+    make **pBat** running\). Those fixes include:
 
-    * Changed the name of the **pBat** executable from **pBat** to **pbat**. 
-      This change will have no effect on windows, but it is usual, however, to 
-      have command executable names in lower characters. I may implement a 
-      feature for **GNU/linux** that ignore case for the command line. 
-      However, I now recommend using uncapitalised characters for command 
+    * Changed the name of the **pBat** executable from **pBat** to **pbat**.
+      This change will have no effect on windows, but it is usual, however, to
+      have command executable names in lower characters. I may implement a
+      feature for **GNU/linux** that ignore case for the command line.
+      However, I now recommend using uncapitalised characters for command
       name, if you need compatibility, of course.
 
-    * Fixed a bug with the translation system. It used to scan file 
+    * Fixed a bug with the translation system. It used to scan file
       **pbat/lang/pBat\_Help.c** instead of file **pbat/lang/pBat\_Lang.c**.
 
-    * Fixed a bug from **pBat\_Auto.bat**, the current version dit not 
-      included the path **%PBAT\_PATH%** in the **%PATH%** variable, that was 
-      problematic for \*NIX systems, however, the **pBat** executable filename 
-      should be looked up by the program itself, rather than being included in 
+    * Fixed a bug from **pBat\_Auto.bat**, the current version dit not
+      included the path **%PBAT\_PATH%** in the **%PATH%** variable, that was
+      problematic for \*NIX systems, however, the **pBat** executable filename
+      should be looked up by the program itself, rather than being included in
       **%PATH%**.
 
-* Changed the way libraries are built. They are now build from within the 
-  current direction, and they are located in **./lib** and headers for 
+* Changed the way libraries are built. They are now build from within the
+  current direction, and they are located in **./lib** and headers for
   libraries are located in **./include**.
 
-* Fixed a bug in Makefiles that caused the manual pages to be copied in a 
-  wrong directory \(ie. **./bin/share/man** instead of 
+* Fixed a bug in Makefiles that caused the manual pages to be copied in a
+  wrong directory \(ie. **./bin/share/man** instead of
   **./bin/share/man/man** that was wrong.
 
 ## Thursday 10th, April
 
-* Discovered a strange bug with pipes. This bug appears when input have 
-  several lines, when the pipe is closed, the input is not restored \(or, at 
-  least, the input is not split from **stdin**\). In fact, this should not 
-  occur since when the pipe is no more redirected, there is no more input 
-  left. This is strange though, as this problem does not happen with 
-  single-lines input that appears to work fairly good. It appears that this is 
-  caused by buffers that are stored internally in the kernel of the operating 
-  systems. A solution that I might consider is using regular files \(instead 
-  of pipes\) to produce somewhat of a pipe effect, because I haven't actually 
+* Discovered a strange bug with pipes. This bug appears when input have
+  several lines, when the pipe is closed, the input is not restored \(or, at
+  least, the input is not split from **stdin**\). In fact, this should not
+  occur since when the pipe is no more redirected, there is no more input
+  left. This is strange though, as this problem does not happen with
+  single-lines input that appears to work fairly good. It appears that this is
+  caused by buffers that are stored internally in the kernel of the operating
+  systems. A solution that I might consider is using regular files \(instead
+  of pipes\) to produce somewhat of a pipe effect, because I haven't actually
   found a way to override the problem.
 
-* Fixed a bug with the **pBat\_ParseOutput** function. It wasn't possible to 
-  specify **2>&1** and **> foo** simultaneously, so, you it was not possible 
-  to specify a redirection for **stdin** and **stdout** with **truncate** 
+* Fixed a bug with the **pBat\_ParseOutput** function. It wasn't possible to
+  specify **2>&1** and **> foo** simultaneously, so, you it was not possible
+  to specify a redirection for **stdin** and **stdout** with **truncate**
   attribute.
 
 ## Monday 14th, April
 
-* Added some corrections that make the pipe function quite well on both 
-  **GNU/Linux** and **Windows** architectures \(I also tested on **NetBSD** 
+* Added some corrections that make the pipe function quite well on both
+  **GNU/Linux** and **Windows** architectures \(I also tested on **NetBSD**
   and it worked pretty well, without further tests however\).
 
-* Added a few fixes on languages, and I'm starting adding new messages for the 
+* Added a few fixes on languages, and I'm starting adding new messages for the
   **file** commands.
 
-* Checked build on NetBSD. I've found out that **pBat** conforms with 
-  **POSIX.1-2001**. Thus, On some platform, if you want to build if, you may 
-  specify a configuration that defines the **\_POSIX\_C\_SOURCE** macro, that 
+* Checked build on NetBSD. I've found out that **pBat** conforms with
+  **POSIX.1-2001**. Thus, On some platform, if you want to build if, you may
+  specify a configuration that defines the **\_POSIX\_C\_SOURCE** macro, that
   is, type the configure line :
 
         ./configure CFLAGS='-D_POSIX_C_SOURCE=200112'
 
-  However, The NetBSD headers does not conform to **POSIX.1** and perform 
-  wrong function exposures, so that if you use, it, you might need to specify 
+  However, The NetBSD headers does not conform to **POSIX.1** and perform
+  wrong function exposures, so that if you use, it, you might need to specify
   **\_NETBSD\_SOURCE** macro.
 
 ## Thursday 17th, April
@@ -883,70 +882,70 @@ used almost new code.
 
 * Added new manual pages and lots of fixes in the manual pages.
 
-* Added **SHIFT** command. It can be really easy to manage argument, now, 
-  however, I did not preform deep test on the command so that it might still 
+* Added **SHIFT** command. It can be really easy to manage argument, now,
+  however, I did not preform deep test on the command so that it might still
   be not reliable.
 
-* Added **/f** switch to **ALIAS** command. This allows user to redefine 
-  internal commands and symbols, what was not possible previously. I decided 
-  to let user override internal commands because I found it to be an 
-  interesting thing to hack around, allowing to set up replacement commands 
-  for some batch that needs enhanced compatibility features \(although they 
+* Added **/f** switch to **ALIAS** command. This allows user to redefine
+  internal commands and symbols, what was not possible previously. I decided
+  to let user override internal commands because I found it to be an
+  interesting thing to hack around, allowing to set up replacement commands
+  for some batch that needs enhanced compatibility features \(although they
   should not need such compatibility features\).
 
-* Fixed a bug in **pBat\_Thread.c**, threads functions were making casts from 
-  different pointer sizes, ommiting the pointed object were different. Thus, 
-  writing 8 bytes to a location which was supposed to be 4 bytes long, 
-  depending on the locations of those data in the executable \(and hence 
-  depending on compilation\), it could cause really dangerous errors, such as 
-  stack corruption for example, in some rare cases. This is now fixed, 
+* Fixed a bug in **pBat\_Thread.c**, threads functions were making casts from
+  different pointer sizes, omitting the pointed object were different. Thus,
+  writing 8 bytes to a location which was supposed to be 4 bytes long,
+  depending on the locations of those data in the executable \(and hence
+  depending on compilation\), it could cause really dangerous errors, such as
+  stack corruption for example, in some rare cases. This is now fixed,
   preventing a rare crash to actually occur.
 
-* This is the final build for at least a few months. I'll be very busy in the 
-  next few month, but I hope i'll be able to submit new fix starting in the 
+* This is the final build for at least a few months. I'll be very busy in the
+  next few month, but I hope i'll be able to submit new fix starting in the
   summer holidays.
 
 ## Saturday 20th, April
 
-* Fixed a bug that caused **pBat** to crash if either **%PATH%** or 
+* Fixed a bug that caused **pBat** to crash if either **%PATH%** or
   **%PATHEXT%** \(only for windows\) were not in the command environment.
 
-* Corrected a bug with **tea** in **html** mode. The parser did used to escape 
-  the reserved characters **>** and **<** but did not care of **&**. This bug 
-  is corrected, enabling **html** codes to work perfectly well. I hadn't 
-  noticed it until yet because most recent browsers do not care about such 
+* Corrected a bug with **tea** in **html** mode. The parser did used to escape
+  the reserved characters **>** and **<** but did not care of **&**. This bug
+  is corrected, enabling **html** codes to work perfectly well. I hadn't
+  noticed it until yet because most recent browsers do not care about such
   errors, preventing error to be easilly triggered.
 
-* Fixed omission of **ansicon** on the **pBat\_Auto.bat**, which is launched 
+* Fixed omission of **ansicon** on the **pBat\_Auto.bat**, which is launched
   at startup.
 
 ## Saturday 14th, June
 
-* Following advices of guys for dostips.org, changed the delimiters and the 
+* Following advices of guys for dostips.org, changed the delimiters and the
   way quotes are handled:
 
-  * The available delimiters are the following **\(space\),;\(tab\)**. This is 
-    now fully compatible with **cmd.exe**. I also introduced functions in 
-    order no to take care of some of them \(**,;**\) since they may be used by 
-    some programs for switches. \(The first example I have is **gcc**, and 
+  * The available delimiters are the following **\(space\),;\(tab\)**. This is
+    now fully compatible with **cmd.exe**. I also introduced functions in
+    order no to take care of some of them \(**,;**\) since they may be used by
+    some programs for switches. \(The first example I have is **gcc**, and
     options like:\)
 
             gcc -Wl,import
 
-  * Changed the way quotes are handled. Quotes have now precedence over 
-    conditional operators \(**\|&**\) and command blocks \(**\(\)**\). This 
-    enables to make statements more secure using quotes. The new behaviour 
+  * Changed the way quotes are handled. Quotes have now precedence over
+    conditional operators \(**\|&**\) and command blocks \(**\(\)**\). This
+    enables to make statements more secure using quotes. The new behaviour
     also conforms to cmd.exe behaviour. Typically, the following code :
 
             IF foo==foo echo  ") else ("
 
-    was understood differently by **pBat** and **cmd.exe**. Now, the **"\) 
-    else \("** is considered to be escaped, and is no more interpreted as a 
+    was understood differently by **pBat** and **cmd.exe**. Now, the **"\)
+    else \("** is considered to be escaped, and is no more interpreted as a
     subcommand of **if**, as it did before.
 
-  * Chosen a standard way to handle quotation marks, an to cut parameter. In 
-    fact, any delimiter that is between two quotation marks is ignored. So 
-    that parameters are cut on unquoted delimiters, some example of now valid 
+  * Chosen a standard way to handle quotation marks, an to cut parameter. In
+    fact, any delimiter that is between two quotation marks is ignored. So
+    that parameters are cut on unquoted delimiters, some example of now valid
     parameters are :
 
             "simple quotation"
@@ -954,316 +953,316 @@ used almost new code.
 
     and so on and so forth...
 
-    If the interpreter finds an unpaired quotation mark, then, the remaining 
-    characters are considered to be between quotation marks. So that, the 
+    If the interpreter finds an unpaired quotation mark, then, the remaining
+    characters are considered to be between quotation marks. So that, the
     following examples are equivalent:
 
             type "some file
             type "some file"
 
-  * behaviour of function to remove quotation marks in parameters have also 
-    changed in order to achieve more compatibility with **cmd.exe**. 
-    Basically, the algorithm that **pBat** follows when removing parameters 
+  * behaviour of function to remove quotation marks in parameters have also
+    changed in order to achieve more compatibility with **cmd.exe**.
+    Basically, the algorithm that **pBat** follows when removing parameters
     quotation marks is:
 
-    * If the parameter begin with a quotation mark, then remove it, otherwise, 
+    * If the parameter begin with a quotation mark, then remove it, otherwise,
       stop the algorithm at this step.
 
-    * If the parameter end by a quotation mark, then remove it either. But, do 
+    * If the parameter end by a quotation mark, then remove it either. But, do
       not remove it if the parameter does not begin with a quotation mark.
 
-* Cancelled the conversion of **pBat** code to wide char. This was indeed far 
-  too hard \(it implied modifying almost any piece of code\), and had little 
-  advantages \(huge incompatibilities between various platform, particularly 
-  for non-c99 function that are obviously required in order to make thing 
-  working\). Thus, I decided to make a wrapper over libC functions in order to 
-  be able to use utf-8 internally. This way, I keep the code like it is, and 
-  preserve compatibility with other platforms \(Windows, Linux, NetBSD, 
-  DragonFly BSD, OpenBSD\) and with POSIX. Moreover, this support for unicode 
-  may easily be removed for platforms that do not handle utf-8, or those that 
+* Cancelled the conversion of **pBat** code to wide char. This was indeed far
+  too hard \(it implied modifying almost any piece of code\), and had little
+  advantages \(huge incompatibilities between various platform, particularly
+  for non-c99 function that are obviously required in order to make thing
+  working\). Thus, I decided to make a wrapper over libC functions in order to
+  be able to use utf-8 internally. This way, I keep the code like it is, and
+  preserve compatibility with other platforms \(Windows, Linux, NetBSD,
+  DragonFly BSD, OpenBSD\) and with POSIX. Moreover, this support for unicode
+  may easily be removed for platforms that do not handle utf-8, or those that
   do it natively.
 
 ## Monday 16th, June
 
-* Reorganized the source tree for internal commands. Before that, every file 
-  of the **command** subdirectory contained several different commands. I 
-  found that is was not really practical for maintaining code, the code is now 
+* Reorganized the source tree for internal commands. Before that, every file
+  of the **command** subdirectory contained several different commands. I
+  found that is was not really practical for maintaining code, the code is now
   split in files that contains each a different internal command.
 
-* Added a functional **/Q** switch to the **RMDIR** command. However, it is 
+* Added a functional **/Q** switch to the **RMDIR** command. However, it is
   supposed to deal with the **/S** switch, which is not functional yet.
 
 ## Thursday 19th, June
 
-* I eventually decided to use the GNU toolchain to compile **pBat**. I 
-  previously expressed lots of criticism toward use of autotools, but libtool 
-  \(which is par of the GNU toolchain\) is unfortunately the only program that 
-  allows developers to deal with libraries \(statically or dynamically 
-  linked\) in a platform independent way. This is the best solution I have, 
-  but if a newer build systems that enables to make such things emerged, I'd 
+* I eventually decided to use the GNU toolchain to compile **pBat**. I
+  previously expressed lots of criticism toward use of autotools, but libtool
+  \(which is par of the GNU toolchain\) is unfortunately the only program that
+  allows developers to deal with libraries \(statically or dynamically
+  linked\) in a platform independent way. This is the best solution I have,
+  but if a newer build systems that enables to make such things emerged, I'd
   be glad to move to it.
 
-* Changed some source file name because **automake** was complaining about 
-  overlapping objects file names. Some of the name are more logical, but, some 
+* Changed some source file name because **automake** was complaining about
+  overlapping objects file names. Some of the name are more logical, but, some
   are not really.
 
 ## Tuesday 24th, June
 
-* Corrected a bug that prevented local variable \(eg. like **%1**\) to be used 
-  as argument with the **call** command, thanks to Jo15 from 
+* Corrected a bug that prevented local variable \(eg. like **%1**\) to be used
+  as argument with the **call** command, thanks to Jo15 from
   [batch.xoo.it](http://batch.xoo.it) who reported the error.
 
-* Added **local** target to **Makefile** that generates a local installation 
+* Added **local** target to **Makefile** that generates a local installation
   of **pBat** inside the folder **./bin**. It is as simple as typing
 
         make local
 
-* Added macros from the **gnu gettext** package. Also enabled the use of the 
+* Added macros from the **gnu gettext** package. Also enabled the use of the
   --disable-nls switch for configure.
 
 ## Friday 29th, August
 
-This is the first time I write something in this file for a long time now. 
-I've been hacking around pBat for a little time now \(haaa, holidays\). This 
+This is the first time I write something in this file for a long time now.
+I've been hacking around pBat for a little time now \(haaa, holidays\). This
 is a list of improvements I made during from 24th June to today.
 
-* Changed behaviour of parameter handling routines, valid delimiter are now 
-  ",; " and tab. The way doubles quotes are handled changed either. An quoted 
-  expression may be constituted of an arbitrary long string that conforms to 
+* Changed behaviour of parameter handling routines, valid delimiter are now
+  ",; " and tab. The way doubles quotes are handled changed either. An quoted
+  expression may be constituted of an arbitrary long string that conforms to
   the following rules :
 
   * Any delimiter is ignored if it is surrounded by double quotes.
 
-  * If double quote, is directly preceded or followed by an string characters 
+  * If double quote, is directly preceded or followed by an string characters
     that are not delimiter, this string is part of the parameter.
 
-  * And so on and so forth, until we reach unquoted delimiters on both sides 
+  * And so on and so forth, until we reach unquoted delimiters on both sides
     of the parameter.
 
-  Moreover, the quotes are removed if their position conform to the following 
+  Moreover, the quotes are removed if their position conform to the following
   rules :
 
   * If a parameter begins with a double quote it will be removed.
 
-  * If a parameter ends with a double quote and begin with a double quote, 
+  * If a parameter ends with a double quote and begin with a double quote,
     both are removed.
 
   * Else, keep the line like this.
 
 * Fixed some autotools options, that where never mentioned under mingw system.
 
-* Fixed incompatibilities with the IF command. Now, the **IF** command returns 
-  errors on case of string used as operators for **GEQ**, **GTR** **LSS**, 
-  **LEQ** comparants. Moreover, the interpretor is able to handle both 
-  hexadecimal, decimal and octal bases. Finally, implemented comparants for 
-  floats \(same as integer comparants but prefixed with f\), as a **pBat** 
+* Fixed incompatibilities with the IF command. Now, the **IF** command returns
+  errors on case of string used as operators for **GEQ**, **GTR** **LSS**,
+  **LEQ** comparants. Moreover, the interpreter is able to handle both
+  hexadecimal, decimal and octal bases. Finally, implemented comparants for
+  floats \(same as integer comparants but prefixed with f\), as a **pBat**
   extension.
 
-* Fixed issues of compatibility for the SET command. It is mainly a matter of 
-  quotation marks handling, and typically, the issues for both SET /p and SET 
-  are fixed, while little issue \(not for simple /a assignments of course\) 
+* Fixed issues of compatibility for the SET command. It is mainly a matter of
+  quotation marks handling, and typically, the issues for both SET /p and SET
+  are fixed, while little issue \(not for simple /a assignments of course\)
   still exist for the SET /a command.
 
-* Some fixes for the FOR command, now enabling the use of the three numeric 
+* Some fixes for the FOR command, now enabling the use of the three numeric
   bases for all the parameters and preventing overflows in FOR /l loops.
 
-* Modified the FOR command in order to accept filename sets to be given as 
+* Modified the FOR command in order to accept filename sets to be given as
   input for the FOR /F command. This puts more sense on the "usebackq" option.
 
-* Added a custom environment within **pBat** in order to instaure 
-  cross-platform syntax capabilities like use of "=" in variable names \(which 
+* Added a custom environment within **pBat** in order to instaure
+  cross-platform syntax capabilities like use of "=" in variable names \(which
   is impossible on many systems\), to set "=x:" variables for CD command.
 
-* Corrected a bug with SET command, wich displayed system environment while it 
-  was supposed to display **pBat** custom environment.
+* Corrected a bug with SET command, which displayed system environment while
+  it was supposed to display **pBat** custom environment.
 
-* Corrected a bug that prevented the FOR command from getting command input 
-  under any \*nix OS \(don't know the actual reason for this, but I 
-  reimplemented the code using the \*nix call fork\(\), which is, frankly, 
-  much more convenient than tricky systems to communicate between process 
-  under windows\). The command redirection now works pretty well on any \*nix 
+* Corrected a bug that prevented the FOR command from getting command input
+  under any \*nix OS \(don't know the actual reason for this, but I
+  reimplemented the code using the \*nix call fork\(\), which is, frankly,
+  much more convenient than tricky systems to communicate between process
+  under windows\). The command redirection now works pretty well on any \*nix
   system.
 
-* Added a Windows specific new CD command, to be compatible with Windows 
-  **cmd.exe** features. The primitive version of CD is still shipped for \*nix 
-  operating systems \(concept of disk is a huge non-sense under Unix-like 
-  operating systems, because they represent filesystems like a binariy tree 
-  which root is "/", and on which filesystems and devices are mounted as 
+* Added a Windows specific new CD command, to be compatible with Windows
+  **cmd.exe** features. The primitive version of CD is still shipped for \*nix
+  operating systems \(concept of disk is a huge non-sense under Unix-like
+  operating systems, because they represent filesystems like a binariy tree
+  which root is "/", and on which filesystems and devices are mounted as
   directories\).
 
-* Fixed a bug, that always caused wrong pid to be awaited if the process was 
-  forked on time through FOR /F command \(with a command input\) under \*nix 
-  operating systems, resulting in a mess between commands and commands 
+* Fixed a bug, that always caused wrong pid to be awaited if the process was
+  forked on time through FOR /F command \(with a command input\) under \*nix
+  operating systems, resulting in a mess between commands and commands
   outputs.
 
-* Implemented new functions within libpBat in order to quickly sort files 
+* Implemented new functions within libpBat in order to quickly sort files
   matching to some attributes and file not matching in a single function call.
 
-* Re-implemented the TYPE command to get a command compatible with 
-  **cmd.exe** equivalent. The result is very closely compatible except for on 
+* Re-implemented the TYPE command to get a command compatible with
+  **cmd.exe** equivalent. The result is very closely compatible except for on
   case of name printing.
 
-* Implemented FIND command as an internal command. It matches closely cmd.exe 
-  behaviour, except for some inconsistencies I've tried to address \(limited 
+* Implemented FIND command as an internal command. It matches closely cmd.exe
+  behaviour, except for some inconsistencies I've tried to address \(limited
   line length, etc\).
 
-* Implemented the %\* variable, that have been lacking in the pBat 
-  implementation for a very long time \(special var are implemented at least 
-  since 2013\). However, there is still little concerns, for example, on 
-  Unix-like operating system it is impossible to retrieve the original command 
-  line \(arguments are passed separated to the kernel\). Thus, the 
-  [pBat](pbat) tries to construct the line back the best it can, by putting 
-  spaces between the arguments. This is only an issue at startup, though, with 
+* Implemented the %\* variable, that have been lacking in the pBat
+  implementation for a very long time \(special var are implemented at least
+  since 2013\). However, there is still little concerns, for example, on
+  Unix-like operating system it is impossible to retrieve the original command
+  line \(arguments are passed separated to the kernel\). Thus, the
+  [pBat](pbat) tries to construct the line back the best it can, by putting
+  spaces between the arguments. This is only an issue at startup, though, with
   call, it may not be a problem.
 
-* Changed the version number to **2014.0.9b**, I think the interpretor may be 
+* Changed the version number to **2014.0.9b**, I think the interpreter may be
   mature enough to think of a real release in a close time.
 
 ## Wednesday 3rd, September
 
-* Implemented a new pipe system for Unix-like operating systems \(that may 
-  have broken the good-old WINDOWS implementation, haven't checked yet\). It 
-  uses full power of fork\(\) system call and do not suffer from output 
-  truncation due to size of kernel's pipe buffer. Also, both command are now 
-  parallelized, gaining significant execution time in comparison to older 
-  system. This pipe system does not apply to WINDOWS operating system, which 
+* Implemented a new pipe system for Unix-like operating systems \(that may
+  have broken the good-old WINDOWS implementation, haven't checked yet\). It
+  uses full power of fork\(\) system call and do not suffer from output
+  truncation due to size of kernel's pipe buffer. Also, both command are now
+  parallelized, gaining significant execution time in comparison to older
+  system. This pipe system does not apply to WINDOWS operating system, which
   will benefit from a new pipe system in little delays.
 
-* Removed padding of arguments with **"** for external commands, on Unix-like 
-  operating systems. Indeed, padding **"** around arguments often cause 
-  command to fail \(precisely, make the command not work the way you are 
+* Removed padding of arguments with **"** for external commands, on Unix-like
+  operating systems. Indeed, padding **"** around arguments often cause
+  command to fail \(precisely, make the command not work the way you are
   intending to\).
 
-* Fixed a little issue with the autotools suite. In some Unix-like systems, 
-  the host triplet was not reported to program. That does not matter a lot, 
+* Fixed a little issue with the autotools suite. In some Unix-like systems,
+  the host triplet was not reported to program. That does not matter a lot,
   anyway.
 
-* Definitely set libpBat as static by default. It is indeed much more 
-  convenient \(no installation needed on Unix-like operating systems\). Some 
-  may object that it results in bigger executables. But most of time, size is 
-  not really relevant, and it save setting library search path anyway, thus 
-  enabling pbat to be embedded in the a memory stick for example \(And yeah, 
-  size ain't too relevant, because memory stick often have size of few GBs\). 
-  Furthermore, static linking allows compiler to perform further 
+* Definitely set libpBat as static by default. It is indeed much more
+  convenient \(no installation needed on Unix-like operating systems\). Some
+  may object that it results in bigger executables. But most of time, size is
+  not really relevant, and it save setting library search path anyway, thus
+  enabling pbat to be embedded in the a memory stick for example \(And yeah,
+  size ain't too relevant, because memory stick often have size of few GBs\).
+  Furthermore, static linking allows compiler to perform further
   optimisations, that can't be done with dynamic linking.
 
-* Fixed some bugs with the SET command that did not use the custom environment 
+* Fixed some bugs with the SET command that did not use the custom environment
   every time, causing the command to fail.
 
-* Adapted the hlp.bat script to make it work on Unix-like operating systems. 
+* Adapted the hlp.bat script to make it work on Unix-like operating systems.
   The new scripts also uses the shift command intensively.
 
-* Fixed some bugs in translations. Removed the en\_US local which is almost 
+* Fixed some bugs in translations. Removed the en\_US local which is almost
   stupid.
 
 ## Wednesday 24th, September
 
-* Implemented the **MORE** command as an internal command \(why create 
-  external executables when it is so simple to add little commands to the 
-  interpretor ?\). It includes almost every **cmd.exe** features, except the 
-  form-feed expanding features \(never seen it used though\). However, if you 
-  build **pBat** with the option **--disable-console**, you should still 
-  encounter minor bugs, due to the lack of console capabilities. Finally, I 
-  thought about replacing **MORE** with **TYPE** when building with 
-  **--disable-console**, but it would be obviously sad not to benefit from 
+* Implemented the **MORE** command as an internal command \(why create
+  external executables when it is so simple to add little commands to the
+  interpreter ?\). It includes almost every **cmd.exe** features, except the
+  form-feed expanding features \(never seen it used though\). However, if you
+  build **pBat** with the option **--disable-console**, you should still
+  encounter minor bugs, due to the lack of console capabilities. Finally, I
+  thought about replacing **MORE** with **TYPE** when building with
+  **--disable-console**, but it would be obviously sad not to benefit from
   this far better and new command.
 
-* Implemented a special stream translation system \(for streams like **NUL**, 
-  **CON**, and so on and so forth\), to get Unix name of their counterparts. I 
-  did not implemented the translation for all streams I know, though, but it 
+* Implemented a special stream translation system \(for streams like **NUL**,
+  **CON**, and so on and so forth\), to get Unix name of their counterparts. I
+  did not implemented the translation for all streams I know, though, but it
   won't be to annoying to be added.
 
 * Corrected a few bugs for Unix-like systems.
 
 ## Tuesday 2nd, December
 
-* Corrected a bug within the **IF** command that prevented **ELSE IF** 
-  combination to be executed correctly. This was actually caused by a failure 
-  to match parenthesis the right way. It was basically making only the first 
-  line of the if block to be executed. Now the bug is solved and the result is 
+* Corrected a bug within the **IF** command that prevented **ELSE IF**
+  combination to be executed correctly. This was actually caused by a failure
+  to match parenthesis the right way. It was basically making only the first
+  line of the if block to be executed. Now the bug is solved and the result is
   fully functional.
 
-* Added two features within the **MORE** command that enable it to accept both 
+* Added two features within the **MORE** command that enable it to accept both
   UTF-8 encoded text and ansi escape codes to be mixed with text.
 
 ## Thursday 6th, January 2015
 
-* Did some final arrangements that make **pBat** ready to release on the 
-  GNU/Linux platforms. There is some work left for make it run under Microsoft 
+* Did some final arrangements that make **pBat** ready to release on the
+  GNU/Linux platforms. There is some work left for make it run under Microsoft
   Windows platforms.
 
-* Fixed a little bug of the **More** command under Microsoft windows. 
-  MS-Windows does not return line-feed characters using getch\(\) function but 
-  returns untranslated chariot return \(0x0D\). This subtleties was not taken 
+* Fixed a little bug of the **More** command under Microsoft windows.
+  MS-Windows does not return line-feed characters using getch\(\) function but
+  returns untranslated chariot return \(0x0D\). This subtleties was not taken
   account by the **More** command, so that the enter was inactive.
 
-* Changed the way **pBat** command line works; Now it's possible to use 
-  widespread switches like '/C' or '/K'. The way to tell the interpreter which 
-  option should be enabled and which should not through the command line has 
+* Changed the way **pBat** command line works; Now it's possible to use
+  widespread switches like '/C' or '/K'. The way to tell the interpreter which
+  option should be enabled and which should not through the command line has
   also changed.
 
-* Fixed minor issues due to the previous behaviour change of 
-  pBat\_GetExePath\(\) that affected both **FOR** command and 
+* Fixed minor issues due to the previous behaviour change of
+  pBat\_GetExePath\(\) that affected both **FOR** command and
   pBat\_RunExternalBatch\(\) function.
 
-* Fixed the broken pipe system introduced by the change of pipe system on 
-  GNU/Linux \(and most of \*nices\). This is not fully tested though. But the 
-  new way of handling pipes permits infinite length for both input and output 
+* Fixed the broken pipe system introduced by the change of pipe system on
+  GNU/Linux \(and most of \*nices\). This is not fully tested though. But the
+  new way of handling pipes permits infinite length for both input and output
   of commands.
 
 ## Tuesday 13th, January 2015
 
-* Fixed an minor issue in the **pBat\_SetEnv** function that caused some rare 
-  bugs that made **SET** command to raise a segfault if it was invoked to 
-  remove a variable from the environment. It wasn't that frequent because 
-  usually, variable removal didn't worked, due to another bug. This is now 
+* Fixed an minor issue in the **pBat\_SetEnv** function that caused some rare
+  bugs that made **SET** command to raise a segfault if it was invoked to
+  remove a variable from the environment. It wasn't that frequent because
+  usually, variable removal didn't worked, due to another bug. This is now
   fixed.
 
-* Added the **START** command on Windows, That works pretty well, even if some 
-  parameters seem to be ignored by windows, such as **/Wait**. The command 
-  have few option compared to cmd's version, but, it's a good start point 
+* Added the **START** command on Windows, That works pretty well, even if some
+  parameters seem to be ignored by windows, such as **/Wait**. The command
+  have few option compared to cmd's version, but, it's a good start point
   anyway.
 
-* Changed the version number to 214.1b, that mean, it's the beta of the first 
+* Changed the version number to 214.1b, that mean, it's the beta of the first
   stable version which is expected to be released within a short time.
 
 ## Tuesday 21rd, April
 
-* Fixed a minor issue in the error system for the **IF** command, the command 
-  used to exit the interpretor upon minor error.
+* Fixed a minor issue in the error system for the **IF** command, the command
+  used to exit the interpreter upon minor error.
 
-* Added number of new command to deal with files. Among this command, we have 
+* Added number of new command to deal with files. Among this command, we have
   **MOVE**, **COPY**, **DEL**, **MD**, **RD** and some others.
 
-* Changed the ESTR syntax. I think it is actually easier to access the string 
-  by using a -> rather than an obscure macro. Moreover, it renders the code 
+* Changed the ESTR syntax. I think it is actually easier to access the string
+  by using a -> rather than an obscure macro. Moreover, it renders the code
   more simple, it add less symbols.
 
 * Continued French translation.
 
-* New and reviewed man pages. Some manual pages were clearly outdated as some 
-  had more than two years although the command changed. To clear this out, man 
+* New and reviewed man pages. Some manual pages were clearly outdated as some
+  had more than two years although the command changed. To clear this out, man
   page content as been revised to be more relevant.
 
-* Added a brand new pBat extension to the **IF** command. I found pretty 
-  annoying that cmd \(and thus pBat\) lacked support for multiple conditions 
-  for a single if \(e.g. logical expressions\). Obviously this could have been 
-  done previously by using the **SET** command to evaluate an expression but 
-  this was time- and code-wasting. The interpretor currently supports only 
-  **or** and **and** logical connectors. These are widely sufficient for most 
-  cases, except some rare cases that requires you to have **xor** either. This 
+* Added a brand new pBat extension to the **IF** command. I found pretty
+  annoying that cmd \(and thus pBat\) lacked support for multiple conditions
+  for a single if \(e.g. logical expressions\). Obviously this could have been
+  done previously by using the **SET** command to evaluate an expression but
+  this was time- and code-wasting. The interpreter currently supports only
+  **or** and **and** logical connectors. These are widely sufficient for most
+  cases, except some rare cases that requires you to have **xor** either. This
   is not a big concern, it is just about writing a few more code.
 
   The syntax is pretty simple, but must include blanks around brackets:
 
-  * **expression** or **expression** : True if one of the two expressions \(at 
+  * **expression** or **expression** : True if one of the two expressions \(at
     least\) is true.
 
   * **expression** and **expression** : True if both expressions are true.
 
   * \[ expression \] : Denotes a higher precedence.
 
-  As you can see, the syntax is clear but efficient. You can use test that are 
+  As you can see, the syntax is clear but efficient. You can use test that are
   provided by the **IF** command :
 
   * **not**
@@ -1272,7 +1271,7 @@ is a list of improvements I made during from 24th June to today.
 
   * **equ**, **neq**, **leq**, **geq**, **lss**, **gtr** and derivatives
 
-  Note that the **IF** command only interpret expressions as such if they are 
+  Note that the **IF** command only interpret expressions as such if they are
   surrounded by brackets, like in this example :
 
         if [ a equ b ] echo no, seriously ?
@@ -1283,19 +1282,19 @@ is a list of improvements I made during from 24th June to today.
 
 ## Friday 24th, April
 
-* Fixed a few remaining bugs in the implementation of if extended expression. 
-  As a example, in some case, an **or** used to be computed as an **and**. 
+* Fixed a few remaining bugs in the implementation of if extended expression.
+  As a example, in some case, an **or** used to be computed as an **and**.
   These issues are now fixed and the command great.
 
-* Merged tests of the **If** command. In fact, some test were duplicated in 
-  different sources, but for maintainability reason, it try to give up with 
+* Merged tests of the **If** command. In fact, some test were duplicated in
+  different sources, but for maintainability reason, it try to give up with
   the copy and past approach.
 
-* Corrected an issue of the **TEA** text processor. When producing html 
-  output, **TEA** often failed to recognize path that refer to actual other 
-  **TEA** based pages and others files. One of the typical issue was that TEA 
-  sometimes appended ".html" to URIs \(that already contained an ".html" 
-  anyway\). Now, **TEA** also check for protocol prefixes in order to chose 
+* Corrected an issue of the **TEA** text processor. When producing html
+  output, **TEA** often failed to recognize path that refer to actual other
+  **TEA** based pages and others files. One of the typical issue was that TEA
+  sometimes appended ".html" to URIs \(that already contained an ".html"
+  anyway\). Now, **TEA** also check for protocol prefixes in order to chose
   whether a ".html" suffix should be appended. Recognised protocols are :
 
   * **http://**
@@ -1306,65 +1305,65 @@ is a list of improvements I made during from 24th June to today.
 
 ## Thursday 7th, May
 
-* Fixed lots of man pages for the pBat project. Also fixed some little bugs in 
-  the TEA text processor, dealing with some sort of **\** that where 
+* Fixed lots of man pages for the pBat project. Also fixed some little bugs in
+  the TEA text processor, dealing with some sort of **\** that where
   mishandled in previous patches.
 
-* Changed regexp implementation after discovery of some bugs \(eg "test" was 
-  not matching "\*e\*s\*"\). The new implementation is less faulty and clearer 
+* Changed regexp implementation after discovery of some bugs \(eg "test" was
+  not matching "\*e\*s\*"\). The new implementation is less faulty and clearer
   to use.
 
-* Added a new **/e** switch to the **FIND** command \(to produce somewhat 
-  similar to UNIX's well known **grep -e** command\). It enables use of joker 
-  expressions on patterns. With this option **FIND** checks that the entire 
+* Added a new **/e** switch to the **FIND** command \(to produce somewhat
+  similar to UNIX's well known **grep -e** command\). It enables use of joker
+  expressions on patterns. With this option **FIND** checks that the entire
   line matches the expression.
 
 ## Thursday 2nd, June
 
-* Corrected some issues compatibility issue with the newest MinGW version that 
+* Corrected some issues compatibility issue with the newest MinGW version that
   now defines **\_POSIX\_C\_SOURCE**.
 
-* Fixed a bug with the start command. Apparently, the ShellExecuteEx function 
-  does care whether or not the filenames passed to it contains forward slashes 
+* Fixed a bug with the start command. Apparently, the ShellExecuteEx function
+  does care whether or not the filenames passed to it contains forward slashes
   instead of backslashes.
 
-* Added some little info message to the **SET** command in order to print the 
+* Added some little info message to the **SET** command in order to print the
   result of the expression when using **/A** slash.
 
 ## Thursday 10th, June
 
-* Added a wrapper to the **MORE** command to make it display utf-8 text the 
-  way it is intended to. Indeed **windows** does not implement implement the 
-  fputc\(\) function as specified by the standard and considers that it 
+* Added a wrapper to the **MORE** command to make it display utf-8 text the
+  way it is intended to. Indeed **windows** does not implement implement the
+  fputc\(\) function as specified by the standard and considers that it
   receive character instead of bytes.
 
-* Fixed a bug of the **MORE** command that caused miscomputation of utf-8 
+* Fixed a bug of the **MORE** command that caused miscomputation of utf-8
   characters number.
 
 ## Wednesday 13th, Junuary, 2016
 
-* Added support of libcu8, a library designed to handle utf-8 efficiently with 
-  msvcrt in windows. This is part of a large ongoing effort that attempts to 
-  make pBat more internationalizable. To do so, We had to kind short-circuit 
-  msvcrt with brand this brand new library. Although still experimental, this 
+* Added support of libcu8, a library designed to handle utf-8 efficiently with
+  msvcrt in windows. This is part of a large ongoing effort that attempts to
+  make pBat more internationalizable. To do so, We had to kind short-circuit
+  msvcrt with brand this brand new library. Although still experimental, this
   works quite great.
 
 * Added new CHCP command to handle efficiently the new libcu8 library.
 
 ## Monday, 25th, Junuary
 
-* Changed version of pBat to emphasize the important changes of pBat since new 
+* Changed version of pBat to emphasize the important changes of pBat since new
   year 2016.
 
-* Added functions to restrict fd inheritance, to make sure the appropriate fds 
-  are closed on exec. It is basically usefull for FOR commands.
+* Added functions to restrict fd inheritance, to make sure the appropriate fds
+  are closed on exec. It is basically useful for FOR commands.
 
-* Hugely modified the libcu8 to fit with libpBat. It is still an experimental, 
+* Hugely modified the libcu8 to fit with libpBat. It is still an experimental,
   though, but it works way better now.
 
-* Added some new behaviours in file expansion. Now, it is legal to specify 
-  negative offsets during variable expansion. Quickly, negative offsets refers 
-  to the absolute value of the offset, counted from the end of the variable. 
+* Added some new behaviours in file expansion. Now, it is legal to specify
+  negative offsets during variable expansion. Quickly, negative offsets refers
+  to the absolute value of the offset, counted from the end of the variable.
   For instance, this is now allowed :
 
         %var:~-2,-1%
@@ -1387,13 +1386,13 @@ is a list of improvements I made during from 24th June to today.
 
 ## Thursday 18th, February
 
-* Added the '=' operator for the SET command. The operator do behave a little 
-  bit differently from cmd.exe's SET, but it is convenient too. For the 
+* Added the '=' operator for the SET command. The operator do behave a little
+  bit differently from cmd.exe's SET, but it is convenient too. For the
   moment, libmatheval only supports explicit number anyway.
 
 ## Monday 16th, April
 
-* Modified the initialization procedure of pBat. pBat can now handle two 
+* Modified the initialization procedure of pBat. pBat can now handle two
   different startup files:
 
   * **$HOME/.pbat/pBat\_Auto.bat** : user-specific startup file
@@ -1408,8 +1407,8 @@ is a list of improvements I made during from 24th June to today.
 
 ## Friday 15th, July
 
-* Fixed a little bug with the for command. When the field "delims=;" is 
-  specified with **FOR** without "eol=" being specified, then the character 
+* Fixed a little bug with the for command. When the field "delims=;" is
+  specified with **FOR** without "eol=" being specified, then the character
   ";" is not used as the default end-of-line character.
 
 ## Wednesday, 14th, September 2016
@@ -1420,31 +1419,31 @@ is a list of improvements I made during from 24th June to today.
 
 ## Friday 18th, October 2016
 
-* Removed the complex initialisation model set up the **16/04/2016** in favour 
-  of a single \(somewhat read-only\) **pBat\_Auto.bat** initialization script 
+* Removed the complex initialisation model set up the **16/04/2016** in favour
+  of a single \(somewhat read-only\) **pBat\_Auto.bat** initialization script
   that calls automatically local and global custom initialization scripts.
 
-* Worked a lot to improve the binary tree, in order to conform to unix 
+* Worked a lot to improve the binary tree, in order to conform to unix
   installation standard and windows, by the way. This is near to being ready.
 
 * Modified the **TYPE** command, adding the following features :
 
-  * The file names are now echoed thought the standard error output. This new 
-    behaviour allows sorting out easily file names and file contents. By the 
+  * The file names are now echoed thought the standard error output. This new
+    behaviour allows sorting out easily file names and file contents. By the
     way this is also more conformant to **cmd.exe**.
 
-  * If no filename is specified, the **TYPE** command gets it input from the 
+  * If no filename is specified, the **TYPE** command gets it input from the
     standard input, acting quite the same as more.
 
   * Few documentation updates.
 
 ## Tuesday 26th, October
 
-* Fixed configure.ac bug preventing autotools from properly detect BSD based 
+* Fixed configure.ac bug preventing autotools from properly detect BSD based
   OSes.
 
-* Lots of fixes for the libcu8 library, which was not working properly on 
-  32-bits platform. The lib now directly asks the location of function using 
+* Lots of fixes for the libcu8 library, which was not working properly on
+  32-bits platform. The lib now directly asks the location of function using
   the kernel instead on relying on pointers given by the libC.
 
 * Some minor fixes for pBat in general.
@@ -1459,7 +1458,7 @@ is a list of improvements I made during from 24th June to today.
 
 ## Thursday 27th, October
 
-* Change location of gettext files under unices to match the usual file 
+* Change location of gettext files under unices to match the usual file
   layout.
 
 ## Friday 28th, October
@@ -1490,15 +1489,15 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed some major bugs submitted by Teddy Astie, for unices. Including :
 
-  * Errors in parsing lines containing nested for loops when braces are not 
+  * Errors in parsing lines containing nested for loops when braces are not
     explicitly specified. eg:
 
             for /l %%A in (0 1 10) do for /l %%B in (0 1 10) do (
                echo %%A %%B
             )
 
-  * Cleaned up zombies processes that were not wiped from kernels buffer since 
-    pBat never explicitly specified to throw the data out. Basically, this 
+  * Cleaned up zombies processes that were not wiped from kernels buffer since
+    pBat never explicitly specified to throw the data out. Basically, this
     behaviour is particularly shown when repeating for loops. eg:
 
             :loop
@@ -1507,13 +1506,13 @@ is a list of improvements I made during from 24th June to today.
             )
             goto :loop
 
-* Changed pBat behaviour when getting a SIGINT on Linux. Depending on whether 
-  a user input or a script is being executed, the interpretor choose to cancel 
+* Changed pBat behaviour when getting a SIGINT on Linux. Depending on whether
+  a user input or a script is being executed, the interpreter choose to cancel
   the command or to exit.
 
 ## Monday 5th, December
 
-* Fixed a bug with FIND command, the case sensitive and insensitive features 
+* Fixed a bug with FIND command, the case sensitive and insensitive features
   were swapped
 
 ## Wednesday 7th, December
@@ -1532,25 +1531,25 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed some bugs with the move command.
 
-## Thursday 9th, February
+## Thursday 9th, February 2017
 
-* Fixed a major bug of the IF command. Before that, it had fuzzy behaviour 
-  with blocks that were part of a later command. Indeed, when combined with a 
-  command that required a block but which was not enclosed in a block, the 
+* Fixed a major bug of the IF command. Before that, it had fuzzy behaviour
+  with blocks that were part of a later command. Indeed, when combined with a
+  command that required a block but which was not enclosed in a block, the
   line was poorly handled, eg:
 
         if a==a if b==b (
         echo test
         )
 
-  This example \(and its derivatives\) should now behave the way it is 
+  This example \(and its derivatives\) should now behave the way it is
   intended to, that is, as if it was specified as :
 
         if a==a (if b==b (
         echo test
         ))
 
-## Saturday 12th, February
+## Saturday 12th, February 2017
 
 * Fixed minor bugs with the **START** command.
 
@@ -1558,122 +1557,122 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed if pbat extension bug.
 
-## Monday 13th, February
+## Monday 13th, February 2017
 
-* Fixed libcu8 so that it runs flawlessly under windows XP. The bug consisted 
-  of a CRITICAL\_SECTION that was wrongly initialized. A second bug involving 
+* Fixed libcu8 so that it runs flawlessly under windows XP. The bug consisted
+  of a CRITICAL\_SECTION that was wrongly initialized. A second bug involving
   libcu8\_closedir\(\) as been fixed.
 
 * Fixed errors with the hlp script.
 
-## Wednesday 15th, February
+## Wednesday 15th, February 2017
 
 * Fixed a lot of memory leaks.
 
-* Fixed libcu8\_closedir\(\) function. Indeed, the function did not close 
+* Fixed libcu8\_closedir\(\) function. Indeed, the function did not close
   directory in a correct way.
 
 * Fixed libcu8\_dup\(\) functions to handle standard input the right way.
 
-## Friday 17th, February
+## Friday 17th, February 2017
 
-* Fixed libcu8 so that libcu8 ignores invalid utf-8 bytes sequences, instead 
+* Fixed libcu8 so that libcu8 ignores invalid utf-8 bytes sequences, instead
   of returning errors.
 
 * Fixed the FOR function freeing function.
 
 * Fixed some manual pages.
 
-## Thursday 16th, February
+## Thursday 16th, February 2017
 
 * Update hlp.bat and man.
 
-* Fix a bug with some libc when display the current directory \(with Echo 
+* Fix a bug with some libc when display the current directory \(with Echo
   on\).
 
-## Wednesday 22th, February
+## Wednesday 22th, February 2017
 
-* Added a new feature to the **FOR** command that allows using regular 
+* Added a new feature to the **FOR** command that allows using regular
   expressions with simple **FOR** loops. \(eg. such syntaxes are now correct\)
 
         for %%a in (*.exe) do echo %%a
 
-* Fixed an bug with the **GOTO** command that prevented error messages from 
+* Fixed an bug with the **GOTO** command that prevented error messages from
   being displayed.
 
-* Fixed error of the **FOR** commands that wrongly omitted **goto** effects or 
+* Fixed error of the **FOR** commands that wrongly omitted **goto** effects or
   **exit /b**.
 
 * Modified **FOR** manual page according to the new features.
 
 * Added **/b** switch for the **START** command.
 
-* Added new feature to **START** command so that it handles empty program name 
+* Added new feature to **START** command so that it handles empty program name
   in a way similar to what cmd does. \(ie. running an instance of cmd /c\).
 
 * Added styles to manual pages thanks to styles-sheets provided by Xenoxis.
 
 * Changed libpBat functions to search files with a totally new implementation.
 
-## Saturday 25th, February
+## Saturday 25th, February 2017
 
-* Fixed some errors with libcu8 that was unable to behave properly using pipe 
+* Fixed some errors with libcu8 that was unable to behave properly using pipe
   as it sometimes blocked on input.
 
-* Fixed wrong behaviour of the **%\*** variable which contained all the 
+* Fixed wrong behaviour of the **%\*** variable which contained all the
   command line, instead of containing only parameters.
 
-* Fixed errors with propagation of environment variables during application 
+* Fixed errors with propagation of environment variables during application
   launch affecting batch and external command launch.
 
-## Tuesday 28th, February
+## Tuesday 28th, February 2017
 
-* Fixed libcu8 handling of pipe that did not allowed interaction with programs 
+* Fixed libcu8 handling of pipe that did not allowed interaction with programs
   such as **darkbox**.
 
-## Thursday 16th, March
+## Thursday 16th, March 2017
 
-* Fixed some error of libcu8. Sped up the library by determining when charset 
-  conversion is really necessary \(ie. do not convert blindly text from utf-8 
+* Fixed some error of libcu8. Sped up the library by determining when charset
+  conversion is really necessary \(ie. do not convert blindly text from utf-8
   to utf-8\).
 
-* Fixed some unspecified behaviour with the FOR command. Indeed, when given a 
-  command as input, the for command would not way for the process to complete 
-  before continuing in case of encountering **GOTO**s or **EXIT /b** command. 
-  This led to an unnecessary "zombie" process and could easily lead to 
-  unexpected behaviours since no synchronisation interface was provided by 
+* Fixed some unspecified behaviour with the FOR command. Indeed, when given a
+  command as input, the for command would not way for the process to complete
+  before continuing in case of encountering **GOTO**s or **EXIT /b** command.
+  This led to an unnecessary "zombie" process and could easily lead to
+  unexpected behaviours since no synchronisation interface was provided by
   pBat.
 
-  This issue has been fixed by forcing pBat to wait for the process launched 
-  by **FOR** to exit before resuming execution. Note that it doesn't change 
-  the overall **FOR** behaviour, that is, both processes are ran 
-  asynchronously \(ie. at the same time\), which is different from cmd 
+  This issue has been fixed by forcing pBat to wait for the process launched
+  by **FOR** to exit before resuming execution. Note that it doesn't change
+  the overall **FOR** behaviour, that is, both processes are ran
+  asynchronously \(ie. at the same time\), which is different from cmd
   behaviour.
 
-## Tuesday 21th, March
+## Tuesday 21th, March 2017
 
 * Fixed some typos that caused some minor bugs depending on configuration.
 
-* Fixed a minor bug of the **DIR** command that was not ignoring case when 
+* Fixed a minor bug of the **DIR** command that was not ignoring case when
   dealing with disk letters.
 
-* Fixed a misimplementation of the **START** command when not using libcu8 
+* Fixed a misimplementation of the **START** command when not using libcu8
   \(nor Linux\).
 
 * Made the **/b** switch working with unices.
 
-## Wednesday 29th, March
+## Wednesday 29th, March 2017
 
-* Fixed some error in file search handling \(the origin folder of a static 
-  string was not added to matches, as if PBAT\_DIR\_MODE was the default 
+* Fixed some error in file search handling \(the origin folder of a static
+  string was not added to matches, as if PBAT\_DIR\_MODE was the default
   behaviour\).
 
-## Thursday 30th March
+## Thursday 30th March 2017
 
-* Fixed a bug with **FOR** command that created more variable that it it was 
+* Fixed a bug with **FOR** command that created more variable that it it was
   necessary when using a joker **\*** as the final token specifier.
 
-* Fixed bug with **pBat\_ShowErrorMessage\(\)** function that called the pbat 
+* Fixed bug with **pBat\_ShowErrorMessage\(\)** function that called the pbat
   exit function twice, causing a SEGFAULT.
 
 * Fixed the **START** command :
@@ -1682,16 +1681,16 @@ is a list of improvements I made during from 24th June to today.
 
   * Fixed handling of the title parameter.
 
-* Fixed an implementation error which resulted in misinterpreted delayed 
+* Fixed an implementation error which resulted in misinterpreted delayed
   expansion when variable name started with a number.
 
 * Fixed block parsing systems.
 
-## Sunday 2nd April
+## Sunday 2nd April 2017
 
 * Fixed a compilation error on \*NIXes.
 
-## Wednesday 5th, March
+## Wednesday 5th, March 2017
 
 * Fixed lots of bugs caused by the new parsing system.
 
@@ -1699,55 +1698,55 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed the **TYPE** to make it capable of handling binary files.
 
-## Sunday 9th, March
+## Sunday 9th, March 2017
 
-* Fixed the expansion system to behave closely like cmd does. \(ie. made two 
-  distinct level of special var expansion, one for the program parameters and 
+* Fixed the expansion system to behave closely like cmd does. \(ie. made two
+  distinct level of special var expansion, one for the program parameters and
   one for the other conventional special vars\).
 
-* Changed expansion of special var resulting from a **FOR** to be executed 
+* Changed expansion of special var resulting from a **FOR** to be executed
   before block execution.
 
 * Added a safe CTRL-c handler on windows.
 
 * Merged po files for pBat.
 
-## Wednesday 12th, April
+## Wednesday 12th, April 2017
 
-* Fixed incorrect block parsing that did not handled properly escaped new line 
-  characters that resulted in executing commands as if there was actually more 
+* Fixed incorrect block parsing that did not handled properly escaped new line
+  characters that resulted in executing commands as if there was actually more
   commands than there are really.
 
-* Added some error messages and new languages message to be used for CTRL-c 
+* Added some error messages and new languages message to be used for CTRL-c
   handler.
 
 * Fixed many typos.
 
 * Fixed plenty of tiny bugs.
 
-## Thursday 13th, April
+## Thursday 13th, April 2017
 
-* Added new system that loads the entire script file at once, instead of the 
-  weird old mechanics that consisted in opening/reading/closing script at 
+* Added new system that loads the entire script file at once, instead of the
+  weird old mechanics that consisted in opening/reading/closing script at
   every new line. This achieve a great performance gain.
 
 * Fixed an error of the pBat\_SetFdInheritance under unices.
 
-* Fixed the goto command to make it able to deal with label that have spaces 
+* Fixed the goto command to make it able to deal with label that have spaces
   inside them.
 
 * Fixed a bug that prevented i10n to be enabled with simple help modules.
 
 * Fixed some manual pages.
 
-## Friday 14th, April
+## Friday 14th, April 2017
 
 * Fixed some interpretation error with the **SET /p** command.
 
 * Fixed conditional definition of \_X\_OPEN\_SOURCE.
 
-* Fixed an enormous memory flaw that took place in the inteval libraries and 
-  caused pBat memory consumption to increase dramatically when using **SET 
+* Fixed an enormous memory flaw that took place in the inteval libraries and
+  caused pBat memory consumption to increase dramatically when using **SET
   /a** intensively
 
 * Fixed typos with i18n.
@@ -1760,7 +1759,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed **pBat\_Auto.bat** man page that was in ANSI instead of utf-8.
 
-## Tuesday 18th, April
+## Tuesday 18th, April 2017
 
 * Added new file searching functions to speed up file search under windows.
 
@@ -1768,7 +1767,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed issues of both libinteval and libmatheval in determining delimiters.
 
-## Thursday 20th, April
+## Thursday 20th, April 2017
 
 * Fixed errors in unicodes files search functions.
 
@@ -1778,7 +1777,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed some typos.
 
-## Monday 24th, April
+## Monday 24th, April 2017
 
 * Fixed errors in unicode file searching function and functions.
 
@@ -1786,22 +1785,22 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed the set command.
 
-## Friday 5th, May
+## Friday 5th, May 2017
 
 * Added support for concatenation using '+' with the the **COPY** command.
 
-* Added better support of variable truncating using numbers when pBat is 
+* Added better support of variable truncating using numbers when pBat is
   explicitly compiled to deal with utf-8.
 
 * Fixed error messages and help messages.
 
 * Fixed manual pages.
 
-## Friday 25th, May
+## Friday 25th, May 2017
 
 * Fixed lots of little bugs
 
-* Fixed handling of stdin with the commands \(especially resetting the file 
+* Fixed handling of stdin with the commands \(especially resetting the file
   flags after exit\).
 
 * Fixed **DEL** and **RMDIR**.
@@ -1810,7 +1809,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Changed behaviour of the **/C** and **/K** switches.
 
-* Added support of more than 10 arguments through the use of the shift command 
+* Added support of more than 10 arguments through the use of the shift command
   and the %+ variable.
 
 * Added WC command.
@@ -1819,7 +1818,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed man pages and i18n messages.
 
-## Tuesday 30th, May
+## Tuesday 30th, May 2017
 
 * Fixed dir search function for non-unicode and unicode versions.
 
@@ -1831,7 +1830,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed call bug.
 
-## Friday 2nd, June
+## Friday 2nd, June 2017
 
 * Fixed extra newline bug after **echo** off.
 
@@ -1843,16 +1842,16 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed file search bug for vanilla functions under windows.
 
-## Friday 21st, July
+## Friday 21st, July 2017
 
-* Heavily modified the interpretor that no uses threads instead of of 
+* Heavily modified the interpreter that no uses threads instead of of
   separated processes.
 
 * Fix of the set command.
 
 * Lots of bugfixes.
 
-## Sunday 3rd, December
+## Sunday 3rd, December 2017
 
 * Fixes for path name handling in pBat\_GetMatchFileList
 
@@ -1862,7 +1861,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Added fixes for pBat\_EsToFullPath\(\).
 
-## Sunday 7th, April
+## Sunday 7th, April 2018
 
 * Fixed hlp.bat bug related to the behaviour change of %\~pA.
 
@@ -1870,26 +1869,26 @@ is a list of improvements I made during from 24th June to today.
 
 * Added a /C:MD file to generate html files compatible with pico
 
-## Wednesday 11th, April
+## Wednesday 11th, April 2018
 
 * Fixed error on handling **2>&1** redirection.
 
-* Fixed pBat\_FilePath.c error that led pBat to check for **file** before 
+* Fixed pBat\_FilePath.c error that led pBat to check for **file** before
   using **%PATHEXT%**.
 
-## Sunday 23rd, April
+## Sunday 23rd, April 2018
 
-* Changed conditional operators and redirections semantics \(ie. conditional 
+* Changed conditional operators and redirections semantics \(ie. conditional
   operators now own precedence over redirections, just the regular cmd-way\).
 
 * Fixed an error with file search not using libcu8.
 
 * Fixed some typos on english manual.
 
-* Fixed compatibility issue due to msvcrt inconsistent structures name for 
+* Fixed compatibility issue due to msvcrt inconsistent structures name for
   **finddata** and **stat**.
 
-## Thursday 26th, April
+## Thursday 26th, April 2018
 
 * Fixed some manual pages.
 
@@ -1901,16 +1900,16 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed some invalid casts in search functions.
 
-## Saturday 29th, April
+## Saturday 29th, April 2018
 
 * Fixed a memory leak.
 
 * Changed version to 218.1
 
-* Fixed **pBat\_RunExternalCommand\(\)** which add a pretty big footprint on 
+* Fixed **pBat\_RunExternalCommand\(\)** which add a pretty big footprint on
   the stack, sometimes causing stack overflows with Musl libc.
 
-## Tuesday 15th, May
+## Tuesday 15th, May 2018
 
 * Added new build system based on femto.
 
@@ -1920,58 +1919,58 @@ is a list of improvements I made during from 24th June to today.
 
 * Extended documentation.
 
-* Added the possibility of using unix-style switches with tea due to problems 
+* Added the possibility of using unix-style switches with tea due to problems
   of mingw that mangled the slash of switches.
 
-* Fixed a bug of the **DEL** command. If the required file refers to a dir, 
-  the same behaviour as the one used with **DIR** is used so that files inside 
+* Fixed a bug of the **DEL** command. If the required file refers to a dir,
+  the same behaviour as the one used with **DIR** is used so that files inside
   that dir get deleted.
 
-## Thursday 17th, May
+## Thursday 17th, May 2018
 
-* Fixed CTRC-C handling. Sadly the new multi-thread implementation makes it 
+* Fixed CTRC-C handling. Sadly the new multi-thread implementation makes it
   impossible to grab any current directory or modified environment.
 
-## Tuesday 22nd, May
+## Tuesday 22nd, May 2018
 
 * Fixed Mutex locking error in the SET command.
 
-* Modify **GOTO** and **EXIT** to leave **%ERROLEVEL%** unmodified upon 
+* Modify **GOTO** and **EXIT** to leave **%ERROLEVEL%** unmodified upon
   execution.
 
-* Added the local variable environment creation via **SETLOCAL** and 
+* Added the local variable environment creation via **SETLOCAL** and
   **ENDLOCAL**.
 
-## Wednesday 23rd, May
+## Wednesday 23rd, May 2018
 
-* Added new manual and functionalities to **START**. When calling internal 
+* Added new manual and functionalities to **START**. When calling internal
   command with **/b** option, The command is launched as an internal thread.
 
 * Fixed the **CD** command that without argument displayed an error message.
 
 * Fixed an error with file redirection inside the **FOR** command input.
 
-* Fixed set command SEGFAULT error when listing variables. Fixed typos in the 
+* Fixed set command SEGFAULT error when listing variables. Fixed typos in the
   manual page.
 
 * Added **ENDLOCAL** manual page.
 
 * Fixed memory leak when duplicating thread environment.
 
-* Fixed parsing errors that misinterpreted **2>&1** as a combination of a 
+* Fixed parsing errors that misinterpreted **2>&1** as a combination of a
   redirection and the conditional operator **&**.
 
-* Fixed **%\~d0** variables. When file modifiers are called on the **%0** 
+* Fixed **%\~d0** variables. When file modifiers are called on the **%0**
   argument, the path used is the path of the current executed batch.
 
-* Fixed string search functions handling of escape **^** character. Before, 
+* Fixed string search functions handling of escape **^** character. Before,
   two adjacent **^** where misinterpreted as an escape anyway.
 
 * Fixed error with conversion of local var blocks to unicode.
 
-## Friday 25th, May
+## Friday 25th, May 2018
 
-* Added femto-style configuration to libmatheval. Provide a @fnp@ symbol to be 
+* Added femto-style configuration to libmatheval. Provide a @fnp@ symbol to be
   conformant will preprocessor macros.
 
 * Added tests for **-lm**.
@@ -1980,93 +1979,93 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed a lot of compilation warnings.
 
-## Tuesday 29th, May
+## Tuesday 29th, May 2018
 
 * Fixed libintl messages directories and initialisation of current locale.
 
-* Fixed **COPY** command to be more compatible to cmd.exe. The extension is 
-  only enabled when **destination** is a folder or ends with a directory 
+* Fixed **COPY** command to be more compatible to cmd.exe. The extension is
+  only enabled when **destination** is a folder or ends with a directory
   delimiter.
 
-* Modifyied all commands to provide more detailled errorlevel codes. Allmost 
-  every command used to return -1 on error, this is not the case anymore. 
-  Commands now return an **%ERRORLEVEL%** value equal to the error code 
+* Modifyied all commands to provide more detailled errorlevel codes. Allmost
+  every command used to return -1 on error, this is not the case anymore.
+  Commands now return an **%ERRORLEVEL%** value equal to the error code
   associated with the message printed.
 
-## Wednesday 30th, May
+## Wednesday 30th, May 2018
 
-* Fixed if behaviour to be more compatible with **cmd.exe**. It now supports 
-  the use of **&** and **\|** inside the if without specifying additional 
+* Fixed if behaviour to be more compatible with **cmd.exe**. It now supports
+  the use of **&** and **\|** inside the if without specifying additional
   blocks.
 
 * Fixed broken **COLOR** command.
 
-* Fixed Makefile suite that erroneously linked with -lpthread when linking 
-  with -lm was necessary. Also fixed makefiles trying to build libcu8 even on 
+* Fixed Makefile suite that erroneously linked with -lpthread when linking
+  with -lm was necessary. Also fixed makefiles trying to build libcu8 even on
   linux
 
-## Friday 1st, June
+## Friday 1st, June 2018
 
-* Added a brand new editing system to the libcu8 library so that pBat's utf-8 
-  versions supports decent editing facilities like hability to insert 
+* Added a brand new editing system to the libcu8 library so that pBat's utf-8
+  versions supports decent editing facilities like hability to insert
   characters in the middle of the input or use history.
 
-* Fixed a bug causing the %\* variable to contain the script name if the 
-  script was launched as a separate thread inside an interpretor.
+* Fixed a bug causing the %\* variable to contain the script name if the
+  script was launched as a separate thread inside an interpreter.
 
 * Fixed Broken makefiles for linux.
 
 * Fixed Broken console functions for linux.
 
-## Wednesday 6th
+## Wednesday 6th 2018
 
-* Fixed **%ERRORLEVEL%** variable which is now implemented as a read-only 
-  variable to avoid polluting child processes environment \(especially cmd.exe 
+* Fixed **%ERRORLEVEL%** variable which is now implemented as a read-only
+  variable to avoid polluting child processes environment \(especially cmd.exe
   which behaviour gets buggy when errorlevel is defined\).
 
 * Fixed **SET /A** command to be able to specify expression containing spaces.
 
-* Fixed **SET** default behaviour that provided an extension breaking the 
-  original command behaviour. The only behaviour used then is the old cmd 
+* Fixed **SET** default behaviour that provided an extension breaking the
+  original command behaviour. The only behaviour used then is the old cmd
   behaviour that truncate the input. Fixed the manual page also.
 
-* Fixed **pBat\_RunCommand\(\)** and added **pBat\_Exec.c** to provide a more 
+* Fixed **pBat\_RunCommand\(\)** and added **pBat\_Exec.c** to provide a more
   reliable support for external command and the **START** command.
 
-* Fixed **FIND** command to provide ErrorLevels compatible with cmd.exe, \(ie. 
+* Fixed **FIND** command to provide ErrorLevels compatible with cmd.exe, \(ie.
   0 means "match found"\).
 
 * Modified history behaviour of libcu8.
 
-* Fixed broken thread function preventing correct exit values from being 
+* Fixed broken thread function preventing correct exit values from being
   reported to parent threads.
 
-* Fixed **CALL** function to include search in **%PATH%** and **%pathext%** if 
-  available on the system when calling file or batch. Also fixed a bug that 
+* Fixed **CALL** function to include search in **%PATH%** and **%pathext%** if
+  available on the system when calling file or batch. Also fixed a bug that
   omitted the 10th parameter if more then 10 parameters were given
 
 * Re coded **START** command.
 
 * Enabled version 218.2.
 
-## Friday 8th
+## Friday 8th 2018
 
-* Fixed segmentation fault happening when calling a batch file with no 
-  arguments and calling the **SHIFT** command from within the script 
+* Fixed segmentation fault happening when calling a batch file with no
+  arguments and calling the **SHIFT** command from within the script
   subsequently.
 
-* Fixed **START** command to detect batch files extension **.bat** and 
-  **.cmd** and start the appropriate **pBat** interpretor instead of 
+* Fixed **START** command to detect batch files extension **.bat** and
+  **.cmd** and start the appropriate **pBat** interpreter instead of
   **cmd.exe** by default.
 
 * Fixed build errors under linux.
 
-* Fixed **pBat\_RunFile\(\)** command to be able to detect failures due to non 
-  existant file or no executable files under UNIX compatible operating 
+* Fixed **pBat\_RunFile\(\)** command to be able to detect failures due to non
+  existent file or no executable files under UNIX compatible operating
   systems.
 
-* Introduced the **%PBAT\_START\_SCRIPT%** variable which must contain a path 
-  to a script or a program to handle mymetype associations on Unix compatible 
+* Introduced the **%PBAT\_START\_SCRIPT%** variable which must contain a path
+  to a script or a program to handle mymetype associations on Unix compatible
   platform.
 
 * Added URI support to **START** command.
@@ -2075,13 +2074,13 @@ is a list of improvements I made during from 24th June to today.
 
 ## Monday 11th
 
-* Added line editing capabilities under linux, through the use of a slightly 
-  modified version of **linenoise**. Linenoise is tiny library allowing 
+* Added line editing capabilities under linux, through the use of a slightly
+  modified version of **linenoise**. Linenoise is tiny library allowing
   console line editing. The license is shipped in COPYING.linenoise.
 
-* Added a big change in the way blocks and **FOR** and **IF** commands are 
-  handled. Now **IF** and **FOR** look ahead in the command line to see if 
-  anything is to be executed using conditional operators. By default, **IF** 
+* Added a big change in the way blocks and **FOR** and **IF** commands are
+  handled. Now **IF** and **FOR** look ahead in the command line to see if
+  anything is to be executed using conditional operators. By default, **IF**
   and **FOR** swallow everything to the left of the command. That is:
 
         for %%a in (foo bar) do echo %%a & echo loop
@@ -2090,8 +2089,8 @@ is a list of improvements I made during from 24th June to today.
 
         for %%a in (foo bar) do (echo %%a & echo loop)
 
-  This behaviour is more compatible with **cmd.exe**. To override the default 
-  behaviour, please enclose the **FOR** command inside a command block as 
+  This behaviour is more compatible with **cmd.exe**. To override the default
+  behaviour, please enclose the **FOR** command inside a command block as
   follows:
 
         (for %%a in (foo bar) do echo %%a) & echo loop
@@ -2100,31 +2099,31 @@ is a list of improvements I made during from 24th June to today.
 
 ## Wednesday 21st
 
-* Added a little fix to prevent pbat from executing line starting with a 
+* Added a little fix to prevent pbat from executing line starting with a
   column after delayed expansion.
 
 * Do not exit when a label is encountered inside a block.
 
-* Fixed **START** command error when trying to launch an external batch 
+* Fixed **START** command error when trying to launch an external batch
   script.
 
 ## Wednesday 27th
 
 * Fixes to the start command.
 
-* Removed used of **setlocale\(\)** function under windows that create a bug 
+* Removed used of **setlocale\(\)** function under windows that create a bug
   with threads.
 
 * Added lots of manual pages.
 
-* Changed the way script are loaded and line executed to be more compatible 
+* Changed the way script are loaded and line executed to be more compatible
   with cmd.exe.
 
 * Fixes to the thread library.
 
 ## Friday, 29th
 
-* Fixed bug involving pipes and wrongly inherited file descriptors created 
+* Fixed bug involving pipes and wrongly inherited file descriptors created
   after a call to **dup\(\)**.
 
 ## Monday 2nd, July
@@ -2137,19 +2136,19 @@ is a list of improvements I made during from 24th June to today.
 
 ## Tuesday 3rd
 
-* Added new target **/O:MD** for **TEA** that output markdown files. This is 
-  very usefull as it helps providing more readable documentations on git 
+* Added new target **/O:MD** for **TEA** that output markdown files. This is
+  very useful as it helps providing more readable documentations on git
   repositories.
 
 * Fixed build errors for **DUMP**.
 
-* Added **en** locale to the **po** directory and added a few fixes to make 
+* Added **en** locale to the **po** directory and added a few fixes to make
   the translation system easier to handle.
 
-* Updated **README** file. It is now generated from a template used by the git 
-  repository and the website so that information can be easily synced. However 
-  some preprocessing is required in order to remove unnecessary broken links 
-  from **README.tea**. **README.tea** is generated through a template 
+* Updated **README** file. It is now generated from a template used by the git
+  repository and the website so that information can be easily synced. However
+  some preprocessing is required in order to remove unnecessary broken links
+  from **README.tea**. **README.tea** is generated through a template
   **README.tpl**.
 
 ## Wednesday 4th
@@ -2158,43 +2157,43 @@ is a list of improvements I made during from 24th June to today.
 
 * Updated the local variables man pages.
 
-* Fixed a bug with **START** command. Since the output of **pbat\_start** was 
-  redirected to **NUL**, and the process was not awaited, it caused problem 
-  when either **mimeopen** or **xdg-open** was trying to interact with user. 
-  To fix the problem, the output is no longer redirected and pbat waits for 
-  **pbat\_start** completion. This might cause little inconveniences as both 
-  **xdg-open** and **mimeopen** produce some output even when run without 
+* Fixed a bug with **START** command. Since the output of **pbat\_start** was
+  redirected to **NUL**, and the process was not awaited, it caused problem
+  when either **mimeopen** or **xdg-open** was trying to interact with user.
+  To fix the problem, the output is no longer redirected and pbat waits for
+  **pbat\_start** completion. This might cause little inconveniences as both
+  **xdg-open** and **mimeopen** produce some output even when run without
   errors, but this is the only workaround found yet.
 
 ## Saturday, 7th
 
 * Fixed few errors with the **DUMP** command.
 
-* Fixed capitalised letters used inside a **\#include** statement in 
+* Fixed capitalised letters used inside a **\#include** statement in
   **pBat\_UnicodeDir.c**
 
 * Added translation for Hindi thanks to **Karanveer Chouhan \(aka kvc\)**.
 
 * Added a tiny test suite system.
 
-* Fixed **SET /a** bugs reported by DrNuget on the discord conversation. There 
+* Fixed **SET /a** bugs reported by DrNuget on the discord conversation. There
   was essentially two bugs:
 
-  * the **-=** operator was mistakenly handled by **pBat** as the **/=** which 
+  * the **-=** operator was mistakenly handled by **pBat** as the **/=** which
     obviously led to unexpected behaviours.
 
-  * Additional spaces between the variable name and the assignment operator 
-    were not ignored whenever an assignment other than **=** was specified, 
+  * Additional spaces between the variable name and the assignment operator
+    were not ignored whenever an assignment other than **=** was specified,
     leading to errors computing the result.
 
-* Fixed a tiny error with **femto** so that configuration target can be 
+* Fixed a tiny error with **femto** so that configuration target can be
   specified in a single line.
 
 ## Sunday 15th
 
 * Modified po Makefiles to stop auto-rebuild problems.
 
-* Modified dir and variables to fix locale date formatting problems and added 
+* Modified dir and variables to fix locale date formatting problems and added
   proper setlocale.
 
 ## Monday 16th
@@ -2203,61 +2202,61 @@ is a list of improvements I made during from 24th June to today.
 
 * Added **PROMPT** command and **%PROMPT%** variable.
 
-* Added the **PECHO** command which consists of an echo command using prompt 
+* Added the **PECHO** command which consists of an echo command using prompt
   formats.
 
 * Moved the introduction message to **pBat\_Auto.bat**.
 
 * Fixes to **pbat variables** manual pages.
 
-* Modified **COLOR** to handle new **.** extension, which refer to the current 
+* Modified **COLOR** to handle new **.** extension, which refer to the current
   default color.
 
 * Modified the behaviour of libcu8 history.
 
 ## Tuesday 17th
 
-* Fixed remaining with msgmerge that was not properly updating the timestanp 
+* Fixed remaining with msgmerge that was not properly updating the timestanp
   of generated files.
 
-* Changed **pBat\_Ask\(\)** input source to avoid potential conflicts with 
+* Changed **pBat\_Ask\(\)** input source to avoid potential conflicts with
   buffering.
 
-* Added bash-like auto-complete features for windows platforms, still 
+* Added bash-like auto-complete features for windows platforms, still
   experimental though.
 
-* Fixed errors on colors associations to code when using Unix-based operating 
+* Fixed errors on colors associations to code when using Unix-based operating
   systems. Sadly this means this feature has been broken for quit a long time.
 
-* Added bash-like auto-complete features for Unix-based operating system based 
-  on linenoise. There is still some concerns that this might be broken on 
+* Added bash-like auto-complete features for Unix-based operating system based
+  on linenoise. There is still some concerns that this might be broken on
   platforms with console interraction dissabled.
 
-* Slightly modified **pBat\_AskConfirmation\(\)** function to be able to 
-  specify some special input function in order to avoid conflicts with 
+* Slightly modified **pBat\_AskConfirmation\(\)** function to be able to
+  specify some special input function in order to avoid conflicts with
   standard buffering or raw mode.
 
 ## Saturday 21st
 
 * Fixed missing inclusion of <stddef.h> in **pBat\_Ask.h**.
 
-* Fixed **libcu8\_read\(\)** function problem handling some characters that 
-  consume more than one monospaced width. Such characters can be found using 
+* Fixed **libcu8\_read\(\)** function problem handling some characters that
+  consume more than one monospaced width. Such characters can be found using
   **NSimSum** font on windows systems \(for example, the **§**\).
 
-* Added **$P$G** as default **%PROMPT%** value, just in case there is no 
+* Added **$P$G** as default **%PROMPT%** value, just in case there is no
   **pBat\_Auto.bat** script available.
 
 * Added an alternate prompt for multi-line input.
 
-* Fixed missing preprocessor directives inside **linenoise/linenoise.c** today 
+* Fixed missing preprocessor directives inside **linenoise/linenoise.c** today
   exclude **windows** targets.
 
 ## Thursday 24th
 
 * Added the ESC key shortcut to clear the command under windows platforms.
 
-* Added **dist** makefile target to make a zip of the **bin** folder when 
+* Added **dist** makefile target to make a zip of the **bin** folder when
   called.
 
 ## Saturday 4th, August
@@ -2268,7 +2267,7 @@ is a list of improvements I made during from 24th June to today.
 
 ## Monday 6th, August
 
-* Fixed Makefile bug that triggered the build of **po** sub directory even 
+* Fixed Makefile bug that triggered the build of **po** sub directory even
   when **no-nls** was used to configure the femto build suite.
 
 * Fixed **CD** outdated manual page.
@@ -2279,14 +2278,14 @@ is a list of improvements I made during from 24th June to today.
 
 ## Friday 10th
 
-* Implemented a better support to **UNC** paths. Such paths can not be used by 
+* Implemented a better support to **UNC** paths. Such paths can not be used by
   **CD** for now.
 
 ## Saturday 11th
 
-* Implement a new behaviour for **XARGS** command. Each line of the input is 
-  interpreted as a single parameter. Thus whenever a line containing 
-  delimiters and not surrounded by quotes is encountered, quotes are 
+* Implement a new behaviour for **XARGS** command. Each line of the input is
+  interpreted as a single parameter. Thus whenever a line containing
+  delimiters and not surrounded by quotes is encountered, quotes are
   automatically added.
 
 ## Wednesday 15th
@@ -2297,15 +2296,15 @@ is a list of improvements I made during from 24th June to today.
 
 * Added the **TIMEOUT** command.
 
-* Modified the way **pBat** set locale so that the subject LC\_NUMERIC \(that 
+* Modified the way **pBat** set locale so that the subject LC\_NUMERIC \(that
   is, everything refering to numbers\) are not affected by the change.
 
 ## Sunday 19th
 
-* Fixed an error introduced some commit ago that caused file search functions 
+* Fixed an error introduced some commit ago that caused file search functions
   that caused a '/' to be added before the '/' root sign when using linux.
 
-* Fixed an error with linenoise custom autocompletion mecanism not adding a 
+* Fixed an error with linenoise custom autocompletion mecanism not adding a
   final '0' character to the line, resulting in buffer overflows.
 
 * Fixes to manual pages.
@@ -2322,8 +2321,8 @@ is a list of improvements I made during from 24th June to today.
 
 ## Sunday 26th
 
-* Fixed a bug with serialisation of sub process creation. Indeed, as pBat is 
-  multi-threaded, many different process can be creating at nearly the same 
+* Fixed a bug with serialisation of sub process creation. Indeed, as pBat is
+  multi-threaded, many different process can be creating at nearly the same
   time, causing file inheritance issues with pipes.
 
 * Fixed a bug with history completion.
@@ -2332,17 +2331,17 @@ is a list of improvements I made during from 24th June to today.
 
 ## Monday 1st, October
 
-* Fixed a bug where the closing parenthesis was not recognised as a delimiter 
+* Fixed a bug where the closing parenthesis was not recognised as a delimiter
   for files names when using redirections.
 
 ## Wednesday 3rd
 
-* Fixed an annoying bug of the windows version that used autocompletion when 
-  prompting the user a question, resulting sometimes on unconvienient nested 
+* Fixed an annoying bug of the windows version that used autocompletion when
+  prompting the user a question, resulting sometimes on unconvienient nested
   user prompts.
 
-* Added a mutex to serialize calls to the ECHO command between subthreads. 
-  Indeed before this, several simultaneous calls to ECHO resulted in 
+* Added a mutex to serialize calls to the ECHO command between subthreads.
+  Indeed before this, several simultaneous calls to ECHO resulted in
   interlaced messages, and garbage-like text.
 
 * Fixed an unitialized variable bug in the RMDIR command code.
@@ -2357,19 +2356,19 @@ is a list of improvements I made during from 24th June to today.
 
 ## Thursday 31st
 
-* Added the MOD command and a module toolkit to create simple dynamic link 
-  modules for pBat. The object files to build modules can be found in 
+* Added the MOD command and a module toolkit to create simple dynamic link
+  modules for pBat. The object files to build modules can be found in
   modules/lib and a very simple sample module is available in modules/sample.
 
 ## Sunday 3rd, November
 
-* Fixed a bug of block parsing preventing proper handling of redirections when 
+* Fixed a bug of block parsing preventing proper handling of redirections when
   mixed with top-level blocks.
 
 * Slight fixes to MOD and module apis.
 
-* Lots of changes to the console apis of libpBat, changed functions to require 
-  stream as argument and got rid of the duplicated functions inside pBat and 
+* Lots of changes to the console apis of libpBat, changed functions to require
+  stream as argument and got rid of the duplicated functions inside pBat and
   initialisation functions
 
 * Added an experimental batbox module.
@@ -2380,7 +2379,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed omitted thread locale attribute within MORE command code.
 
-* Fixed pBat\_GetVar\(\) and pBat\_UnEscape\(\) functions which happenned to 
+* Fixed pBat\_GetVar\(\) and pBat\_UnEscape\(\) functions which happenned to
   be very slow on very large inputs.
 
 * Modified ESTR\* lib to extend buffer exponentially rather linearly.
@@ -2389,44 +2388,44 @@ is a list of improvements I made during from 24th June to today.
 
 ## Thursday, 29th
 
-* Added 'no-modules' options to build pBat without module support on platforms 
+* Added 'no-modules' options to build pBat without module support on platforms
   that do not provide it.
 
-* Fixed THANKS file to thank Xenoxis for his contribution to the codebase with 
+* Fixed THANKS file to thank Xenoxis for his contribution to the codebase with
   the **VER** command.
 
-* Slightly modified the internationalization semantics used by pBat in order 
-  to fix slight Windows issue related to some message containing '\n' that 
-  were not translated to '\r\n'. The semantics have been changed, in order to 
+* Slightly modified the internationalization semantics used by pBat in order
+  to fix slight Windows issue related to some message containing '\n' that
+  were not translated to '\r\n'. The semantics have been changed, in order to
   fix this issue, as follows \(this is further discussed in GUIDELINES\):
 
-  * Help messages have '\n' translated to the appropriate sequences on the 
+  * Help messages have '\n' translated to the appropriate sequences on the
     fly, so these may still contain newlines.
 
-  * On the other hand, both normal and error message must not contain any 
-    newline. Furthermore, it up to the command to print appropriate sequences 
+  * On the other hand, both normal and error message must not contain any
+    newline. Furthermore, it up to the command to print appropriate sequences
     using PBAT\_NL when displaying a normal message.
 
 ## Sunday 1st, December
 
-* Fixed a bug preventing PBAT\_COLOR\_DEFAULT to work on unix-compatible 
+* Fixed a bug preventing PBAT\_COLOR\_DEFAULT to work on unix-compatible
   operating systems.
 
 * Fixed omitted libdl link flag inside pBat's makefile.
 
 ## Saturday 8th, December
 
-* Improved femto by adding femto-clean and by using femto-test.out to avoid 
+* Improved femto by adding femto-clean and by using femto-test.out to avoid
   using compiler-default file output \(such as a.exe or a.out\).
 
-* Removed dump.h from git repository \(which is useless since it is 
+* Removed dump.h from git repository \(which is useless since it is
   automatically generated with platform-specific values\).
 
-* Fixed 
+* Fixed
 
         make bin
 
-build without prior 
+build without prior
 
     make all
 
@@ -2434,12 +2433,12 @@ build without prior
 
 ## Thursday 13rd
 
-* Changed name of **TEST\_\*\_PATH\(\)** macro families to 
+* Changed name of **TEST\_\*\_PATH\(\)** macro families to
   **PBAT\_TEST\_\*\_PATH\(\)** to add more consistency to the source code.
 
 * Removed old outdated man page reffering to dropped external commands.
 
-* Added a fix to the batbox modules to make color codes portable across all 
+* Added a fix to the batbox modules to make color codes portable across all
   supported platforms.
 
 * Fixed man page typos.
@@ -2452,21 +2451,21 @@ build without prior
 
 * Fixed searching issues with hlp script and implemented **help /l**.
 
-* Fixed a little bug that caused %PATH% search functions to loop through 
+* Fixed a little bug that caused %PATH% search functions to loop through
   %PATH% files even when given a relative path.
 
-* Changed the behaviour of the **MOD** command. Modules are now search by 
-  default inside **%PBAT\_PATH%/modules** \(rather that in the whole 
-  **%PATH%** directories\), unless if the module file name is absolute; in 
+* Changed the behaviour of the **MOD** command. Modules are now search by
+  default inside **%PBAT\_PATH%/modules** \(rather that in the whole
+  **%PATH%** directories\), unless if the module file name is absolute; in
   that case **MOD** uses the file referred to by the absolute path.
 
-* Fixed a bug of **SET /a:f**. When expression contained spaces, the return 
+* Fixed a bug of **SET /a:f**. When expression contained spaces, the return
   value was systematically 0.
 
 ## Monday 16th, December
 
-* Improved consistency between **command /?**, now **pbat /?** and **dump 
-  /?** use stderr/fError instead of stdout as output \(which is more 
+* Improved consistency between **command /?**, now **pbat /?** and **dump
+  /?** use stderr/fError instead of stdout as output \(which is more
   consistent with internal commands\).
 
 ## Monday 24th
@@ -2477,7 +2476,7 @@ build without prior
 
 ## Thursday 27th
 
-* Fixed missing documentation for **batbox** modules. Modified **README** and 
+* Fixed missing documentation for **batbox** modules. Modified **README** and
   **GUIDELINES**.
 
 * Fixed missing static qualifiers in libpBat.
@@ -2486,17 +2485,17 @@ build without prior
 
 * Fixed a bug with **%\~d** under \*nices causing double root symbol on paths.
 
-## Monday, Junuary 14th
+## Monday, January 14th 2019
 
-* Added **src-dist** target to **Makefile** to automatically build source code 
+* Added **src-dist** target to **Makefile** to automatically build source code
   tarballs ready to be distributed and/or uploaded on the website.
 
 * Fixed a bug involving **pBat\_RunBlock\(\)** not parsing blocks correctly.
 
-## Thursday 17th
+## Thursday 17th 2019
 
-* Finally fixed **hlp.bat** to make it able to be run from any directory, 
-  especially when the said directory names contains parenthesis or spaces 
+* Finally fixed **hlp.bat** to make it able to be run from any directory,
+  especially when the said directory names contains parenthesis or spaces
   \(what is very often the case under windows\).
 
 ## Monday, May 1st, 2020
@@ -2507,13 +2506,13 @@ build without prior
 
 * Fixed hlp bug with pBat on another drive than user directory on Windows.
 
-## Thursday, May 4th, 2020 
+## Thursday, May 4th, 2020
 
 * Fixed pushd memory leak.
 
 * Reworked directory stack :
 
-* Fixed directory stack allocation bug that makes directory stack unusable 
+* Fixed directory stack allocation bug that makes directory stack unusable
   after a pBat\_PopDir\(\) that cleared the stack.
 
 * Makes pBat\_CloneInstance\(\) aware of directory stack.
@@ -2522,19 +2521,19 @@ build without prior
 
 ## Sunday, July 19th
 
-* Fixed Makefile for building po files. Some builds of gmake automatically 
-  remove files that are not explicitelly a target of the make file so that the 
-  po files \(**\*.pot** => **\*.po** => **\*.mo**\) where identified as such 
+* Fixed Makefile for building po files. Some builds of gmake automatically
+  remove files that are not explicitly a target of the make file so that the
+  po files \(**\*.pot** => **\*.po** => **\*.mo**\) where identified as such
   and deleted.
 
 ## Sunday, October 4th, 2020
 
-* Fixed %=EXITCODEASCII% endianness issue. Removed unneeded switch in 
+* Fixed %=EXITCODEASCII% endianness issue. Removed unneeded switch in
   pBat\_Var.c.
 
 ## Thursday, October 8th, 2020
 
-* Changed pBat\_InitConsole to don't override cursor size on Windows. 
+* Changed pBat\_InitConsole to don't override cursor size on Windows.
 
 * Fixed some building issues on Clang.
 
@@ -2542,43 +2541,43 @@ build without prior
 
 * Fixes to typos.
 
-* Added a test to **Makefile** to check whether **pBat** is being build using 
-  **mingw-w64**. Indeed, **mingw-w64** requires 
-  **\_\_USE\_MINGW\_ANSI\_STDIO** to be defined otherwise **snprintf** is 
-  replaced with windows provided **\_snprintf** which does not end strings, 
+* Added a test to **Makefile** to check whether **pBat** is being build using
+  **mingw-w64**. Indeed, **mingw-w64** requires
+  **\_\_USE\_MINGW\_ANSI\_STDIO** to be defined otherwise **snprintf** is
+  replaced with windows provided **\_snprintf** which does not end strings,
   leading to a lot of errors as pBat assumes ANSI.
 
 ## Thursday, October 22nd
 
 * Fixes to linenoise completion function that had bug on some systems.
 
-* Added a new build option to disable linenoise because I found it somehow 
+* Added a new build option to disable linenoise because I found it somehow
   interfered with gdb.
 
 * Fixed a bug that caused "/" path to be canonicalized into "", causing errors
 
 ## Saturday, October 24th
 
-* Fixed a bug that would not let the user add a space or a delimiter after 
+* Fixed a bug that would not let the user add a space or a delimiter after
   labels specifiers.
 
 * Fixed a couple of bugs of the **FOR** command :
 
-  * Allow spaces to be inserted in **delims=** specifiers and provide a more 
+  * Allow spaces to be inserted in **delims=** specifiers and provide a more
     robust parsing function for **FOR /F** options.
 
-  * Fixed incorrect behaviour of **eol** specifier. The **FOR /F** loop only 
-    skips inputs when the first character of the line processed has been 
+  * Fixed incorrect behaviour of **eol** specifier. The **FOR /F** loop only
+    skips inputs when the first character of the line processed has been
     specified through **eol**, this should not be a truncation.
 
-  * Fixed incorrect behaviour of **tokens** specifiers. The **n-p** specifier 
-    used to provide a concatenation of tokens from **n** up to **p** into a 
-    single variable. However, in **cmd** it selects **n** up to **p** but in 
-    different variables \(ie. not concatenated\). This behaviour has been 
+  * Fixed incorrect behaviour of **tokens** specifiers. The **n-p** specifier
+    used to provide a concatenation of tokens from **n** up to **p** into a
+    single variable. However, in **cmd** it selects **n** up to **p** but in
+    different variables \(ie. not concatenated\). This behaviour has been
     fixed and **pBat** has now the same behaviour as **cmd**.
 
-  * Added a syntax for **tokens** specifier which enables using the old 
-    **n-p** behaviour. The syntax is **n.p**, it provides a variable that 
+  * Added a syntax for **tokens** specifier which enables using the old
+    **n-p** behaviour. The syntax is **n.p**, it provides a variable that
     contain all the tokens from **n** up to **p**
 
 * Improved documentation of lookahead commands on GUIDELINES file.
@@ -2587,12 +2586,12 @@ build without prior
 
 * Fixed a bug with **femto** flag detection implementation
 
-* Fixed a **START** bug that had omitted depreciated switches and add the 
+* Fixed a **START** bug that had omitted depreciated switches and add the
   internal help for the start command.$
 
 * Fixed issue with combined pipes on linux based systems.
 
-* Fixed **MORE** command to use a proper console input file instead of 
+* Fixed **MORE** command to use a proper console input file instead of
   **fInput** when run interactively.
 
 ## Thursday, 26th November
@@ -2601,16 +2600,16 @@ build without prior
 
 ## Monday, February 8th, 2021
 
-* Added the use of a win\_iconv to the **libcu8** library, to bypass using gnu 
+* Added the use of a win\_iconv to the **libcu8** library, to bypass using gnu
   iconv which is way too big for portability issues.
 
 ## Monday, April 12th, 2021
 
-* Created the microgettext library to remove the **GNU gettext** library of 
-  pBat depedencies. pBat has now no major dependencies aside from libdl and 
+* Created the microgettext library to remove the **GNU gettext** library of
+  pBat depedencies. pBat has now no major dependencies aside from libdl and
   libgcc. Statically linked it is about 400ko
 
-* Created the experimental **LOCALE** command to provide a way to set custom 
+* Created the experimental **LOCALE** command to provide a way to set custom
   paths for translations
 
 * Removed unnecessary references to pBat\_GetExecutableName\(\)
@@ -2623,29 +2622,28 @@ build without prior
 
   * Else use string lexicographical comparison
 
-* Fixed a bug leading **^** to be considered as a variable name instead of an 
+* Fixed a bug leading **^** to be considered as a variable name instead of an
   operator
 
 * Fixed a bug with the libcu8 prompt.
 
 ## Wednesday, April 28th, 2021
 
-* Implemented w10ansi compilation flag to implement console functions using 
-  ANSI sequences instead of Windows API on Windows. Needs Windows 10 1903 and 
-  Legacy Console disabled to work properly, can also work on other Windows 
+* Implemented w10ansi compilation flag to implement console functions using
+  ANSI sequences instead of Windows API on Windows. Needs Windows 10 1903 and
+  Legacy Console disabled to work properly, can also work on other Windows
   versions or with Legacy Console using ANSICON.
 
 ## Monday, May 15th, 2021
 
 * Changes to the **FOR** command documentation.
 
-* Remove the **ENABLEFLOATS** options. The float distinction has now meaning 
-  since the recent changes to the **SET /A** command. By default the command 
-  uses integers, but floats are automatically triggered when a floating point 
-  value is specified or when a function or a constant is used. All of this is 
+* Remove the **ENABLEFLOATS** options. The float distinction has now meaning
+  since the recent changes to the **SET /A** command. By default the command
+  uses integers, but floats are automatically triggered when a floating point
+  value is specified or when a function or a constant is used. All of this is
   explained in details in the **SET /A** manual page.
 
 ## Thursday, June 3rd, 2021
 
 * Fix some config issues due to missing renaming.
-

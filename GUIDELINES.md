@@ -202,12 +202,11 @@ libpBat.
         struct FILELIST* lpflNext; /* pointer to next match */
         struct FILELIST* lpflPrevious; /* Use only internally, do not use this */
     } FILELIST,*LPFILELIST;
-
+    
     /* Return a list of all matching files to *lpPathMatch */
     FILELIST*  pBat_GetMatchFileList(char* lpPathMatch, int iFlag);
     /* Free a list of matching files */
     void pBat_FreeFileList(FILELIST* list);
-
 
 Where **\*lpPathMatch** is a pointer to a nul-terminated regular expression to
 match. The **FILELIST** is allocated by the function, do not forget to free it
@@ -220,13 +219,12 @@ following flags:
      #define PBAT_SEARCH_RECURSIVE
      /* Stop after the first match is found */
      #define PBAT_SEARCH_GET_FIRST_MATCH
-     /* Do not grab informations about files */
+     /* Do not grab information about files */
      #define PBAT_SEARCH_NO_STAT
      /* Do not list pseudo dirs '.' and '..' */
      #define PBAT_SEARCH_NO_PSEUDO_DIR
      /* Search mode equivalent DIR (ie "dir" is equivalent to "dir/*" */
      #define PBAT_SEARCH_DIR_MODE
-
 
 **pBat\_GetMatchFileList\(\)** does not search for files with some particular
 attribute. However, pBat provides a way to discriminate between files with
@@ -287,7 +285,7 @@ in the **fn** field is the following:
 The field **\*\*line**, is a pointer to the **pBat\_RunParsedLine\(\)** copy
 of the current **PARSED\_LINE\*** being executed. Thus **\*line** can be set
 to NULL without causing any memory leakage as it is a copy of the original
-pointer. The lookahed commands are allowed to mess with the PARSED\_LINE for
+pointer. The lookahead commands are allowed to mess with the PARSED\_LINE for
 subsequent execution.
 
 To add a block at the beginning of the PARSED\_LINE, the following function
@@ -396,4 +394,3 @@ that will be translated at runtime to the appropriate end-of-line characters.
 
 When adding new messages, please avoid to break the standard message format
 used by already defined messages.
-

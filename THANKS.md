@@ -1,20 +1,20 @@
 # Thanks
 
-This is a list of people and contributors I would particularly like to thank 
-for their help on the project. Without them, pBat would certainly not be so 
+This is a list of people and contributors I would particularly like to thank
+for their help on the project. Without them, pBat would certainly not be so
 advanced today.
 
 * Teddy Astie \(aka TSnake41\)
 
-  * Originated the new build system that we use to build pBat, which is way 
+  * Originated the new build system that we use to build pBat, which is way
     more easy to use than this awkward GNU autotools stuff.
 
-  * Lots of new bugs of the interpretor submitted particularly using the well 
+  * Lots of new bugs of the interpreter submitted particularly using the well
     known command darkbox and the httpBat script he and Xenoxis designed.
 
-  * Lots of interpretor testing
+  * Lots of interpreter testing
 
-  * Contributions to the interpretor code. Designed the Pushd Popd sections of 
+  * Contributions to the interpreter code. Designed the Pushd Popd sections of
     pBat.
 
   * Providing various programs intended to work with pBat.
@@ -31,5 +31,4 @@ advanced today.
 
   * Help reviewing of pBat
 
-  * Provided the translations for Hindi. 
-
+  * Provided the translations for Hindi.
