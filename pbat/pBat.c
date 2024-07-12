@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
     srand(time(NULL));
 
     /* Set the console title depending on the type of actions performed (ie.
-     * command prompt or batch interpretor) and set the PBAT_IS_SCRIPT var
+     * command prompt or batch interpreter) and set the PBAT_IS_SCRIPT var
      * appropriately */
     pBat_InitConsoleTitles(lpFileName, bQuiet);
 
@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
      * %0 accordingly */
     if (*lpFileName!='\0') {
 
-        /* generates real path if the path is uncomplete */
+        /* generates real path if the path is incomplete */
         if (pBat_GetFilePath(lpFileAbs, lpFileName, sizeof(lpFileAbs))==-1)
             pBat_ShowErrorMessage(PBAT_FILE_ERROR, lpFileName, -1);
 

@@ -664,7 +664,7 @@ int pBat_ForMakeInfo(char* lpOptions, FORINFO* lpfiInfo)
                a delimiter, It is wise to remove it of end-of-line character if those have
                not been redefined yet.
 
-               This obviously does not cover the case where ';' is specified explicitely
+               This obviously does not cover the case where ';' is specified explicitly
                in both "delims" and "tokens" by the user. */
 
 			if (strchr(lpfiInfo->lpDelims, ';') != NULL
@@ -915,7 +915,7 @@ int  pBat_ForMakeTokens (char* p,  FORINFO* infos)
 
 
 
-            /* interupt the loop if we reached the end of the string */
+            /* interrupt the loop if we reached the end of the string */
             if (!*p)
                 ok = 0;
 

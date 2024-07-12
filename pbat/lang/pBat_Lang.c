@@ -79,12 +79,12 @@ const char* lpMsgTimeoutKeyPress;
 const char* lpModuleList;
 const char *lpModulesNotSupported;
 
-/* This is a list of translatable strings that are usefull to
+/* This is a list of translatable strings that are useful to
    easily translate it. When adding, new strings, beware not to
    include any '\n' a in theses string as this will result in a
    slight buggy behaviour on windows (leading to text file
    likely to lack some '\r' characters before '\n' to get valid
-   newlines). To prevent this, please use 'PBAT_NL' macro explicitely
+   newlines). To prevent this, please use 'PBAT_NL' macro explicitly
    in your command code instead of '\n' inside translatable strings.
 
    Note: This does not apply to lpHlpMain, which is to be displayed

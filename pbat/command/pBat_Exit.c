@@ -42,7 +42,7 @@
 
 /* exit [/b] [code]
 
-    Exit the interpretor.
+    Exit the interpreter.
 
         - /b : Exit only the current execution level (subroutine)
 
@@ -96,7 +96,7 @@ int pBat_CmdExit(char* lpLine)
 		}
 	}
 
-    /* Exit from the interpretor */
+    /* Exit from the interpreter */
     pBat_Exit();
 
     /* End thread or  the program */
