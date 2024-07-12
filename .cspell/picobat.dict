@@ -117,6 +117,7 @@ unefficient
 USEOPTIONS
 USEOPTIONSX
 wcurrdir
+wdir
 wenvblock
 wfile
 wfullline
