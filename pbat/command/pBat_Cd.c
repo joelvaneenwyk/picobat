@@ -129,7 +129,7 @@ reloop:
 
                 } else {
 
-                    /* squeeze the preceeding dir and the separator */
+                    /* squeeze the preceding dir and the separator */
                     memmove(previous, path+3, size - ((path + 3 ) - orig));
                     size -= (path + 3) - previous;
                     path = previous;

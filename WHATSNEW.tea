@@ -338,7 +338,7 @@ ${IF 1==1 (
 
 {{Monday 24th, February}}
 
-	- Solve a bug that prevented correct {%ERROLEVEL%} values from being correctly used, it used to
+	- Solve a bug that prevented correct {%ERRORLEVEL%} values from being correctly used, it used to
 	be ignored when using internal commands.
 
 	- Decided of a change in the way to deal with variables, in order to enable more compatibility between
@@ -347,8 +347,8 @@ ${IF 1==1 (
 	@- On the one hand,
 	to make the difference between the two kind of variables, I decided the only way to denote a special var
 	(ie. like {%%A}) is to prefix it with two percent. Except for variables like {%0, %1} and so on, which can
-	be accessed with a single {%} for compatibility purposes. This new conventions provides more stylished script
-	and prevent name clashes, (ie. unexpected behaviour caused for exemple by the following code) :
+	be accessed with a single {%} for compatibility purposes. This new conventions provides a more stylish script
+	and prevents name clashes e.g., prevents unexpected behaviour from the following code:
 
 ${ECHO %1 test%
 :: since spaces in variables names are valid, the result can
@@ -356,14 +356,14 @@ ${ECHO %1 test%
 :: expanded first.
 }
 
-	@- On the other, the only way to specify environment variables is the conventionnal way, with single {%}. Note
+	@- On the other, the only way to specify environment variables is the conventional way, with single {%}. Note
 	that this behaviour has also changed, undefined variables will be replaced by a void string (they'll be just stripped
 	from the output).
 
 	@- Finally, in some cases, using {%a} to specify the special variable will work either, but well, it can just happen
 	on a very few cases, so that it is preferable not to use this notation.
 
-	- Changed {pBat} behaviour towards {%0, ..., %9} variables. Those which are not explicitelly specified at startup will
+	- Changed {pBat} behaviour towards {%0, ..., %9} variables. Those which are not explicitly specified at startup will
 	be filled with an empty string, and will expand to the empty string.
 
 {{Thursday 25th, February}}
@@ -439,7 +439,7 @@ make}
 
 	- Started to refresh a large part of the core, which includes rewriting what were called modules, and are now
 	just outdated piece of code. I hope those changes to be functional within a short delay. It is mainly about getting
-	rid of old and ugly pieces of codes i've been writing about two years ago. Some function have also been transfered to
+	rid of old and ugly pieces of codes i've been writing about two years ago. Some function have also been transferred to
 	libpBat, this is limited however, since pBat is not stable enough to get it in a whole library.
 
 {{Saturday 8th, March}}
@@ -503,7 +503,7 @@ ${if foo^ bar equ "foo bar" echo YES}
 
 {{Thursday 13th, March}}
 
-	- Fixed bugs with the run functions. The use of {program \|\| goto error} to perform feature test is avaliable for both windows
+	- Fixed bugs with the run functions. The use of {program \|\| goto error} to perform feature test is available for both windows
 	and *nix.
 
 	- Fixed bugs with {pBat_SplitPath} command in *nix.
@@ -1267,7 +1267,7 @@ ${make local}
 	new year 2016.
 
 	- Added functions to restrict fd inheritance, to make sure the appropriate
-	fds are closed on exec. It is basically usefull for FOR commands.
+	fds are closed on exec. It is basically useful for FOR commands.
 
 	- Hugely modified the libcu8 to fit with libpBat. It is still an experimental,
 	though, but it works way better now.
@@ -2055,7 +2055,7 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 {{Tuesday 3rd}}
 
     - Added new target {/O:MD} for {TEA} that output markdown files. This is
-    very usefull as it helps providing more readable documentations on git
+    very useful as it helps providing more readable documentations on git
     repositories.
 
     - Fixed build errors for {DUMP}.
