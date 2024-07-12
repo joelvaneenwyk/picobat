@@ -31,8 +31,8 @@
 void pBat_InitCompletion(void)
 {
 #if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
-    libcu8_completion_handler = (libcu8_completion_handler)pBat_CompletionHandler;
-    libcu8_completion_handler_free = (libcu8_completion_handler_free)pBat_CompletionHandlerFree;
+    libcu8_completion_handler = (libcu8_completion_handler_t)pBat_CompletionHandler;
+    libcu8_completion_handler_free = (libcu8_completion_handler_free_t)pBat_CompletionHandlerFree;
 #elif !defined(WIN32) && (!defined(PBAT_NO_LINENOISE) || PBAT_NO_LINENOISE==0)
     linenoiseSetCompletionCallback(pBat_CompletionHandler);
 #endif /* WIN32 */

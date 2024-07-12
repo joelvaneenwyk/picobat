@@ -242,6 +242,8 @@ __LIBCU8__IMP __cdecl int libcu8_fd_set_inheritance(int fd, int mode);
 __LIBCU8__IMP __cdecl void (*libcu8_completion_handler)(const char*, char**);
 __LIBCU8__IMP __cdecl void (*libcu8_completion_handler_free)(char*);
 
+typedef void (*libcu8_completion_handler_t)(const char*, char**);
+typedef void (*libcu8_completion_handler_free_t)(char*);
 
 #ifdef dirent
 #undef dirent
