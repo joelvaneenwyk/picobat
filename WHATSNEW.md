@@ -1401,7 +1401,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed some bugs with **SET** and redirections.
 
-* still develloping pbatize
+* Still develloping **pbatize**
 
 * Fixed errors with folders containing spaces for pBat.
 
@@ -1502,7 +1502,7 @@ is a list of improvements I made during from 24th June to today.
 
             :loop
             for /f "delims=: tokens=1,2,3" %%A in ('echo this:is:a_test') do (
-                echo %%A %%B %%C
+             echo %%A %%B %%C
             )
             goto :loop
 
@@ -2169,7 +2169,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed few errors with the **DUMP** command.
 
-* Fixed capitalised letters used inside a **\#include** statement in
+* Fixed capitalized letters used inside a **\#include** statement in
   **pBat\_UnicodeDir.c**
 
 * Added translation for Hindi thanks to **Karanveer Chouhan \(aka kvc\)**.
@@ -2216,8 +2216,8 @@ is a list of improvements I made during from 24th June to today.
 
 ## Tuesday 17th
 
-* Fixed remaining with msgmerge that was not properly updating the timestanp
-  of generated files.
+* Fixed remaining issues with `msgmerge` that was not properly updating the
+  timestamp of generated files.
 
 * Changed **pBat\_Ask\(\)** input source to avoid potential conflicts with
   buffering.
@@ -2230,7 +2230,7 @@ is a list of improvements I made during from 24th June to today.
 
 * Added bash-like auto-complete features for Unix-based operating system based
   on linenoise. There is still some concerns that this might be broken on
-  platforms with console interraction dissabled.
+  platforms with console interaction disabled.
 
 * Slightly modified **pBat\_AskConfirmation\(\)** function to be able to
   specify some special input function in order to avoid conflicts with
@@ -2297,15 +2297,15 @@ is a list of improvements I made during from 24th June to today.
 * Added the **TIMEOUT** command.
 
 * Modified the way **pBat** set locale so that the subject LC\_NUMERIC \(that
-  is, everything refering to numbers\) are not affected by the change.
+  is, everything referring to numbers\) are not affected by the change.
 
 ## Sunday 19th
 
 * Fixed an error introduced some commit ago that caused file search functions
   that caused a '/' to be added before the '/' root sign when using linux.
 
-* Fixed an error with linenoise custom autocompletion mecanism not adding a
-  final '0' character to the line, resulting in buffer overflows.
+* Fixed an error with **linenoise** custom autocompletion mechanism not adding
+  a final '0' character to the line, resulting in buffer overflows.
 
 * Fixes to manual pages.
 
@@ -2321,7 +2321,7 @@ is a list of improvements I made during from 24th June to today.
 
 ## Sunday 26th
 
-* Fixed a bug with serialisation of sub process creation. Indeed, as pBat is
+* Fixed a bug with serialization of sub process creation. Indeed, as pBat is
   multi-threaded, many different process can be creating at nearly the same
   time, causing file inheritance issues with pipes.
 
@@ -2337,14 +2337,14 @@ is a list of improvements I made during from 24th June to today.
 ## Wednesday 3rd
 
 * Fixed an annoying bug of the windows version that used autocompletion when
-  prompting the user a question, resulting sometimes on unconvienient nested
+  prompting the user a question, resulting sometimes on inconvenient nested
   user prompts.
 
-* Added a mutex to serialize calls to the ECHO command between subthreads.
+* Added a mutex to serialize calls to the ECHO command between sub-threads.
   Indeed before this, several simultaneous calls to ECHO resulted in
   interlaced messages, and garbage-like text.
 
-* Fixed an unitialized variable bug in the RMDIR command code.
+* Fixed an uninitialized variable bug in the **RMDIR** command code.
 
 ## Thursday 4th
 
@@ -2379,8 +2379,8 @@ is a list of improvements I made during from 24th June to today.
 
 * Fixed omitted thread locale attribute within MORE command code.
 
-* Fixed pBat\_GetVar\(\) and pBat\_UnEscape\(\) functions which happenned to
-  be very slow on very large inputs.
+* Fixed pBat\_GetVar\(\) and pBat\_UnEscape\(\) functions which happened to be
+  very slow on very large inputs.
 
 * Modified ESTR\* lib to extend buffer exponentially rather linearly.
 
@@ -2408,15 +2408,16 @@ is a list of improvements I made during from 24th June to today.
 
 ## Sunday 1st, December
 
-* Fixed a bug preventing PBAT\_COLOR\_DEFAULT to work on unix-compatible
+* Fixed a bug preventing **PBAT\_COLOR\_DEFAULT** to work on unix-compatible
   operating systems.
 
-* Fixed omitted libdl link flag inside pBat's makefile.
+* Fixed omitted **libdl** link flag inside pBat's makefile.
 
 ## Saturday 8th, December
 
-* Improved femto by adding femto-clean and by using femto-test.out to avoid
-  using compiler-default file output \(such as a.exe or a.out\).
+* Improved **femto** by adding **femto-clean** and by using
+  **femto-test.out** to avoid using compiler-default file output \(such as
+  **a.exe** or **a.out**\).
 
 * Removed dump.h from git repository \(which is useless since it is
   automatically generated with platform-specific values\).
@@ -2436,7 +2437,7 @@ build without prior
 * Changed name of **TEST\_\*\_PATH\(\)** macro families to
   **PBAT\_TEST\_\*\_PATH\(\)** to add more consistency to the source code.
 
-* Removed old outdated man page reffering to dropped external commands.
+* Removed old outdated man page referring to dropped external commands.
 
 * Added a fix to the batbox modules to make color codes portable across all
   supported platforms.
@@ -2606,8 +2607,8 @@ build without prior
 ## Monday, April 12th, 2021
 
 * Created the microgettext library to remove the **GNU gettext** library of
-  pBat depedencies. pBat has now no major dependencies aside from libdl and
-  libgcc. Statically linked it is about 400ko
+  pBat dependencies. pBat has now no major dependencies aside from **libdl**
+  and **libgcc**. Statically linked it is about 400ko
 
 * Created the experimental **LOCALE** command to provide a way to set custom
   paths for translations

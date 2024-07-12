@@ -19,7 +19,8 @@ tasks:
     cmds:
       - cmd: git add .
       - cmd: rm *.md
+        ignore_error: true
       - cmd: make
-      - cmd: npx --yes markdownlint-cli2@latest --fix "**/*.md" "#node_modules"
+      - cmd: npx --yes markdownlint-cli2@latest --fix "**/*.md" "**/*.readme" "#node_modules"
         ignore_error: true
 

@@ -54,6 +54,7 @@ dostips
 driveletter
 dumpmachine
 easilly
+ENABLEFLOATS
 endianness
 endlocal
 envblock
@@ -104,7 +105,9 @@ LDFLAGS
 lfasteval
 libc
 libcu
+libdl
 libfasteval
+libgcc
 libiconv
 libinteval
 libintl
@@ -135,6 +138,7 @@ miscomputation
 misimplementation
 missinterpreted
 Modifyied
+msgmerge
 msvc
 msvcrt
 msys
@@ -187,6 +191,7 @@ SHOWERRORMESSAGE
 SIGSEGV
 sinces
 startscript
+stddef
 stdlib
 strcasecmp
 strdup

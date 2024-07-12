@@ -1,48 +1,56 @@
-BUILDING Picobat (Newer versions):
-===============================
+# Building `Picobat`
 
-Picobat switched from autotools to a more lightweight build system based
-on gmake called femto (https://gitlab.com/darkbatcher/femto) which
+`Picobat` switched from `autotools` to a more lightweight build system based
+on `gmake` called [`femto`](https://gitlab.com/darkbatcher/femto) which
 eases greatly the compiling process. Of course, some libraries are
-alwayseeded :
+always needed:
 
-	- gcc, gmake etc.
-	- GNU gettext
-	- GNU libiconv
+- `gcc`, `gmake`, etc.
+- `GNU gettext`
+- `GNU libiconv`
 
-If you also want to enable START command support under non-windows platforms,
-either mimeopen or xdg-open are required, the early being the most
+If you also want to enable `START` command support under non-Windows platforms,
+either `mimeopen` or `xdg-open` are required, the early being the most
 recommended alternative.
 
-Building Picobat is quite rapid, first configure the build using :
+## Configure
 
-	$ make config
+Building `Picobat` is quite rapid, first configure the build using:
+
+```bash
+make config
+```
 
 Then you can specify or discard some options using either `use-option`
 or `no-option` targets.
 
-	$ make use-option
-	
-Picobat currently provides 6 options :
+```bash
+make use-option
+```
 
-	- libcu8 : Add native utf-8 support (disabled by default). Do not
-	  use under *nix.
-	- nls : Add translations (enabled by default).
-	- cmdlycorrect : Be the most compatible to cmd as possible (disabled
-	  by default).
-	- w10-ansi : Use ansi escape sequences instead of native windows
-	  api
-	- console : Add visual console features like colours (enabled by
-	  default). On some exotic systems (I'm thinking of NetBSD), the
-	  terminal does not support such features, so this must be disabled.
-	- modules : Add support for Picobat modules (enabled by default). Disabling
-	  it might be required if your are building using all static files.
-	- linenoise : (*Nix only) enables linenoise library that provide
-      autocompletion and extended console input.
+`Picobat` currently provides 6 options :
+
+- `libcu8` : Add native utf-8 support (disabled by default). Do not
+ use under *nix.
+- `nls` : Add translations (enabled by default).
+- cmdlycorrect : Be the most compatible to cmd as possible (disabled
+ by default).
+- `w10-ansi` : Use ansi escape sequences instead of native windows
+ api
+- `console` : Add visual console features like colours (enabled by
+ default). On some exotic systems (e.g., `NetBSD`), the
+ terminal does not support such features, so this must be disabled.
+- `modules` : Add support for `Picobat` modules (enabled by default). Disabling
+ it might be required if your are building using all static files.
+- `linenoise` : (`*Nix` only) enables `linenoise` library that provide
+    autocompletion and extended console input.
+
+## Compile
 
 Once you have configured your options, just compile using :
 
-	$ make all bin
-	
-This will compile Picobat and put the resulting installation inside bin/.
-	
+```bash
+make all bin
+```
+
+This will compile Picobat and put the resulting installation inside `bin/`.

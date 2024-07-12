@@ -142,21 +142,16 @@ If you have some questions about or need some help with Picobat, please feel
 free to join **Picobat**'s official discord at:
 [https://discord.gg/w4KtdCv](https://discord.gg/w4KtdCv)
 
-For more documentations and updates, please see the [official Picobat
-website](http://picobat.org).
+For more documentations and updates, please see the [Official Picobat
+website](https://picobat.org).
 
-## What's in this folder ?
+## What's in this folder?
 
 There is a few interesting things in this directory that you might need:
 
 * [BUILD.readme](BUILD.readme) : A text file describing how to build
-  **Picobat**
-
-* [WHATSNEW](WHATSNEW.md) : A log of the changes made to Picobat
-
-* [THANKS](THANKS.md) : A list of all the contributors to the project.
-
-* [GUIDELINES](GUIDELINES.md) : A text files giving guidelines on how to
-  modify Picobat.
-
-* **COPYING.\*** : The license of the project and of projects used by Picobat.
+  **Picobat** - [WHATSNEW](WHATSNEW.md) : A log of the changes made to Picobat
+  * [THANKS](THANKS.md) : A list of all the contributors to the project. -
+  [GUIDELINES](GUIDELINES.md) : A text files giving guidelines on how to
+  modify Picobat. - **COPYING.\*** : The license of the project and of
+  projects used by Picobat.

@@ -192,7 +192,7 @@ ${IF 1==1 (
 
 	- corrected an expansion bug with {%%~a} (and similar var because the interpreter missinterpreted
 	the command if, for example {%%~ax} was badly expanded if {%%x} was not defined). Now, the choosed varaible
-    is the largest match defined.
+	is the largest match defined.
 
 	- corrected bug with simple {FOR} processing.
 
@@ -595,7 +595,7 @@ ${if foo^ bar equ "foo bar" echo YES}
 	- Fixed a bug with redirection that was not right dealt with. {pBat} did not check whether several block are in a row on the same line.
 
 	- Added some functionalities to the {cmd/hlp.bat} script, which is meant to replace old-fashioned {hlp} manual page viewer. It is basically
-    designed to act as a manual page manager rather than just a viewer, by providing interfaces to build manual trees, and to get manual tress from the
+	designed to act as a manual page manager rather than just a viewer, by providing interfaces to build manual trees, and to get manual tress from the
 	repositories at {picobat.org} (this is to be implemented later).
 
 	- Changed names of the manual-pages subdirectories, they now match up with traditional *NIX-like local names that are widely used. Note that only useful
@@ -1305,18 +1305,18 @@ ${set/p var=question}
 
 {{Monday 16th, April}}
 
-    - Modified the initialization procedure of pBat. pBat can now handle two different
-    startup files:
+	- Modified the initialization procedure of pBat. pBat can now handle two different
+	  startup files:
 
-        -- {$HOME/.pbat/pBat_Auto.bat} : user-specific startup file
+		-- {$HOME/.pbat/pBat_Auto.bat} : user-specific startup file
 
-        -- {$PBAT_PATH/pBat_Auto.bat} : system-wide startup file
+		-- {$PBAT_PATH/pBat_Auto.bat} : system-wide startup file
 
-    - Fixed some bugs with {SET} and redirections.
+	- Fixed some bugs with {SET} and redirections.
 
-    - still develloping pbatize
+	- Still develloping {pbatize}
 
-    - Fixed errors with folders containing spaces for pBat.
+	- Fixed errors with folders containing spaces for pBat.
 
 {{Friday 15th, July}}
 
@@ -1326,9 +1326,9 @@ ${set/p var=question}
 
 {{Wednesday, 14th, September 2016}}
 
-    - Added PUSHD and POPD commands
+	- Added PUSHD and POPD commands
 
-    - Allow to list variable which match with a prefix
+	- Allow to list variable which match with a prefix
 
 {{Friday 18th, October 2016}}
 
@@ -1396,51 +1396,51 @@ ${set/p var=question}
 
 {{Wednesday 23th, November}}
 
-    - Fixed compilation error in pBat_Lang.c.
+	- Fixed compilation error in pBat_Lang.c.
 
-    - Add compilation command in BUILD.readme.
+	- Add compilation command in BUILD.readme.
 
 {{Sunday 4th, December}}
 
-    - Fixed some major bugs submitted by Teddy Astie, for unices. Including :
+	- Fixed some major bugs submitted by Teddy Astie, for unices. Including :
 
-    -- Errors in parsing lines containing nested for loops when braces are not explicitly
-    specified. eg:
+	-- Errors in parsing lines containing nested for loops when braces are not explicitly
+	specified. eg:
 
 ${for /l %%A in (0 1 10) do for /l %%B in (0 1 10) do (
    echo %%A %%B
 )}
 
-    -- Cleaned up zombies processes that were not wiped from kernels buffer since pBat
-    never explicitly specified to throw the data out. Basically, this behaviour is
-    particularly shown when repeating for loops. eg:
+	-- Cleaned up zombies processes that were not wiped from kernels buffer since pBat
+	never explicitly specified to throw the data out. Basically, this behaviour is
+	particularly shown when repeating for loops. eg:
 
 ${:loop
 for /f "delims=: tokens=1,2,3" %%A in ('echo this:is:a_test') do (
-    echo %%A %%B %%C
+	echo %%A %%B %%C
 )
 goto :loop}
 
-    - Changed pBat behaviour when getting a SIGINT on Linux. Depending on whether a user
-    input or a script is being executed, the interpreter choose to cancel the command
-    or to exit.
+	- Changed pBat behaviour when getting a SIGINT on Linux. Depending on whether a user
+	input or a script is being executed, the interpreter choose to cancel the command
+	or to exit.
 
 {{Monday 5th, December}}
 
-    - Fixed a bug with FIND command, the case sensitive and insensitive features were
-    swapped
+	- Fixed a bug with FIND command, the case sensitive and insensitive features were
+	swapped
 
 {{Wednesday 7th, December}}
 
-    - Correct some words in French (fr_FR) manual.
+	- Correct some words in French (fr_FR) manual.
 
 {{Monday 30th, Junuary 2017}}
 
-    - Fixed little errors with {SET} and {/a:i} switches.
+	- Fixed little errors with {SET} and {/a:i} switches.
 
-    - Fixed delimiters errors for parsing input and conditional operators.
+	- Fixed delimiters errors for parsing input and conditional operators.
 
-    - Fixed errors with gotos, basically omit spaces before labels.
+	- Fixed errors with gotos, basically omit spaces before labels.
 
 {{Wednesday 8th, February 2017}}
 
@@ -1469,7 +1469,7 @@ echo test
 
 	- Fixed many manual pages.
 
-    - Fixed if pbat extension bug.
+	- Fixed if pbat extension bug.
 
 {{Monday 13th, February 2017}}
 
@@ -1499,9 +1499,9 @@ echo test
 
 {{Thursday 16th, February 2017}}
 
-    - Update hlp.bat and man.
+	- Update hlp.bat and man.
 
-    - Fix a bug with some libc when display the current directory (with Echo on).
+	- Fix a bug with some libc when display the current directory (with Echo on).
 
 {{Wednesday 22th, February 2017}}
 
@@ -1659,9 +1659,9 @@ ${for %%a in (*.exe) do echo %%a}
 
 {{Friday 14th, April 2017}}
 
-    - Fixed some interpretation error with the {SET /p} command.
+	- Fixed some interpretation error with the {SET /p} command.
 
-    - Fixed conditional definition of _X_OPEN_SOURCE.
+	- Fixed conditional definition of _X_OPEN_SOURCE.
 
 	- Fixed an enormous memory flaw that took place in the inteval libraries
 	and caused pBat memory consumption to increase dramatically when using
@@ -1821,12 +1821,12 @@ ${for %%a in (*.exe) do echo %%a}
 
 {{Saturday 29th, April 2018}}
 
-    - Fixed a memory leak.
+	- Fixed a memory leak.
 
-    - Changed version to 218.1
+	- Changed version to 218.1
 
-    - Fixed {pBat_RunExternalCommand()} which add a pretty big footprint on
-    the stack, sometimes causing stack overflows with Musl libc.
+	- Fixed {pBat_RunExternalCommand()} which add a pretty big footprint on
+	the stack, sometimes causing stack overflows with Musl libc.
 
 {{Tuesday 15th, May 2018}}
 
@@ -1924,16 +1924,16 @@ ${for %%a in (*.exe) do echo %%a}
 
 {{Friday 1st, June 2018}}
 
-    - Added a brand new editing system to the libcu8 library so that pBat's
-    utf-8 versions supports decent editing facilities like hability to insert
-    characters in the middle of the input or use history.
+	- Added a brand new editing system to the libcu8 library so that pBat's
+	utf-8 versions supports decent editing facilities like hability to insert
+	characters in the middle of the input or use history.
 
-    - Fixed a bug causing the %* variable to contain the script name if the
-    script was launched as a separate thread inside an interpreter.
+	- Fixed a bug causing the %* variable to contain the script name if the
+	script was launched as a separate thread inside an interpreter.
 
-    - Fixed Broken makefiles for linux.
+	- Fixed Broken makefiles for linux.
 
-    - Fixed Broken console functions for linux.
+	- Fixed Broken console functions for linux.
 
 {{Wednesday 6th 2018}}
 
@@ -1978,30 +1978,30 @@ ${for %%a in (*.exe) do echo %%a}
 	and start the appropriate {pBat} interpreter instead of {cmd.exe} by
 	default.
 
-    - Fixed build errors under linux.
+	- Fixed build errors under linux.
 
-    - Fixed {pBat_RunFile()} command to be able to detect failures due to non
-    existent file or no executable files under UNIX compatible operating
-    systems.
+	- Fixed {pBat_RunFile()} command to be able to detect failures due to non
+	existent file or no executable files under UNIX compatible operating
+	systems.
 
-    - Introduced the {%PBAT_START_SCRIPT%} variable which must contain a
-    path to a script or a program to handle mymetype associations on
-    Unix compatible platform.
+	- Introduced the {%PBAT_START_SCRIPT%} variable which must contain a
+	path to a script or a program to handle mymetype associations on
+	Unix compatible platform.
 
-    - Added URI support to {START} command.
+	- Added URI support to {START} command.
 
-    - Fixed {CTRC-C} handling under UNIX compatible system.
+	- Fixed {CTRC-C} handling under UNIX compatible system.
 
 {{Monday 11th}}
 
-    - Added line editing capabilities under linux, through the use of a
-    slightly modified version of {linenoise}. Linenoise is tiny library
-    allowing console line editing. The license is shipped in COPYING.linenoise.
+	- Added line editing capabilities under linux, through the use of a
+	slightly modified version of {linenoise}. Linenoise is tiny library
+	allowing console line editing. The license is shipped in COPYING.linenoise.
 
-    - Added a big change in the way blocks and {FOR} and {IF} commands are
-    handled. Now {IF} and {FOR} look ahead in the command line to see if
-    anything is to be executed using conditional operators. By default, {IF}
-    and {FOR} swallow everything to the left of the command. That is:
+	- Added a big change in the way blocks and {FOR} and {IF} commands are
+	handled. Now {IF} and {FOR} look ahead in the command line to see if
+	anything is to be executed using conditional operators. By default, {IF}
+	and {FOR} swallow everything to the left of the command. That is:
 
 ${for %%a in (foo bar) do echo %%a & echo loop}
 
@@ -2010,19 +2010,19 @@ ${for %%a in (foo bar) do echo %%a & echo loop}
 ${for %%a in (foo bar) do (echo %%a & echo loop)}
 
     @- This behaviour is more compatible with {cmd.exe}. To override the default
-    behaviour, please enclose the {FOR} command inside a command block as
-    follows:
+	behaviour, please enclose the {FOR} command inside a command block as
+	follows:
 
 ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
-    - Incorporated some utf-8 fixes to the linenoise library.
+	- Incorporated some utf-8 fixes to the linenoise library.
 
 {{Wednesday 21st}}
 
-    - Added a little fix to prevent pbat from executing line starting with a
-    column after delayed expansion.
+	- Added a little fix to prevent pbat from executing line starting with a
+	column after delayed expansion.
 
-    - Do not exit when a label is encountered inside a block.
+	- Do not exit when a label is encountered inside a block.
 
 	- Fixed {START} command error when trying to launch an external batch script.
 
@@ -2054,14 +2054,14 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 {{Tuesday 3rd}}
 
-    - Added new target {/O:MD} for {TEA} that output markdown files. This is
-    very useful as it helps providing more readable documentations on git
-    repositories.
+	- Added new target {/O:MD} for {TEA} that output markdown files. This is
+	very useful as it helps providing more readable documentations on git
+	repositories.
 
-    - Fixed build errors for {DUMP}.
+	- Fixed build errors for {DUMP}.
 
-    - Added {en} locale to the {po} directory and added a few fixes to make
-    the translation system easier to handle.
+	- Added {en} locale to the {po} directory and added a few fixes to make
+	the translation system easier to handle.
 
 	- Updated {README} file. It is now generated from a template used by
 	the git repository and the website so that information can be easily
@@ -2071,24 +2071,24 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 {{Wednesday 4th}}
 
-    - Added the {%~f} options to special variables.
+	- Added the {%~f} options to special variables.
 
-    - Updated the local variables man pages.
+	- Updated the local variables man pages.
 
-    - Fixed a bug with {START} command. Since the output of {pbat_start} was
-    redirected to {NUL}, and the process was not awaited, it caused problem
-    when either {mimeopen} or {xdg-open} was trying to interact with user.
-    To fix the problem, the output is no longer redirected and pbat waits
-    for {pbat_start} completion. This might cause little inconveniences as
-    both {xdg-open} and {mimeopen} produce some output even when run
-    without errors, but this is the only workaround found yet.
+	- Fixed a bug with {START} command. Since the output of {pbat_start} was
+	redirected to {NUL}, and the process was not awaited, it caused problem
+	when either {mimeopen} or {xdg-open} was trying to interact with user.
+	To fix the problem, the output is no longer redirected and pbat waits
+	for {pbat_start} completion. This might cause little inconveniences as
+	both {xdg-open} and {mimeopen} produce some output even when run
+	without errors, but this is the only workaround found yet.
 
 {{Saturday, 7th}}
 
-    - Fixed few errors with the {DUMP} command.
+	- Fixed few errors with the {DUMP} command.
 
-    - Fixed capitalised letters used inside a {#include} statement in
-    {pBat_UnicodeDir.c}
+	- Fixed capitalized letters used inside a {#include} statement in
+	{pBat_UnicodeDir.c}
 
 	- Added translation for Hindi thanks to {Karanveer Chouhan (aka kvc)}.
 
@@ -2134,8 +2134,8 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 {{Tuesday 17th}}
 
-	- Fixed remaining with msgmerge that was not properly updating the
-	timestanp of generated files.
+	- Fixed remaining issues with `msgmerge` that was not properly updating the
+	timestamp of generated files.
 
 	- Changed {pBat_Ask()} input source to avoid potential conflicts
 	with buffering.
@@ -2143,17 +2143,17 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 	- Added bash-like auto-complete features for windows platforms,
 	still experimental though.
 
-    - Fixed errors on colors associations to code when using Unix-based
-    operating systems. Sadly this means this feature has been broken for
-    quit a long time.
+	- Fixed errors on colors associations to code when using Unix-based
+	operating systems. Sadly this means this feature has been broken for
+	quit a long time.
 
-    - Added bash-like auto-complete features for Unix-based operating system
-    based on linenoise. There is still some concerns that this might be broken
-    on platforms with console interraction dissabled.
+	- Added bash-like auto-complete features for Unix-based operating system
+	based on linenoise. There is still some concerns that this might be broken
+	on platforms with console interaction disabled.
 
-    - Slightly modified {pBat_AskConfirmation()} function to be able to
-    specify some special input function in order to avoid conflicts with
-    standard buffering or raw mode.
+	- Slightly modified {pBat_AskConfirmation()} function to be able to
+	specify some special input function in order to avoid conflicts with
+	standard buffering or raw mode.
 
 {{Saturday 21st}}
 
@@ -2208,40 +2208,40 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 {{Wednesday 15th}}
 
-    - Fixed documentation errors on {Special variable} expansions.
+	- Fixed documentation errors on {Special variable} expansions.
 
 {{Friday 17th}}
 
-    - Added the {TIMEOUT} command.
+	- Added the {TIMEOUT} command.
 
 	- Modified the way {pBat} set locale so that the subject LC_NUMERIC
-	(that is, everything refering to numbers) are not affected by the
+	(that is, everything referring to numbers) are not affected by the
 	change.
 
 {{Sunday 19th}}
 
-    - Fixed an error introduced some commit ago that caused file search
-    functions that caused a '/' to be added before the '/' root sign when
-    using linux.
+	- Fixed an error introduced some commit ago that caused file search
+	functions that caused a '/' to be added before the '/' root sign when
+	using linux.
 
-    - Fixed an error with linenoise custom autocompletion mecanism not adding
-    a final '\0' character to the line, resulting in buffer overflows.
+	- Fixed an error with {linenoise} custom autocompletion mechanism not adding
+	a final '\0' character to the line, resulting in buffer overflows.
 
-    - Fixes to manual pages.
+	- Fixes to manual pages.
 
-    - Fixes to non-unicode windows version.
+	- Fixes to non-unicode windows version.
 
-    - Fixes to manual pages generation systems.
+	- Fixes to manual pages generation systems.
 
 {{Wednesday 22nd}}
 
-    - Fixed scripts makefiles.
+	- Fixed scripts makefiles.
 
-    - Fixed a bug with pBat_AskConfirmation keyboard routine.
+	- Fixed a bug with pBat_AskConfirmation keyboard routine.
 
 {{Sunday 26th}}
 
-	- Fixed a bug with serialisation of sub process creation. Indeed, as pBat
+	- Fixed a bug with serialization of sub process creation. Indeed, as pBat
 	is multi-threaded, many different process can be creating at nearly the
 	same time, causing file inheritance issues with pipes.
 
@@ -2251,24 +2251,24 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 {{Monday 1st, October}}
 
-    - Fixed a bug where the closing parenthesis was not recognised as a
-    delimiter for files names when using redirections.
+	- Fixed a bug where the closing parenthesis was not recognised as a
+	delimiter for files names when using redirections.
 
 {{Wednesday 3rd}}
 
-    - Fixed an annoying bug of the windows version that used autocompletion
-    when prompting the user a question, resulting sometimes on unconvienient
-    nested user prompts.
+	- Fixed an annoying bug of the windows version that used autocompletion
+	when prompting the user a question, resulting sometimes on inconvenient
+	nested user prompts.
 
-    - Added a mutex to serialize calls to the ECHO command between subthreads.
-    Indeed before this, several simultaneous calls to ECHO resulted in
-    interlaced messages, and garbage-like text.
+	- Added a mutex to serialize calls to the ECHO command between sub-threads.
+	Indeed before this, several simultaneous calls to ECHO resulted in
+	interlaced messages, and garbage-like text.
 
-    - Fixed an unitialized variable bug in the RMDIR command code.
+	- Fixed an uninitialized variable bug in the {RMDIR} command code.
 
 {{Thursday 4th}}
 
-    - Fixed redirections not being handled when combined with pipes.
+	- Fixed redirections not being handled when combined with pipes.
 
 	- Fixed shift command bug.
 
@@ -2300,7 +2300,7 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 	- Fixed omitted thread locale attribute within MORE command code.
 
-	- Fixed pBat_GetVar() and pBat_UnEscape() functions which happenned
+	- Fixed pBat_GetVar() and pBat_UnEscape() functions which happened
 	to be very slow on very large inputs.
 
 	- Modified ESTR* lib to extend buffer exponentially rather linearly.
@@ -2330,15 +2330,15 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 {{Sunday 1st, December}}
 
-    - Fixed a bug preventing PBAT_COLOR_DEFAULT to work on unix-compatible
-    operating systems.
+	- Fixed a bug preventing {PBAT_COLOR_DEFAULT} to work on unix-compatible
+	operating systems.
 
-    - Fixed omitted libdl link flag inside pBat's makefile.
+	- Fixed omitted {libdl} link flag inside pBat's makefile.
 
 {{Saturday 8th, December}}
 
-		- Improved femto by adding femto-clean and by using femto-test.out to avoid
-		using compiler-default file output (such as a.exe or a.out).
+		- Improved {femto} by adding {femto-clean} and by using {femto-test.out} to avoid
+		using compiler-default file output (such as {a.exe} or {a.out}).
 
 		- Removed dump.h from git repository (which is useless since it is
 		automatically generated with platform-specific values).
@@ -2350,7 +2350,7 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 	- Changed name of {TEST_*_PATH()} macro families to {PBAT_TEST_*_PATH()}
 	to add more consistency to the source code.
 
-	- Removed old outdated man page reffering to dropped external commands.
+	- Removed old outdated man page referring to dropped external commands.
 
 	- Added a fix to the batbox modules to make color codes portable across
 	all supported platforms.
@@ -2363,24 +2363,24 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 {{Sunday 15th, December}}
 
-    - Fixed searching issues with hlp script and implemented {help /l}.
+	- Fixed searching issues with hlp script and implemented {help /l}.
 
-    - Fixed a little bug that caused %PATH% search functions to loop through
-    %PATH% files even when given a relative path.
+	- Fixed a little bug that caused %PATH% search functions to loop through
+	  %PATH% files even when given a relative path.
 
-    - Changed the behaviour of the {MOD} command. Modules are now search by
-    default inside {%PBAT_PATH%/modules} (rather that in the whole {%PATH%}
-    directories), unless if the module file name is absolute; in that case
-    {MOD} uses the file referred to by the absolute path.
+	- Changed the behaviour of the {MOD} command. Modules are now search by
+	  default inside {%PBAT_PATH%/modules} (rather that in the whole {%PATH%}
+	  directories), unless if the module file name is absolute; in that case
+	  {MOD} uses the file referred to by the absolute path.
 
-    - Fixed a bug of {SET /a:f}. When expression contained spaces, the return
-    value was systematically 0.
+	- Fixed a bug of {SET /a:f}. When expression contained spaces, the return
+	  value was systematically 0.
 
 {{Monday 16th, December}}
 
-    - Improved consistency between {command /?}, now {pbat /?} and {dump /?} use
-      stderr/fError instead of stdout as output (which is more consistent with
-      internal commands).
+	- Improved consistency between {command /?}, now {pbat /?} and {dump /?} use
+	  stderr/fError instead of stdout as output (which is more consistent with
+	  internal commands).
 
 {{Monday 24th}}
 
@@ -2396,10 +2396,10 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 	- Fixed missing static qualifiers in libpBat.
 
-    - Fixed recursive file search under Linux and non-unicode windows.
+	- Fixed recursive file search under Linux and non-unicode windows.
 
-    - Fixed a bug with {%~d} under *nices causing double root symbol on
-    paths.
+	- Fixed a bug with {%~d} under *nices causing double root symbol on
+	paths.
 
 {{Monday, January 14th 2019}}
 
@@ -2433,7 +2433,7 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 		- Makes pBat_CloneInstance() aware of directory stack.
 
-    - Fix mod deadlock when there is a module loaded.
+	- Fix mod deadlock when there is a module loaded.
 
 {{Sunday, July 19th}}
 
@@ -2446,7 +2446,7 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 {{Sunday, October 4th, 2020}}
 
   - Fixed %=EXITCODEASCII% endianness issue.
-    Removed unneeded switch in pBat_Var.c.
+	Removed unneeded switch in pBat_Var.c.
 
 {{Thursday, October 8th, 2020}}
 
@@ -2466,51 +2466,51 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 
 {{Thursday, October 22nd}}
 
-    - Fixes to linenoise completion function that had bug on some systems.
+	- Fixes to linenoise completion function that had bug on some systems.
 
-    - Added a new build option to disable linenoise because I found it somehow
-    interfered with gdb.
+	- Added a new build option to disable linenoise because I found it somehow
+	interfered with gdb.
 
-    - Fixed a bug that caused "/" path to be canonicalized into "", causing
-    errors
+	- Fixed a bug that caused "/" path to be canonicalized into "", causing
+	errors
 
 {{Saturday, October 24th}}
 
-    - Fixed a bug that would not let the user add a space or a delimiter after
-    labels specifiers.
+	- Fixed a bug that would not let the user add a space or a delimiter after
+	labels specifiers.
 
-    - Fixed a couple of bugs of the {FOR} command :
+	- Fixed a couple of bugs of the {FOR} command :
 
-    -- Allow spaces to be inserted in {delims=} specifiers and provide a more
-    robust parsing function for {FOR /F} options.
+	-- Allow spaces to be inserted in {delims=} specifiers and provide a more
+	robust parsing function for {FOR /F} options.
 
-    -- Fixed incorrect behaviour of {eol} specifier. The {FOR /F} loop only
-    skips inputs when the first character of the line processed has been
-    specified through {eol}, this should not be a truncation.
+	-- Fixed incorrect behaviour of {eol} specifier. The {FOR /F} loop only
+	skips inputs when the first character of the line processed has been
+	specified through {eol}, this should not be a truncation.
 
-    -- Fixed incorrect behaviour of {tokens} specifiers. The {n-p} specifier
-    used to provide a concatenation of tokens from {n} up to {p} into a single
-    variable. However, in {cmd} it selects {n} up to {p} but in different
-    variables (ie. not concatenated). This behaviour has been fixed and {pBat}
-    has now the same behaviour as {cmd}.
+	-- Fixed incorrect behaviour of {tokens} specifiers. The {n-p} specifier
+	used to provide a concatenation of tokens from {n} up to {p} into a single
+	variable. However, in {cmd} it selects {n} up to {p} but in different
+	variables (ie. not concatenated). This behaviour has been fixed and {pBat}
+	has now the same behaviour as {cmd}.
 
-    -- Added a syntax for {tokens} specifier which enables using the old
-    {n-p} behaviour. The syntax is {n.p}, it provides a variable that contain
-    all the tokens from {n} up to {p}
+	-- Added a syntax for {tokens} specifier which enables using the old
+	{n-p} behaviour. The syntax is {n.p}, it provides a variable that contain
+	all the tokens from {n} up to {p}
 
-    - Improved documentation of lookahead commands on GUIDELINES file.
+	- Improved documentation of lookahead commands on GUIDELINES file.
 
 {{Wednesday, 11th November}}
 
-    - Fixed a bug with {femto} flag detection implementation
+	- Fixed a bug with {femto} flag detection implementation
 
-    - Fixed a {START} bug that had omitted depreciated switches and add the
-    internal help for the start command.$
+	- Fixed a {START} bug that had omitted depreciated switches and add the
+	internal help for the start command.$
 
-    - Fixed issue with combined pipes on linux based systems.
+	- Fixed issue with combined pipes on linux based systems.
 
-    - Fixed {MORE} command to use a proper console input file instead of
-    {fInput} when run interactively.
+	- Fixed {MORE} command to use a proper console input file instead of
+	{fInput} when run interactively.
 
 {{Thursday, 26th November}}
 
@@ -2524,8 +2524,8 @@ ${(for %%a in (foo bar) do echo %%a) & echo loop}
 {{Monday, April 12th, 2021}}
 
 	- Created the microgettext library to remove the {GNU gettext} library
-	of pBat depedencies. pBat has now no major dependencies aside from
-	libdl and libgcc. Statically linked it is about 400ko
+	of pBat dependencies. pBat has now no major dependencies aside from
+	{libdl} and {libgcc}. Statically linked it is about 400ko
 
 	- Created the experimental {LOCALE} command to provide a way to set
 	custom paths for translations
