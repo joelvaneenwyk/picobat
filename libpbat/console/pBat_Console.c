@@ -25,6 +25,7 @@ LIBPBAT int pBat_Kbhit(FILE *f)
 #include <termios.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
+#include <sys/socket.h>
 
 LIBPBAT int pBat_Getch(FILE *f)
 {
