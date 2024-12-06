@@ -66,6 +66,7 @@ ESTR
 exitcode
 EXITCODEASCII
 femto
+fento
 FILELIST
 filesystems
 finddata
@@ -108,12 +109,17 @@ libcu
 libdl
 libfasteval
 libgcc
+libgdbm
+libgnutls
+libgpgme
 libiconv
+libidn
 libinteval
 libintl
 libmatheval
 libmicrogettext
 libpbat
+libsasl
 Licence
 linenoise
 lmicrogettext
@@ -138,6 +144,8 @@ miscomputation
 misimplementation
 missinterpreted
 Modifyied
+msbuild
+MSBUILD
 msgmerge
 msvc
 msvcrt
@@ -155,6 +163,7 @@ optimisation
 optimisations
 optimise
 Optimised
+pacman
 PARAMLIST
 PATHEXT
 pbat
@@ -209,6 +218,7 @@ sugested
 synchronisation
 SYSTEMDRIVE
 SYSTEMROOT
+TASKFILE
 TEAFILES
 textdomain
 ucrt

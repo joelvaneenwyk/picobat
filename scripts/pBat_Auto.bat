@@ -40,7 +40,6 @@ IF %PBAT_OS%==WINDOWS (
 	id -un | SET /p USERNAME=
 	uname -n | SET /p USERDOMAIN=
 
-
 	:: Define additional paths for sub-programs
 	SET PBAT_SHARE=!PBAT_PATH!/share
 	SET PBAT_ETC=!PBAT_PATH!/etc
