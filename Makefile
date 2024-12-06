@@ -83,7 +83,7 @@ bindir: $(MANFILES) $(TEXTFILES)
 
 textfiles: $(TEXTFILES) $(MDFILES)
 
-man/en_US/readme.tea : README.tpl
+man/en_US/readme.tea: README.tpl
 	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
 
 doc.md: README.tpl
@@ -92,13 +92,16 @@ doc.md: README.tpl
 	cat doc.hd .doc.md > doc.md
 	rm .README.tea .doc.md
 
-.tpl.tea:
+# .tpl to .tea conversion
+%.tea: %.tpl
 	cat $< repo.ft | sed -e s,\{doc[^}]*\|,\{,g > $@
 
-.tea.txt:
+# .tea to .txt conversion
+%.txt: %.tea
 	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:text-plain $< $@
 
-.tea.md:
+# .tea to .md conversion
+%.md: %.tea
 	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $< $@
 
 $(SUBDIRS_BIN): $(SUBDIRS)
