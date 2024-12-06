@@ -16,13 +16,17 @@ tasks:
     cmds:
       - defer: { task: format }
       - task: run
-        vars: { CMD: rm -f femto-config.mk }
+        vars: { CMD: rm -f femto-config.mk config.c config.h femto-subst femto-test.out }
       - task: run
-        vars: { CMD: make config }
+        vars: { CMD: make config no-libcu8 }
       - task: run
-        vars: { CMD: make all }
+        vars: { CMD: CC=i686-w64-mingw32-gcc EXEC_SUFFIX=.exe CFLAGS="-O2 -s" LDFLAGS="-O2 -s" make }
+      - task: run
+        vars: { CMD: LDFLAGS='-static -s' make dist --keep-going }
 
   packages:
+    vars:
+      ENV: x86_64
     cmds:
       - task: run
         vars:
@@ -31,7 +35,10 @@ tasks:
               base-devel msys2-devel \
               libgpgme-devel libsasl-devel libgdbm-devel \
               ncurses-devel libgnutls-devel libidn-devel \
-              openssl-devel
+              openssl-devel \
+              git zip \
+              mingw-w64-{{.ENV}}-toolchain \
+              mingw-w64-{{.ENV}}-dlfcn
 
   run:
     requires:
