@@ -35,7 +35,8 @@ endif
 
 SUBDIRS = microgettext libpbat libfasteval $(SUBDIRS_ADD) pbat pbatize dump tea \
 			scripts modules $(SUBDIR_PO)
-TEAFILES = README.tea WHATSNEW.tea GUIDELINES.tea THANKS.tea
+TPLFILES = README.tpl
+TEAFILES = $(TPLFILES:.tpl=.tea) WHATSNEW.tea GUIDELINES.tea THANKS.tea
 TEXTFILES = $(TEAFILES:.tea=.txt)
 MDFILES = $(TEAFILES:.tea=.md)
 MANFILES = man/en_US/readme.tea
@@ -51,7 +52,7 @@ PACKAGE_URL = http://picobat.org
 PACKAGE_BUGREPORT = darkbatcher@picobat.org
 VERSION = $(shell date +%Y | sed s/0//).$(shell date +%m)
 
-all: $(SUBDIRS) $(MDFILES)
+all: config $(SUBDIRS) $(MDFILES) $(TEAFILES)
 
 $(SUBDIRS):
 	$(MAKE) -C $@
@@ -83,14 +84,8 @@ bindir: $(MANFILES) $(TEXTFILES)
 
 textfiles: $(TEXTFILES) $(MDFILES)
 
-man/en_US/readme.tea: README.tpl
-	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
-
-doc.md: README.tpl
-	cat README.tpl doc.ft > .README.tea
-	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md .README.tea .doc.md
-	cat doc.hd .doc.md > doc.md
-	rm .README.tea .doc.md
+$(SUBDIRS_BIN): $(SUBDIRS)
+	$(MAKE) -C $(basename $@) bin || true
 
 # .tpl to .tea conversion
 %.tea: %.tpl
@@ -104,8 +99,24 @@ doc.md: README.tpl
 %.md: %.tea
 	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $< $@
 
-$(SUBDIRS_BIN): $(SUBDIRS)
-	$(MAKE) -C $(basename $@) bin || true
+man/en_US/readme.tea: README.tpl
+	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
+
+.README.tea: README.tpl
+	cat README.tpl doc.ft > .README.tea
+
+.doc.md: .README.tea pbat tea
+	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md .README.tea .doc.md
+
+doc.md: .doc.md
+	cat doc.hd .doc.md > doc.md
+
+# Specific rule for generating README.md from README.tpl
+README.md: README.tpl pbat tea
+	cat README.tpl doc.ft > .README.tea
+	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md .README.tea .doc.md
+	cat doc.hd .doc.md > README.md
+	rm .README.tea .doc.md
 
 # stuff to check
 PROGRAMS = mimeopen xdg-open
@@ -120,5 +131,5 @@ ADDITIONALVARS = HOST BINDIR YEAR VERSION PACKAGE PACKAGE_URL PACKAGE_BUGREPORT
 
 include femto.mk
 
-.PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist
+.PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(TEAFILES) $(MDFILES)
 .SUFFIXES: .tea .txt .md .tpl
