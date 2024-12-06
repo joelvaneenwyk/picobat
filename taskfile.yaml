@@ -1,6 +1,10 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 # https://taskfile.dev
 
-version: '3'
+version: "3"
+
+vars:
+  RUN: msys2 -no-start -here -mingw64 -shell bash -c
 
 tasks:
   default:
@@ -8,12 +12,33 @@ tasks:
       - task: build
 
   build:
+    deps: [packages]
     cmds:
-      - defer: format
-      - cmd: cmd.exe /D /C del femto-config.mk
-        ignore_error: true
-      - cmd: make config
-      - cmd: make all
+      - defer: { task: format }
+      - task: run
+        vars: { CMD: rm -f femto-config.mk }
+      - task: run
+        vars: { CMD: make config }
+      - task: run
+        vars: { CMD: make all }
+
+  packages:
+    cmds:
+      - task: run
+        vars:
+          CMD: |
+            pacman -S --needed \
+              base-devel msys2-devel \
+              libgpgme-devel libsasl-devel libgdbm-devel \
+              ncurses-devel libgnutls-devel libidn-devel \
+              openssl-devel
+
+  run:
+    requires:
+      vars: [CMD]
+    cmds:
+      - cmd: >-
+          {{.RUN}} "{{.CMD}}"
 
   format:
     cmds:
@@ -24,3 +49,38 @@ tasks:
       - cmd: npx --yes markdownlint-cli2@latest --fix "**/*.md" "**/*.readme" "#node_modules"
         ignore_error: true
 
+  # Build the application using MSBuild and the Visual Studio solution files. This
+  # path is unique to this fork.
+  msbuild:
+    deps: []
+    silent: true
+    vars:
+      DEFAULT_SOLUTION: picobat.sln
+      MSBUILD:
+        sh: | # shell
+          strings=("Preview" "Enterprise" "Professional" "Community")
+          for str in "${strings[@]}"
+          do
+            result="C:/Program Files/Microsoft Visual Studio/2022/${str}/MSBuild/Current/Bin/MSBuild.exe"
+            if [ -e "$result" ]; then
+              echo "$result"
+              break
+            fi
+          done
+      MSBUILD_CONFIG: '{{ coalesce .CONFIG .DEFAULT_CONFIG "Debug" }}'
+      MSBUILD_PLATFORM: '{{ coalesce .PLATFORM .DEFAULT_PLATFORM "x64" }}'
+      MSBUILD_SOLUTION: "{{ joinPath .TASKFILE_DIR (coalesce .SOLUTION .DEFAULT_SOLUTION) }}"
+    sources:
+      - fento.mk
+      - picobat.sln
+      - picobat.vcxproj
+    generates:
+      - bin/x64/{{.MSBUILD_CONFIG}}/picobat.exe
+    cmds:
+      - cmd: >-
+          "{{fromSlash .MSBUILD}}"
+          /m
+          /t:Build
+          /p:Configuration="{{.MSBUILD_CONFIG}}"
+          /p:Platform="{{.MSBUILD_PLATFORM}}"
+          "{{fromSlash .MSBUILD_SOLUTION}}"
