@@ -221,6 +221,7 @@ SYSTEMROOT
 TASKFILE
 TEAFILES
 textdomain
+TPLFILES
 ucrt
 uncapitalised
 unefficient

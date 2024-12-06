@@ -63,3 +63,5 @@ obj/
 
 /README.tea
 /doc.md
+/.*.tea
+/.*.md
