@@ -60,3 +60,6 @@ femto-test.out
 
 obj/
 *.vcxproj.user
+
+/README.tea
+/doc.md

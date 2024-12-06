@@ -20,9 +20,9 @@ tasks:
       - task: run
         vars: { CMD: make config no-libcu8 }
       - task: run
-        vars: { CMD: CC=i686-w64-mingw32-gcc EXEC_SUFFIX=.exe CFLAGS="-O2 -s" LDFLAGS="-O2 -s" make }
+        vars: { CMD: make -v }
       - task: run
-        vars: { CMD: LDFLAGS='-static -s' make dist --keep-going }
+        vars: { CMD: make -v dist --keep-going }
 
   packages:
     vars:
@@ -45,7 +45,7 @@ tasks:
       vars: [CMD]
     cmds:
       - cmd: >-
-          {{.RUN}} "{{.CMD}}"
+          {{.RUN}} "CC=i686-w64-mingw32-gcc EXEC_SUFFIX=.exe CFLAGS='-O2 -s' LDFLAGS='-O2 -static -s' {{.CMD}}"
 
   format:
     cmds:
