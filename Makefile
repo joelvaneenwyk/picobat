@@ -56,8 +56,8 @@ VERSION = $(shell date +%Y | sed s/0//).$(shell date +%m)
 all: config $(SUBDIRS) $(MDFILES) $(TEAFILES)
 
 clean: $(SUBDIRS_CLEAN)
-	rm -f $(TEXTFILES)
-	rm -rf $(BINDIR)
+	rm -f $(TEXTFILES) config.c config.h femto-config.mk femto-subst femto-test.out *.zip README.tpl.tea README.tea
+	rm -rf $(BINDIR) ./x64/ ./picobat-*/ ./obj/
 
 $(SUBDIRS):
 	$(MAKE) -C $@

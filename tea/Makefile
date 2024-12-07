@@ -43,6 +43,7 @@ tea: $(OBJ_FILES_TEA) ../pbat/pbat
 clean:
 	rm -f $(OBJ_FILES_TEA)
 	rm -f tea$(EXEC_SUFFIX)
+	rm -rf ./x64/ ./tea/
 
 bin: tea
 	cp tea$(EXEC_SUFFIX) $(BINDIR)/cmd/
