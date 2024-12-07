@@ -136,5 +136,5 @@ man/en_US/readme.tea: README.tpl
 README.md: README.tpl.md
 	mv README.tpl.md README.md
 
-.PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(IFILES) $(TEAFILES) $(MDFILES)
+.PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(MDFILES)
 .SUFFIXES: .txt .md .tea .tpl .tpl.md .tpl.tea .tpl.tea.md
