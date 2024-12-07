@@ -20,6 +20,7 @@
 
 EXEC_SUFFIX ?=
 OBJ_EXT ?= .o
+ROOTDIR ?= ..
 
 LD ?= $(CC)
 
@@ -42,7 +43,6 @@ MICROGETTEXT_LD = -L$(MICROGETTEXT_DIR) -lmicrogettext
 
 # libpBat
 LIBPBAT_DIR = $(ROOTDIR)/libpbat
-
 LIBPBAT_INC = -I$(LIBPBAT_DIR)
 LIBPBAT_LD = -L$(LIBPBAT_DIR) -lpBat
 
@@ -84,5 +84,3 @@ ifeq ($(use_modules),1)
 		LDFLAGS += -fPIC
 	endif
 endif
-
-

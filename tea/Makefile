@@ -19,8 +19,8 @@
 ROOTDIR = ..
 include $(ROOTDIR)/config.mk
 
-CFLAGS_TEA += $(CFLAGS) $(LIBPBAT_INC)
-LDFLAGS_TEA = $(LDFLAGS) $(LIBPBAT_LD) $(LIBCU8_LD)
+CFLAGS_TEA = $(CFLAGS) $(LIBPBAT_INC)
+LDFLAGS_TEA = $(LDFLAGS) $(LIBPBAT_LD)
 
 SRC_FILES_TEA := \
 	src/Tea_Load.c src/Tea_Node.c src/Tea_Output.c \
@@ -31,8 +31,11 @@ OBJ_FILES_TEA = $(SRC_FILES_TEA:.c=.o)
 
 all: tea
 
+%.o: %.c
+	$(CC) $(CFLAGS_TEA) -c -o $@ $<
+
 tea: $(OBJ_FILES_TEA) ../pbat/pbat
-	$(CC) $(CFLAGS_TEA) -o tea$(EXEC_SUFFIX) $(OBJ_FILES_TEA) $(LDFLAGS_TEA)
+	$(CC) -o tea$(EXEC_SUFFIX) $(OBJ_FILES_TEA) $(LDFLAGS_TEA)
 
 ../pbat/pbat:
 	$(MAKE) -C ../pbat

@@ -102,7 +102,7 @@ man/en_US/readme.tea: README.tpl
 %.tpl.tea: %.tpl
 	cat $*.tpl doc.ft > $*.tpl.tea
 
-%.tpl.tea.md: %.tpl.tea
+%.tpl.tea.md: %.tpl.tea tea
 	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
 
 %.tpl.md: %.tpl.tea.md
@@ -110,7 +110,7 @@ man/en_US/readme.tea: README.tpl
 	rm -f $*.tpl.tea.md
 	echo "Generated $*"
 
-README.md: README.tpl README.tpl.md
+README.md: README.tpl.md
 	mv README.tpl.md README.md
 
 # stuff to check

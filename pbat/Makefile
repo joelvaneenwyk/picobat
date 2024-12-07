@@ -77,6 +77,9 @@ OBJ_FILES_PBAT := $(SRC_FILES_PBAT:.c=.o) $(OBJ_RC)
 
 all: pbat
 
+%.o: %.c
+	$(CC) $(CFLAGS_PBAT) -c -o $@ $<
+
 clean:
 	rm -f $(OBJ_FILES_PBAT)
 	rm -f pbat$(EXEC_SUFFIX)
@@ -84,20 +87,20 @@ clean:
 bin: pbat
 	cp pbat$(EXEC_SUFFIX) $(BINDIR)/
 
-pbat: $(OBJ_FILES_PBAT) ../libpbat/libpbat ../libfasteval/libfasteval ../microgettext/microgettext
+pbat: $(OBJ_FILES_PBAT) libpbat
 	$(CC) $(CFLAGS_PBAT) -o pbat$(EXEC_SUFFIX) $(OBJ_FILES_PBAT) $(LDFLAGS_PBAT)
 
-../libpbat/libpbat:
+libpbat: libfasteval microgettext
 	$(MAKE) -C ../libpbat
 
-../libfasteval/libfasteval:
+libfasteval:
 	$(MAKE) -C ../libfasteval
 
-../microgettext/microgettext:
+microgettext:
 	$(MAKE) -C ../microgettext
 
 .rc.o:
 	$(WINDRES) -o $@ -i $<
 
 .SUFFIXES: .rc .o
-.PHONY: all clean bin
+.PHONY: all clean bin libpbat

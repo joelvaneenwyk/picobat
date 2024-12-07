@@ -17,7 +17,7 @@
 #
 
 ROOTDIR = ..
-include ../config.mk
+include $(ROOTDIR)/config.mk
 
 SRC_FILES_LIB_PBAT := \
 	./cmdlist/pBat_CmdList.c ./console/pBat_Console.c \
