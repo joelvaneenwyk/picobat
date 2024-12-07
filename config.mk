@@ -18,7 +18,13 @@
 
 # Get directory of config.mk
 
-EXEC_SUFFIX ?=
+# Define EXEC_SUFFIX based on the operating system
+ifeq ($(OS),Windows_NT)
+    EXEC_SUFFIX := .exe
+else
+    EXEC_SUFFIX :=
+endif
+
 OBJ_EXT ?= .o
 ROOTDIR ?= ..
 

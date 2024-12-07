@@ -102,13 +102,22 @@ ADDITIONALVARS = HOST BINDIR YEAR VERSION PACKAGE PACKAGE_URL PACKAGE_BUGREPORT
 
 include femto.mk
 
+ROOTDIR ?= .
+
+# Define EXEC_SUFFIX based on the operating system
+ifeq ($(OS),Windows_NT)
+    EXEC_SUFFIX := .exe
+else
+    EXEC_SUFFIX :=
+endif
+
 # .tpl to .tea conversion
 %.tea: %.tpl
 	cat $< repo.ft | sed -e s,\{doc[^}]*\|,\{,g > $@
 
 # .tea to .txt conversion
 %.txt: %.tea config tea
-	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:text-plain $< $@
+	$(ROOTDIR)/tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:text-plain $< $@
 
 man/en_US/readme.tea: README.tpl
 	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
@@ -117,7 +126,7 @@ man/en_US/readme.tea: README.tpl
 	cat $*.tpl doc.ft > $*.tpl.tea
 
 %.tpl.tea.md: %.tpl.tea config tea
-	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
+	$(ROOTDIR)/tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
 
 %.tpl.md: %.tpl.tea.md
 	cat doc.hd $*.tpl.tea.md > $*.tpl.md
@@ -128,4 +137,4 @@ README.md: README.tpl.md
 	mv README.tpl.md README.md
 
 .PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(IFILES) $(TEAFILES) $(MDFILES)
-.SUFFIXES: .tea .txt .md .tpl .tpl.md .tpl.tea
+.SUFFIXES: .txt .md .tea .tpl .tpl.md .tpl.tea .tpl.tea.md

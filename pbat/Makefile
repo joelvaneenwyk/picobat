@@ -27,9 +27,7 @@ LDFLAGS_PBAT += $(LDFLAGS) $(MICROGETTEXT_LD) $(LIBPBAT_LD) \
 				$(LIBMATHEVAL_LD) $(LIBCU8_LD) \
 				$(LPTHREAD_LD) $(LM_LD) $(LDL_LD)
 
-ifeq ($(use_libcu8),1)
-	LDFLAGS_PBAT += -lshlwapi
-endif
+LDFLAGS_PBAT += -lshlwapi
 
 ifeq ($(fn_WIN32),1)
 	SRC_RC = rc/res.rc
