@@ -510,4 +510,6 @@ LIBPBAT char* pBat_SearchToken_Hybrid(const char* restrict pch, const char* rest
                                                             const char* restrict qdelims);
 LIBPBAT void pBat_StripEndDelims(char* str);
 
+#include "pBat_Dir.h"
+
 #endif // LIBPBAT_INCLUDED_H
