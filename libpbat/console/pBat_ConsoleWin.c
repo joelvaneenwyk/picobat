@@ -149,7 +149,7 @@ LIBPBAT void pBat_SetConsoleCursorPosition(FILE* f, CONSOLECOORD iCoord)
     if ((hOutput = _pBat_GetHandle(f)) == (HANDLE)-1)
         return;
 
-    SetConsoleCursorPosition(hOutput, (COORD)iCoord);
+    SetConsoleCursorPosition(hOutput, (COORD) { iCoord.X, iCoord.Y });
 }
 
 LIBPBAT CONSOLECOORD pBat_GetConsoleCursorPosition(FILE* f)

@@ -343,16 +343,14 @@ LIBPBAT COMMANDFLAG     pBat_GetCommandProc(char* lpCommandLine, LPCOMMANDLIST l
 typedef int COLOR;
 
 
-#ifndef WIN32
+#ifdef WIN32
+    typedef COORD CONSOLECOORD;
+#else
     /** A structure to store console coordinates */
     typedef struct CONSOLECOORD {
         short X; /**< The x coordinate (column number). Starts at 0 */
         short Y; /**< The y coordinate (line number). Starts at 0 */
     } CONSOLECOORD, *LPCONSOLECOORD;
-#else
-
-    typedef COORD CONSOLECOORD;
-
 #endif
 
 enum {
