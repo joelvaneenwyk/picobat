@@ -20,15 +20,15 @@
 ROOTDIR = ..
 include ../config.mk
 
-CFLAGS += $(MICROGETTEXT_INC) $(LIBPBAT_INC) \
-          $(LIBMATHEVAL_INC) $(LIBCU8_INC)
+CFLAGS_PBAT += $(CFLAGS) $(MICROGETTEXT_INC) $(LIBPBAT_INC) \
+				$(LIBMATHEVAL_INC) $(LIBCU8_INC)
 
-LDFLAGS += $(MICROGETTEXT_LD) $(LIBPBAT_LD) \
-           $(LIBMATHEVAL_LD) $(LIBCU8_LD) \
-		   $(LPTHREAD_LD) $(LM_LD) $(LDL_LD)
+LDFLAGS_PBAT += $(LDFLAGS) $(MICROGETTEXT_LD) $(LIBPBAT_LD) \
+				$(LIBMATHEVAL_LD) $(LIBCU8_LD) \
+				$(LPTHREAD_LD) $(LM_LD) $(LDL_LD)
 
 ifeq ($(use_libcu8),1)
-	LDFLAGS += -lshlwapi
+	LDFLAGS_PBAT += -lshlwapi
 endif
 
 ifeq ($(fn_WIN32),1)
@@ -38,13 +38,13 @@ endif
 
 
 SRC_LINENOISE = ./linenoise/pBat_LineNoise.c ./linenoise/utf8.c \
-				./linenoise/linenoise.c 
+				./linenoise/linenoise.c
 
 ifeq ($(use_linenoise),0)
   SRC_LINENOISE =
 endif
 
-SRC_FILES := \
+SRC_FILES_PBAT := \
 	./pBat.c ./core/pBat_Args.c ./core/pBat_Expand.c \
 	./core/pBat_Globals.c ./core/pBat_FdInheritance.c \
 	./core/pBat_Jump.c ./core/pBat_Run.c ./core/pBat_SplitPath.c \
@@ -73,20 +73,29 @@ SRC_FILES := \
 	./command/pBat_Timeout.c ./command/pBat_Mod.c \
 	./command/pBat_Ver.c ./command/pBat_Locale.c $(SRC_LINENOISE)
 
-OBJ_FILES := $(SRC_FILES:.c=.o) $(OBJ_RC)
+OBJ_FILES_PBAT := $(SRC_FILES_PBAT:.c=.o) $(OBJ_RC)
 
 all: pbat
 
 clean:
-	rm -f $(OBJ_FILES)
+	rm -f $(OBJ_FILES_PBAT)
 	rm -f pbat$(EXEC_SUFFIX)
 
 bin: pbat
 	cp pbat$(EXEC_SUFFIX) $(BINDIR)/
 
-pbat: $(OBJ_FILES)
-	$(CC) -o pbat$(EXEC_SUFFIX) $(OBJ_FILES) $(LDFLAGS)
-	
+pbat: $(OBJ_FILES_PBAT) ../libpbat/libpbat ../libfasteval/libfasteval ../microgettext/microgettext
+	$(CC) $(CFLAGS_PBAT) -o pbat$(EXEC_SUFFIX) $(OBJ_FILES_PBAT) $(LDFLAGS_PBAT)
+
+../libpbat/libpbat:
+	$(MAKE) -C ../libpbat
+
+../libfasteval/libfasteval:
+	$(MAKE) -C ../libfasteval
+
+../microgettext/microgettext:
+	$(MAKE) -C ../microgettext
+
 .rc.o:
 	$(WINDRES) -o $@ -i $<
 

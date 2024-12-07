@@ -19,25 +19,26 @@
 ROOTDIR = ..
 include $(ROOTDIR)/config.mk
 
-CFLAGS += $(LIBPBAT_INC)
-LDFLAGS += $(LIBPBAT_LD) $(LIBCU8_LD)
+CFLAGS_TEA += $(CFLAGS) $(LIBPBAT_INC)
+LDFLAGS_TEA = $(LDFLAGS) $(LIBPBAT_LD) $(LIBCU8_LD)
 
-LDFLAGS += $(LIBPBAT_LD) $(LPTHREAD_LD)
-
-SRC_FILES := \
+SRC_FILES_TEA := \
 	src/Tea_Load.c src/Tea_Node.c src/Tea_Output.c \
 	src/out/tea_ansi_out.c src/out/tea_html_out.c src/out/tea_text_out.c \
 	src/out/tea_md_out.c src/tea.c src/tea_strupr.c
 
-OBJ_FILES = $(SRC_FILES:.c=.o)
+OBJ_FILES_TEA = $(SRC_FILES_TEA:.c=.o)
 
 all: tea
 
-tea: $(OBJ_FILES)
-	$(CC) -o tea$(EXEC_SUFFIX) $(OBJ_FILES) $(LDFLAGS)
+tea: $(OBJ_FILES_TEA) ../pbat/pbat
+	$(CC) $(CFLAGS_TEA) -o tea$(EXEC_SUFFIX) $(OBJ_FILES_TEA) $(LDFLAGS_TEA)
+
+../pbat/pbat:
+	$(MAKE) -C ../pbat
 
 clean:
-	rm -f $(OBJ_FILES)
+	rm -f $(OBJ_FILES_TEA)
 	rm -f tea$(EXEC_SUFFIX)
 
 bin: tea

@@ -19,7 +19,7 @@
 ROOTDIR = ..
 include ../config.mk
 
-SRC_FILES := \
+SRC_FILES_LIB_PBAT := \
 	./cmdlist/pBat_CmdList.c ./console/pBat_Console.c \
 	./console/pBat_ConsoleANSI.c ./console/pBat_ConsoleWin.c \
 	./console/pBat_ConsoleDummy.c ./dir/pBat_Attr.c ./dir/pBat_Dir.c \
@@ -30,15 +30,15 @@ SRC_FILES := \
 
 CFLAGS += $(LIBCU8_INC) $(LIBPBAT_INC)
 
-OBJ_FILES := $(SRC_FILES:.c=.o)
+OBJ_FILES_LIB_PBAT := $(SRC_FILES_LIB_PBAT:.c=.o)
 
 all: libpBat.a
 
-libpBat.a: $(OBJ_FILES)
-	$(AR) r $@ $(OBJ_FILES)
+libpBat.a: $(OBJ_FILES_LIB_PBAT)
+	$(AR) r $@ $(OBJ_FILES_LIB_PBAT)
 	$(RANLIB) $@
 
 clean:
-	rm -f $(OBJ_FILES) libpBat.a
+	rm -f $(OBJ_FILES_LIB_PBAT) libpBat.a
 
-.PHONY: all tea clean
+.PHONY: all libpBat.a clean

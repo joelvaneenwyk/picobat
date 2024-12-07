@@ -39,6 +39,7 @@ TPLFILES = README.tpl
 TEAFILES = $(TPLFILES:.tpl=.tea) WHATSNEW.tea GUIDELINES.tea THANKS.tea
 TEXTFILES = $(TEAFILES:.tea=.txt)
 MDFILES = $(TEAFILES:.tea=.md)
+IFILES := $(addprefix .,$(MDFILES))
 MANFILES = man/en_US/readme.tea
 
 SUBDIRS_CLEAN := $(addsuffix .clean,$(SUBDIRS))
@@ -54,15 +55,18 @@ VERSION = $(shell date +%Y | sed s/0//).$(shell date +%m)
 
 all: config $(SUBDIRS) $(MDFILES) $(TEAFILES)
 
-$(SUBDIRS):
-	$(MAKE) -C $@
-
 clean: $(SUBDIRS_CLEAN)
 	rm -f $(TEXTFILES)
 	rm -rf $(BINDIR)
 
+$(SUBDIRS):
+	$(MAKE) -C $@
+
 $(SUBDIRS_CLEAN):
 	$(MAKE) -C $(basename $@) clean
+
+$(SUBDIRS_BIN): $(SUBDIRS)
+	$(MAKE) -C $(basename $@) bin || true
 
 bin: all bindir $(SUBDIRS_BIN)
 
@@ -84,39 +88,30 @@ bindir: $(MANFILES) $(TEXTFILES)
 
 textfiles: $(TEXTFILES) $(MDFILES)
 
-$(SUBDIRS_BIN): $(SUBDIRS)
-	$(MAKE) -C $(basename $@) bin || true
-
 # .tpl to .tea conversion
 %.tea: %.tpl
 	cat $< repo.ft | sed -e s,\{doc[^}]*\|,\{,g > $@
 
 # .tea to .txt conversion
-%.txt: %.tea
+%.txt: %.tea tea
 	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:text-plain $< $@
-
-# .tea to .md conversion
-%.md: %.tea
-	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $< $@
 
 man/en_US/readme.tea: README.tpl
 	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
 
-.README.tea: README.tpl
-	cat README.tpl doc.ft > .README.tea
+%.tpl.tea: %.tpl
+	cat $*.tpl doc.ft > $*.tpl.tea
 
-.doc.md: .README.tea pbat tea
-	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md .README.tea .doc.md
+%.tpl.tea.md: %.tpl.tea
+	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
 
-doc.md: .doc.md
-	cat doc.hd .doc.md > doc.md
+%.tpl.md: %.tpl.tea.md
+	cat doc.hd $*.tpl.tea.md > $*.tpl.md
+	rm -f $*.tpl.tea.md
+	echo "Generated $*"
 
-# Specific rule for generating README.md from README.tpl
-README.md: README.tpl pbat tea
-	cat README.tpl doc.ft > .README.tea
-	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md .README.tea .doc.md
-	cat doc.hd .doc.md > README.md
-	rm .README.tea .doc.md
+README.md: README.tpl README.tpl.md
+	mv README.tpl.md README.md
 
 # stuff to check
 PROGRAMS = mimeopen xdg-open
@@ -131,5 +126,5 @@ ADDITIONALVARS = HOST BINDIR YEAR VERSION PACKAGE PACKAGE_URL PACKAGE_BUGREPORT
 
 include femto.mk
 
-.PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(TEAFILES) $(MDFILES)
-.SUFFIXES: .tea .txt .md .tpl
+.PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(IFILES) $(TEAFILES) $(MDFILES)
+.SUFFIXES: .tea .txt .md .tpl .tpl.md .tpl.tea
