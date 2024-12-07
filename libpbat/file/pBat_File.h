@@ -20,8 +20,11 @@
 #ifndef PBAT_FILELIB_H
 #define PBAT_FILELIB_H
 
+#ifndef WIN32
 #include <dirent.h>
 #include <unistd.h>
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 
