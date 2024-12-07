@@ -97,7 +97,7 @@ extern "C" {
 #define _DIRENT_HAVE_D_OFF 1
 #endif /* _DIRENT_HAVE_D_OFF */
 
-#ifndef _DIRENT_HAVE_D_TYPE 
+#ifndef _DIRENT_HAVE_D_TYPE
 #define _DIRENT_HAVE_D_TYPE 1
 #endif /* _DIRENT_HAVE_D_TYPE  */
 
@@ -547,8 +547,7 @@ extern "C" {
                 }
             }
         }
-        qsort(entries, index, sizeof(struct dirent*), compar);
-        entries[index] = NULL;
+        qsort(entries, index, sizeof(struct dirent*), (int (*)(const void *, const void *))compar);        entries[index] = NULL;
         if (namelist)
             *namelist = entries;
         closedir(d);
