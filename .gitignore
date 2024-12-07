@@ -65,3 +65,7 @@ obj/
 /doc.md
 /.*.tea
 /.*.md
+/*.tpl.*
+
+x64/
+*.tlog
