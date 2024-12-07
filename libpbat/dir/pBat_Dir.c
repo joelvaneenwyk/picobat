@@ -124,7 +124,8 @@ static FILELIST* pBat_AddMatch(char* name, FILELIST* files, struct match_args_t*
 
         arg->callback(&block);
 
-        return (((void*)files)+1);
+        // Previously this was (((void*)files)+1);
+        return ((files)+1);
 
     }
 
