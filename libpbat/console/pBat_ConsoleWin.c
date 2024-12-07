@@ -220,7 +220,7 @@ void pBat_SetConsoleTitle(FILE* f, char* lpTitle)
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-static __thread int latest = CORE_NOTHING;
+static THREAD_LOCAL int latest = CORE_NOTHING;
 
 static int tomouse_b(DWORD m_bs, DWORD m_ef)
 {

@@ -176,7 +176,7 @@ LIBPBAT void pBat_SetConsoleCursorState(FILE* f, int bVisible, int iSize )
 
 #ifndef LIBPBAT_W10_ANSI
 
-static __thread int latest;
+static THREAD_LOCAL int latest;
 
 static int tomouse_b(int b)
 {

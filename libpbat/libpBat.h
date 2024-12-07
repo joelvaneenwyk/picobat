@@ -30,6 +30,22 @@
 
 #include "../config.h"
 
+#ifndef __inline__
+#define __inline__ inline
+#endif
+
+#if defined(__GNUC__) || defined(__clang__)
+#define THREAD_LOCAL __thread
+#elif defined(_MSC_VER)
+#define THREAD_LOCAL __declspec(thread)
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
+#define THREAD_LOCAL _Thread_local
+#elif defined(__cplusplus) && __cplusplus >= 201103L
+#define THREAD_LOCAL thread_local
+#else
+#error "No thread-local storage qualifier is available"
+#endif
+
 #ifdef  DLL_EXPORT
 #define __LIBPBAT__DLL
 #endif /* DLL_EXPORT */
