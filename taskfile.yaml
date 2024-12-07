@@ -18,17 +18,16 @@ tasks:
   build:
     deps: [packages]
     vars:
-      CONFIG: use-libcu8
+      CONFIG: use-libcu8=1
     cmds:
-      - defer: { task: format }
       - task: run
         vars: { CMD: rm -f femto-config.mk config.c config.h femto-subst femto-test.out }
       - task: run
         vars: { CMD: 'make config {{.CONFIG}}' }
       - task: run
-        vars: { CMD: make -v }
+        vars: { CMD: 'make {{.CONFIG}}' }
       - task: run
-        vars: { CMD: make -v dist --keep-going }
+        vars: { CMD: 'make dist --keep-going {{.CONFIG}}' }
 
   packages:
     vars:
@@ -51,14 +50,14 @@ tasks:
       vars: [CMD]
     cmds:
       - cmd: >-
-          {{.RUN}} "CC=i686-w64-mingw32-gcc EXEC_SUFFIX=.exe CFLAGS='-O2 -s' LDFLAGS='-O2 -static -s' {{.CMD}}"
+          {{.RUN}} "CFLAGS='-O2 -s' LDFLAGS='-O2 -static -s' {{.CMD}}"
 
   format:
+    deps: [build]
     cmds:
       - cmd: git add .
       - cmd: rm *.md
         ignore_error: true
-      - cmd: make
       - cmd: npx --yes markdownlint-cli2@latest --fix "**/*.md" "**/*.readme" "#node_modules"
         ignore_error: true
 
