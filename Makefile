@@ -88,30 +88,6 @@ bindir: $(MANFILES) $(TEXTFILES)
 
 textfiles: $(TEXTFILES) $(MDFILES)
 
-# .tpl to .tea conversion
-%.tea: %.tpl
-	cat $< repo.ft | sed -e s,\{doc[^}]*\|,\{,g > $@
-
-# .tea to .txt conversion
-%.txt: %.tea tea
-	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:text-plain $< $@
-
-man/en_US/readme.tea: README.tpl
-	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
-
-%.tpl.tea: %.tpl
-	cat $*.tpl doc.ft > $*.tpl.tea
-
-%.tpl.tea.md: %.tpl.tea tea
-	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
-
-%.tpl.md: %.tpl.tea.md
-	cat doc.hd $*.tpl.tea.md > $*.tpl.md
-	rm -f $*.tpl.tea.md
-	echo "Generated $*"
-
-README.md: README.tpl.md
-	mv README.tpl.md README.md
 
 # stuff to check
 PROGRAMS = mimeopen xdg-open
@@ -125,6 +101,31 @@ SUBCONFIG = libcu8
 ADDITIONALVARS = HOST BINDIR YEAR VERSION PACKAGE PACKAGE_URL PACKAGE_BUGREPORT
 
 include femto.mk
+
+# .tpl to .tea conversion
+%.tea: %.tpl
+	cat $< repo.ft | sed -e s,\{doc[^}]*\|,\{,g > $@
+
+# .tea to .txt conversion
+%.txt: %.tea config tea
+	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:text-plain $< $@
+
+man/en_US/readme.tea: README.tpl
+	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
+
+%.tpl.tea: %.tpl
+	cat $*.tpl doc.ft > $*.tpl.tea
+
+%.tpl.tea.md: %.tpl.tea config tea
+	./tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
+
+%.tpl.md: %.tpl.tea.md
+	cat doc.hd $*.tpl.tea.md > $*.tpl.md
+	rm -f $*.tpl.tea.md
+	echo "Generated $*"
+
+README.md: README.tpl.md
+	mv README.tpl.md README.md
 
 .PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(IFILES) $(TEAFILES) $(MDFILES)
 .SUFFIXES: .tea .txt .md .tpl .tpl.md .tpl.tea
