@@ -220,6 +220,8 @@ int         Tea_SweepSpaceNode(char* lpContent, int* iSweepBegin)
 		case '\n':
 		case '\t':
 			*lpContent=' ';
+			// #jve #todo Review correctness
+			break;
 
 		case ' ':
 			if (iSpaceGroup) {

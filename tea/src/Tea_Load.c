@@ -462,8 +462,9 @@ int         Tea_SweepSpace(char* lpContent)
 
 		case '\n':
 		case '\t':
-
 			*lpContent=' ';
+			// #jve #todo Review correctness
+			break;
 
 		case ' ':
 

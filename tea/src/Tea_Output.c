@@ -152,23 +152,32 @@ char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size
 		if (*lpBegin=='\n')
 			return lpBegin;
 
-
-		if (1 <= *iLeft) {
-
-			fputc(' ', pFile);
+		/* #jve #todo Review correctness */
+		/* if there are more words coming, add the next character and move on */
+		if (*lpBegin != '\0' && *lpBegin != '\n' && 1 <= *iLeft) {
+			fputc(*lpBegin, pFile);
 			(*iLeft)--;
-
 		}
 
-		/* any way, the words are separated by spaces */
 		lpBegin++;
 
 	}
 
 	return NULL;
-
 }
 
+/**
+ * @brief Outputs a line of text to a file.
+ *
+ * This function writes a line of text starting from the given pointer `lpBegin` to the specified file `pFile`.
+ * The number of characters left to write is updated in the `iLeft` parameter.
+ *
+ * @param lpBegin Pointer to the beginning of the line of text to be written.
+ * @param pFile Pointer to the file where the line of text will be written.
+ * @param iLeft Pointer to a size_t variable that holds the number of characters left to write. This value is updated by the function.
+ *
+ * @return Pointer to the next character after the written line in the input string.
+ */
 char*       Tea_OutputLine(char* lpBegin, FILE* pFile, size_t* iLeft)
 {
 	size_t iNextWordLen;
@@ -178,7 +187,7 @@ char*       Tea_OutputLine(char* lpBegin, FILE* pFile, size_t* iLeft)
 		iNextWordLen=Tea_GetWordLength(lpBegin);
 
 		/* the line is obviously far too big
-		   le the user do what he want with new lines
+		   let the user do what they want with new lines
 		*/
 
 		if (iNextWordLen >= *iLeft) return lpBegin;
@@ -193,12 +202,11 @@ char*       Tea_OutputLine(char* lpBegin, FILE* pFile, size_t* iLeft)
 		if (*lpBegin=='\n')
 			return lpBegin;
 
-
-		if (1 <= *iLeft) {
-
-			fputc(' ', pFile);
+		/* #jve #todo Review correctness */
+		/* if there are more words coming, add the next character and move on */
+		if (*lpBegin != '\0' && *lpBegin != '\n' && 1 <= *iLeft) {
+			fputc(*lpBegin, pFile);
 			(*iLeft)--;
-
 		}
 
 		/* any way, the words are separated by spaces */
@@ -209,4 +217,3 @@ char*       Tea_OutputLine(char* lpBegin, FILE* pFile, size_t* iLeft)
 	return NULL;
 
 }
-
