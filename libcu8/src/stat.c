@@ -114,7 +114,7 @@ struct _xstat64 {
 #define __libcu8_stat libcu8_stat64
 #define __libcu8_stat_t _xstat64
 #define __libcu8_wstat _wstat64
-#define __libcu8_stat64 struct _stat64i32
+#define __libcu8_stat64 struct _stat64
 #include "stat_gen.inl"
 #undef __libcu8_stat
 #undef __libcu8_stat_t
