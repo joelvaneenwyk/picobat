@@ -134,7 +134,7 @@ struct _pbat_beginthread_t {
     void* arg;
 };
 
-LIBPBAT WINAPI DWORD _pBat_BeginThreadTrampoline(LPVOID data)
+LIBPBAT DWORD WINAPI _pBat_BeginThreadTrampoline(LPVOID data)
 {
     struct _pbat_beginthread_t *s = data;
     void* ret;
