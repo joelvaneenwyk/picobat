@@ -22,9 +22,10 @@
 #include <stdlib.h>
 
 #include <libpBat.h>
+#include <string.h>
 #include "Tea.h"
 
-size_t         Tea_GetWordLengthT(char* lpBegin, TEANODE* lpTeaNode)
+size_t         Tea_GetWordLengthT(const char* lpBegin, const TEANODE* lpTeaNode)
 {
 	size_t iLength=0;
 
@@ -130,57 +131,43 @@ char*       Tea_OutputWord(char* lpBegin, FILE* pFile, size_t* iLeft)
 
 char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size_t* iLeft)
 {
-	// Seek back one character
-	if (lpBegin && *lpBegin == ' ' && fseek(pFile, -1, SEEK_CUR) == 0) {
-		// Read the last character
-		int lastChar = getc(pFile);
-		if (lastChar != EOF && lastChar == '\n') {
-			lpBegin++;
-			(*iLeft)--;
-		}
-	}
-
-	size_t iNextWordLen;
-	char* lpEnd = lpBegin ? lpBegin + strlen(lpBegin) : NULL;
+	const char* const lpStart = lpBegin;
+	const char* const lpEnd = lpBegin ? strchr(lpBegin, '\0') : NULL;
 	while (lpBegin && *lpBegin && *iLeft > 0) {
-		/* #jve #todo Review correctness */
-		/* if there are more words coming, add the next character and move on */
-		char* lpNext = lpBegin;
-		while (*lpNext == ' ') {
-			lpNext++;
+		/* if we are at the start of the line, skip any whitespace. */
+		if (lpBegin == lpStart) {
+			while (*lpBegin == ' '
+				&& fseek(pFile, -1, SEEK_CUR) == 0
+				&& getc(pFile) == '\n') {
+				lpBegin++;
+				(*iLeft)--;
+			}
 		}
-		iNextWordLen = Tea_GetWordLengthT(lpNext, lpTeaNode);
-		/* the line is obviously far too big
-		   let the user do what he want with new lines
-		*/
-		if (iNextWordLen + (lpNext - lpBegin) < *iLeft) {
-			char* lpNextNext = lpNext + iNextWordLen;
-			while (lpNextNext < lpEnd && *lpNextNext == ' ') {
-				lpNextNext++;
+
+		/* find the start of the word */
+		const char* lpWordStart = lpBegin;
+		while (*lpWordStart == ' ') {
+			lpWordStart++;
+		}
+
+		const size_t iWordLen = Tea_GetWordLengthT(lpWordStart, lpTeaNode);
+		if (iWordLen + (lpWordStart - lpBegin) < *iLeft) {
+			const char* lpNextWordStart = lpWordStart + iWordLen;
+			while (lpNextWordStart < lpEnd && *lpNextWordStart == ' ') {
+				lpNextWordStart++;
 			}
-			size_t iSize;
-			if (lpNext >= lpNextNext && lpTeaNode->lpTeaNodeNext) {
-				iSize = Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext);
-			}
-			else {
-				iSize = 2 + (lpNextNext - lpNext);
-			}
-			/* #jve #todo One missing piece here is that it still outputs a space even if the next
-			              block is forced to be on the following line. Ideally, blocks wouldn't need
-						  to output spaces but there are blocks that are small inline segments that
-						  don't know any better.
-						  */
-			while (*lpBegin == ' ' && *lpNext != '\n' && (lpNext < lpNextNext || *iLeft > iSize)) {
-				fputc(*lpBegin++, pFile);
+			const size_t iNextWordLen = lpWordStart >= lpNextWordStart && lpTeaNode->lpTeaNodeNext
+				? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
+				: 2 + (lpNextWordStart - lpWordStart);
+			while (*lpBegin == ' ' && *lpWordStart != '\n' && (lpWordStart < lpNextWordStart || *iLeft > iNextWordLen)) {
+				fputc(*lpBegin, pFile);
+				lpBegin++;
 				(*iLeft)--;
 			}
 
-			if (iNextWordLen > 0) {
-				lpBegin = Tea_OutputWord(lpBegin, pFile, iLeft);
-			}
-			else {
-				lpBegin = NULL;
-			}
+			lpBegin = iWordLen > 0
+				? Tea_OutputWord(lpBegin, pFile, iLeft)
+				: NULL;
 
 			/* if the line is finished, return */
 			if (lpBegin && *lpBegin == '\n') {
@@ -191,35 +178,6 @@ char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size
 		}
 		else {
 			break;
-		}
-	}
-
-	return lpBegin;
-	char lastSeparator = '\0';
-
-	while (lpBegin && *lpBegin && *lpBegin != '\0' && *lpBegin != '\n') {
-		size_t iNextWordLen = Tea_GetWordLengthT(lpBegin, lpTeaNode);
-
-		/* if there is no pending character */
-		/* if the line is finished, return */
-		if (iNextWordLen > *iLeft) {
-			break;
-		}
-
-		if (lastSeparator != '\0') {
-			fputc(lastSeparator, pFile);
-			(*iLeft)--;
-		}
-
-		/* the line is obviously far too big
-			let the user do what he want with new lines
-		*/
-		lpBegin = Tea_OutputWord(lpBegin, pFile, iLeft);
-
-		/* #jve #todo Review correctness */
-		/* if there are more words coming, add the next character and move on */
-		if (lpBegin) {
-			lastSeparator = *lpBegin++;
 		}
 	}
 
@@ -275,33 +233,4 @@ char*       Tea_OutputLine(char* lpBegin, FILE* pFile, size_t* iLeft)
 	}
 
 	return NULL;
-	char lastSeparator = '\0';
-
-	while (lpBegin && *lpBegin && *lpBegin != '\0' && *lpBegin != '\n') {
-		size_t iNextWordLen = Tea_GetWordLength(lpBegin);
-
-		/* if there is no pending character */
-		/* if the line is finished, return */
-		if (iNextWordLen > *iLeft) {
-			break;
-		}
-
-		if (lastSeparator != '\0') {
-			fputc(lastSeparator, pFile);
-			(*iLeft)--;
-		}
-
-		/* the line is obviously far too big
-			let the user do what he want with new lines
-		*/
-		lpBegin = Tea_OutputWord(lpBegin, pFile, iLeft);
-
-		/* #jve #todo Review correctness */
-		/* if there are more words coming, add the next character and move on */
-		if (lpBegin) {
-			lastSeparator = *lpBegin++;
-		}
-	}
-
-	return lpBegin;
 }
