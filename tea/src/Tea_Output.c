@@ -142,45 +142,41 @@ char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size
 {
 	const char* const lpStart = lpBegin;
 	const char* const lpEnd = lpBegin ? strchr(lpBegin, '\0') : NULL;
+	char cLastChar = fseek(pFile, -1, SEEK_CUR) == 0
+		? getc(pFile)
+		: '\0';
+
+	//
+	// get to the start of where we care about skipping any whitespace we don't care about
+	//
 	while (lpBegin && *lpBegin && *iLeft > 0) {
-		/* if we are at the start of the line, skip any whitespace. */
-		if (lpBegin == lpStart) {
-			while (*lpBegin == ' '
-				&& fseek(pFile, -1, SEEK_CUR) == 0
-				&& getc(pFile) == '\n') {
-				lpBegin++;
-				(*iLeft)--;
-			}
-		}
-
-		/* find the start of the word */
-		const char* lpWordStart = Tea_GetWordStart(lpBegin);
-		const size_t iWordLen = Tea_GetWordLengthT(lpWordStart, lpTeaNode);
-		if ((lpWordStart + iWordLen) - lpBegin >= *iLeft) {
-			break;
-		}
-		const char* lpNextWordStart = Tea_GetWordStart(lpWordStart + iWordLen);
-		const size_t iNextWordLen = lpWordStart >= lpNextWordStart && lpTeaNode->lpTeaNodeNext
-			? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
-			: 2 + (lpNextWordStart - lpWordStart);
-		if (*lpWordStart != '\n' && (lpWordStart < lpNextWordStart || iNextWordLen <= *iLeft )) {
-			while (*lpBegin == ' ') {
-				fputc(*lpBegin, pFile);
-				lpBegin++;
-				(*iLeft)--;
-			}
-		}
-
-		lpBegin = iWordLen > 0
-			? Tea_OutputWord(lpBegin, pFile, iLeft)
-			: NULL;
-
-		/* if the line is finished, return */
-		if (lpBegin && *lpBegin == '\n') {
+		if ((lpBegin == lpStart && *lpBegin == ' ' && cLastChar == '\n')
+			|| *lpBegin == '\n') {
 			lpBegin++;
 			(*iLeft)--;
+		}
+
+		//
+		// determine what we need to output and whether or not it will all fit on the line
+		//
+		const char* lpWordStart = Tea_GetWordStart(lpBegin);
+		const size_t iNumSpaces = lpWordStart - lpBegin;
+		const size_t iNumChars = lpWordStart == lpEnd && lpTeaNode->lpTeaNodeNext
+			? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
+			: Tea_GetWordLengthT(lpWordStart, lpTeaNode);
+		if (iNumChars + iNumSpaces > *iLeft) {
 			break;
 		}
+
+		while (*lpWordStart != '\n' && lpBegin < lpWordStart) {
+			fputc(*lpBegin, pFile);
+			lpBegin++;
+			(*iLeft)--;
+		}
+
+		lpBegin = lpWordStart != lpEnd && iNumChars > 0
+			? Tea_OutputWord(lpBegin, pFile, iLeft)
+			: NULL;
 	}
 
 	return lpBegin;
