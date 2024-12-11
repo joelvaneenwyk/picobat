@@ -67,5 +67,7 @@ obj/
 /.*.md
 /*.tpl.*
 
+.task/
+
 x64/
 *.tlog
