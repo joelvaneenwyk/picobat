@@ -20,20 +20,20 @@ tasks:
     vars:
       CONFIG: use-libcu8=1
     cmds:
-      - task: run
+      - task: command
         vars: { CMD: rm -f femto-config.mk config.c config.h femto-subst femto-test.out }
-      - task: run
+      - task: command
         vars: { CMD: 'make config {{.CONFIG}}' }
-      - task: run
+      - task: command
         vars: { CMD: 'make {{.CONFIG}}' }
-      - task: run
+      - task: command
         vars: { CMD: 'make dist --keep-going {{.CONFIG}}' }
 
   packages:
     vars:
       ENV: x86_64
     cmds:
-      - task: run
+      - task: command
         vars:
           CMD: |
             pacman -S --needed \
@@ -45,12 +45,22 @@ tasks:
               mingw-w64-{{.ENV}}-toolchain \
               mingw-w64-{{.ENV}}-dlfcn
 
-  run:
+  command:
     requires:
       vars: [CMD]
     cmds:
       - cmd: >-
           {{.RUN}} "CFLAGS='-O2 -s' LDFLAGS='-O2 -static -s' {{.CMD}}"
+
+  run:
+    deps: [msbuild]
+    cmds:
+      - cmd: ./x64/Debug/tea.exe {{.CLI_ARGS}}
+
+  test:
+    deps: [msbuild]
+    cmds:
+      - cmd: ./x64/Debug/tea.exe -e:utf-8 -o:md "./tests/tea/hello.tea" "./tests/tea/hello.tea.md"
 
   format:
     deps: [build]
@@ -87,7 +97,9 @@ tasks:
       - picobat.sln
       - picobat.vcxproj
     generates:
-      - bin/x64/{{.MSBUILD_CONFIG}}/picobat.exe
+      - ./x64/{{.MSBUILD_CONFIG}}/tea.exe
+      - ./**/*.c
+      - ./**/*.h
     cmds:
       - cmd: >-
           "{{fromSlash .MSBUILD}}"
