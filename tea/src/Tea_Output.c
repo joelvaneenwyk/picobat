@@ -25,6 +25,15 @@
 #include <string.h>
 #include "Tea.h"
 
+const char* Tea_GetWordStart(const char* lpBegin)
+{
+	const char* lpWordStart = lpBegin;
+	while (*lpWordStart == ' ') {
+		lpWordStart++;
+	}
+	return lpWordStart;
+}
+
 size_t         Tea_GetWordLengthT(const char* lpBegin, const TEANODE* lpTeaNode)
 {
 	size_t iLength=0;
@@ -145,38 +154,31 @@ char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size
 		}
 
 		/* find the start of the word */
-		const char* lpWordStart = lpBegin;
-		while (*lpWordStart == ' ') {
-			lpWordStart++;
-		}
-
+		const char* lpWordStart = Tea_GetWordStart(lpBegin);
 		const size_t iWordLen = Tea_GetWordLengthT(lpWordStart, lpTeaNode);
-		if (iWordLen + (lpWordStart - lpBegin) < *iLeft) {
-			const char* lpNextWordStart = lpWordStart + iWordLen;
-			while (lpNextWordStart < lpEnd && *lpNextWordStart == ' ') {
-				lpNextWordStart++;
-			}
-			const size_t iNextWordLen = lpWordStart >= lpNextWordStart && lpTeaNode->lpTeaNodeNext
-				? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
-				: 2 + (lpNextWordStart - lpWordStart);
-			while (*lpBegin == ' ' && *lpWordStart != '\n' && (lpWordStart < lpNextWordStart || *iLeft > iNextWordLen)) {
+		if ((lpWordStart + iWordLen) - lpBegin >= *iLeft) {
+			break;
+		}
+		const char* lpNextWordStart = Tea_GetWordStart(lpWordStart + iWordLen);
+		const size_t iNextWordLen = lpWordStart >= lpNextWordStart && lpTeaNode->lpTeaNodeNext
+			? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
+			: 2 + (lpNextWordStart - lpWordStart);
+		if (*lpWordStart != '\n' && (lpWordStart < lpNextWordStart || iNextWordLen <= *iLeft )) {
+			while (*lpBegin == ' ') {
 				fputc(*lpBegin, pFile);
 				lpBegin++;
 				(*iLeft)--;
 			}
-
-			lpBegin = iWordLen > 0
-				? Tea_OutputWord(lpBegin, pFile, iLeft)
-				: NULL;
-
-			/* if the line is finished, return */
-			if (lpBegin && *lpBegin == '\n') {
-				lpBegin++;
-				(*iLeft)--;
-				break;
-			}
 		}
-		else {
+
+		lpBegin = iWordLen > 0
+			? Tea_OutputWord(lpBegin, pFile, iLeft)
+			: NULL;
+
+		/* if the line is finished, return */
+		if (lpBegin && *lpBegin == '\n') {
+			lpBegin++;
+			(*iLeft)--;
 			break;
 		}
 	}
