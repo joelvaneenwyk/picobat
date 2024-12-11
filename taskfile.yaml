@@ -59,8 +59,25 @@ tasks:
 
   test:
     deps: [msbuild]
+    silent: true
+    vars:
+      TEA_EXE: ./x64/Debug/tea.exe
+      TEST: '{{splitArgs .CLI_ARGS | first | default "hello"}}'
+    sources:
+      - ./x64/Debug/tea.exe
+      - ./tests/tea/{{.TEST}}.tea
+    generates:
+      - ./tests/tea/{{.TEST}}.tea.md
     cmds:
-      - cmd: ./x64/Debug/tea.exe -e:utf-8 -o:md "./tests/tea/hello.tea" "./tests/tea/hello.tea.md"
+      - for: sources
+        cmd: |
+          {{.TEA_EXE}} -e:utf-8 -o:md "{{.ITEM}}" "{{.ITEM}}.md"
+          if ! git diff --quiet -- "{{.ITEM}}.md"; then
+            echo "Test failed: Generated output different than expected. [{{.ITEM}}.md]"
+            exit 1
+          else
+            echo "Test passed: Generated output matches expected. [{{.ITEM}}.md]"
+          fi
 
   format:
     deps: [build]
@@ -96,10 +113,10 @@ tasks:
       - fento.mk
       - picobat.sln
       - picobat.vcxproj
-    generates:
-      - ./x64/{{.MSBUILD_CONFIG}}/tea.exe
       - ./**/*.c
       - ./**/*.h
+    generates:
+      - ./x64/{{.MSBUILD_CONFIG}}/tea.exe
     cmds:
       - cmd: >-
           "{{fromSlash .MSBUILD}}"
