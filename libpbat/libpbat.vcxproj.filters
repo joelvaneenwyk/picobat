@@ -15,17 +15,17 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="file\pBat_File.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="libpBat.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libpBat-int.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="libpBat.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pBat_Dir.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="file\pBat_File.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

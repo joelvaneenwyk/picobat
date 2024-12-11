@@ -47,11 +47,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Tea.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\out\tea_out.h">
       <Filter>Source Files\out</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tea.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
