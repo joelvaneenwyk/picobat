@@ -13,8 +13,8 @@ other hand if you are already familiar with batch, just open **pbat** and
 start typing some commands ! Picobat batch dialect is almost compatible with
 cmd.
 
-If you use Picobat on windows, the only file extension provided is **.pbat**
-by default \(to avoid trashing your OS with potential conflicts\). However,
+If you use Picobat on windows, the only file extension provided is **.pbat** by
+default \(to avoid trashing your OS with potential conflicts\). However,
 calling a **.bat** or **.cmd** script from inside Picobat, leads them to get
 executed by Picobat.
 
@@ -26,9 +26,9 @@ and start playing with **pbat** in the extracted folder.
 
 ## Picobat changes
 
-Once installed, it is quite straightforward to play with Picobat, especially
-if you are quite familiar with cmd. However, there is a couple of thing out
-there you have to know about.
+Once installed, it is quite straightforward to play with Picobat, especially if
+you are quite familiar with cmd. However, there is a couple of thing out there
+you have to know about.
 
 On one hand, there is a couple of differences between Picobat and cmd :
 
@@ -53,7 +53,7 @@ On one hand, there is a couple of differences between Picobat and cmd :
   * Tokens can be specified in reverse order and can also overlap without bug.
 
 * Some undocumented but useful variables from cmd are still lacking \(Though
-  **%=EXITCODEASCII%** is now supported\).
+    **%=EXITCODEASCII%** is now supported\).
 
 * Picobat has no inconsistencies with escaped characters with **^**, it
    requires  only one escape.
@@ -61,13 +61,13 @@ On one hand, there is a couple of differences between Picobat and cmd :
 * [DIR /b](doc/dir) does not automatically return absolute paths.
 
 * Support of [START](doc/start) is a bit tricky under some platforms and some
-   of the  options or the whole command might not be provided depending on
-   your system  configuration if you use \*nix.
+   of the  options or the whole command might not be provided depending on your
+   system  configuration if you use \*nix.
 
 On the other hand, Picobat also provides you with with a bunch of extensions:
 
 * A full set of extensions to support floating points arithmetics through
-  [SET](doc/set) and [IF](doc/if):
+    [SET](doc/set) and [IF](doc/if):
 
   * New [SET /a](doc/seta) commands extensions to perform operations on
       floating point numbers.
@@ -82,9 +82,9 @@ On the other hand, Picobat also provides you with with a bunch of extensions:
         ADD result 4 3
         ECHO result = %result%
 
-* The ground-breaking possibility to specify logical expressions using  
-  **AND** and **OR** and the new [IF](doc/if) extensions, like in the
-   following  example:
+* The ground-breaking possibility to specify logical expressions using  **AND**
+   and **OR** and the new [IF](doc/if) extensions, like in the following
+    example:
 
         IF [ [ !ok! EQU 1 ] and [ defined file ] ] (
          :: some code
@@ -123,11 +123,11 @@ On the other hand, Picobat also provides you with with a bunch of extensions:
 * The [FIND](doc/find) and [MORE](doc/more) commands are provided as internal
    commands.
 
-* New internal commands [XARGS](doc/xargs) and [WC](doc/wc) inspired from
-   their \*nix  counterparts:
+* New internal commands [XARGS](doc/xargs) and [WC](doc/wc) inspired from their
+   \*nix  counterparts:
 
-  * [XARGS](doc/xargs) runs a command taking command parameters on the
-     standard input.
+  * [XARGS](doc/xargs) runs a command taking command parameters on the standard
+     input.
 
   * [WC](doc/wc) counts line or words or bytes in a file.
 
@@ -145,7 +145,7 @@ If you have some questions about or need some help with Picobat, please feel
 free to join **Picobat**'s official discord at:
 [https://discord.gg/w4KtdCv](https://discord.gg/w4KtdCv)
 
-If you want to dig deeper, do not hesitate to browse the documentation. 
+If you want to dig deeper, do not hesitate to browse the documentation.
 [Command index](doc/commands) and [Specification index](doc/spec/index) are
 good places to start. Have fun ! 
 
