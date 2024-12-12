@@ -42,7 +42,7 @@ size_t         Tea_GetWordLengthT(const char* lpBegin, const TEANODE* lpTeaNode)
 	       && *lpBegin!='\n') {
 
 
-		if (*lpBegin=='\0') {
+		if (lpTeaNode && *lpBegin=='\0') {
 
 			/* on passe au noeud suivant */
 
@@ -78,18 +78,7 @@ Tea_GetWordLength_End:
 
 size_t      Tea_GetWordLength(const char* lpBegin)
 {
-	size_t iLength=0;
-
-	while (lpBegin && *lpBegin
-	       && *lpBegin!=' '
-	       && *lpBegin!='\n') {
-
-		lpBegin=pBat_GetNextChar(lpBegin);
-		iLength++;
-
-	}
-
-	return iLength;
+	return Tea_GetWordLengthT(lpBegin, NULL);
 }
 
 void        Tea_MakeMargin(size_t iLength, size_t* iLeft, FILE* pFile)
@@ -138,6 +127,19 @@ char*       Tea_OutputWord(char* lpBegin, FILE* pFile, size_t* iLeft)
 	return lpBegin;
 }
 
+
+/**
+ * @brief Outputs a line of text to a file with an optional Tea node structure.
+ *
+ * This function writes a line of text starting from the given pointer `lpBegin` to the specified file `pFile`.
+ * The number of characters left to write is updated in the `iLeft` parameter.
+ *
+ * @param lpBegin Pointer to the beginning of the line of text to be written.
+ * @param pFile Pointer to the file where the line of text will be written.
+ * @param iLeft Pointer to a size_t variable that holds the number of characters left to write. This value is updated by the function.
+ *
+ * @return Pointer to the next character after the written line in the input string.
+ */
 char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size_t* iLeft)
 {
 	const char* const lpStart = lpBegin;
@@ -160,7 +162,7 @@ char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size
 		const char* lpWordStart = Tea_GetWordStart(lpBegin);
 		const char bIsEnd = lpWordStart == NULL || *lpWordStart == '\0';
 		const size_t iNumSpaces = lpWordStart - lpBegin;
-		const size_t iNumChars = bIsEnd && lpTeaNode->lpTeaNodeNext
+		const size_t iNumChars = bIsEnd && lpTeaNode && lpTeaNode->lpTeaNodeNext
 			? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
 			: Tea_GetWordLengthT(lpWordStart, lpTeaNode);
 		if (iNumChars + iNumSpaces > *iLeft) {
