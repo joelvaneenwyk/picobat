@@ -4,7 +4,9 @@
 version: "3"
 
 vars:
-  RUN: msys2 -no-start -here -mingw64 -shell bash -c
+  RUN_UNIX: /usr/bin/env bash -c
+  RUN_MSYS2: msys2 -no-start -here -mingw64 -shell bash -c
+  RUN: '{{if eq .OS "Windows_NT"}}{{.RUN_MSYS2}}{{else}}{{.RUN_UNIX}}{{end}}'
 
 tasks:
   default:
@@ -32,6 +34,7 @@ tasks:
   packages:
     vars:
       ENV: x86_64
+    platforms: [windows]
     cmds:
       - task: command
         vars:
