@@ -162,22 +162,24 @@ char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size
 		const char* lpWordStart = Tea_GetWordStart(lpBegin);
 		const char bIsEnd = lpWordStart == NULL || *lpWordStart == '\0';
 		const size_t iNumSpaces = lpWordStart - lpBegin;
-		const size_t iNumChars = bIsEnd && lpTeaNode && lpTeaNode->lpTeaNodeNext
-			? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
+		const size_t iNumChars = bIsEnd
+			? lpTeaNode && lpTeaNode->lpTeaNodeNext
+				? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
+				: 0
 			: Tea_GetWordLengthT(lpWordStart, lpTeaNode);
 		if (iNumChars + iNumSpaces > *iLeft) {
 			break;
 		}
 
-		while (*lpWordStart != '\n' && lpBegin < lpWordStart) {
+		while (lpBegin < lpWordStart && (lpWordStart == NULL || *lpWordStart != '\n')) {
 			fputc(*lpBegin, pFile);
 			lpBegin++;
 			(*iLeft)--;
 		}
 
-		lpBegin = !bIsEnd && iNumChars > 0
-			? Tea_OutputWord(lpBegin, pFile, iLeft)
-			: NULL;
+		lpBegin = bIsEnd || iNumChars == 0
+			? NULL
+			: Tea_OutputWord(lpBegin, pFile, iLeft);
 	}
 
 	return lpBegin;
