@@ -123,18 +123,13 @@ man/en_US/readme.tea: README.tpl
 	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
 
 %.tpl.tea: %.tpl
-	cat $*.tpl doc.ft > $*.tpl.tea
+	cat $*.tpl repo.ft > $*.tpl.tea
 
 %.tpl.tea.md: %.tpl.tea config tea
 	$(ROOTDIR)/tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
 
-%.tpl.md: %.tpl.tea.md
-	cat doc.hd $*.tpl.tea.md > $*.tpl.md
-	rm -f $*.tpl.tea.md
-	echo "Generated $*"
-
-README.md: README.tpl.md
-	mv README.tpl.md README.md
+README.md: README.tpl.tea.md
+	cp README.tpl.tea.md README.md
 
 .PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(MDFILES)
 .SUFFIXES: .txt .md .tea .tpl .tpl.md .tpl.tea .tpl.tea.md
