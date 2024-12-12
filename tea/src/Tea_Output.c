@@ -28,7 +28,7 @@
 const char* Tea_GetWordStart(const char* lpBegin)
 {
 	const char* lpWordStart = lpBegin;
-	while (*lpWordStart == ' ') {
+	while (lpWordStart && *lpWordStart == ' ') {
 		lpWordStart++;
 	}
 	return lpWordStart;
@@ -76,11 +76,11 @@ Tea_GetWordLength_End:
 
 }
 
-size_t      Tea_GetWordLength(char* lpBegin)
+size_t      Tea_GetWordLength(const char* lpBegin)
 {
 	size_t iLength=0;
 
-	while (*lpBegin
+	while (lpBegin && *lpBegin
 	       && *lpBegin!=' '
 	       && *lpBegin!='\n') {
 
@@ -150,8 +150,7 @@ char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size
 	// get to the start of where we care about skipping any whitespace we don't care about
 	//
 	while (lpBegin && *lpBegin && *iLeft > 0) {
-		if ((lpBegin == lpStart && *lpBegin == ' ' && cLastChar == '\n')
-			|| *lpBegin == '\n') {
+		if (*lpBegin == '\n' || (lpBegin == lpStart && *lpBegin == ' ' && cLastChar == '\n')) {
 			lpBegin++;
 			(*iLeft)--;
 		}
