@@ -446,7 +446,7 @@ void pBat_UnApplyEnv(ENVBUF* pEnv)
 void* pBat_GetEnvBlock(ENVBUF* pEnv, size_t *s)
 {
     int i = 0;
-    void *block, *p;
+    char *block, *p;
     size_t size = 0;
 
     for (i = 0; i < pEnv->index; i++) {
@@ -471,7 +471,7 @@ void* pBat_GetEnvBlock(ENVBUF* pEnv, size_t *s)
 
     for (i = 0; i < pEnv->index; i++) {
 
-        if (pEnv->envbuf[i]->name == NULL)
+        if (p == NULL || pEnv->envbuf[i]->name == NULL)
             continue;
 
         strcpy(p, pEnv->envbuf[i]->name);
@@ -482,7 +482,9 @@ void* pBat_GetEnvBlock(ENVBUF* pEnv, size_t *s)
 
     }
 
-    *((char*)p) = '\0';
+	if (p != NULL) {
+		*p = '\0';
+	}
     *s = size;
 
     return block;
