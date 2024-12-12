@@ -302,8 +302,10 @@ struct PARAMLIST* pBat_GetParamList(char* lpLine)
 
         }
 
-        next->next = NULL;
-        next->param = lpParam;
+		if (next != NULL) {
+			next->next = NULL;
+			next->param = lpParam;
+		}
 
 		pBat_DelayedExpand(lpParam);
 
