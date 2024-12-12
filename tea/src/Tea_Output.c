@@ -141,7 +141,6 @@ char*       Tea_OutputWord(char* lpBegin, FILE* pFile, size_t* iLeft)
 char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size_t* iLeft)
 {
 	const char* const lpStart = lpBegin;
-	const char* const lpEnd = lpBegin ? strchr(lpBegin, '\0') : NULL;
 	char cLastChar = fseek(pFile, -1, SEEK_CUR) == 0
 		? getc(pFile)
 		: '\0';
@@ -159,8 +158,9 @@ char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size
 		// determine what we need to output and whether or not it will all fit on the line
 		//
 		const char* lpWordStart = Tea_GetWordStart(lpBegin);
+		const char bIsEnd = lpWordStart == NULL || *lpWordStart == '\0';
 		const size_t iNumSpaces = lpWordStart - lpBegin;
-		const size_t iNumChars = lpWordStart == lpEnd && lpTeaNode->lpTeaNodeNext
+		const size_t iNumChars = bIsEnd && lpTeaNode->lpTeaNodeNext
 			? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
 			: Tea_GetWordLengthT(lpWordStart, lpTeaNode);
 		if (iNumChars + iNumSpaces > *iLeft) {
@@ -173,7 +173,7 @@ char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size
 			(*iLeft)--;
 		}
 
-		lpBegin = lpWordStart != lpEnd && iNumChars > 0
+		lpBegin = !bIsEnd && iNumChars > 0
 			? Tea_OutputWord(lpBegin, pFile, iLeft)
 			: NULL;
 	}
