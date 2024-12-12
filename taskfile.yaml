@@ -71,12 +71,13 @@ tasks:
     cmds:
       - for: sources
         cmd: |
-          {{.TEA_EXE}} -e:utf-8 -o:md "{{.ITEM}}" "{{.ITEM}}.md"
-          if ! git diff --quiet -- "{{.ITEM}}.md"; then
-            echo "Test failed: Generated output different than expected. [{{.ITEM}}.md]"
+          input="{{toSlash .ITEM}}"
+          "{{.TEA_EXE}}" -e:utf-8 -o:md "$input" "$input.md"
+          if ! git diff --quiet -- "$input.md"; then
+            echo "Test failed: Generated output different than expected. [$input.md]"
             exit 1
           else
-            echo "Test passed: Generated output matches expected. [{{.ITEM}}.md]"
+            echo "Test passed: Generated output matches expected. [$input.md]"
           fi
 
   format:
