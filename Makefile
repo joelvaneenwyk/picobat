@@ -71,6 +71,8 @@ $(SUBDIRS_BIN): $(SUBDIRS)
 bin: all bindir $(SUBDIRS_BIN)
 
 dist: bin
+	rm -f picobat-$(VERSION).zip
+	rm -rf picobat-$(VERSION)
 	mv bin picobat-$(VERSION)
 	zip -r picobat-$(VERSION).zip picobat-$(VERSION)
 
