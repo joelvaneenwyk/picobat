@@ -11,13 +11,14 @@ vars:
 tasks:
   default:
     cmds:
-      - task: build
+      - task: build-msbuild
 
   prepare:
     cmds:
       - cmd: git checkout -- README.md THANKS.md WHATSNEW.md GUIDELINES.md
 
-  build:
+  build-make:
+    aliases: [make]
     deps: [packages]
     vars:
       CONFIG: use-libcu8=1
@@ -94,7 +95,8 @@ tasks:
 
   # Build the application using MSBuild and the Visual Studio solution files. This
   # path is unique to this fork.
-  msbuild:
+  build-msbuild:
+    aliases: [msbuild]
     deps: []
     silent: true
     vars:
