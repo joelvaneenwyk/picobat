@@ -94,8 +94,8 @@ int pBat_CmdType(char* lpLine)
              *pTmp=NULL,
              *pEnd;
 
-    int status=0, nSize;
-    char *buf;
+    int status=0, nSize=0;
+    char *buf=NULL;
 
 
     lpLine += 4;
