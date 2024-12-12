@@ -53,44 +53,44 @@ MUTEX mModLock; /* a lock to serialize calls to mod */
 char lppBatPath[FILENAME_MAX]; /* A path to the directory of the pBat executable */
 char lppBatExec[FILENAME_MAX]; /* A path to the pBat executable */
 
-__thread int bDelayedExpansion=TRUE;
-__thread int bEchoOn=TRUE;
+THREAD_LOCAL int bDelayedExpansion=TRUE;
+THREAD_LOCAL int bEchoOn=TRUE;
 
 /* call exit or endthread uppon exit*/
-__thread int bIgnoreExit=FALSE;
+THREAD_LOCAL int bIgnoreExit=FALSE;
 
 /* Current errorlevel value */
-__thread int iErrorLevel=0;
-__thread int bIsScript;
-__thread int bCmdlyCorrect=FALSE;
+THREAD_LOCAL int iErrorLevel=0;
+THREAD_LOCAL int bIsScript;
+THREAD_LOCAL int bCmdlyCorrect=FALSE;
 
-__thread int bAbortCommand=FALSE;
-__thread LPCOMMANDLIST lpclCommands;
-__thread LOCAL_VAR_BLOCK* lpvLocalVars;
+THREAD_LOCAL int bAbortCommand=FALSE;
+THREAD_LOCAL LPCOMMANDLIST lpclCommands;
+THREAD_LOCAL LOCAL_VAR_BLOCK* lpvLocalVars;
     /* use a distinct local block for command arguments
 
         %1-%9 : arguments
         %* : full line
         %+ : remaning args */
-__thread LOCAL_VAR_BLOCK* lpvArguments;
-__thread LPSTREAMSTACK lppsStreamStack;
-__thread struct dirstack_t dsDirStack; /* current directory stack */
+THREAD_LOCAL LOCAL_VAR_BLOCK* lpvArguments;
+THREAD_LOCAL LPSTREAMSTACK lppsStreamStack;
+THREAD_LOCAL struct dirstack_t dsDirStack; /* current directory stack */
 
-__thread COLOR colColor=PBAT_COLOR_DEFAULT;
-__thread FILE* fInput; /* current thread input stream */
-__thread FILE *fOutput; /* current thread output stream */
-__thread FILE *fError; /* current thread error stream */
+THREAD_LOCAL COLOR colColor=PBAT_COLOR_DEFAULT;
+THREAD_LOCAL FILE* fInput; /* current thread input stream */
+THREAD_LOCAL FILE *fOutput; /* current thread output stream */
+THREAD_LOCAL FILE *fError; /* current thread error stream */
 /* Note : the underscore prefixed version are internally used to
    handle output substitution (eg. 2>&1) to be used as backup and
    so prevent unnecessary duplication of files */
 
-__thread ENVBUF* lpeEnv;
-__thread ENVSTACK* lpesEnv = NULL;
-__thread INPUT_FILE ifIn;
-__thread char lpCurrentDir[FILENAME_MAX];
-__thread ESTRCACHE ecEstrCache; /* ESTR cache */
+THREAD_LOCAL ENVBUF* lpeEnv;
+THREAD_LOCAL ENVSTACK* lpesEnv = NULL;
+THREAD_LOCAL INPUT_FILE ifIn;
+THREAD_LOCAL char lpCurrentDir[FILENAME_MAX];
+THREAD_LOCAL ESTRCACHE ecEstrCache; /* ESTR cache */
 
-__thread char* lpAltPromptString = NULL;
+THREAD_LOCAL char* lpAltPromptString = NULL;
 
 #ifdef WIN32
 #define environ _environ

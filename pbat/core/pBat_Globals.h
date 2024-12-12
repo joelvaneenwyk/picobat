@@ -52,34 +52,34 @@ extern char lppBatExec[]; /* A path to the pBat executable */
 
 /* Current state of the interpreter associated to this
    thread */
-extern __thread int bAbortCommand; /* abort the command (0: no , 1: jump to next l,
+extern THREAD_LOCAL int bAbortCommand; /* abort the command (0: no , 1: jump to next l,
                                     -1 : move to upper execution level) */
 
 #define PBAT_ABORT_EXECUTION_LEVEL -1
 #define PBAT_ABORT_COMMAND_LINE 1
 #define PBAT_ABORT_COMMAND_BLOCK 2
 
-extern __thread int bIgnoreExit; /* ignore exit */
-extern __thread int bDelayedExpansion; /* state of the delayed expansion */
-extern __thread int bCmdlyCorrect; /* state of cmdly correct interface */
-extern __thread int bIsScript; /* are we running a script ? */
-extern __thread int bEchoOn; /* is echo on ? */
-extern __thread int iErrorLevel; /* errorlevel state */
-extern __thread LPCOMMANDLIST lpclCommands; /* binary tree of commands */
-extern __thread LOCAL_VAR_BLOCK* lpvLocalVars; /* local variables array */
-extern __thread LOCAL_VAR_BLOCK* lpvArguments; /* arguments array */
-extern __thread LPSTREAMSTACK lppsStreamStack; /* status associated with streams */
-extern __thread struct dirstack_t dsDirStack; /* current directory stack. */
-extern __thread COLOR colColor; /* current command prompt colors */
-extern __thread INPUT_FILE ifIn; /* current parsed script */
-extern __thread ENVBUF* lpeEnv; /* environment variables local to threads */
-extern __thread FILE *fInput; /* current thread input stream */
-extern __thread FILE *fOutput; /* current thread output stream */
-extern __thread FILE *fError; /* current thread error stream */
-extern __thread ENVSTACK* lpesEnv;
-extern __thread char lpCurrentDir[FILENAME_MAX]; /* current path */
-extern __thread ESTRCACHE ecEstrCache; /* ESTR cache */
+extern THREAD_LOCAL int bIgnoreExit; /* ignore exit */
+extern THREAD_LOCAL int bDelayedExpansion; /* state of the delayed expansion */
+extern THREAD_LOCAL int bCmdlyCorrect; /* state of cmdly correct interface */
+extern THREAD_LOCAL int bIsScript; /* are we running a script ? */
+extern THREAD_LOCAL int bEchoOn; /* is echo on ? */
+extern THREAD_LOCAL int iErrorLevel; /* errorlevel state */
+extern THREAD_LOCAL LPCOMMANDLIST lpclCommands; /* binary tree of commands */
+extern THREAD_LOCAL LOCAL_VAR_BLOCK* lpvLocalVars; /* local variables array */
+extern THREAD_LOCAL LOCAL_VAR_BLOCK* lpvArguments; /* arguments array */
+extern THREAD_LOCAL LPSTREAMSTACK lppsStreamStack; /* status associated with streams */
+extern THREAD_LOCAL struct dirstack_t dsDirStack; /* current directory stack. */
+extern THREAD_LOCAL COLOR colColor; /* current command prompt colors */
+extern THREAD_LOCAL INPUT_FILE ifIn; /* current parsed script */
+extern THREAD_LOCAL ENVBUF* lpeEnv; /* environment variables local to threads */
+extern THREAD_LOCAL FILE *fInput; /* current thread input stream */
+extern THREAD_LOCAL FILE *fOutput; /* current thread output stream */
+extern THREAD_LOCAL FILE *fError; /* current thread error stream */
+extern THREAD_LOCAL ENVSTACK* lpesEnv;
+extern THREAD_LOCAL char lpCurrentDir[FILENAME_MAX]; /* current path */
+extern THREAD_LOCAL ESTRCACHE ecEstrCache; /* ESTR cache */
 
-extern __thread char* lpAltPromptString; /* possible alternate prompt string for completion */
+extern THREAD_LOCAL char* lpAltPromptString; /* possible alternate prompt string for completion */
 
 #endif
