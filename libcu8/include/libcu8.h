@@ -45,9 +45,99 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <sys/stat.h>
-#include <windows.h>
+#if defined(WIN32)
 #include <io.h>
+#include <windows.h>
+#else
+#include <unistd.h>
+#include <stdint.h>
+#endif
 #include <dirent.h>
+
+#if !defined(_MSC_VER)
+    #define __cdecl
+#endif
+
+#if !defined(WIN32)
+typedef short SHORT;
+typedef unsigned short WORD;
+typedef unsigned long DWORD;
+typedef struct _RTL_CRITICAL_SECTION_DEBUG *PRTL_CRITICAL_SECTION_DEBUG;
+typedef long LONG;
+typedef void* HANDLE;
+typedef unsigned long ULONG_PTR;
+typedef int BOOL;
+typedef wchar_t WCHAR;
+typedef char CHAR;
+
+/** A structure to store console coordinates */
+typedef struct COORD {
+	short X; /**< The x coordinate (column number). Starts at 0 */
+	short Y; /**< The y coordinate (line number). Starts at 0 */
+} COORD, *LPCOORD;
+
+typedef struct _SMALL_RECT {
+    SHORT Left;
+    SHORT Top;
+    SHORT Right;
+    SHORT Bottom;
+} SMALL_RECT;
+
+typedef struct _CONSOLE_SCREEN_BUFFER_INFO {
+    COORD dwSize;
+    COORD dwCursorPosition;
+    WORD  wAttributes;
+    SMALL_RECT srWindow;
+    COORD dwMaximumWindowSize;
+} CONSOLE_SCREEN_BUFFER_INFO;
+
+typedef struct _RTL_CRITICAL_SECTION {
+    PRTL_CRITICAL_SECTION_DEBUG DebugInfo;
+    LONG LockCount;
+    LONG RecursionCount;
+    HANDLE OwningThread;
+    HANDLE LockSemaphore;
+    ULONG_PTR SpinCount;
+} CRITICAL_SECTION, *PCRITICAL_SECTION;
+
+typedef struct _CONSOLE_CURSOR_INFO {
+    DWORD dwSize;
+    BOOL bVisible;
+} CONSOLE_CURSOR_INFO;
+
+typedef struct _INPUT_RECORD {
+    WORD EventType;
+    union {
+        struct {
+            BOOL bKeyDown;
+            WORD wRepeatCount;
+            WORD wVirtualKeyCode;
+            WORD wVirtualScanCode;
+            union {
+                WCHAR UnicodeChar;
+                CHAR AsciiChar;
+            } uChar;
+            DWORD dwControlKeyState;
+        } KeyEvent;
+        // Other event types omitted for brevity
+    } Event;
+} INPUT_RECORD;
+
+#define STD_OUTPUT_HANDLE ((DWORD)-11)
+#define VK_LEFT 0x25
+#define VK_RIGHT 0x27
+#define VK_UP 0x26
+#define VK_DOWN 0x28
+#define VK_END 0x23
+#define VK_HOME 0x24
+#define VK_DELETE 0x2E
+#define TRUE 1
+#define FALSE 0
+#define KEY_EVENT 0x0001
+#define STD_ERROR_HANDLE ((DWORD)-12)
+#define HANDLE_FLAG_INHERIT 0x00000001
+#define _O_CREAT 0x0100
+#endif
 
 /* initialization function */
 __LIBCU8__IMP __cdecl int libcu8_init(const char*** pargv);
@@ -266,6 +356,9 @@ typedef void (*libcu8_completion_handler_free_t)(char*);
 #endif
 
 
+#ifndef HANDLE
+typedef void* HANDLE;
+#endif
 
 struct libcu8_dirent {
     char* d_name;
