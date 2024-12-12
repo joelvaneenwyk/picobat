@@ -31,13 +31,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wchar.h>
+#ifdef _WIN32
 #include <io.h>
-#include <fcntl.h>
-#include <errno.h>
 #include <windows.h>
 #include <process.h>
-#include <sys/stat.h>
 #include <direct.h>
+#else
+#include <unistd.h>
+#endif
+#include <fcntl.h>
+#include <errno.h>
+#include <sys/stat.h>
 
 #include "iconv/iconv.h"
 
