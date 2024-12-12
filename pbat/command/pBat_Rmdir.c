@@ -71,7 +71,7 @@ int pBat_CmdRmdir(char* lpLine)
 
     size_t namesize = 64;
 
-    FILELIST *next,
+    FILELIST *next = NULL,
              *dir,
              *files = NULL;
 

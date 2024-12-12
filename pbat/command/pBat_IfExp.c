@@ -96,7 +96,7 @@ char * pBat_IfExp_Compute(char* line, int* ret, int flags)
 
 int pBat_IfExp_Evaluate(ifexp_t* exp, int flags)
 {
-    int res1, res2;
+    int res1, res2=0;
 
     /* printf("Evaluating exp at %X\n", exp);
     printf("\t-type = %d\n", exp->type);

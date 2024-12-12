@@ -280,8 +280,8 @@ struct PARAMLIST* pBat_GetParamList(char* lpLine)
 {
 	ESTR* lpParam=pBat_EsInit_Cached();
 	ESTR* lpTemp=pBat_EsInit_Cached();
-	char* lpNext;
-	struct PARAMLIST *ret = NULL, *item, *next;
+	char* lpNext=NULL;
+	struct PARAMLIST *ret = NULL, *item = NULL, *next;
 
 	while ((lpNext = pBat_GetNextParameterEs(lpLine, lpParam))) {
 

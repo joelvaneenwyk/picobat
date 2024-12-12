@@ -253,8 +253,8 @@ char* pBat_GetEnv(ENVBUF* pEnv, const char* name)
  */
 void pBat_SetEnvEx(ENVBUF* pEnv, char* name, const char* content, int inherit)
 {
-    ENVVAR **pRes,
-            key,
+    ENVVAR **pRes=NULL,
+            key={NULL, NULL, NULL, 0, 0},
             *pKey=&key;
 
     char*   namecpy;

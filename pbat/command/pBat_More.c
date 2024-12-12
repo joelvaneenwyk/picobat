@@ -56,7 +56,7 @@ int pBat_CmdMore(char* line)
 
     FILELIST *list=NULL,
              *next,
-             *end;
+             *end=NULL;
 
     char *ret,
          *ptr;
