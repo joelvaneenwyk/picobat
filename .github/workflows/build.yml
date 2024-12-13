@@ -8,21 +8,22 @@ on:
 
 jobs:
   build:
-    name: 'Build // ${{ matrix.os }}-${{ matrix.sys }}-${{ matrix.env }}'
+    # e.g., 'Build // use-libcu8 // ubuntu-linux-x86_64'
+    name: 'Build // ${{ matrix.options }} // ${{ matrix.os }}-${{ matrix.sys }}-${{ matrix.env }}'
     runs-on: '${{ matrix.os }}-latest'
 
     strategy:
       fail-fast: false
       matrix:
-        options:
-          - use-libcu8
-          - no-libcu8
         include:
           - { os: ubuntu, sys: linux, env: x86_64 }
           - { os: windows, sys: mingw64, env: x86_64 }
           # - { os: windows, sys: mingw32, env: i686 }
           # - { os: windows, sys: ucrt64,  env: ucrt-x86_64 }
           # - { os: windows, sys: clang64, env: clang-x86_64 }
+        options:
+          - use-libcu8
+          - no-libcu8
 
     permissions:
       contents: write
