@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\libfasteval\lib\parser.y" />
+    <None Include="..\libfasteval\lib\scanner.l" />
     <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>

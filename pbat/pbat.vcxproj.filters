@@ -41,6 +41,12 @@
     <None Include="Makefile">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\libfasteval\lib\parser.y">
+      <Filter>Lib\fasteval</Filter>
+    </None>
+    <None Include="..\libfasteval\lib\scanner.l">
+      <Filter>Lib\fasteval</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pBat.c">
