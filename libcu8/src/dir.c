@@ -38,6 +38,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <assert.h>
+#include <string.h>
 
 #include "internals.h"
 
