@@ -20,13 +20,15 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
-      - name: Install make on Windows
-        if: runner.os == 'Windows'
+      - name: Install dependencies
         run: choco install make
 
+      # Required to generate 'config.h' and other dependencies used even in all builds including those
+      # using Visual Studio (MSBuild).
       - name: Configure
         run: |
           make config
+          make -C libfasteval
 
       - name: Build Solution
         run: msbuild picobat.sln /p:Configuration=Release
