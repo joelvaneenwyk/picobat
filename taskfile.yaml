@@ -4,8 +4,10 @@
 version: "3"
 
 vars:
+  MSYS_SYS: mingw32
+  MSYS_ENV: i686
   RUN_UNIX: /usr/bin/env bash -c
-  RUN_MSYS2: msys2 -no-start -here -mingw64 -shell bash -c
+  RUN_MSYS2: msys2 -no-start -here -{{.MSYS_SYS}} -shell bash -c
   RUN: '{{if eq .OS "Windows_NT"}}{{.RUN_MSYS2}}{{else}}{{.RUN_UNIX}}{{end}}'
 
 tasks:
@@ -33,21 +35,19 @@ tasks:
         vars: { CMD: 'make dist --keep-going {{.CONFIG}}' }
 
   packages:
-    vars:
-      ENV: x86_64
     platforms: [windows]
     cmds:
       - task: command
         vars:
           CMD: |
-            pacman -S --needed \
+            pacman -S --needed --noconfirm \
               base-devel msys2-devel \
               libgpgme-devel libsasl-devel libgdbm-devel \
               ncurses-devel libgnutls-devel libidn-devel \
               openssl-devel \
               git zip \
-              mingw-w64-{{.ENV}}-toolchain \
-              mingw-w64-{{.ENV}}-dlfcn
+              mingw-w64-{{.MSYS_ENV}}-toolchain \
+              mingw-w64-{{.MSYS_ENV}}-dlfcn
 
   command:
     requires:
