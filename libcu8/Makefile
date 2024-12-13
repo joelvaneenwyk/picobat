@@ -18,9 +18,8 @@
 
 ROOTDIR = ..
 include $(ROOTDIR)/config.mk
-
-ifneq (,$(wildcard ./femto-config.mk))
-    include femto-config.mk
+ifneq (,$(wildcard $(ROOTDIR)/femto-config.mk))
+    include $(ROOTDIR)/femto-config.mk
 endif
 
 CFLAGS += $(LIBCU8_INC) -I./include
@@ -37,13 +36,13 @@ clean:
 	rm -f $(OBJ_FILES) libcu8.a
 	$(MAKE) -C test clean
 
-test: 	
+test:
 	$(MAKE) -C test run-tests
-	
+
 libcu8.a: $(OBJ_FILES)
 	$(AR) r $@ $(OBJ_FILES)
-	$(RANLIB) $@	
-	
+	$(RANLIB) $@
+
 bin:
 
 # stuff to check
@@ -52,11 +51,11 @@ LIBS = iconv
 FUNCTIONS = _findfirst _findfirst32 _findfirst64 _findfirst32i64 \
 			_findfirst64i32 _stat _stat32 _stat64 _stat64i32 \
 			_stat32i64
-OPTIONS = 
-DEFAULTOPTIONS = 
-SUBCONFIG = 
-ADDITIONALVARS = 
+OPTIONS =
+DEFAULTOPTIONS =
+SUBCONFIG =
+ADDITIONALVARS =
 
-include ../femto.mk
+include $(ROOTDIR)/femto.mk
 
 .PHONY: all bin clean $(SUBDIRS) $(SUBDIRS_CLEAN) po-merge test
