@@ -47,6 +47,10 @@
 #include <string.h>
 #include "parser.h"
 
+#if defined(_MSC_VER)
+#   define YY_NO_UNISTD_H   1
+#endif
+
 /* Redefine macro to redirect scanner input from string instead of
  * standard input.  */
 #define YY_INPUT( buffer, result, max_size ) \
