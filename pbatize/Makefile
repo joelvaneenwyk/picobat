@@ -17,7 +17,7 @@
 #
 
 ROOTDIR = ..
-include ../config.mk
+include $(ROOTDIR)/config.mk
 
 CFLAGS += $(LIBPBAT_INC)
 LDFLAGS += $(LIBPBAT_LD)
