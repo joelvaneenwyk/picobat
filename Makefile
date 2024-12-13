@@ -121,7 +121,7 @@ man/en_US/readme.tea: README.tpl
 	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
 
 %.tpl.tea: %.tpl
-	cat $< repo.ft | sed -e s,\{doc[^}]*\|,\{,g > $@
+	cat $< repo.ft > $@
 
 %.tpl.tea.md: %.tpl.tea config tea
 	$(ROOTDIR)/tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
