@@ -3,7 +3,6 @@
 #include <string.h>
 #include <errno.h>
 
-#include <unistd.h>
 #include <sys/types.h>
 
 #include "pBat_Clone.h"

@@ -26,9 +26,14 @@
 
 #include <libpBat.h>
 
-#ifdef WIN32
 /* used for compatibility purpose */
-#include <unistd.h>
+#if defined(_WIN32)
+#	include <io.h>
+#	ifndef access
+#		define access _access
+#	endif
+#elif defined(WIN32)
+#	include <unistd.h>
 #endif /* WIN32 */
 
 #define PBAT_STDIN                  0 /* redirect fInput */

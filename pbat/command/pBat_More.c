@@ -56,7 +56,7 @@ int pBat_CmdMore(char* line)
 
     FILELIST *list=NULL,
              *next,
-             *end;
+             *end=NULL;
 
     char *ret,
          *ptr;
@@ -318,8 +318,8 @@ int more_void(int c, FILE* p) { return 0; }
 
 int more_fputc_u8_wrapper (int c, FILE* p)
 {
-    static __thread char chrs[5];
-    static __thread int i = 0;
+    static THREAD_LOCAL char chrs[5];
+    static THREAD_LOCAL int i = 0;
 
     //fprintf (p, "more_fputc_u8_wrapper %X %X\n", c & 0x40, c & 0x80);
 
@@ -368,7 +368,7 @@ static int pBat_MoreWriteLine(int* begin, int flags, int tabsize, FILE* file)
         col=0,
         ncol;
 
-    static __thread int blank=0,
+    static THREAD_LOCAL int blank=0,
                 cr=0; /* a carriot return was included at the end of
                          the preceding line */
 

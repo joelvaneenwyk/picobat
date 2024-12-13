@@ -26,7 +26,7 @@ else
 endif
 
 OBJ_EXT ?= .o
-ROOTDIR ?= ..
+ROOTDIR ?= .
 
 LD ?= $(CC)
 

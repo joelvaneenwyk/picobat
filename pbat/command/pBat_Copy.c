@@ -101,7 +101,7 @@ int pBat_CmdCopy(char* line)
 {
 	FILELIST *files=NULL,
              *next=NULL,
-             *end;
+             *end=NULL;
 
     ESTR *param=pBat_EsInit_Cached();
 

@@ -66,7 +66,7 @@ int pBat_CmdDel(char* lpLine)
 	    i;
 
 	FILELIST *next=NULL,
-             *end,
+             *end=NULL,
              *list=NULL;
 
     if (!strnicmp(lpLine, "DEL", 3)) {

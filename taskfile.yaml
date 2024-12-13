@@ -4,36 +4,40 @@
 version: "3"
 
 vars:
-  RUN: msys2 -no-start -here -mingw64 -shell bash -c
+  RUN_UNIX: /usr/bin/env bash -c
+  RUN_MSYS2: msys2 -no-start -here -mingw64 -shell bash -c
+  RUN: '{{if eq .OS "Windows_NT"}}{{.RUN_MSYS2}}{{else}}{{.RUN_UNIX}}{{end}}'
 
 tasks:
   default:
     cmds:
-      - task: build
+      - task: build-msbuild
 
   prepare:
     cmds:
       - cmd: git checkout -- README.md THANKS.md WHATSNEW.md GUIDELINES.md
 
-  build:
+  build-make:
+    aliases: [make]
     deps: [packages]
     vars:
       CONFIG: use-libcu8=1
     cmds:
-      - task: run
+      - task: command
         vars: { CMD: rm -f femto-config.mk config.c config.h femto-subst femto-test.out }
-      - task: run
+      - task: command
         vars: { CMD: 'make config {{.CONFIG}}' }
-      - task: run
+      - task: command
         vars: { CMD: 'make {{.CONFIG}}' }
-      - task: run
+      - task: command
         vars: { CMD: 'make dist --keep-going {{.CONFIG}}' }
 
   packages:
     vars:
       ENV: x86_64
+    platforms: [windows]
     cmds:
-      - task: run
+      - task: command
         vars:
           CMD: |
             pacman -S --needed \
@@ -45,12 +49,40 @@ tasks:
               mingw-w64-{{.ENV}}-toolchain \
               mingw-w64-{{.ENV}}-dlfcn
 
-  run:
+  command:
     requires:
       vars: [CMD]
     cmds:
       - cmd: >-
           {{.RUN}} "CFLAGS='-O2 -s' LDFLAGS='-O2 -static -s' {{.CMD}}"
+
+  run:
+    deps: [msbuild]
+    cmds:
+      - cmd: ./x64/Debug/tea.exe {{.CLI_ARGS}}
+
+  test:
+    deps: [msbuild]
+    silent: true
+    vars:
+      TEA_EXE: ./x64/Debug/tea.exe
+      TEST: '{{splitArgs .CLI_ARGS | first | default "hello"}}'
+    sources:
+      - ./x64/Debug/tea.exe
+      - ./tests/tea/{{.TEST}}.tea
+    generates:
+      - ./tests/tea/{{.TEST}}.tea.md
+    cmds:
+      - for: sources
+        cmd: |
+          input="{{toSlash .ITEM}}"
+          "{{.TEA_EXE}}" -e:utf-8 -o:md "$input" "$input.md"
+          if ! git diff --quiet -- "$input.md"; then
+            echo "Test failed: Generated output different than expected. [$input.md]"
+            exit 1
+          else
+            echo "Test passed: Generated output matches expected. [$input.md]"
+          fi
 
   format:
     deps: [build]
@@ -63,7 +95,8 @@ tasks:
 
   # Build the application using MSBuild and the Visual Studio solution files. This
   # path is unique to this fork.
-  msbuild:
+  build-msbuild:
+    aliases: [msbuild]
     deps: []
     silent: true
     vars:
@@ -86,8 +119,10 @@ tasks:
       - fento.mk
       - picobat.sln
       - picobat.vcxproj
+      - ./**/*.c
+      - ./**/*.h
     generates:
-      - bin/x64/{{.MSBUILD_CONFIG}}/picobat.exe
+      - ./x64/{{.MSBUILD_CONFIG}}/tea.exe
     cmds:
       - cmd: >-
           "{{fromSlash .MSBUILD}}"

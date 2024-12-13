@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\command">
+      <UniqueIdentifier>{d4bf3e51-cd2b-4074-9f59-81cd83edef0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{39197d88-0c0c-4c03-b095-cf47e80c5cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\errors">
+      <UniqueIdentifier>{64382041-7acc-4bc9-a339-0cfafa94ab92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\init">
+      <UniqueIdentifier>{d67e34e6-a912-4f5e-9a7d-c5ac36bdc134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\lang">
+      <UniqueIdentifier>{96aea62b-8559-4c55-9a21-8dc47dd61f1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\linenoise">
+      <UniqueIdentifier>{7fbef45e-1d6e-4f07-add1-0a77ee701906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rc">
+      <UniqueIdentifier>{798c18a3-9046-4b98-a37b-b6c652d08c5d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pBat.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Xargs.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Ask.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Block.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Break.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Call.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Cd.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Chcp.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Cls.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Color.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_CommandInfo.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Copy.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Def.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Del.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Dir.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Echo.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Exit.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Find.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_For.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Goto.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Help.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_If.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_IfExp.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Locale.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Mkdir.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Mod.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_More.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Pause.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Pecho.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Pushd.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Rem.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Ren.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Rmdir.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Set.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Setlocal.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Shift.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Start.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Timeout.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Title.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Type.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Ver.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\pBat_Wc.c">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Args.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Clone.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Completion.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Debug.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_DirStack.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Env.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_EnvStack.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_EsCache.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Exec.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_ExitInt.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Expand.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_ExpandDef.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_FdInheritance.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_FilePath.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Globals.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Jump.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_OsStream.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Parse.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_ParseBlock.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Pipe.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Prompt.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Read.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_ReadScript.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Run.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_ShowIntro.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_SplitPath.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Stream.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\pBat_Var.c">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="errors\pBat_Errors.c">
+      <Filter>Source Files\errors</Filter>
+    </ClCompile>
+    <ClCompile Include="init\pBat_Init.c">
+      <Filter>Source Files\init</Filter>
+    </ClCompile>
+    <ClCompile Include="lang\pBat_Lang.c">
+      <Filter>Source Files\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="lang\pBat_ShowHelp.c">
+      <Filter>Source Files\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="linenoise\linenoise.c">
+      <Filter>Source Files\linenoise</Filter>
+    </ClCompile>
+    <ClCompile Include="linenoise\pBat_LineNoise.c">
+      <Filter>Source Files\linenoise</Filter>
+    </ClCompile>
+    <ClCompile Include="linenoise\utf8.c">
+      <Filter>Source Files\linenoise</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\pBat_Args.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Clone.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Completion.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Context.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Core.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Debug.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_DirStack.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Env.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_EnvStack.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_EsCache.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Exec.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_ExitInt.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Expand.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_ExpandDef.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_FdInheritance.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_FilePath.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Globals.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Jump.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_OsStream.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Parse.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_ParseBlock.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Pipe.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Prompt.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Read.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_ReadScript.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Run.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_ShowIntro.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_SplitPath.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Stream.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_Var.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pBat_VersionInfo.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="errors\pBat_Errors.h">
+      <Filter>Source Files\errors</Filter>
+    </ClInclude>
+    <ClInclude Include="init\pBat_Init.h">
+      <Filter>Source Files\init</Filter>
+    </ClInclude>
+    <ClInclude Include="lang\pBat_Lang.h">
+      <Filter>Source Files\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="lang\pBat_ShowHelp.h">
+      <Filter>Source Files\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="linenoise\linenoise.h">
+      <Filter>Source Files\linenoise</Filter>
+    </ClInclude>
+    <ClInclude Include="linenoise\pBat_LineNoise.h">
+      <Filter>Source Files\linenoise</Filter>
+    </ClInclude>
+    <ClInclude Include="linenoise\utf8.h">
+      <Filter>Source Files\linenoise</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="rc\pbat.ico">
+      <Filter>Source Files\rc</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="rc\res.rc">
+      <Filter>Source Files\rc</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

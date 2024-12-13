@@ -366,7 +366,7 @@ int pBat_CmdForSimple(ESTR* lpInput, PARSED_LINE* lpplLine, char cVarName,
 {
 
 	char *lpToken=lpInput->str,
-         *lpBegin,
+         *lpBegin=NULL,
          *tmp;
 
     size_t nSize;

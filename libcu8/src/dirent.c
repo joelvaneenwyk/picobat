@@ -106,7 +106,7 @@ __LIBCU8__IMP __cdecl DIR* libcu8_opendir(const char* dir)
     /* we don't need the utf-16 expression anymore */
     free(wdir);
 
-    if ((exp = libcu8_xconvert(LIBCU8_FROM_U16, data.cFileName,
+    if ((exp = libcu8_xconvert(LIBCU8_FROM_U16, (const char*)data.cFileName,
             (wcslen(data.cFileName)+1)*sizeof(wchar_t), &conv)) == NULL ) {
 
         errno = ENOMEM;
@@ -167,7 +167,7 @@ __LIBCU8__IMP __cdecl struct dirent* libcu8_readdir(DIR* pdir)
 
     }
 
-    if ((pdir->ent.d_name = libcu8_xconvert(LIBCU8_FROM_U16, data.cFileName,
+    if ((pdir->ent.d_name = libcu8_xconvert(LIBCU8_FROM_U16, (const char*)data.cFileName,
             (wcslen(data.cFileName)+1) * sizeof(wchar_t), &cnt)) == NULL) {
 
         errno = ENOMEM;

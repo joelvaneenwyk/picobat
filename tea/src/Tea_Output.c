@@ -22,17 +22,27 @@
 #include <stdlib.h>
 
 #include <libpBat.h>
+#include <string.h>
 #include "Tea.h"
 
-size_t         Tea_GetWordLengthT(char* lpBegin, TEANODE* lpTeaNode)
+const char* Tea_GetWordStart(const char* lpBegin)
+{
+	const char* lpWordStart = lpBegin;
+	while (lpWordStart && *lpWordStart == ' ') {
+		lpWordStart++;
+	}
+	return lpWordStart;
+}
+
+size_t         Tea_GetWordLengthT(const char* lpBegin, const TEANODE* lpTeaNode)
 {
 	size_t iLength=0;
 
-	while (*lpBegin!=' '
+	while (lpBegin && *lpBegin!=' ' && *lpBegin!='\0'
 	       && *lpBegin!='\n') {
 
 
-		if (*lpBegin=='\0') {
+		if (lpTeaNode && *lpBegin=='\0') {
 
 			/* on passe au noeud suivant */
 
@@ -66,20 +76,9 @@ Tea_GetWordLength_End:
 
 }
 
-size_t      Tea_GetWordLength(char* lpBegin)
+size_t      Tea_GetWordLength(const char* lpBegin)
 {
-	size_t iLength=0;
-
-	while (*lpBegin
-	       && *lpBegin!=' '
-	       && *lpBegin!='\n') {
-
-		lpBegin=pBat_GetNextChar(lpBegin);
-		iLength++;
-
-	}
-
-	return iLength;
+	return Tea_GetWordLengthT(lpBegin, NULL);
 }
 
 void        Tea_MakeMargin(size_t iLength, size_t* iLeft, FILE* pFile)
@@ -128,42 +127,62 @@ char*       Tea_OutputWord(char* lpBegin, FILE* pFile, size_t* iLeft)
 	return lpBegin;
 }
 
+
+/**
+ * @brief Outputs a line of text to a file with an optional Tea node structure.
+ *
+ * This function writes a line of text starting from the given pointer `lpBegin` to the specified file `pFile`.
+ * The number of characters left to write is updated in the `iLeft` parameter.
+ *
+ * @param lpBegin Pointer to the beginning of the line of text to be written.
+ * @param pFile Pointer to the file where the line of text will be written.
+ * @param iLeft Pointer to a size_t variable that holds the number of characters left to write. This value is updated by the function.
+ *
+ * @return Pointer to the next character after the written line in the input string.
+ */
 char*       Tea_OutputLineT(char* lpBegin, FILE* pFile, TEANODE* lpTeaNode, size_t* iLeft)
 {
-	size_t iNextWordLen;
+	const char* const lpStart = lpBegin;
+	char cLastChar = fseek(pFile, -1, SEEK_CUR) == 0
+		? getc(pFile)
+		: '\0';
 
-	while (*lpBegin) {
-
-		iNextWordLen=Tea_GetWordLengthT(lpBegin, lpTeaNode);
-
-		/* the line is obviously far too big
-		   let the user do what he want with new lines
-		*/
-
-		if (iNextWordLen >= *iLeft) return lpBegin;
-
-		lpBegin=Tea_OutputWord(lpBegin, pFile, iLeft);
-
-		/* if there is no pending character */
-		if (!lpBegin)
-			return NULL;
-
-		/* if the line is finished, return */
-		if (*lpBegin=='\n')
-			return lpBegin;
-
-		/* #jve #todo Review correctness */
-		/* if there are more words coming, add the next character and move on */
-		if (*lpBegin != '\0' && *lpBegin != '\n' && 1 <= *iLeft) {
-			fputc(*lpBegin, pFile);
+	//
+	// get to the start of where we care about skipping any whitespace we don't care about
+	//
+	while (lpBegin && *lpBegin && *iLeft > 0) {
+		if (*lpBegin == '\n' || (lpBegin == lpStart && *lpBegin == ' ' && cLastChar == '\n')) {
+			lpBegin++;
 			(*iLeft)--;
 		}
 
-		lpBegin++;
+		//
+		// determine what we need to output and whether or not it will all fit on the line
+		//
+		const char* lpWordStart = Tea_GetWordStart(lpBegin);
+		const char bIsEnd = lpWordStart == NULL || *lpWordStart == '\0';
+		const size_t iNumSpaces = lpWordStart - lpBegin;
+		const size_t iNumChars = bIsEnd
+			? lpTeaNode && lpTeaNode->lpTeaNodeNext
+				? Tea_GetWordLengthT(lpTeaNode->lpTeaNodeNext->lpContent, lpTeaNode->lpTeaNodeNext)
+				: 0
+			: Tea_GetWordLengthT(lpWordStart, lpTeaNode);
+		if (iNumChars + iNumSpaces > *iLeft) {
+			break;
+		}
 
+		while (lpBegin < lpWordStart && (lpWordStart == NULL || *lpWordStart != '\n')) {
+			fputc(*lpBegin, pFile);
+			lpBegin++;
+			(*iLeft)--;
+		}
+
+		lpBegin = bIsEnd || iNumChars == 0
+			? NULL
+			: Tea_OutputWord(lpBegin, pFile, iLeft);
 	}
 
-	return NULL;
+	return lpBegin;
 }
 
 /**
@@ -215,5 +234,4 @@ char*       Tea_OutputLine(char* lpBegin, FILE* pFile, size_t* iLeft)
 	}
 
 	return NULL;
-
 }

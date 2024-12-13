@@ -90,10 +90,10 @@ int         Tea_SweepSpaceNode(char* lpContent, int* iSweepBegin);
 TEANODE*    Tea_RemoveVoidNode(TEANODE* lpTeaNode);
 
 /* for teanode specific word */
-size_t      Tea_GetWordLengthT(char* lpBegin, TEANODE* lpTeaNode);
+size_t      Tea_GetWordLengthT(const char* lpBegin, const TEANODE* lpTeaNode);
 
 /* for all-purpose words */
-size_t      Tea_GetWordLength(char* lpBegin);
+size_t      Tea_GetWordLength(const char* lpBegin);
 
 void        Tea_MakeMargin(size_t iLength, size_t* iLeft, FILE* pFile);
 

@@ -56,7 +56,7 @@ VERSION = $(shell date +%Y | sed s/0//).$(shell date +%m)
 all: config $(SUBDIRS) $(MDFILES) $(TEAFILES)
 
 clean: $(SUBDIRS_CLEAN)
-	rm -f $(TEXTFILES) config.c config.h femto-config.mk femto-subst femto-test.out *.zip README.tpl.tea README.tea
+	rm -f $(TEXTFILES) config.c config.h femto-config.mk femto-subst femto-test.out *.zip README.tpl.tea README.tea README.tpl.tea.md dump.h
 	rm -rf $(BINDIR) ./x64/ ./picobat-*/ ./obj/
 
 $(SUBDIRS):
@@ -71,6 +71,8 @@ $(SUBDIRS_BIN): $(SUBDIRS)
 bin: all bindir $(SUBDIRS_BIN)
 
 dist: bin
+	rm -f picobat-$(VERSION).zip
+	rm -rf picobat-$(VERSION)
 	mv bin picobat-$(VERSION)
 	zip -r picobat-$(VERSION).zip picobat-$(VERSION)
 
@@ -123,18 +125,13 @@ man/en_US/readme.tea: README.tpl
 	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
 
 %.tpl.tea: %.tpl
-	cat $*.tpl doc.ft > $*.tpl.tea
+	cat $*.tpl repo.ft > $*.tpl.tea
 
 %.tpl.tea.md: %.tpl.tea config tea
 	$(ROOTDIR)/tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
 
-%.tpl.md: %.tpl.tea.md
-	cat doc.hd $*.tpl.tea.md > $*.tpl.md
-	rm -f $*.tpl.tea.md
-	echo "Generated $*"
-
-README.md: README.tpl.md
-	mv README.tpl.md README.md
+README.md: README.tpl.tea.md
+	cp README.tpl.tea.md README.md
 
 .PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(MDFILES)
 .SUFFIXES: .txt .md .tea .tpl .tpl.md .tpl.tea .tpl.tea.md
