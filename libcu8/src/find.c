@@ -148,7 +148,7 @@ struct _xfinddata32_t {
     char name[260];
 };
 
-#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#if defined(__LIBCU8_IS_32BIT_PLATFORM) || defined(UCRT64) || defined(HAVE_MINGW64_UCRT64) || defined(_UCRT)
 #	define __libcu8_data_t struct _wfinddata32_t
 #else
 #	define __libcu8_data_t struct _wfinddata64i32_t
@@ -189,7 +189,7 @@ struct _xwfinddata32i64_t {
     wchar_t name[260];
 };
 
-#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#if defined(__LIBCU8_IS_32BIT_PLATFORM) || defined(UCRT64) || defined(HAVE_MINGW64_UCRT64) || defined(_UCRT)
 #	define __libcu8_data_t struct _wfinddata32i64_t
 #else
 #	define __libcu8_data_t struct _wfinddata64i32_t
