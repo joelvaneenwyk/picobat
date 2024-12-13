@@ -113,6 +113,10 @@ else
     EXEC_SUFFIX :=
 endif
 
+# .tpl to .tea conversion
+%.tea: %.tpl
+	cat $< repo.ft | sed -e s,\{doc[^}]*\|,\{,g > $@
+
 # .tea to .txt conversion
 %.txt: %.tea config tea
 	$(ROOTDIR)/tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:text-plain $< $@
@@ -121,7 +125,7 @@ man/en_US/readme.tea: README.tpl
 	cat $< doc.ft | sed -e s,\{doc/,\{,g > $@
 
 %.tpl.tea: %.tpl
-	cat $< repo.ft > $@
+	cat $*.tpl repo.ft > $*.tpl.tea
 
 %.tpl.tea.md: %.tpl.tea config tea
 	$(ROOTDIR)/tea/tea$(EXEC_SUFFIX) -e:utf-8 -o:md $*.tpl.tea $*.tpl.tea.md
