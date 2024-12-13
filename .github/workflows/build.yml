@@ -18,9 +18,9 @@ jobs:
         include:
           - { os: ubuntu, sys: linux, env: x86_64 }
           - { os: windows, sys: mingw64, env: x86_64 }
-          # - { os: windows, sys: mingw32, env: i686 }
-          # - { os: windows, sys: ucrt64,  env: ucrt-x86_64 }
-          # - { os: windows, sys: clang64, env: clang-x86_64 }
+          - { os: windows, sys: mingw32, env: i686 }
+          - { os: windows, sys: ucrt64,  env: ucrt-x86_64 }
+          - { os: windows, sys: clang64, env: clang-x86_64 }
 
     runs-on: '${{ matrix.os }}-latest'
 
