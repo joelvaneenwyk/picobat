@@ -22,6 +22,11 @@
     <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\libfasteval\lib\fasteval.c" />
+    <ClCompile Include="..\libfasteval\lib\parser.c" />
+    <ClCompile Include="..\libfasteval\lib\scanner.c" />
+    <ClCompile Include="..\libfasteval\lib\xmath.c" />
+    <ClCompile Include="..\microgettext\microgettext.c" />
     <ClCompile Include="command\pBat_Ask.c" />
     <ClCompile Include="command\pBat_Block.c" />
     <ClCompile Include="command\pBat_Break.c" />
@@ -101,6 +106,10 @@
     <ClCompile Include="pBat.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\libfasteval\lib\fasteval.h" />
+    <ClInclude Include="..\libfasteval\lib\parser.h" />
+    <ClInclude Include="..\libfasteval\lib\xmath.h" />
+    <ClInclude Include="..\microgettext\gettext.h" />
     <ClInclude Include="core\pBat_Args.h" />
     <ClInclude Include="core\pBat_Clone.h" />
     <ClInclude Include="core\pBat_Completion.h" />
@@ -145,6 +154,11 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="rc\res.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libpbat\libpbat.vcxproj">
+      <Project>{f12c5268-34b1-4ac8-ba1b-974305a35d1f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -204,7 +218,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;WIN32;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib</AdditionalIncludeDirectories>
       <CompileAs>CompileAsC</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -213,6 +227,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <ProjectReference />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -222,7 +237,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;WIN32;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib</AdditionalIncludeDirectories>
       <CompileAs>CompileAsC</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -233,6 +248,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <ProjectReference />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -240,7 +256,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib</AdditionalIncludeDirectories>
       <CompileAs>CompileAsC</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -249,6 +265,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <ProjectReference />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -258,7 +275,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib</AdditionalIncludeDirectories>
       <CompileAs>CompileAsC</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -269,6 +286,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <ProjectReference />
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

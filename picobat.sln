@@ -8,6 +8,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpbat", "libpbat\libpbat.vcxproj", "{F12C5268-34B1-4AC8-BA1B-974305A35D1F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pbat", "pbat\pbat.vcxproj", "{5FEC033B-AD00-4EE2-8E87-8BB422D2E79F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F12C5268-34B1-4AC8-BA1B-974305A35D1F} = {F12C5268-34B1-4AC8-BA1B-974305A35D1F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
