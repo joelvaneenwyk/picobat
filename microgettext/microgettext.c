@@ -339,7 +339,7 @@ int microgettext_make_array(const char** array, size_t nitems,
                             int offset, void* buf, size_t len)
 {
     int* int_buf, i=0;
-    char* char_buf = buf;
+    char* char_buf = (char*)buf;
 
     /* Just check there's enough room for the whole table */
     if (microgettext_check_bounds(len, char, offset + 2 * nitems * sizeof(int)))
@@ -347,7 +347,7 @@ int microgettext_make_array(const char** array, size_t nitems,
 
     /* Use this cast because offset*sizeof(char) is not always a multiple of
        sizeof(int) */
-    int_buf = (int*) ((void*)char_buf+offset);
+    int_buf = (int*) (char_buf+offset);
 
     for (i=0; i < nitems; i++) {
 
@@ -356,7 +356,7 @@ int microgettext_make_array(const char** array, size_t nitems,
         if (microgettext_check_bounds(len, char, int_buf[2*i + 1]))
             return -1;
 
-        array[i] = buf + int_buf[2*i + 1];
+        array[i] = char_buf + int_buf[2*i + 1];
     }
 
     return 0;
@@ -432,7 +432,7 @@ int microgettext_get_index(void* key, void* base, size_t num, size_t size,
 
     if (ret = bsearch(key, base, num, size, compar)) {
 
-        return (ret - base) / size;
+        return ((char*)ret - (char*)base) / size;
 
     } else
         return -1;
