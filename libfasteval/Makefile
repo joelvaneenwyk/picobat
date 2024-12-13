@@ -17,10 +17,10 @@
 #
 
 ROOTDIR = ..
-ifneq (,$(wildcard ./femto-config.mk))
-    include femto-config.mk
+ifneq (,$(wildcard $(ROOTDIR)/femto-config.mk))
+    include $(ROOTDIR)/femto-config.mk
 endif
-include ../config.mk
+include $(ROOTDIR)/config.mk
 
 ifdef lib_m
 LDFLAGS += -lm
@@ -47,15 +47,15 @@ lib/scanner.c: lib/scanner.l lib/parser.c
 
 lib/parser.c: lib/parser.y
 	$(YACC) -d -p evaluator_ -o $@ $^
-	
+
 # stuff to check
 PROGRAMS =
 FUNCTIONS =
 LIBS = m
 OPTIONS =
-DEFAULTOPTIONS = 
-SUBCONFIG = 
-ADDITIONALVARS = 
+DEFAULTOPTIONS =
+SUBCONFIG =
+ADDITIONALVARS =
 
 include ../femto.mk
 
