@@ -94,7 +94,7 @@ struct _xstat32i64 {
 #define __libcu8_stat_t _xstat32i64
 #define __libcu8_wstat _wstat32i64
 #ifdef __LIBCU8_IS_32BIT_PLATFORM
-#	define __libcu8_stat_buf_t struct _stat32
+#	define __libcu8_stat_buf_t struct _stat32i64
 #else
 #	define __libcu8_stat_buf_t struct _stat64i32
 #endif
@@ -155,7 +155,7 @@ struct _xstat64i32 {
 #define __libcu8_stat_t _xstat64i32
 #define __libcu8_wstat _wstat64i32
 #ifdef __LIBCU8_IS_32BIT_PLATFORM
-#	define __libcu8_stat_buf_t struct _stat64
+#	define __libcu8_stat_buf_t struct _stat64i32
 #else
 #	define __libcu8_stat_buf_t struct _stat64i32
 #endif
