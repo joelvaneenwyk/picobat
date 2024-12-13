@@ -7,9 +7,34 @@ on:
   workflow_dispatch:
 
 jobs:
+  msbuild:
+    name: '⚙️ MSBuild'
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Install make on Windows
+        if: runner.os == 'Windows'
+        run: choco install make
+
+      - name: Configure
+        run: |
+          make config
+
+      - name: Build Solution
+        run: msbuild picobat.sln /p:Configuration=Release
+
   build:
     # e.g., '⚙️ make use-libcu8 // ubuntu-linux-x86_64'
     name: '⚙️ ${{ matrix.sys }} // make ${{ matrix.options }}'
+    needs: msbuild
     runs-on: ${{ matrix.sys == 'linux' && 'ubuntu-latest' || 'windows-latest' }}
     strategy:
       fail-fast: false
@@ -62,20 +87,3 @@ jobs:
           LDFLAGS: -static -s
         run: |
           make dist --keep-going
-
-  msbuild:
-    needs: build
-    name: '⚙️ MSBuild'
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: recursive
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Build Solution
-        run: msbuild picobat.sln /p:Configuration=Release
