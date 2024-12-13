@@ -11,20 +11,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sys: [linux, mingw64]
-        env: [x86_64]
-        options:
-          - use-libcu8
-          - no-libcu8
-        include:
-          - { sys: mingw32, env: i686 }
-          - { sys: ucrt64,  env: ucrt-x86_64 }
-          - { sys: clang64, env: clang-x86_64 }
+        sys: [linux, mingw64, mingw32, ucrt64, clang64]
+        options: [use-libcu8, no-libcu8]
 
     runs-on: ${{ matrix.sys == 'linux' && 'ubuntu-latest' || 'windows-latest' }}
 
     # e.g., '⚙️ make use-libcu8 // ubuntu-linux-x86_64'
-    name: '⚙️ ${{ matrix.sys }}-${{ matrix.env }} // make ${{ matrix.options }}'
+    name: '⚙️ ${{ matrix.sys }} // make ${{ matrix.options }}'
 
     permissions:
       contents: write
@@ -34,7 +27,7 @@ jobs:
     defaults:
       run:
         # set shell to be either bash or msys2 depending on runner
-        shell: ${{ matrix.sys != 'linux' && 'msys2 {0}' || 'bash' }}
+        shell: ${{ matrix.sys == 'linux' && 'bash' || 'msys2 {0}' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -52,13 +45,15 @@ jobs:
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         if: matrix.sys != 'linux'
+        env:
+          SYS_ENV: ${{ matrix.sys == 'mingw32' && 'i686' || matrix.sys == 'ucrt64' && 'ucrt-x86_64' || matrix.sys == 'clang64' && 'clang-x86_64' || 'x86_64' }}
         with:
           msystem: ${{ matrix.sys }}
           install: >-
             git zip
             base-devel
-            mingw-w64-${{ matrix.env }}-toolchain
-            mingw-w64-${{ matrix.env }}-dlfcn
+            mingw-w64-$SYS_ENV-toolchain
+            mingw-w64-$SYS_ENV-dlfcn
 
       - name: Configure
         run: |
