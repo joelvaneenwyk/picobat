@@ -789,9 +789,7 @@ win_iconv_open(rec_iconv_t *cd, const char *tocode, const char *fromcode)
     cd->iconv_close = win_iconv_close;
     cd->iconv = win_iconv;
 #if defined(WIN32)
-    int err;
-    _get_errno(&err);
-    cd->_errno = err;
+    cd->_errno = _errno;
 #else
     cd->_errno = errno;
 #endif
