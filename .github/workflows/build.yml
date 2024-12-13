@@ -43,7 +43,15 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - uses: msys2/setup-msys2@v2
+      - name: Install dependencies
+        if: matrix.os == 'ubuntu'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            gettext bison flex
+
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
         if: matrix.os == 'windows'
         with:
           msystem: ${{ matrix.sys }}
