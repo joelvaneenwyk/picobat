@@ -8,8 +8,8 @@ on:
 
 jobs:
   build:
-    # e.g., 'Build // use-libcu8 // ubuntu-linux-x86_64'
-    name: 'Build // ${{ matrix.options }} // ${{ matrix.os }}-${{ matrix.sys }}-${{ matrix.env }}'
+    # e.g., '⚙️ make use-libcu8 // ubuntu-linux-x86_64'
+    name: '⚙️ make ${{ matrix.options }} // ${{ matrix.sys }}-${{ matrix.env }}'
     runs-on: '${{ matrix.os }}-latest'
 
     strategy:
