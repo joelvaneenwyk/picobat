@@ -42,6 +42,11 @@
 
 #include "internals.h"
 
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_stat_t struct _stat32
+#else
+#	define __libcu8_stat_t struct _stat64
+#endif
 
 /* build libcu8_stat32 */
 #ifdef HAVE__STAT32

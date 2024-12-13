@@ -40,7 +40,7 @@ __LIBCU8__IMP __cdecl int __libcu8_stat (const char* file,
 
     if (!(wcs = (wchar_t*) libcu8_xconvert(LIBCU8_TO_U16,
                                             file, strlen(file)+1, &cvt))
-        || (__libcu8_wstat(wcs, (__libcu8_stat64 *)buf) == -1))
+        || (__libcu8_wstat(wcs, (__libcu8_stat_t *)buf) == -1))
         ret = -1;
 
     if (wcs != NULL)
