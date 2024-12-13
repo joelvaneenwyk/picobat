@@ -52,21 +52,21 @@ __LIBCU8__IMP __cdecl int libcu8_getcwd(char* dir, size_t size)
 
     /* alloc at most n wchar since it is the most character that
        dir can possibly hold */
-    if (!(wdir = malloc(size*sizeof(wchar_t)))) {
+    if (!(wdir = (wchar_t*)malloc(size*sizeof(wchar_t)))) {
 
         errno = ENOMEM;
         return -1;
 
     }
 
-    if ((code = _wgetcwd(wdir, size)) == -1) {
+    if ((wdir = _wgetcwd(wdir, size)) == NULL) {
 
         free(wdir);
         return -1;
 
     }
 
-    if (!(ret = libcu8_xconvert(LIBCU8_FROM_U16, wdir,
+    if (!(ret = libcu8_xconvert(LIBCU8_FROM_U16, (const char*)wdir,
                                     (wcslen(wdir)+1)*sizeof(wchar_t),
                                     &conv))) {
         errno = ENOMEM;
@@ -89,7 +89,7 @@ __LIBCU8__IMP __cdecl int libcu8_chdir(const char* dir)
     size_t conv;
     int ret;
 
-    if (!(wdir = libcu8_xconvert(LIBCU8_TO_U16, dir,
+    if (!(wdir = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, dir,
                                     strlen(dir)+1, &conv))) {
 
         errno = ENOMEM;
@@ -110,7 +110,7 @@ __LIBCU8__IMP __cdecl int libcu8_rmdir(const char* dir)
     size_t conv;
     int ret;
 
-    if (!(wdir = libcu8_xconvert(LIBCU8_TO_U16, dir,
+    if (!(wdir = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, dir,
                                     strlen(dir)+1, &conv))) {
 
         errno = ENOMEM;
@@ -131,7 +131,7 @@ __LIBCU8__IMP __cdecl int libcu8_mkdir(const char* dir)
     size_t conv;
     int ret;
 
-    if (!(wdir = libcu8_xconvert(LIBCU8_TO_U16, dir,
+    if (!(wdir = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, dir,
                                     strlen(dir)+1, &conv))) {
 
         errno = ENOMEM;
