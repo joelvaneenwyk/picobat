@@ -61,6 +61,10 @@ extern "C" {
     #define __cdecl
 #endif
 
+#if defined(__x86_32__) || defined(__i386__) || defined(_M_IX86) || defined(__32BIT__)
+#	define __LIBCU8_IS_32BIT_PLATFORM
+#endif
+
 #if !defined(WIN32)
 typedef short SHORT;
 typedef unsigned short WORD;
