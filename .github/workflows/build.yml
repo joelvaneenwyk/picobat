@@ -8,22 +8,24 @@ on:
 
 jobs:
   build:
-    # e.g., '⚙️ make use-libcu8 // ubuntu-linux-x86_64'
-    name: '⚙️ make ${{ matrix.options }} // ${{ matrix.sys }}-${{ matrix.env }}'
-    runs-on: '${{ matrix.os }}-latest'
-
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu, windows]
+        options:
+          - use-libcu8
+          - no-libcu8
         include:
           - { os: ubuntu, sys: linux, env: x86_64 }
           - { os: windows, sys: mingw64, env: x86_64 }
           # - { os: windows, sys: mingw32, env: i686 }
           # - { os: windows, sys: ucrt64,  env: ucrt-x86_64 }
           # - { os: windows, sys: clang64, env: clang-x86_64 }
-        options:
-          - use-libcu8
-          - no-libcu8
+
+    runs-on: '${{ matrix.os }}-latest'
+
+    # e.g., '⚙️ make use-libcu8 // ubuntu-linux-x86_64'
+    name: '⚙️ ${{ matrix.sys }}-${{ matrix.env }} // make ${{ matrix.options }}'
 
     permissions:
       contents: write
@@ -58,12 +60,3 @@ jobs:
       - name: Make Distribution
         run: |
           LDFLAGS='-static -s' make dist --keep-going
-
-      # - uses: marvinpinto/action-automatic-releases@master
-      #   with:
-      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
-      #     automatic_release_tag: "latest"
-      #     prerelease: true
-      #     title: "Development Build"
-      #     files: |
-      #       ./picobat-*.zip
