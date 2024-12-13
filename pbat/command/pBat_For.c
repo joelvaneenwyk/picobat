@@ -716,7 +716,7 @@ int pBat_ForIsSpecifier(const char* restrict p)
     if (!strnicmp(p, "skip=", sizeof("skip=") - 1 ))
         return PBAT_FOR_SPEC_SKIP;
 
-    if (!strncasecmp(p, "usebackq", sizeof("usebackq") - 1)
+    if (!strnicmp(p, "usebackq", sizeof("usebackq") - 1)
         && (*(p + sizeof("usebackq") - 1) == '\0' ||
             *(p + sizeof("usebackq") - 1) == ' '))
         return PBAT_FOR_SPEC_USEBACKQ;
