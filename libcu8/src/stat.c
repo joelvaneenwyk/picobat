@@ -63,7 +63,11 @@ struct _xstat32 {
 #define __libcu8_stat libcu8_stat32
 #define __libcu8_stat_t _xstat32
 #define __libcu8_wstat _wstat32
-#define __libcu8_stat64 struct _stat64i32
+#	ifdef __LIBCU8_IS_32BIT_PLATFORM
+#		define __libcu8_stat64 struct _stat64
+#	else
+#		define __libcu8_stat64 struct _stat64i32
+#	endif
 #include "stat_gen.inl"
 #undef __libcu8_stat
 #undef __libcu8_stat_t
@@ -156,7 +160,11 @@ struct _xstat64i32 {
 #define __libcu8_stat libcu8_stat
 #define __libcu8_stat_t _stat
 #define __libcu8_wstat _wstat
-#define __libcu8_stat64 struct _stat64i32
+#	ifdef __LIBCU8_IS_32BIT_PLATFORM
+#		define __libcu8_stat64 struct _stat64
+#	else
+#		define __libcu8_stat64 struct _stat64i32
+#	endif
 #include "stat_gen.inl"
 #undef __libcu8_stat
 #undef __libcu8_stat_t
