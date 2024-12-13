@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: 'Build // ${{ matrix.os }}-${{ matrix.sys }}-${{ matrix.env }}'
     runs-on: '${{ matrix.os }}-latest'
 
     strategy:
