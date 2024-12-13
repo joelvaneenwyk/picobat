@@ -65,7 +65,11 @@ struct _xwfinddata64_t {
     wchar_t name[260];
 };
 
-#define __libcu8_data_t      _wfinddata64_t
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_data_t struct _wfinddata64_t
+#else
+#	define __libcu8_data_t struct _wfinddata64_t
+#endif
 #define __libcu8_finddata_t  _xfinddata64_t
 #define __libcu8_wfinddata_t _xwfinddata64_t
 #define __libcu8_wfindfirst  _wfindfirst64
@@ -102,7 +106,11 @@ struct _xwfinddata64i32_t {
     wchar_t name[260];
 };
 
-#define __libcu8_data_t      _wfinddata64i32_t
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_data_t struct _wfinddata64i32_t
+#else
+#	define __libcu8_data_t struct _wfinddata64i32_t
+#endif
 #define __libcu8_finddata_t  _xfinddata64i32_t
 #define __libcu8_wfinddata_t _xwfinddata64i32_t
 #define __libcu8_wfindfirst  _wfindfirst64i32
@@ -140,7 +148,11 @@ struct _xfinddata32_t {
     char name[260];
 };
 
-#define __libcu8_data_t      _wfinddata64i32_t
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_data_t struct _wfinddata32_t
+#else
+#	define __libcu8_data_t struct _wfinddata64i32_t
+#endif
 #define __libcu8_finddata_t  _xfinddata32_t
 #define __libcu8_wfinddata_t _xwfinddata32_t
 #define __libcu8_wfindfirst  _wfindfirst32
@@ -177,7 +189,11 @@ struct _xwfinddata32i64_t {
     wchar_t name[260];
 };
 
-#define __libcu8_data_t      _wfinddata64i32_t
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_data_t struct _wfinddata32i64_t
+#else
+#	define __libcu8_data_t struct _wfinddata64i32_t
+#endif
 #define __libcu8_finddata_t  _xfinddata32i64_t
 #define __libcu8_wfinddata_t _xwfinddata32i64_t
 #define __libcu8_wfindfirst  _wfindfirst32i64
@@ -195,7 +211,11 @@ struct _xwfinddata32i64_t {
 #endif
 
 #ifdef HAVE__FINDFIRST
-#define __libcu8_data_t      _wfinddata64i32_t
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_data_t struct _wfinddata32_t
+#else
+#	define __libcu8_data_t struct _wfinddata64i32_t
+#endif
 #define __libcu8_finddata_t  _finddata_t
 #define __libcu8_wfinddata_t _wfinddata_t
 #define __libcu8_wfindfirst  _wfindfirst
