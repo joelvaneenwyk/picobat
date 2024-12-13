@@ -46,14 +46,14 @@ jobs:
         uses: msys2/setup-msys2@v2
         if: matrix.sys != 'linux'
         env:
-          SYS_ENV: ${{ matrix.sys == 'mingw32' && 'i686' || matrix.sys == 'ucrt64' && 'ucrt-x86_64' || matrix.sys == 'clang64' && 'clang-x86_64' || 'x86_64' }}
+          MSYS_ENV: ${{ matrix.sys == 'mingw32' && 'i686' || matrix.sys == 'ucrt64' && 'ucrt-x86_64' || matrix.sys == 'clang64' && 'clang-x86_64' || 'x86_64' }}
         with:
           msystem: ${{ matrix.sys }}
           install: >-
             git zip
             base-devel
-            mingw-w64-$SYS_ENV-toolchain
-            mingw-w64-$SYS_ENV-dlfcn
+            mingw-w64-${{ env.MSYS_ENV }}-toolchain
+            mingw-w64-${{ env.MSYS_ENV }}-dlfcn
 
       - name: Configure
         run: |
