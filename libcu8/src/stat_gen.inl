@@ -29,6 +29,12 @@
 
 */
 
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_stat_base_t struct _stat32
+#else
+#	define __libcu8_stat_base_t struct _stat64
+#endif
+
 __LIBCU8__IMP __cdecl int __libcu8_stat (const char* file,
                                           void* inbuf)
 {
@@ -40,7 +46,7 @@ __LIBCU8__IMP __cdecl int __libcu8_stat (const char* file,
 
     if (!(wcs = (wchar_t*) libcu8_xconvert(LIBCU8_TO_U16,
                                             file, strlen(file)+1, &cvt))
-        || (__libcu8_wstat(wcs, (__libcu8_stat_t *)buf) == -1))
+        || (__libcu8_wstat(wcs, (__libcu8_stat_base_t *)buf) == -1))
         ret = -1;
 
     if (wcs != NULL)
@@ -48,3 +54,5 @@ __LIBCU8__IMP __cdecl int __libcu8_stat (const char* file,
 
     return ret;
 }
+
+#undef __libcu8_stat_base_t
