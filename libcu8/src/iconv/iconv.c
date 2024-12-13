@@ -10,10 +10,14 @@
 #endif
 
 #define STRICT
+#ifdef WIN32
 #include <windows.h>
+#endif
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+
+#include "libcu8.h"
 
 #ifdef __GNUC__
 #define UNUSED __attribute__((unused))
@@ -784,7 +788,11 @@ win_iconv_open(rec_iconv_t *cd, const char *tocode, const char *fromcode)
         return FALSE;
     cd->iconv_close = win_iconv_close;
     cd->iconv = win_iconv;
+#if defined(WIN32)
     cd->_errno = _errno;
+#else
+    cd->_errno = errno;
+#endif
     cd->cd = (iconv_t)cd;
     return TRUE;
 }

@@ -31,10 +31,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wchar.h>
+#if defined(WIN32)
 #include <io.h>
+#include <windows.h>
+#endif
 #include <fcntl.h>
 #include <errno.h>
-#include <windows.h>
 #include <assert.h>
 
 #include <libcu8.h>
@@ -78,5 +80,3 @@ __LIBCU8__IMP __cdecl int libcu8_dup2(int fd1, int fd2)
 
     return ret;
 }
-
-

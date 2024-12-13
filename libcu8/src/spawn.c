@@ -31,16 +31,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wchar.h>
+#if defined(WIN32)
 #include <io.h>
+#include <windows.h>
+#endif
 #include <fcntl.h>
 #include <errno.h>
-#include <windows.h>
+#include <stdarg.h>
 
 #include "iconv/iconv.h"
 
 #include "internals.h"
 
 #include <libcu8.h>
+
+#ifdef WIN32
+#define ENVIRON_PTR (const char *const *)_environ
+#define WENVIRON_PTR (const wchar_t * const*)_wenviron
+#else
+#define ENVIRON_PTR (const char *const *)__environ
+#define WENVIRON_PTR (const char *const *)__environ
+#endif
 
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnl(int mode, const char* file, ...)
 {
@@ -59,7 +70,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnl(int mode, const char* file, ...)
     if (i == 1024)
         return -1;
 
-    return libcu8_spawnve(mode, file, (const char * const*)args, (const char * const*)_environ);
+    return libcu8_spawnve(mode, file, (const char * const*)args, ENVIRON_PTR);
 }
 
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnle(int mode, const char* file, ...)
@@ -102,7 +113,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnlp(int mode, const char* file, ...)
     if (i == 1024)
         return -1;
 
-    return libcu8_spawnvpe(mode, file, (const char * const*)args, (const char * const*)_environ);
+    return libcu8_spawnvpe(mode, file, (const char * const*)args, ENVIRON_PTR);
 }
 
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnlpe(int mode, const char* file, ...)
@@ -131,7 +142,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnlpe(int mode, const char* file, ...)
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnv(int mode, const char* file,
                                                     const char* const *argv)
 {
-    return (intptr_t)libcu8_spawnve(mode, file, argv, (const char * const*)_environ);
+    return (intptr_t)libcu8_spawnve(mode, file, argv, ENVIRON_PTR);
 }
 
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnve(int mode, const char* file,
@@ -159,7 +170,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnve(int mode, const char* file,
 
     wargv[j] = NULL;
 
-    ret = _wspawnve(mode, wfile, (const wchar_t* const *)wargv, (const wchar_t * const*)_wenviron);
+    ret = _wspawnve(mode, wfile, (const wchar_t* const *)wargv, WENVIRON_PTR);
 
     free(wfile);
 
@@ -187,7 +198,7 @@ error :
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnvp(int mode, const char* file,
                                                 const char* const *argv)
 {
-    return libcu8_spawnvpe(mode, file, argv, (const char *const *)_environ);
+    return libcu8_spawnvpe(mode, file, argv, ENVIRON_PTR);
 }
 
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnvpe(int mode, const char* file,
@@ -216,7 +227,11 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnvpe(int mode, const char* file,
 
     wargv[j] = NULL;
 
+#if defined(WIN32)
     ret = _wspawnvpe(mode, wfile, (const wchar_t * const*)wargv, (const wchar_t * const*)_wenviron);
+#else
+    ret = execvpe(file, (char * const*)argv, envp);
+#endif
 
     free(wfile);
 

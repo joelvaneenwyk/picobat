@@ -38,6 +38,7 @@
 #include <direct.h>
 #else
 #include <unistd.h>
+#include <stdint.h>
 #endif
 #include <fcntl.h>
 #include <errno.h>

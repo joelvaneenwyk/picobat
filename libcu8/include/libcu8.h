@@ -45,9 +45,166 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <sys/stat.h>
-#include <windows.h>
+#if defined(WIN32)
 #include <io.h>
+#include <windows.h>
+#else
+#include <unistd.h>
+#include <stdint.h>
+#include <errno.h>
+#include <string.h>
+#endif
 #include <dirent.h>
+#include <stdio.h>
+
+#if !defined(_MSC_VER)
+    #define __cdecl
+#endif
+
+#if !defined(WIN32)
+typedef short SHORT;
+typedef unsigned short WORD;
+typedef unsigned long DWORD;
+typedef struct _RTL_CRITICAL_SECTION_DEBUG *PRTL_CRITICAL_SECTION_DEBUG;
+typedef long LONG;
+typedef void* HANDLE;
+typedef unsigned long ULONG_PTR;
+typedef int BOOL;
+typedef wchar_t WCHAR;
+typedef char CHAR;
+
+#define _O_CREAT 0x0100
+#define ERROR_NO_MORE_FILES 18L
+
+#define FALSE 0
+#define TRUE 1
+
+#define HANDLE_FLAG_INHERIT 0x00000001
+#define KEY_EVENT 0x0001
+#define VK_DELETE 0x2E
+#define VK_DOWN 0x28
+#define VK_END 0x23
+#define VK_HOME 0x24
+#define VK_LEFT 0x25
+#define VK_RIGHT 0x27
+#define VK_UP 0x26
+
+#define MAX_PATH 260
+
+#define INVALID_HANDLE_VALUE ((HANDLE)(LONG_PTR)-1)
+#define STD_ERROR_HANDLE ((DWORD)-12)
+#define STD_OUTPUT_HANDLE ((DWORD)-11)
+
+typedef long HRESULT;
+#define S_OK ((HRESULT)0L)
+
+#ifdef WIN32
+#define WINAPI __stdcall
+#else
+#define WINAPI
+#endif
+
+typedef void* HMODULE;
+typedef DWORD LCID;
+typedef unsigned long* LPDWORD;
+typedef unsigned char* LPCSTR;
+typedef unsigned int* LPINT;
+typedef unsigned char* LPBYTE;
+typedef wchar_t* LPWSTR;
+typedef const wchar_t* LPCWSTR;
+typedef char* LPSTR;
+
+typedef unsigned int UINT;
+typedef unsigned char BYTE;
+
+#define MAX_DEFAULTCHAR 2
+#define MAX_LEADBYTES 12
+#define MB_ERR_INVALID_CHARS 0x00000008
+#define ERROR_INSUFFICIENT_BUFFER 122L
+
+#	ifdef _WIN64
+typedef __int64 LONG_PTR;
+#	else
+typedef long LONG_PTR;
+#	endif
+
+/** A structure to store console coordinates */
+typedef struct COORD {
+	short X; /**< The x coordinate (column number). Starts at 0 */
+	short Y; /**< The y coordinate (line number). Starts at 0 */
+} COORD, *LPCOORD;
+
+typedef struct _cpinfo {
+    UINT MaxCharSize;                // Maximum length (in bytes) of a character in the code page
+    BYTE DefaultChar[MAX_DEFAULTCHAR]; // Default character used when a character cannot be represented in the code page
+    BYTE LeadByte[MAX_LEADBYTES];    // Array of lead byte ranges
+} CPINFO, *LPCPINFO;
+
+typedef struct _SMALL_RECT {
+    SHORT Left;
+    SHORT Top;
+    SHORT Right;
+    SHORT Bottom;
+} SMALL_RECT;
+
+typedef struct _CONSOLE_SCREEN_BUFFER_INFO {
+    COORD dwSize;
+    COORD dwCursorPosition;
+    WORD  wAttributes;
+    SMALL_RECT srWindow;
+    COORD dwMaximumWindowSize;
+} CONSOLE_SCREEN_BUFFER_INFO;
+
+typedef struct _RTL_CRITICAL_SECTION {
+    PRTL_CRITICAL_SECTION_DEBUG DebugInfo;
+    LONG LockCount;
+    LONG RecursionCount;
+    HANDLE OwningThread;
+    HANDLE LockSemaphore;
+    ULONG_PTR SpinCount;
+} CRITICAL_SECTION, *PCRITICAL_SECTION;
+
+typedef struct _CONSOLE_CURSOR_INFO {
+    DWORD dwSize;
+    BOOL bVisible;
+} CONSOLE_CURSOR_INFO;
+
+typedef struct _INPUT_RECORD {
+    WORD EventType;
+    union {
+        struct {
+            BOOL bKeyDown;
+            WORD wRepeatCount;
+            WORD wVirtualKeyCode;
+            WORD wVirtualScanCode;
+            union {
+                WCHAR UnicodeChar;
+                CHAR AsciiChar;
+            } uChar;
+            DWORD dwControlKeyState;
+        } KeyEvent;
+        // Other event types omitted for brevity
+    } Event;
+} INPUT_RECORD;
+
+typedef struct _FILETIME {
+    DWORD dwLowDateTime;
+    DWORD dwHighDateTime;
+} FILETIME, *PFILETIME;
+
+typedef struct _WIN32_FIND_DATAW {
+    DWORD dwFileAttributes;
+    FILETIME ftCreationTime;
+    FILETIME ftLastAccessTime;
+    FILETIME ftLastWriteTime;
+    DWORD nFileSizeHigh;
+    DWORD nFileSizeLow;
+    DWORD dwReserved0;
+    DWORD dwReserved1;
+    WCHAR cFileName[MAX_PATH];
+    WCHAR cAlternateFileName[14];
+} WIN32_FIND_DATAW, *PWIN32_FIND_DATAW;
+#endif
 
 /* initialization function */
 __LIBCU8__IMP __cdecl int libcu8_init(const char*** pargv);
@@ -266,6 +423,9 @@ typedef void (*libcu8_completion_handler_free_t)(char*);
 #endif
 
 
+#ifndef HANDLE
+typedef void* HANDLE;
+#endif
 
 struct libcu8_dirent {
     char* d_name;
