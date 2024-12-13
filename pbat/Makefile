@@ -18,7 +18,7 @@
 
 
 ROOTDIR = ..
-include ../config.mk
+include $(ROOTDIR)/config.mk
 
 CFLAGS_PBAT += $(CFLAGS) $(MICROGETTEXT_INC) $(LIBPBAT_INC) \
 				$(LIBMATHEVAL_INC) $(LIBCU8_INC)
@@ -85,10 +85,10 @@ clean:
 bin: pbat
 	cp pbat$(EXEC_SUFFIX) $(BINDIR)/
 
-pbat: $(OBJ_FILES_PBAT) libpbat libcu8
+pbat: libpbat $(OBJ_FILES_PBAT)
 	$(CC) $(CFLAGS_PBAT) -o pbat$(EXEC_SUFFIX) $(OBJ_FILES_PBAT) $(LDFLAGS_PBAT)
 
-libpbat: libfasteval microgettext
+libpbat: libfasteval microgettext libcu8
 	$(MAKE) -C ../libpbat
 
 libcu8:
