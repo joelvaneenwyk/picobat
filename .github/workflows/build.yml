@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sys: [linux, mingw64, mingw32, ucrt64, clang64]
+        sys: [mingw64, mingw32, ucrt64, clang64, linux]
         options: [use-libcu8, no-libcu8]
 
     permissions:
