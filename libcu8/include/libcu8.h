@@ -57,7 +57,7 @@ extern "C" {
 #include <dirent.h>
 #include <stdio.h>
 
-#if !defined(_MSC_VER)
+#if !defined(__cdecl)
     #define __cdecl
 #endif
 

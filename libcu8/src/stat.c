@@ -62,16 +62,16 @@ struct _xstat32 {
 #define __libcu8_stat libcu8_stat32
 #define __libcu8_stat_t _xstat32
 #define __libcu8_wstat _wstat32
-#	ifdef __LIBCU8_IS_32BIT_PLATFORM
-#		define __libcu8_stat64 struct _stat64
-#	else
-#		define __libcu8_stat64 struct _stat64i32
-#	endif
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_stat_buf_t struct _stat32
+#else
+#	define __libcu8_stat_buf_t struct _stat64
+#endif
 #include "stat_gen.inl"
 #undef __libcu8_stat
 #undef __libcu8_stat_t
 #undef __libcu8_wstat
-#undef __libcu8_stat64
+#undef __libcu8_stat_buf_t
 #endif
 
 #ifdef HAVE__STAT32I64
@@ -93,12 +93,16 @@ struct _xstat32i64 {
 #define __libcu8_stat libcu8_stat32i64
 #define __libcu8_stat_t _xstat32i64
 #define __libcu8_wstat _wstat32i64
-#define __libcu8_stat64 struct _stat64i32
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_stat_buf_t struct _stat32
+#else
+#	define __libcu8_stat_buf_t struct _stat64i32
+#endif
 #include "stat_gen.inl"
 #undef __libcu8_stat
 #undef __libcu8_stat_t
 #undef __libcu8_wstat
-#undef __libcu8_stat64
+#undef __libcu8_stat_buf_t
 #endif
 
 #ifdef HAVE__STAT64
@@ -119,12 +123,16 @@ struct _xstat64 {
 #define __libcu8_stat libcu8_stat64
 #define __libcu8_stat_t _xstat64
 #define __libcu8_wstat _wstat64
-#define __libcu8_stat64 struct _stat64
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_stat_buf_t struct _stat64
+#else
+#	define __libcu8_stat_buf_t struct _stat64
+#endif
 #include "stat_gen.inl"
 #undef __libcu8_stat
 #undef __libcu8_stat_t
 #undef __libcu8_wstat
-#undef __libcu8_stat64
+#undef __libcu8_stat_buf_t
 #endif
 
 #ifdef HAVE__STAT64I32
@@ -146,12 +154,16 @@ struct _xstat64i32 {
 #define __libcu8_stat libcu8_stat64i32
 #define __libcu8_stat_t _xstat64i32
 #define __libcu8_wstat _wstat64i32
-#define __libcu8_stat64 struct _stat64i32
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_stat_buf_t struct _stat64
+#else
+#	define __libcu8_stat_buf_t struct _stat64i32
+#endif
 #include "stat_gen.inl"
 #undef __libcu8_stat
 #undef __libcu8_stat_t
 #undef __libcu8_wstat
-#undef __libcu8_stat64
+#undef __libcu8_stat_buf_t
 #endif
 
 #ifdef HAVE__STAT
@@ -159,14 +171,14 @@ struct _xstat64i32 {
 #define __libcu8_stat libcu8_stat
 #define __libcu8_stat_t _stat
 #define __libcu8_wstat _wstat
-#	ifdef __LIBCU8_IS_32BIT_PLATFORM
-#		define __libcu8_stat64 struct _stat64
-#	else
-#		define __libcu8_stat64 struct _stat64i32
-#	endif
+#ifdef __LIBCU8_IS_32BIT_PLATFORM
+#	define __libcu8_stat_buf_t struct _stat32
+#else
+#	define __libcu8_stat_buf_t struct _stat64
+#endif
 #include "stat_gen.inl"
 #undef __libcu8_stat
 #undef __libcu8_stat_t
 #undef __libcu8_wstat
-#undef __libcu8_stat64
+#undef __libcu8_stat_buf_t
 #endif
