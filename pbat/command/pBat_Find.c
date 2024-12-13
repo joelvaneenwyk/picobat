@@ -181,7 +181,7 @@ int pBat_CmdFind(char* lpLine)
 
 	FILELIST *pBegin=NULL,
              *pTmp,
-             *pEnd;
+             *pEnd=NULL;
 
     int status=0,
         count=0,
