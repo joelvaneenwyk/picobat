@@ -85,11 +85,14 @@ clean:
 bin: pbat
 	cp pbat$(EXEC_SUFFIX) $(BINDIR)/
 
-pbat: $(OBJ_FILES_PBAT) libpbat
+pbat: $(OBJ_FILES_PBAT) libpbat libcu8
 	$(CC) $(CFLAGS_PBAT) -o pbat$(EXEC_SUFFIX) $(OBJ_FILES_PBAT) $(LDFLAGS_PBAT)
 
 libpbat: libfasteval microgettext
 	$(MAKE) -C ../libpbat
+
+libcu8:
+	$(MAKE) -C ../libcu8
 
 libfasteval:
 	$(MAKE) -C ../libfasteval
