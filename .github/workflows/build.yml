@@ -28,7 +28,6 @@ jobs:
       - name: Configure
         run: |
           make config
-          make -C libfasteval
 
       - name: Build Solution
         run: msbuild picobat.sln /p:Configuration=Release
