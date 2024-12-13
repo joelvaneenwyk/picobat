@@ -19,7 +19,9 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#ifndef _MSC_VER
 #include <strings.h>
+#endif
 
 #include "pBat_Core.h"
 

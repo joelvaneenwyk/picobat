@@ -41,7 +41,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #include <stdio.h>
 
 #ifndef WIN32
