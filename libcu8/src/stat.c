@@ -174,7 +174,7 @@ struct _xstat64i32 {
 #ifdef __LIBCU8_IS_32BIT_PLATFORM
 #	define __libcu8_stat_buf_t struct _stat32
 #else
-#	define __libcu8_stat_buf_t struct _stat64
+#	define __libcu8_stat_buf_t struct _stat64i32
 #endif
 #include "stat_gen.inl"
 #undef __libcu8_stat
