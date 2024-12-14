@@ -155,7 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="pBat_Dir.h" />
+    <ClInclude Include="pBat_DirEntry.h" />
     <ClInclude Include="file\pBat_File.h" />
     <ClInclude Include="libpBat-int.h" />
     <ClInclude Include="libpBat.h" />
@@ -168,7 +168,7 @@
     <ClCompile Include="console\pBat_ConsoleDummy.c" />
     <ClCompile Include="console\pBat_ConsoleWin.c" />
     <ClCompile Include="dir\pBat_Attr.c" />
-    <ClCompile Include="dir\pBat_Dir.c" />
+    <ClCompile Include="dir\pBat_DirEntry.c" />
     <ClCompile Include="dir\pBat_UnicodeDir.c" />
     <ClCompile Include="enc\pBat_Enc.c" />
     <ClCompile Include="estr\pBat_Estr.c" />

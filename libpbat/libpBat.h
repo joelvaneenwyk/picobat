@@ -123,7 +123,7 @@
 
     #include <strings.h>
 
-    #if !defined(stricmp)
+    #if !defined(stricmp) && !defined(LIBCU8_H)
     #define stricmp(a, b) strcasecmp(a, b)
     #define strnicmp(a, b, c) strncasecmp(a, b, c)
     #endif
@@ -540,6 +540,6 @@ LIBPBAT void pBat_StripEndDelims(char* str);
 }
 #endif
 
-#include "pBat_Dir.h"
+#include "dir/pBat_DirEntry.h"
 
 #endif // LIBPBAT_INCLUDED_H

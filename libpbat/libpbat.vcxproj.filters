@@ -17,7 +17,7 @@
     <ClInclude Include="libpBat-int.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="pBat_Dir.h">
+    <ClInclude Include="pBat_DirEntry.h">
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="file\pBat_File.h">
@@ -46,7 +46,7 @@
     <ClCompile Include="dir\pBat_Attr.c">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="dir\pBat_Dir.c">
+    <ClCompile Include="dir\pBat_DirEntry.c">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="dir\pBat_UnicodeDir.c">

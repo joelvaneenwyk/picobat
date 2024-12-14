@@ -22,7 +22,7 @@
 #define _XOPEN_SOURCE 700
 #endif
 
-#include "pBat_Dir.h"
+#include "pBat_DirEntry.h"
 
 #if PBAT_IMPLEMENT_DIRENT==1
 
