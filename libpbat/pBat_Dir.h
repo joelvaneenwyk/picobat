@@ -139,7 +139,7 @@ extern "C" {
         long int index;
     };
 
-    static int closedir(__DIR_STRUCT* dirp)
+    static int __closedir(__DIR_STRUCT* dirp)
     {
         struct __dir* data = NULL;
         if (!dirp) {
@@ -504,14 +504,14 @@ extern "C" {
         __DIR_STRUCT* d = __opendir(dirp);
         struct __dir* data = (struct __dir*)d;
         if (!data) {
-            closedir(d);
+            __closedir(d);
             __seterrno(ENOENT);
             return -1;
         }
         entries = (struct __dirent**)malloc(sizeof(struct __dirent*) * count);
         if (!entries)
         {
-            closedir(d);
+            __closedir(d);
             __seterrno(ENOMEM);
             return -1;
         }
@@ -522,7 +522,7 @@ extern "C" {
                 entries[index] = (struct __dirent*)malloc(sizeof(struct __dirent));
                 if (!entries[index])
                 {
-                    closedir(d);
+                    __closedir(d);
                     for (i = 0; i < index; ++i)
                         free(entries[index]);
                     free(entries);
@@ -535,7 +535,7 @@ extern "C" {
                     tmp_entries = (struct __dirent**)realloc(entries, sizeof(struct __dirent*) * count * 2);
                     if (!tmp_entries)
                     {
-                        closedir(d);
+                        __closedir(d);
                         for (i = 0; i < index; ++i)
                             free(entries[index - 1]);
                         free(entries);
@@ -550,7 +550,7 @@ extern "C" {
         qsort(entries, index, sizeof(struct __dirent*), (int (*)(const void *, const void *))compar);        entries[index] = NULL;
         if (namelist)
             *namelist = entries;
-        closedir(d);
+        __closedir(d);
         return 0;
     }
 
