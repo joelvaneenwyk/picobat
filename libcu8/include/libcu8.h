@@ -102,6 +102,10 @@ extern "C" {
 #include <stdlib.h>
 #include <stdio.h>
 
+#if !defined(__restrict__)
+#define __restrict__
+#endif
+
 #if !defined(__cdecl)
     #define __cdecl
 #endif
