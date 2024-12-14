@@ -157,7 +157,9 @@ typedef struct {
 int newmode;
 } _startupinfo;
 
+#ifdef _WIN32
 extern int __wgetmainargs(int*, wchar_t***, wchar_t***, int, _startupinfo*);
+#endif
 
 int libcu8_get_argv(const char*** pargv)
 {
@@ -167,9 +169,11 @@ int libcu8_get_argv(const char*** pargv)
     size_t converted;
     _startupinfo stinfo;
 
+#ifdef _WIN32
     __wgetmainargs(&argc, &wargv, &wenv, 0, &stinfo);
+#endif
 
-    if (!(argv = malloc((argc + 1) * sizeof(char*)))) {
+    if (!(argv = (char**)malloc((argc + 1) * sizeof(char*)))) {
 
         errno = ENOMEM;
         return -1;
