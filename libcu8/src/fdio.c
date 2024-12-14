@@ -54,10 +54,6 @@
 #include <unistd.h>
 #endif
 
-#if !defined(_O_CREAT)
-#define _O_CREAT 0x0100  // Create and open file
-#endif
-
 FILE* _libcu8_wfopen(const wchar_t* filename, const wchar_t* mode) {
 #ifdef _WIN32
     return _wfopen(filename, mode);
@@ -185,7 +181,7 @@ __LIBCU8__IMP __cdecl int libcu8_open(char* name, int oflags, ...)
                                           &len)))
         return -1;
 
-    if (oflags & _O_CREAT) {
+    if (oflags & O_CREAT) {
 
         va_start(args, oflags);
         pmode = va_arg(args, int);
