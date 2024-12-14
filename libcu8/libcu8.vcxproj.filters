@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source\iconv">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Source\iconv</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Source\iconv</Filter>
+    </ClInclude>
+    <ClInclude Include="src\config.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\internals.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\iconv\iconv.h">
+      <Filter>Source\iconv</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\dir.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dirent.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dup.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\encoding.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdio.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\find.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\init.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\read.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\spawn.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stat.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\write.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iconv\iconv.c">
+      <Filter>Source\iconv</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\find_gen.inl">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="src\stat_gen.inl">
+      <Filter>Source</Filter>
+    </None>
+  </ItemGroup>
+</Project>

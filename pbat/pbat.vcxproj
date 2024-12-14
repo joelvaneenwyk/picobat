@@ -220,7 +220,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;WIN32;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib;$(ProjectDir)/../libcu8/include/</AdditionalIncludeDirectories>
       <CompileAs>CompileAsC</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -239,7 +239,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;WIN32;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib;$(ProjectDir)/../libcu8/include/</AdditionalIncludeDirectories>
       <CompileAs>CompileAsC</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -258,7 +258,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib;$(ProjectDir)/../libcu8/include/</AdditionalIncludeDirectories>
       <CompileAs>CompileAsC</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -277,7 +277,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/../libpbat/;$(ProjectDir)/../microgettext/;$(ProjectDir)/../libfasteval/lib;$(ProjectDir)/../libcu8/include/</AdditionalIncludeDirectories>
       <CompileAs>CompileAsC</CompileAs>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
