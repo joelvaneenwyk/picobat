@@ -45,15 +45,60 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <sys/stat.h>
-#if defined(WIN32)
-#include <io.h>
-#include <windows.h>
+
+/* for WC_NO_BEST_FIT_CHARS */
+#ifndef WINVER
+#define WINVER 0x0500
+#endif
+
+#ifndef STRICT
+#define STRICT
+#endif
+
+#if defined(_WIN32) || defined(WIN32) || defined(__MINGW32__) || defined(__MINGW64__)
+	#include <windows.h>
+
+	#ifndef TEXT
+	#define TEXT(text) text
+	#endif
+
+	#ifndef LoadLibrary
+	#define LoadLibrary(name) LoadLibraryA(name)
+	#endif
+
+	#define _stricmp _stricmp
+	#define _strnicmp _strnicmp
 #else
-#include <unistd.h>
-#include <stdint.h>
+	#include <dlfcn.h>
+	#include <strings.h>
+
+	#ifndef TEXT
+	#define TEXT(text) text
+	#endif
+
+	#ifndef LoadLibrary
+	#define LoadLibrary(name) dlopen(name, RTLD_LAZY)
+	#endif
+
+	#define stricmp(a, b) strcasecmp(a, b)
+	#define strnicmp(a , b, c) strncasecmp(a, b, c)
+
+	#define _stricmp strcasecmp
+	#define _strnicmp strncasecmp
+#endif
+
+#if !defined(__linux__)
+#	include <io.h>
+#	include <windows.h>
+#else
+#	include <unistd.h>
+#	include <stdint.h>
+#	include <string.h>
+#endif	/* defined(WIN32) */
+
 #include <errno.h>
 #include <string.h>
-#endif
+#include <stdlib.h>
 #include <dirent.h>
 #include <stdio.h>
 
@@ -65,7 +110,7 @@ extern "C" {
 #	define __LIBCU8_IS_32BIT_PLATFORM
 #endif
 
-#if !defined(WIN32)
+#if !defined(WIN32) && !defined(_MINWINDEF_)
 typedef short SHORT;
 typedef unsigned short WORD;
 typedef unsigned long DWORD;
