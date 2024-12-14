@@ -76,6 +76,7 @@ jobs:
           make -C libcu8/test
 
       - name: Make Distribution
+        if: matrix.sys != 'windows' && matrix.sys != 'linux'
         env:
           LDFLAGS: -static -s
         run: |
