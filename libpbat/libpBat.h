@@ -63,9 +63,9 @@
 #	endif /* __LIBPBAT__DLL */
 #endif /* __LIBPBAT_STATIC  */
 
-#ifdef __cplusplus
+#if defined(__cplusplus)
   #define restrict
-#else
+#elif !defined(restrict)
   #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
     #define restrict restrict
   #else
