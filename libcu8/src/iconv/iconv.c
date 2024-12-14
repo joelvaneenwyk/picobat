@@ -4,21 +4,6 @@
  * This file is placed in the public domain.
  */
 
-/* for WC_NO_BEST_FIT_CHARS */
-#ifndef WINVER
-# define WINVER 0x0500
-#endif
-
-#define STRICT
-
-#ifdef WIN32
-#include <windows.h>
-#endif
-
-#include <errno.h>
-#include <string.h>
-#include <stdlib.h>
-
 #include "libcu8.h"
 
 #ifdef __GNUC__
@@ -789,7 +774,7 @@ win_iconv_open(rec_iconv_t *cd, const char *tocode, const char *fromcode)
         return FALSE;
     cd->iconv_close = win_iconv_close;
     cd->iconv = win_iconv;
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__linux__)
     cd->_errno = _errno;
 #endif
     cd->cd = (iconv_t)cd;
