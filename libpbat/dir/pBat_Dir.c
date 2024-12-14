@@ -161,7 +161,7 @@ static FILELIST* pBat_AddMatch(char* name, FILELIST* files, struct match_args_t*
 
 static int /* inline */ pBat_EndWithDirectoryMark(const char *dir)
 {
-    char *c = NULL;
+    const char *c = NULL;
 
     while (*dir)
         c = dir++;

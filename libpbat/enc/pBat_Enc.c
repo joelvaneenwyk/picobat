@@ -167,7 +167,7 @@ int pBat_GetConsoleEncoding(char* lpEnc, size_t iSize)
 {
     int i;
     int iCodePageId;
-    char* lpResult=NULL;
+    const char* lpResult=NULL;
 
     iCodePageId=GetConsoleOutputCP();
 
