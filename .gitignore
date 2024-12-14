@@ -59,6 +59,9 @@ femto-test.out
 /man/en_US/readme.tea
 
 obj/
+x64/
+*/Debug/
+*/Release/
 *.vcxproj.user
 
 /README.tea
@@ -69,6 +72,5 @@ obj/
 
 .task/
 
-x64/
 *.tlog
 _CL_*
