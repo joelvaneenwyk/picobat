@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sys: [linux, mingw64, mingw32, ucrt64, clang64]
+        sys: [linux, windows, mingw64, mingw32, ucrt64, clang64]
         options: [use-libcu8, no-libcu8]
     name: '⚙️ ${{ matrix.sys }} // ${{ matrix.options }}'
     runs-on: ${{ matrix.sys == 'linux' && 'ubuntu-latest' || 'windows-latest' }}
@@ -24,7 +24,7 @@ jobs:
     defaults:
       run:
         # set shell to be either bash or msys2 depending on runner
-        shell: ${{ matrix.sys == 'linux' && 'bash' || 'msys2 {0}' }}
+        shell: ${{ (matrix.sys == 'linux' || matrix.sys == 'windows') && 'bash' || 'msys2 {0}' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -32,12 +32,20 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Install dependencies
+      - name: Setup MSBuild
+        if: matrix.sys == 'windows'
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Install dependencies 🐧
         if: matrix.sys == 'linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             gettext bison flex
+
+      - name: Install dependencies ⚙️
+        if: matrix.sys == 'windows'
+        run: choco install make
 
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
@@ -52,11 +60,18 @@ jobs:
             mingw-w64-${{ env.MSYS_ENV }}-toolchain
             mingw-w64-${{ env.MSYS_ENV }}-dlfcn
 
+      # Required to generate 'config.h' and other dependencies used even in all builds including those
+      # using Visual Studio (MSBuild).
       - name: Configure
         run: |
           make config ${{ matrix.options }}
 
+      - name: Build Solution
+        if: matrix.sys == 'windows'
+        run: msbuild picobat.sln /p:Configuration=Release
+
       - name: Test
+        if: matrix.sys != 'windows' && matrix.sys != 'linux'
         run: |
           make -C libcu8/test
 
@@ -65,29 +80,3 @@ jobs:
           LDFLAGS: -static -s
         run: |
           make dist --keep-going
-
-  msbuild:
-    needs: build
-    name: '⚙️ MSBuild'
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: recursive
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Install dependencies
-        run: choco install make
-
-      # Required to generate 'config.h' and other dependencies used even in all builds including those
-      # using Visual Studio (MSBuild).
-      - name: Configure
-        run: |
-          make config
-
-      - name: Build Solution
-        run: msbuild picobat.sln /p:Configuration=Release
