@@ -7,41 +7,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  msbuild:
-    name: '⚙️ MSBuild'
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: recursive
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Install dependencies
-        run: choco install make
-
-      # Required to generate 'config.h' and other dependencies used even in all builds including those
-      # using Visual Studio (MSBuild).
-      - name: Configure
-        run: |
-          make config
-
-      - name: Build Solution
-        run: msbuild picobat.sln /p:Configuration=Release
-
   build:
-    # e.g., '⚙️ make use-libcu8 // ubuntu-linux-x86_64'
-    name: '⚙️ ${{ matrix.sys }} // make ${{ matrix.options }}'
-    needs: msbuild
-    runs-on: ${{ matrix.sys == 'linux' && 'ubuntu-latest' || 'windows-latest' }}
     strategy:
       fail-fast: false
       matrix:
-        sys: [mingw64, mingw32, ucrt64, clang64, linux]
+        sys: [linux, mingw64, mingw32, ucrt64, clang64]
         options: [use-libcu8, no-libcu8]
+    name: '⚙️ ${{ matrix.sys }} // ${{ matrix.options }}'
+    runs-on: ${{ matrix.sys == 'linux' && 'ubuntu-latest' || 'windows-latest' }}
 
     permissions:
       contents: write
@@ -83,8 +56,38 @@ jobs:
         run: |
           make config ${{ matrix.options }}
 
+      - name: Test
+        run: |
+          make -C libcu8/test
+
       - name: Make Distribution
         env:
           LDFLAGS: -static -s
         run: |
           make dist --keep-going
+
+  msbuild:
+    needs: build
+    name: '⚙️ MSBuild'
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Install dependencies
+        run: choco install make
+
+      # Required to generate 'config.h' and other dependencies used even in all builds including those
+      # using Visual Studio (MSBuild).
+      - name: Configure
+        run: |
+          make config
+
+      - name: Build Solution
+        run: msbuild picobat.sln /p:Configuration=Release
