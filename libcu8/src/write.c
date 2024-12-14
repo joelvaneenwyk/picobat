@@ -42,6 +42,23 @@
 
 #include "internals.h"
 
+int _cu8_vsnprintf(char *buffer, size_t count, const char *format, va_list args) {
+#ifdef _WIN32
+    // Use _vsnprintf on Windows
+    int result = _vsnprintf(buffer, count, format, args);
+    if (result < 0 || (size_t)result >= count) {
+        if (count > 0) {
+            buffer[count - 1] = '\0'; // Ensure null-termination
+        }
+        return -1; // Indicate truncation or error
+    }
+    return result;
+#else
+    // Use vsnprintf on Linux/MSYS
+    return vsnprintf(buffer, count, format, args);
+#endif
+}
+
 __LIBCU8__IMP __cdecl int libcu8_fprintf(FILE* f, const char* fmt, ...)
 {
     va_list args;
@@ -62,7 +79,7 @@ __LIBCU8__IMP __cdecl int libcu8_vfprintf(FILE* f, const char* fmt, va_list args
 
     va_copy(cpy, args); /* create a duplicate just in case */
 
-    nd = _vsnprintf(out, sz, fmt, args);
+    nd = _cu8_vsnprintf(out, sz, fmt, args);
 
     if (nd < 0)
         goto err;
@@ -73,7 +90,7 @@ __LIBCU8__IMP __cdecl int libcu8_vfprintf(FILE* f, const char* fmt, va_list args
         if ((out = malloc(sz)) == NULL)
             goto err;
 
-        nd = _vsnprintf(out, sz, fmt, cpy);
+        nd = _cu8_vsnprintf(out, sz, fmt, cpy);
     }
 
     ret = libcu8_fputs(out, f);
@@ -129,7 +146,7 @@ void libcu8_dbg_msg(const char* fmt, ...)
     va_start(args, fmt);
     out = GetStdHandle(STD_ERROR_HANDLE);
 
-    _vsnprintf(str, sizeof(str), fmt, args);
+    _cu8_vsnprintf(str, sizeof(str), fmt, args);
     WriteConsole(out, str, strlen(str), &cnt, NULL);
 
     va_end(args);
