@@ -486,14 +486,6 @@ __LIBCU8__IMP __cdecl void (*libcu8_completion_handler_free)(char*);
 typedef void (*libcu8_completion_handler_t)(const char*, char**);
 typedef void (*libcu8_completion_handler_free_t)(char*);
 
-#ifdef dirent
-#undef dirent
-#endif
-
-#ifdef DIR
-#undef DIR
-#endif
-
 #ifdef opendir
 #undef opendir
 #endif
@@ -506,27 +498,31 @@ typedef void (*libcu8_completion_handler_free_t)(char*);
 #undef readdir
 #endif
 
-
 #ifndef HANDLE
 typedef void* HANDLE;
+#endif
+
+#ifdef dirent
+#undef dirent
 #endif
 
 struct libcu8_dirent {
     char* d_name;
     int ret;
-};
+} dirent;
+
+#ifdef DIR
+#undef DIR
+#endif
 
 typedef struct libcu8_DIR {
     HANDLE h;
     struct libcu8_dirent ent;
-} libcu8_DIR;
+} libcu8_DIR, DIR;
 
 __LIBCU8__IMP __cdecl libcu8_DIR* libcu8_opendir(const char* dir);
 __LIBCU8__IMP __cdecl int libcu8_closedir(libcu8_DIR* pdir);
 __LIBCU8__IMP __cdecl struct libcu8_dirent* libcu8_readdir(libcu8_DIR* pdir);
-
-#define DIR libcu8_DIR
-#define dirent libcu8_dirent
 
 #ifndef __LIBCU8__DLL
 #define readdir(pdir) libcu8_readdir(pdir)
