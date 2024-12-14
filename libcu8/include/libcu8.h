@@ -111,18 +111,55 @@ extern "C" {
 #endif
 
 #if !defined(WIN32) && !defined(_MINWINDEF_)
-typedef short SHORT;
-typedef unsigned short WORD;
-typedef unsigned long DWORD;
-typedef struct _RTL_CRITICAL_SECTION_DEBUG *PRTL_CRITICAL_SECTION_DEBUG;
-typedef long LONG;
-typedef void* HANDLE;
-typedef unsigned long ULONG_PTR;
-typedef int BOOL;
-typedef wchar_t WCHAR;
 typedef char CHAR;
+typedef char* LPSTR;
+typedef unsigned char* LPBYTE;
+typedef const char* LPCCH;
+typedef const char* LPCSTR;
+typedef const void* LPCVOID;
+typedef const wchar_t* LPCWCH;
+typedef const wchar_t* LPCWSTR;
+typedef unsigned char BYTE;
+typedef unsigned int UINT;
+typedef unsigned int* LPINT;
+typedef unsigned long DWORD;
+typedef unsigned long ULONG_PTR;
+typedef unsigned long* LPDWORD;
+typedef unsigned short WORD;
 
-#define _O_CREAT 0x0100
+typedef int BOOL;
+typedef BOOL* LPBOOL;
+
+typedef long LONG;
+typedef short SHORT;
+typedef void* FARPROC;
+typedef void* HANDLE;
+typedef void* HMODULE;
+typedef wchar_t WCHAR;
+typedef wchar_t* LPWSTR;
+typedef void* PVOID;
+
+typedef void* LPSECURITY_ATTRIBUTES;
+typedef struct _RTL_CRITICAL_SECTION_DEBUG *PRTL_CRITICAL_SECTION_DEBUG;
+typedef struct _OVERLAPPED {
+    ULONG_PTR Internal;
+    ULONG_PTR InternalHigh;
+    union {
+        struct {
+            DWORD Offset;
+            DWORD OffsetHigh;
+        } DUMMYSTRUCTNAME;
+        PVOID Pointer;
+    } DUMMYUNIONNAME;
+    HANDLE hEvent;
+} OVERLAPPED, *LPOVERLAPPED;
+
+typedef DWORD LCID;
+
+#define O_CREAT  0x0100
+#define O_WRONLY 0x0001  // Open for write-only access
+#define O_TRUNC  0x0200  // Truncate file to zero length
+
 #define ERROR_NO_MORE_FILES 18L
 
 #define FALSE 0
@@ -153,18 +190,12 @@ typedef long HRESULT;
 #define WINAPI
 #endif
 
-typedef void* HMODULE;
-typedef DWORD LCID;
-typedef unsigned long* LPDWORD;
-typedef unsigned char* LPCSTR;
-typedef unsigned int* LPINT;
-typedef unsigned char* LPBYTE;
-typedef wchar_t* LPWSTR;
-typedef const wchar_t* LPCWSTR;
-typedef char* LPSTR;
-
-typedef unsigned int UINT;
-typedef unsigned char BYTE;
+#define GENERIC_WRITE O_WRONLY
+#define CREATE_ALWAYS (O_CREAT | O_TRUNC)
+#define FILE_ATTRIBUTE_NORMAL 0
+#define HANDLE int
+#define INVALID_HANDLE_VALUE -1
+#define DWORD ssize_t
 
 #define MAX_DEFAULTCHAR 2
 #define MAX_LEADBYTES 12

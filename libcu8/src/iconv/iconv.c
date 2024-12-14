@@ -41,6 +41,117 @@ typedef unsigned int uint;
 
 typedef void* iconv_t;
 
+#ifdef __linux__
+#include <pthread.h>
+
+// Placeholder for CreateFileA
+HANDLE CreateFileA(
+    LPCSTR lpFileName,
+    DWORD dwDesiredAccess,
+    DWORD dwShareMode,
+    LPSECURITY_ATTRIBUTES lpSecurityAttributes,
+    DWORD dwCreationDisposition,
+    DWORD dwFlagsAndAttributes,
+    HANDLE hTemplateFile
+) {
+    // Implement a simple file open using POSIX functions
+    int fd = open(lpFileName, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    return (HANDLE)(intptr_t)fd;
+}
+
+// Placeholder for WriteFile
+BOOL WriteFile(
+    HANDLE hFile,
+    LPCVOID lpBuffer,
+    DWORD nNumberOfBytesToWrite,
+    LPDWORD lpNumberOfBytesWritten,
+    LPOVERLAPPED lpOverlapped
+) {
+    ssize_t result = write((int)(intptr_t)hFile, lpBuffer, nNumberOfBytesToWrite);
+    if (result == -1) {
+        return FALSE;
+    }
+    *lpNumberOfBytesWritten = (DWORD)result;
+    return TRUE;
+}
+
+// Placeholder for CloseHandle
+BOOL CloseHandle(HANDLE hObject) {
+    return close((int)(intptr_t)hObject) == 0;
+}
+
+// Placeholder for EnterCriticalSection
+void EnterCriticalSection(pthread_mutex_t* lpCriticalSection) {
+    pthread_mutex_lock(lpCriticalSection);
+}
+
+// Placeholder for LeaveCriticalSection
+void LeaveCriticalSection(pthread_mutex_t* lpCriticalSection) {
+    pthread_mutex_unlock(lpCriticalSection);
+}
+
+// Placeholder for WideCharToMultiByte
+int WideCharToMultiByte(
+    UINT CodePage,
+    DWORD dwFlags,
+    LPCWCH lpWideCharStr,
+    int cchWideChar,
+    LPSTR lpMultiByteStr,
+    int cbMultiByte,
+    LPCCH lpDefaultChar,
+    LPBOOL lpUsedDefaultChar
+) {
+    // Simple conversion using wcstombs
+    return wcstombs(lpMultiByteStr, lpWideCharStr, cbMultiByte);
+}
+
+// Placeholder for GetLastError
+DWORD GetLastError() {
+    return errno;
+}
+
+// Placeholder for MultiByteToWideChar
+int MultiByteToWideChar(
+    UINT CodePage,
+    DWORD dwFlags,
+    LPCCH lpMultiByteStr,
+    int cbMultiByte,
+    LPWSTR lpWideCharStr,
+    int cchWideChar
+) {
+    // Simple conversion using mbstowcs
+    return mbstowcs(lpWideCharStr, lpMultiByteStr, cchWideChar);
+}
+
+// Placeholder for IsDBCSLeadByteEx
+BOOL IsDBCSLeadByteEx(UINT CodePage, BYTE TestChar) {
+    // Simplified implementation
+    return FALSE;
+}
+
+// Placeholder for GetProcAddress
+FARPROC GetProcAddress(HMODULE hModule, LPCSTR lpProcName) {
+    // Simplified implementation
+    return NULL;
+}
+
+// Placeholder for GetACP
+UINT GetACP() {
+    return 0;
+}
+
+// Placeholder for IsValidCodePage
+BOOL IsValidCodePage(UINT CodePage) {
+    return TRUE;
+}
+
+// Placeholder for GetCPInfo
+BOOL GetCPInfo(UINT CodePage, LPCPINFO lpCPInfo) {
+    // Simplified implementation
+    return TRUE;
+}
+#endif
+
 iconv_t iconv_open(const char *tocode, const char *fromcode);
 int iconv_close(iconv_t cd);
 size_t iconv(iconv_t cd, const char **inbuf, size_t *inbytesleft, char **outbuf, size_t *outbytesleft);
