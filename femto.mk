@@ -19,8 +19,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-ifneq (,$(wildcard ./femto-config.mk))
-	include femto-config.mk
+SRCDIR ?= .
+
+ifneq (,$(wildcard $(SRCDIR)/femto-config.mk))
+	include $(SRCDIR)/femto-config.mk
 endif
 
 USEOPTIONS =$(addprefix use-,$(OPTIONS))
@@ -116,10 +118,10 @@ $(SUBCLEAN):
 femto-clean: $(SUBCLEAN)
 	rm -f femto-test.out femto-subst femto-config.mk config.h config.c
 
-femto-subst: femto-config.mk
+femto-subst:
 	echo \#!/bin/sh > femto-subst
 	echo sed $(foreach v,$(CONFIGVARS),-e 's,[@]$(v)[@],$($(v)),g') >> femto-subst
 	chmod +x femto-subst
 
-.PHONY: config config.h femto-clean localmk $(SUBCONF) $(FUNCTIONS) $(PROGRAMS) $(LIBS) \
+.PHONY: config config.h femto-clean femto-subst localmk $(SUBCONF) $(FUNCTIONS) $(PROGRAMS) $(LIBS) \
 	$(FLAGS) $(NOOPTIONS) $(NOOPTIONSX) $(USEOPTIONS) $(USEOPTIONSX) femto-subst
