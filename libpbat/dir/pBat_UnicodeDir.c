@@ -193,7 +193,7 @@ static FILELIST* pBat_AddMatch(wchar_t* wname, FILELIST* files, struct match_arg
 
         free(name);
 
-        return (((void*)files)+1);
+        return (((char*)files)+1);
 
     }
 
