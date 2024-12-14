@@ -106,6 +106,11 @@ extern "C" {
 #define __restrict__
 #endif
 
+#if !defined(restrict)
+#define restrict
+#endif
+
+
 #if !defined(__cdecl)
     #define __cdecl
 #endif
