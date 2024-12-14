@@ -31,7 +31,7 @@
 #include <strings.h>
 #endif
 
-#if !defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1 || PBAT_USE_LIBCU8!=1
+#if !defined(PBAT_USE_LIBCU8) || (defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1)
 
 struct match_args_t {
     int flags;
@@ -179,8 +179,8 @@ static FILELIST* pBat_GetMatch(char* restrict base, char* restrict up, struct ma
     ESTR* path = NULL;
     char *item, *cleanup = NULL, basetmp[]="x:";
 
-    DIR* dir = NULL;
-    struct dirent* ent;
+    __DIR_STRUCT* dir = NULL;
+    struct __dirent* ent;
 
     int joker = 0;
 
@@ -386,11 +386,11 @@ static FILELIST* pBat_GetMatch(char* restrict base, char* restrict up, struct ma
     }
 
     /* Now we have checked every possible trivial dir, browse dir */
-    if ((dir = opendir((base != NULL) ? (base) : ("."))) == NULL)
+    if ((dir = __opendir((base != NULL) ? (base) : ("."))) == NULL)
         goto end;
 
     /* loop through the directory entities */
-    while ((ent = readdir(dir))) {
+    while ((ent = __readdir(dir))) {
 
         /* skip basic pseudo dirs */
         if ((arg->flags & PBAT_SEARCH_NO_PSEUDO_DIR)
@@ -526,7 +526,7 @@ end:
 
 err:
     if (dir)
-        closedir(dir);
+        closedir((void**)dir);
 
     if (ret)
         pBat_FreeFileList(ret);
@@ -534,7 +534,7 @@ err:
     if (path)
         pBat_EsFree(path);
 
-    return (void*)-1;
+    return (FILELIST*)-1;
 }
 
 

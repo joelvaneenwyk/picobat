@@ -50,22 +50,34 @@
 #define __LIBPBAT__DLL
 #endif /* DLL_EXPORT */
 
-#ifndef LIBPBAT
-#ifdef __LIBPBAT__DLL
-#define LIBPBAT __declspec(dllexport)
-#define EXTERN extern
+#ifdef __LIBPBAT_STATIC
+#	define LIBPBAT
+#	define EXTERN
 #else
-#define LIBPBAT extern
-#define EXTERN
-#endif /* __LIBPBAT__DLL */
-#endif /* LIBPBAT  */
+#	ifdef __LIBPBAT__DLL
+#		define LIBPBAT __declspec(dllexport)
+#		define EXTERN extern
+#	else
+#		define LIBPBAT extern
+#		define EXTERN
+#	endif /* __LIBPBAT__DLL */
+#endif /* __LIBPBAT_STATIC  */
 
+#ifdef __cplusplus
+  #define restrict
+#else
+  #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+    #define restrict restrict
+  #else
+    #define restrict
+  #endif
+#endif
 
 #if PBAT_USE_LIBCU8==1
 #include <libcu8.h>
 #endif
 
-#if defined WIN32
+#if defined(WIN32) || defined(_MSC_VER)
 
     #include <windows.h>
     #include <io.h>
@@ -103,8 +115,20 @@
     #define access(a,b) _access(a,b)
 
     #define _pBat_Pipe(descriptors, size, mode) _pipe(descriptors, size, mode)
-#else
 
+    #include <conio.h>
+    #define PBAT_NL "\r\n"
+
+#elif !defined(WIN32)
+
+    #include <strings.h>
+
+    #if !defined(stricmp)
+    #define stricmp(a, b) strcasecmp(a, b)
+    #define strnicmp(a, b, c) strncasecmp(a, b, c)
+    #endif
+
+    #define PBAT_NL "\n"
     #include <pthread.h>
 
     #define PBAT_FILE_DIR S_IFDIR
@@ -125,27 +149,11 @@
     #define stricmp strcasecmp
     #define strnicmp strncasecmp
 
-#endif // WIN32
-
-#ifdef WIN32
-
-#include <conio.h>
-#define PBAT_NL "\r\n"
-
-#elif !defined(WIN32)
-
-#include <strings.h>
-
-#define stricmp strcasecmp
-#define strnicmp strncasecmp
-
-#define PBAT_NL "\n"
-
 #else
 
 #error Unsupported platform.
 
-#endif
+#endif // WIN32
 
 /* define TRUE and FALSE CONSTANTS if they are not
    defined yet */
@@ -176,6 +184,10 @@ typedef struct pbat_thread_t   THREAD;
 typedef pthread_mutex_t MUTEX;
 typedef pid_t           PROCESS;
 
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 LIBPBAT int      pBat_BeginThread(THREAD* lpThId, void*(*pFunc)(void*),
@@ -523,6 +535,10 @@ LIBPBAT char* pBat_SearchToken_OutQuotes(const char* restrict lpCh, const char* 
 LIBPBAT char* pBat_SearchToken_Hybrid(const char* restrict pch, const char* restrict delims,
                                                             const char* restrict qdelims);
 LIBPBAT void pBat_StripEndDelims(char* str);
+
+#ifdef __cplusplus
+}
+#endif
 
 #include "pBat_Dir.h"
 

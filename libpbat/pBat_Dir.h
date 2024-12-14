@@ -29,10 +29,6 @@ SOFTWARE.
 
 #else /* _WIN32 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <sys/types.h>
 #include <stdint.h>
 #include <errno.h>
@@ -40,6 +36,10 @@ extern "C" {
 #include <Windows.h>
 
 #include <Shlwapi.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 #ifdef _MSC_VER
 #pragma comment(lib, "Shlwapi.lib")
@@ -115,7 +115,7 @@ extern "C" {
 
     typedef void* __DIR_STRUCT;
 
-    typedef struct ino_t
+    typedef struct _pbat_ino_t
     {
         unsigned long long serial;
         unsigned char fileid[16];
