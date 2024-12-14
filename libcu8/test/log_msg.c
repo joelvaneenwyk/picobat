@@ -1,5 +1,4 @@
-/*
-
+/**
  libcu8 - A wrapper to fix msvcrt utf8 incompatibilities issues
  Copyright (c) 2014, 2015, 2016 Romain GARBI (Darkbatcher)
 
@@ -26,13 +25,14 @@
  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <wchar.h>
-#include <windows.h>
+
+#include "libcu8.h"
 
 #define LOG_FILE "log_msg"
 void __log_msg(const char* msg, size_t size)
