@@ -156,19 +156,20 @@ typedef struct {
 int newmode;
 } _startupinfo;
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(_MSC_VER)
 extern int __wgetmainargs(int*, wchar_t***, wchar_t***, int, _startupinfo*);
+#define HAS_GET_MAIN_ARGS	1
 #endif
 
 int libcu8_get_argv(const char*** pargv)
 {
-    wchar_t **wargv, **wenv;
-    char **argv;
-    int argc, i;
+    wchar_t **wargv=NULL, **wenv=NULL;
+    char **argv=NULL;
+    int argc=0, i;
     size_t converted;
     _startupinfo stinfo;
 
-#ifdef _WIN32
+#ifdef HAS_GET_MAIN_ARGS
     __wgetmainargs(&argc, &wargv, &wenv, 0, &stinfo);
 #endif
 
