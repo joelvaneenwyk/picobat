@@ -18,23 +18,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma once
-
 #ifndef __DIRENT_H_9DE6B42C_8D0C_4D31_A8EF_8E4C30E6C46A__
 #define __DIRENT_H_9DE6B42C_8D0C_4D31_A8EF_8E4C30E6C46A__
 
-#ifndef WIN32
+#include <ctype.h>
+#include "libpBat.h"
+#include "libpBat-int.h"
+#include "../config.h"
 
+#if !defined(WIN32)
+
+#define PBAT_IMPLEMENT_DIRENT	0
 #include <dirent.h>
 
 #else /* _WIN32 */
 
+#define PBAT_IMPLEMENT_DIRENT	1
+
 #include <sys/types.h>
 #include <stdint.h>
 #include <errno.h>
+#include <strings.h>
 
 #include <Windows.h>
-
 #include <Shlwapi.h>
 
 #ifdef __cplusplus

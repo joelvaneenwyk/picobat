@@ -43,9 +43,9 @@
    for the moment. We do not provide readdir_r but readdir is thread safe
    anyway */
 
-__LIBCU8__IMP __cdecl DIR* libcu8_opendir(const char* dir)
+__LIBCU8__IMP __cdecl libcu8_DIR* libcu8_opendir(const char* dir)
 {
-    DIR* pdir;
+    libcu8_DIR* pdir;
     wchar_t* wdir;
     HANDLE handle;
     char* exp;
@@ -111,7 +111,7 @@ __LIBCU8__IMP __cdecl DIR* libcu8_opendir(const char* dir)
     }
 
 
-    if ((pdir = malloc(sizeof(DIR))) == NULL) {
+    if ((pdir = malloc(sizeof(libcu8_DIR))) == NULL) {
 
         /* failed to alloc a DIR structure */
         errno = ENOMEM;
@@ -127,7 +127,7 @@ __LIBCU8__IMP __cdecl DIR* libcu8_opendir(const char* dir)
     return pdir;
 }
 
-__LIBCU8__IMP __cdecl int libcu8_closedir(DIR* pdir)
+__LIBCU8__IMP __cdecl int libcu8_closedir(libcu8_DIR* pdir)
 {
     if (pdir->ent.d_name != NULL)
         free(pdir->ent.d_name);

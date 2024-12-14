@@ -22,16 +22,10 @@
 #define _XOPEN_SOURCE 700
 #endif
 
-#include <ctype.h>
-#include "../libpBat.h"
-#include "../libpBat-int.h"
-#include "../../config.h"
+#include "pBat_Dir.h"
 
-#ifndef WIN32
-#include <strings.h>
-#endif
+#if PBAT_IMPLEMENT_DIRENT==1
 
-#if !defined(PBAT_USE_LIBCU8) || (defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==0)
 
 struct match_args_t {
     int flags;

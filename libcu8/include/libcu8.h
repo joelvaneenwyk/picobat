@@ -516,14 +516,10 @@ typedef struct libcu8_dirent {
     int ret;
 } dirent;
 
-#ifdef DIR
-#undef DIR
-#endif
-
 typedef struct libcu8_DIR {
     HANDLE h;
     struct libcu8_dirent ent;
-} libcu8_DIR, DIR;
+} libcu8_DIR;
 
 __LIBCU8__IMP __cdecl libcu8_DIR* libcu8_opendir(const char* dir);
 __LIBCU8__IMP __cdecl int libcu8_closedir(libcu8_DIR* pdir);
