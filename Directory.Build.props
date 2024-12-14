@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0"
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- Set Default Properties -->
+    <PropertyGroup>
+        <!--
+        See: https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022
+        -->
+        <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+
+        <!-- SolutionDir is not defined when building projects explicitly -->
+        <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    </PropertyGroup>
+
+    <!-- Set Folder Variables -->
+    <PropertyGroup>
+        <WorkspaceFolder>$(MSBuildThisFileDirectory.TrimEnd('\/'))</WorkspaceFolder>
+        <OutNoSlash>$(WorkspaceFolder)/bin/$(Configuration)/$(Platform)$(TargetArchitecture)</OutNoSlash>
+        <IntNoSlash>$(WorkspaceFolder)/.build/$(MSBuildProjectName)/$(Configuration)/$(Platform)$(TargetArchitecture)</IntNoSlash>
+    </PropertyGroup>
+
+    <!-- Set Base Variables -->
+    <PropertyGroup>
+        <ProjectUrl>https://github.com/joelvaneenwyk/picobat</ProjectUrl>
+
+        <!-- SolutionDir is not defined when building projects explicitly -->
+        <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(WorkspaceFolder)</SolutionDir>
+        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+
+        <VSToolsPath
+            Condition="'$(VSToolsPath)' == '' and Exists('$(MSBuildExtensionsPath32)/Microsoft/VisualStudio/v$(VisualStudioVersion)')">
+            $(MSBuildExtensionsPath32)/Microsoft/VisualStudio/v$(VisualStudioVersion)</VSToolsPath>
+
+        <RepoDir Condition="'$(RepoDir)' == ''">$(MSBuildThisFileDirectory)</RepoDir>
+    </PropertyGroup>
+
+    <PropertyGroup>
+    </PropertyGroup>
+
+    <PropertyGroup Label="BaseConfiguration">
+        <TransformOnBuild>true</TransformOnBuild>
+        <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
+        <TransformOutOfDateOnly>true</TransformOutOfDateOnly>
+
+        <PreserveCompilationContext>true</PreserveCompilationContext>
+        <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <Deterministic>true</Deterministic>
+        <UseCommonOutputDirectory>false</UseCommonOutputDirectory>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    </PropertyGroup>
+
+    <!--
+    IMPORTANT: Traversals left in a directory will break some tools like midl, but we also cannot call
+    [MSBuild]::NormalizeDirectory on relative paths since cwd is not always correct. This logic should
+  prefer to operate
+    on full paths and avoid extra normalization.
+  -->
+    <PropertyGroup Label="Configuration">
+        <ProjectName Condition="'$(ProjectName)'==''">$(MSBuildProjectName)</ProjectName>
+
+        <RootIntDir Condition="'$(RootIntDir)' == ''">$(RepoDir).build\obj</RootIntDir>
+        <RootOutDir Condition="'$(RootOutDir)' == ''">$(RepoDir).build\bin</RootOutDir>
+        <!-- Visual Studio forces using 'Win32' for the 'x86' platform. -->
+        <BaseIntDir Condition="'$(BaseIntDir)' == '' AND '$(Platform)' == 'Win32'">$(RootIntDir)\x86\$(Configuration)</BaseIntDir>
+        <BaseIntDir Condition="'$(BaseIntDir)' == '' AND '$(Platform)' != 'Win32'">$(RootIntDir)\$(Platform)\$(Configuration)</BaseIntDir>
+        <BaseOutDir Condition="'$(BaseOutDir)' == '' AND '$(Platform)' == 'Win32'">$(RootOutDir)\x86\$(Configuration)</BaseOutDir>
+        <BaseOutDir Condition="'$(BaseOutDir)' == '' AND '$(Platform)' != 'Win32'">$(RootOutDir)\$(Platform)\$(Configuration)</BaseOutDir>
+
+        <IntDir Condition="'$(ProjectName)' != ''">$(BaseIntDir)\$(ProjectName)\</IntDir>
+        <IntDir Condition="'$(ProjectName)' == ''">$(BaseIntDir)\$(MSBuildProjectName)\</IntDir>
+        <OutDir Condition="'$(ProjectName)' != ''">$(BaseOutDir)\$(ProjectName)\</OutDir>
+        <OutDir Condition="'$(ProjectName)' == ''">$(BaseOutDir)\$(MSBuildProjectName)\</OutDir>
+
+        <PublishDir>$(OutDir)\Publish\</PublishDir>
+        <GeneratedFilesDir>$(IntDir)Generated Files\</GeneratedFilesDir>
+
+        <IntermediateOutputPath Condition="'$(MSBuildProjectExtension)' == '.csproj'">$(IntDir)</IntermediateOutputPath>
+        <OutputPath Condition="'$(MSBuildProjectExtension)' == '.csproj'">$(OutDir)</OutputPath>
+
+        <RestorePackagesWithLockFile Condition="'$(RestorePackagesWithLockFile)' == ''">true</RestorePackagesWithLockFile>
+        <RestoreForceEvaluate Condition="'$(RestoreForceEvaluate)' == ''">false</RestoreForceEvaluate>
+    </PropertyGroup>
+</Project>
