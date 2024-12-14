@@ -18,8 +18,10 @@
 
 ROOTDIR = ..
 include $(ROOTDIR)/config.mk
-ifneq (,$(wildcard $(ROOTDIR)/femto-config.mk))
-    include $(ROOTDIR)/femto-config.mk
+
+SRCDIR = .
+ifneq (,$(wildcard $(SRCDIR)/femto-config.mk))
+    include $(SRCDIR)/femto-config.mk
 endif
 
 CFLAGS += $(LIBCU8_INC) -I./include
