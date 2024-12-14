@@ -93,6 +93,14 @@ tasks:
       - cmd: npx --yes markdownlint-cli2@latest --fix "**/*.md" "**/*.readme" "#node_modules"
         ignore_error: true
 
+  clean:
+    vars:
+      CLOSE_STDIN: '{{if eq OS "windows"}}<nul{{else}}0<&-{{end}}'
+    cmds:
+      - cmd: git clean -xfd {{.CLOSE_STDIN}}
+        silent: true
+        ignore_error: true
+
   build-msbuild-all:
     aliases: [msbuild-all]
     silent: true
