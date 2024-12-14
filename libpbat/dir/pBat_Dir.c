@@ -31,7 +31,7 @@
 #include <strings.h>
 #endif
 
-#if !defined(PBAT_USE_LIBCU8) || (defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1)
+#if !defined(PBAT_USE_LIBCU8) || (defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==0)
 
 struct match_args_t {
     int flags;
@@ -916,7 +916,7 @@ int pBat_GetFileAttributes(const char* file)
 
     return ret;
 }
-#elif defined(WIN32) && !defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
+#elif defined(WIN32) && (!defined(PBAT_USE_LIBCU8) || PBAT_USE_LIBCU8==0)
 int pBat_GetFileAttributes(const char* file)
 {
     return GetFileAttributes(file);
