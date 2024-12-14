@@ -36,16 +36,19 @@
     <Filter Include="Source\rc">
       <UniqueIdentifier>{798c18a3-9046-4b98-a37b-b6c652d08c5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Build">
+      <UniqueIdentifier>{22d3bf01-e5bf-4797-ac97-d1a776ee4de1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Makefile">
-      <Filter>Source</Filter>
-    </None>
     <None Include="..\libfasteval\lib\parser.y">
       <Filter>Lib\fasteval</Filter>
     </None>
     <None Include="..\libfasteval\lib\scanner.l">
       <Filter>Lib\fasteval</Filter>
+    </None>
+    <None Include="Makefile">
+      <Filter>Build</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
