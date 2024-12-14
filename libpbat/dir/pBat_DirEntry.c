@@ -24,8 +24,7 @@
 
 #include "pBat_DirEntry.h"
 
-#if PBAT_IMPLEMENT_DIRENT==1
-
+#if PBAT_DIR_UNICODE==0
 
 struct match_args_t {
     int flags;
@@ -173,8 +172,8 @@ static FILELIST* pBat_GetMatch(char* restrict base, char* restrict up, struct ma
     ESTR* path = NULL;
     char *item, *cleanup = NULL, basetmp[]="x:";
 
-    __DIR_STRUCT* dir = NULL;
-    struct __dirent* ent;
+    DIR* dir = NULL;
+    struct dirent* ent;
 
     int joker = 0;
 
@@ -380,11 +379,11 @@ static FILELIST* pBat_GetMatch(char* restrict base, char* restrict up, struct ma
     }
 
     /* Now we have checked every possible trivial dir, browse dir */
-    if ((dir = __opendir((base != NULL) ? (base) : ("."))) == NULL)
+    if ((dir = opendir((base != NULL) ? (base) : ("."))) == NULL)
         goto end;
 
     /* loop through the directory entities */
-    while ((ent = __readdir(dir))) {
+    while ((ent = readdir(dir))) {
 
         /* skip basic pseudo dirs */
         if ((arg->flags & PBAT_SEARCH_NO_PSEUDO_DIR)
@@ -520,7 +519,7 @@ end:
 
 err:
     if (dir)
-        closedir((void**)dir);
+        closedir(dir);
 
     if (ret)
         pBat_FreeFileList(ret);
@@ -576,7 +575,7 @@ LIBPBAT int pBat_GetMatchFileCallback(char* lpPathMatch, int iFlag, void(*pCallB
 
     }
 
-    return (int)file;
+    return (int)(size_t)file;
 }
 #endif
 

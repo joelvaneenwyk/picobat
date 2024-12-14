@@ -34,11 +34,13 @@ SOFTWARE.
 #else /* _WIN32 */
 
 #define PBAT_IMPLEMENT_DIRENT	1
-
 #include <sys/types.h>
 #include <stdint.h>
 #include <errno.h>
+
+#if !defined(_MSC_VER)
 #include <strings.h>
+#endif
 
 #include <Windows.h>
 #include <Shlwapi.h>
@@ -119,15 +121,13 @@ extern "C" {
 #define FILE_NAME_NORMALIZED 0
 #endif /* FILE_NAME_NORMALIZED */
 
-    typedef void* __DIR_STRUCT;
-
     typedef struct _pbat_ino_t
     {
         unsigned long long serial;
         unsigned char fileid[16];
     } __ino_t;
 
-    struct __dirent
+    typedef struct dirent
     {
         __ino_t d_ino;
         off_t d_off;
@@ -135,15 +135,15 @@ extern "C" {
         unsigned char d_namelen;
         unsigned char d_type;
         char d_name[NAME_MAX];
-    };
+    } __dirent;
 
-    struct __dir
+    typedef struct __dir
     {
-        struct __dirent* entries;
+        struct dirent* entries;
         intptr_t fd;
         long int count;
         long int index;
-    };
+    } __DIR_STRUCT, DIR;
 
     static int __closedir(__DIR_STRUCT* dirp)
     {
@@ -256,7 +256,7 @@ extern "C" {
     static __DIR_STRUCT* __internal_opendir(wchar_t* wname, int size)
     {
         struct __dir* data = NULL;
-        struct __dirent* tmp_entries = NULL;
+        struct dirent* tmp_entries = NULL;
         static char default_char = '?';
         static wchar_t* prefix = L"\\\\?\\";
         static wchar_t* suffix = L"\\*.*";
@@ -291,7 +291,7 @@ extern "C" {
         wname[size - 1] = L'\\';
         data->count = 16;
         data->index = 0;
-        data->entries = (struct __dirent*)malloc(sizeof(struct __dirent) * data->count);
+        data->entries = (struct dirent*)malloc(sizeof(struct dirent) * data->count);
         if (!data->entries)
             goto out_of_memory;
         buffer = malloc(MAXIMUM_REPARSE_DATA_BUFFER_SIZE);
@@ -313,12 +313,12 @@ extern "C" {
                 data->entries[data->index].d_type = DT_REG;
 
             data->entries[data->index].d_ino = __inode(wname);
-            data->entries[data->index].d_reclen = sizeof(struct __dirent);
+            data->entries[data->index].d_reclen = sizeof(struct dirent);
             data->entries[data->index].d_namelen = (unsigned char)wcslen(w32fd.cFileName);
             data->entries[data->index].d_off = 0;
 
             if (++data->index == data->count) {
-                tmp_entries = (struct __dirent*)realloc(data->entries, sizeof(struct __dirent) * data->count * grow_factor);
+                tmp_entries = (struct dirent*)realloc(data->entries, sizeof(struct dirent) * data->count * grow_factor);
                 if (!tmp_entries)
                     goto out_of_memory;
                 data->entries = tmp_entries;
@@ -437,7 +437,7 @@ extern "C" {
         return dirp;
     }
 
-    static struct __dirent* __readdir(__DIR_STRUCT* dirp)
+    static struct dirent* __readdir(__DIR_STRUCT* dirp)
     {
         struct __dir* data = (struct __dir*)dirp;
         if (!data) {
@@ -451,7 +451,7 @@ extern "C" {
         return NULL;
     }
 
-    static int readdir_r(__DIR_STRUCT* dirp, struct __dirent* entry, struct __dirent** result)
+    static int readdir_r(__DIR_STRUCT* dirp, struct dirent* entry, struct dirent** result)
     {
         struct __dir* data = (struct __dir*)dirp;
         if (!data) {
@@ -460,7 +460,7 @@ extern "C" {
         if (data->index < data->count)
         {
             if (entry)
-                memcpy(entry, &data->entries[data->index++], sizeof(struct __dirent));
+                memcpy(entry, &data->entries[data->index++], sizeof(struct dirent));
             if (result)
                 *result = entry;
         }
@@ -501,11 +501,11 @@ extern "C" {
         return ((struct __dir*)dirp)->fd;
     }
 
-    static int scandir(const char* dirp, struct __dirent*** namelist,
-        int (*filter)(const struct __dirent*),
-        int (*compar)(const struct __dirent**, const struct __dirent**))
+    static int scandir(const char* dirp, struct dirent*** namelist,
+        int (*filter)(const struct dirent*),
+        int (*compar)(const struct dirent**, const struct dirent**))
     {
-        struct __dirent** entries = NULL, ** tmp_entries = NULL;
+        struct dirent** entries = NULL, ** tmp_entries = NULL;
         long int i = 0, index = 0, count = 16;
         __DIR_STRUCT* d = __opendir(dirp);
         struct __dir* data = (struct __dir*)d;
@@ -514,7 +514,7 @@ extern "C" {
             __seterrno(ENOENT);
             return -1;
         }
-        entries = (struct __dirent**)malloc(sizeof(struct __dirent*) * count);
+        entries = (struct dirent**)malloc(sizeof(struct dirent*) * count);
         if (!entries)
         {
             __closedir(d);
@@ -525,7 +525,7 @@ extern "C" {
         {
             if (!filter || filter(&data->entries[i]))
             {
-                entries[index] = (struct __dirent*)malloc(sizeof(struct __dirent));
+                entries[index] = (struct dirent*)malloc(sizeof(struct dirent));
                 if (!entries[index])
                 {
                     __closedir(d);
@@ -535,10 +535,10 @@ extern "C" {
                     __seterrno(ENOMEM);
                     return -1;
                 }
-                memcpy(entries[index], &data->entries[i], sizeof(struct __dirent));
+                memcpy(entries[index], &data->entries[i], sizeof(struct dirent));
                 if (++index == count)
                 {
-                    tmp_entries = (struct __dirent**)realloc(entries, sizeof(struct __dirent*) * count * 2);
+                    tmp_entries = (struct dirent**)realloc(entries, sizeof(struct dirent*) * count * 2);
                     if (!tmp_entries)
                     {
                         __closedir(d);
@@ -553,7 +553,7 @@ extern "C" {
                 }
             }
         }
-        qsort(entries, index, sizeof(struct __dirent*), (int (*)(const void *, const void *))compar);        entries[index] = NULL;
+        qsort(entries, index, sizeof(struct dirent*), (int (*)(const void *, const void *))compar);        entries[index] = NULL;
         if (namelist)
             *namelist = entries;
         __closedir(d);
@@ -562,7 +562,7 @@ extern "C" {
 
     static int alphasort(const void* a, const void* b)
     {
-        struct __dirent** dira = (struct __dirent**)a, ** dirb = (struct __dirent**)b;
+        struct dirent** dira = (struct dirent**)a, ** dirb = (struct dirent**)b;
         if (!dira || !dirb)
             return 0;
         return strcoll((*dira)->d_name, (*dirb)->d_name);
@@ -575,12 +575,15 @@ extern "C" {
 
     static int versionsort(const void* a, const void* b)
     {
-        struct __dirent** dira = (struct __dirent**)a, ** dirb = (struct __dirent**)b;
+        struct dirent** dira = (struct dirent**)a, ** dirb = (struct dirent**)b;
         if (!dira || !dirb)
             return 0;
         return __strverscmp((*dira)->d_name, (*dirb)->d_name);
     }
 
+    #define readdir(dirp) __readdir(dirp)
+    #define closedir(dirp) __closedir(dirp)
+    #define opendir(fd) __opendir(fd)
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

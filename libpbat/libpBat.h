@@ -80,6 +80,7 @@
 #if defined(WIN32) || defined(_MSC_VER)
 
     #include <windows.h>
+    #include <winnt.h>
     #include <io.h>
 
     #define strdup pBat_strdup
@@ -145,9 +146,6 @@
     #define O_BINARY 0
 
     #define _pBat_Pipe(descriptors, size, mode) pipe(descriptors)
-
-    #define stricmp strcasecmp
-    #define strnicmp strncasecmp
 
 #else
 
@@ -454,6 +452,12 @@ typedef struct FILELIST {
     struct FILELIST* lpflNext; /* pointer to next match */
     struct FILELIST* lpflPrevious; /* Use only internally, do not use this */
 } FILELIST,*LPFILELIST;
+
+#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
+#define PBAT_DIR_UNICODE	1
+#else
+#define PBAT_DIR_UNICODE	0
+#endif
 
 LIBPBAT int         pBat_RegExpMatch(const char* restrict lpRegExp, const char* restrict lpMatch);
 LIBPBAT int         pBat_RegExpCaseMatch(const char* restrict lpRegExp, const char* restrict lpMatch);
