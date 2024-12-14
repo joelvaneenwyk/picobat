@@ -58,10 +58,16 @@ femto-test.out
 /pbat/pbat
 /man/en_US/readme.tea
 
+.git/
+
+.build/
+
 obj/
 x64/
 */Debug/
 */Release/
+/Debug/
+/Release/
 *.vcxproj.user
 
 /README.tea
