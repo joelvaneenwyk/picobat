@@ -49,7 +49,7 @@ jobs:
 
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
-        if: matrix.sys != 'linux'
+        if: matrix.sys != 'linux' && matrix.sys != 'windows'
         env:
           MSYS_ENV: ${{ matrix.sys == 'mingw32' && 'i686' || matrix.sys == 'ucrt64' && 'ucrt-x86_64' || matrix.sys == 'clang64' && 'clang-x86_64' || 'x86_64' }}
         with:
