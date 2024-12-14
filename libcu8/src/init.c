@@ -48,7 +48,6 @@
 
 #include "internals.h"
 #include "config.h"
-#include <libcu8.h>
 
 #if 0
 #define REPLACE_FN( )

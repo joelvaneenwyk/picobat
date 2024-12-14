@@ -28,20 +28,13 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <wchar.h>
-#if defined(WIN32)
-#include <io.h>
-#include <windows.h>
-#endif
-#include <fcntl.h>
-#include <errno.h>
 #include <assert.h>
 
 #include "internals.h"
-
-#include <libcu8.h>
 
 /* this is an posix-compatible dirent.h layer added to libcu8 to prevent
    programs from using non-utf8 aware version of dirent.h for windows

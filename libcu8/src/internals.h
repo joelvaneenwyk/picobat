@@ -39,19 +39,23 @@
 
 /* short circuit libcu8.h inclusion by file */
 #define LIBCU8_NO_WRAPPERS
-#include <libcu8.h>
+#include "libcu8.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <wchar.h>
+
 #if defined(WIN32)
 #include <io.h>
 #include <windows.h>
 #endif
+
 #include <fcntl.h>
 #include <errno.h>
 #include <assert.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
 #include "config.h"
 
 /*

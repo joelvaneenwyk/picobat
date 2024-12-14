@@ -39,8 +39,6 @@
 #include <errno.h>
 #include <assert.h>
 
-#include <libcu8.h>
-
 #include "internals.h"
 
 

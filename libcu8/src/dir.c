@@ -42,8 +42,6 @@
 
 #include "internals.h"
 
-#include <libcu8.h>
-
 __LIBCU8__IMP __cdecl int libcu8_getcwd(char* dir, size_t size)
 {
     wchar_t* wdir;

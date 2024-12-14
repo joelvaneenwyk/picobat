@@ -40,10 +40,7 @@
 #include <stdarg.h>
 
 #include "iconv/iconv.h"
-
 #include "internals.h"
-
-#include <libcu8.h>
 
 #if !defined(__linux__)
 extern char **_environ;
