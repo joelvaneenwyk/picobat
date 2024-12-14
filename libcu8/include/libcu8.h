@@ -94,12 +94,12 @@ extern "C" {
 #	include <unistd.h>
 #	include <stdint.h>
 #	include <string.h>
+#	include <dirent.h>
 #endif	/* defined(WIN32) */
 
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
-#include <dirent.h>
 #include <stdio.h>
 
 #if !defined(__cdecl)
