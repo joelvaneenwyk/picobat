@@ -148,7 +148,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnv(int mode, const char* file,
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnve(int mode, const char* file,
                             const char* const *argv, const char *const *envp)
 {
-    wchar_t *wfile, **wargv;
+    wchar_t *wfile=NULL, **wargv;
     size_t cvt;
     int i=0, j=0, ret;
 
@@ -205,7 +205,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnvpe(int mode, const char* file,
                                                     const char* const *argv,
                                                     const char *const *envp)
 {
-    wchar_t *wfile, **wargv;
+    wchar_t *wfile=NULL, **wargv;
     size_t cvt;
     int i=0, j=0, ret;
 
