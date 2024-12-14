@@ -24,7 +24,7 @@ jobs:
     defaults:
       run:
         # set shell to be either bash or msys2 depending on runner
-        shell: ${{ (matrix.sys == 'linux' || matrix.sys == 'windows') && 'bash' || 'msys2 {0}' }}
+        shell: ${{ matrix.sys == 'linux' && 'bash' || matrix.sys == 'windows' && 'cmd' || 'msys2 {0}' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -36,14 +36,14 @@ jobs:
         if: matrix.sys == 'windows'
         uses: microsoft/setup-msbuild@v2
 
-      - name: Install dependencies 🐧
+      - name: Install Linux dependencies 🐧
         if: matrix.sys == 'linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             gettext bison flex
 
-      - name: Install dependencies ⚙️
+      - name: Install Windows dependencies
         if: matrix.sys == 'windows'
         run: choco install make
 
@@ -66,7 +66,7 @@ jobs:
         run: |
           make config ${{ matrix.options }}
 
-      - name: Build Solution
+      - name: MSBuild
         if: matrix.sys == 'windows'
         run: msbuild picobat.sln /p:Configuration=Release
 
