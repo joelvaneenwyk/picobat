@@ -791,8 +791,6 @@ win_iconv_open(rec_iconv_t *cd, const char *tocode, const char *fromcode)
     cd->iconv = win_iconv;
 #if defined(_MSC_VER)
     cd->_errno = _errno;
-#else
-    cd->_errno = errno;
 #endif
     cd->cd = (iconv_t)cd;
     return TRUE;
