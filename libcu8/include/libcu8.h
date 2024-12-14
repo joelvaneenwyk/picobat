@@ -511,7 +511,7 @@ typedef void* HANDLE;
 #undef dirent
 #endif
 
-struct libcu8_dirent {
+typedef struct libcu8_dirent {
     char* d_name;
     int ret;
 } dirent;
