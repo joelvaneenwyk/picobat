@@ -10,9 +10,11 @@
 #endif
 
 #define STRICT
+
 #ifdef WIN32
 #include <windows.h>
 #endif
+
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
@@ -25,7 +27,6 @@
 #define UNUSED
 #endif
 
-/* WORKAROUND: */
 #ifndef UNDER_CE
 #define GetProcAddressA GetProcAddress
 #endif
@@ -788,7 +789,7 @@ win_iconv_open(rec_iconv_t *cd, const char *tocode, const char *fromcode)
         return FALSE;
     cd->iconv_close = win_iconv_close;
     cd->iconv = win_iconv;
-#if defined(WIN32)
+#if defined(_MSC_VER)
     cd->_errno = _errno;
 #else
     cd->_errno = errno;
@@ -941,11 +942,11 @@ make_csconv(const char *_name, csconv_t *cv)
     /* check for option "enc_name//opt1//opt2" */
     while ((p = strrstr(name, "//")) != NULL)
     {
-        if (_stricmp(p + 2, "nocompat") == 0)
+        if (stricmp(p + 2, "nocompat") == 0)
             use_compat = FALSE;
-        else if (_stricmp(p + 2, "translit") == 0)
+        else if (stricmp(p + 2, "translit") == 0)
             flag |= FLAG_TRANSLIT;
-        else if (_stricmp(p + 2, "ignore") == 0)
+        else if (stricmp(p + 2, "ignore") == 0)
             flag |= FLAG_IGNORE;
         *p = 0;
     }
@@ -960,17 +961,17 @@ make_csconv(const char *_name, csconv_t *cv)
     {
         cv->mbtowc = utf16_mbtowc;
         cv->wctomb = utf16_wctomb;
-        if (_stricmp(name, "UTF-16") == 0 || _stricmp(name, "UTF16") == 0 ||
-          _stricmp(name, "UCS-2") == 0 || _stricmp(name, "UCS2") == 0 ||
-	  _stricmp(name,"UCS-2-INTERNAL") == 0)
+        if (stricmp(name, "UTF-16") == 0 || stricmp(name, "UTF16") == 0 ||
+          stricmp(name, "UCS-2") == 0 || stricmp(name, "UCS2") == 0 ||
+	  stricmp(name,"UCS-2-INTERNAL") == 0)
             cv->flags |= FLAG_USE_BOM;
     }
     else if (cv->codepage == 12000 || cv->codepage == 12001)
     {
         cv->mbtowc = utf32_mbtowc;
         cv->wctomb = utf32_wctomb;
-        if (_stricmp(name, "UTF-32") == 0 || _stricmp(name, "UTF32") == 0 ||
-          _stricmp(name, "UCS-4") == 0 || _stricmp(name, "UCS4") == 0)
+        if (stricmp(name, "UTF-32") == 0 || stricmp(name, "UTF32") == 0 ||
+          stricmp(name, "UCS-4") == 0 || stricmp(name, "UCS4") == 0)
             cv->flags |= FLAG_USE_BOM;
     }
     else if (cv->codepage == 65001)
@@ -1045,7 +1046,7 @@ name_to_codepage(const char *name)
         return atoi(name + 2); /* XX123 for debug */
 
     for (i = 0; codepage_alias[i].name != NULL; ++i)
-        if (_stricmp(name, codepage_alias[i].name) == 0)
+        if (stricmp(name, codepage_alias[i].name) == 0)
             return codepage_alias[i].codepage;
     return -1;
 }
