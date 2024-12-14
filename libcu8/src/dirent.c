@@ -45,7 +45,7 @@
 
 __LIBCU8__IMP __cdecl DIR* libcu8_opendir(const char* dir)
 {
-    struct DIR* pdir;
+    DIR* pdir;
     wchar_t* wdir;
     HANDLE handle;
     char* exp;
@@ -111,7 +111,7 @@ __LIBCU8__IMP __cdecl DIR* libcu8_opendir(const char* dir)
     }
 
 
-    if ((pdir = malloc(sizeof(struct DIR))) == NULL) {
+    if ((pdir = malloc(sizeof(DIR))) == NULL) {
 
         /* failed to alloc a DIR structure */
         errno = ENOMEM;
@@ -139,7 +139,7 @@ __LIBCU8__IMP __cdecl int libcu8_closedir(DIR* pdir)
     return 0;
 }
 
-__LIBCU8__IMP __cdecl struct dirent* libcu8_readdir(DIR* pdir)
+__LIBCU8__IMP __cdecl struct libcu8_dirent* libcu8_readdir(libcu8_DIR* pdir)
 {
     WIN32_FIND_DATAW data;
     size_t cnt;
