@@ -24,6 +24,7 @@ caculator
 CALLSTACK
 CFLAGS
 CHCP
+choco
 choosed
 Chouhan
 classpath
@@ -38,6 +39,7 @@ COMMANDINFO
 comparants
 CONFIGVARS
 CTRC
+Darkbatcher
 darkbox
 datadir
 DEFAULTOPTIONS
@@ -61,6 +63,7 @@ envblock
 ENVBUF
 ERROLEVEL
 ERRORLEVEL
+esac
 ESTOFULLPATH
 ESTR
 exitcode
@@ -68,6 +71,8 @@ EXITCODEASCII
 fdio
 femto
 fento
+fgetc
+fgets
 FILELIST
 filesystems
 finddata
@@ -105,6 +110,7 @@ inteval
 itemvalue
 Junuary
 Karanveer
+LDADD
 LDFLAGS
 lfasteval
 libc
@@ -124,6 +130,7 @@ libmicrogettext
 libpbat
 libsasl
 Licence
+liconv
 linenoise
 lmicrogettext
 localmk
@@ -160,8 +167,10 @@ mymetype
 NDEBUG
 nices
 noconfirm
+noinst
 NOOPTIONS
 NOOPTIONSX
+oldfn
 openned
 optimisation
 optimisations
@@ -187,6 +196,7 @@ pthread
 pushd
 Pushd
 PUSHD
+readconsole
 Realease
 Recognised
 Redirections
@@ -206,6 +216,7 @@ sinces
 startscript
 stddef
 stdlib
+stinfo
 strcasecmp
 strdup
 STREAMLVL
@@ -241,13 +252,17 @@ varaible
 variouss
 wcurrdir
 wdir
+wenv
 wenvblock
 wfile
 wfullline
+wgetmainargs
 WHATSNEW
 WINDIR
 windres
 WINDRES
+wmain
+writeconsole
 xconvert
 XDUP
 Xenoxis
