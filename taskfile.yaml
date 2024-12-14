@@ -93,6 +93,19 @@ tasks:
       - cmd: npx --yes markdownlint-cli2@latest --fix "**/*.md" "**/*.readme" "#node_modules"
         ignore_error: true
 
+  build-msbuild-all:
+    aliases: [msbuild-all]
+    silent: true
+    cmds:
+      - for:
+          matrix:
+            CONFIG: ["Debug", "Release"]
+            PLATFORM: ["x86", "x64"]
+        task: build-msbuild
+        vars:
+          CONFIG: '{{.ITEM.CONFIG}}'
+          PLATFORM: '{{.ITEM.PLATFORM}}'
+
   # Build the application using MSBuild and the Visual Studio solution files. This
   # path is unique to this fork.
   build-msbuild:
