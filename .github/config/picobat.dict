@@ -29,7 +29,9 @@ choosed
 Chouhan
 classpath
 closedir
+cmdlib
 cmdline
+cmdlist
 Cmdly
 cmdlycorrect
 colourized
@@ -68,6 +70,7 @@ ESTOFULLPATH
 ESTR
 exitcode
 EXITCODEASCII
+fasteval
 fdio
 femto
 fento
@@ -186,6 +189,7 @@ pbatize
 pbatvar
 PECHO
 perfomances
+Pevaluator
 pico
 picobat
 Picobat
@@ -269,4 +273,5 @@ xconvert
 XDUP
 Xenoxis
 xfinddata
+xmath
 xwfinddata
