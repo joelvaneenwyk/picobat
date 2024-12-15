@@ -28,11 +28,14 @@ SRC_FILES_LIB_PBAT := \
 	./file/pBat_Win32File.c ./init/pBat_Init.c ./cmdlib/pBat_String.c \
 	./sleep/pBat_Sleep.c
 
-CFLAGS += $(LIBCU8_INC) $(LIBPBAT_INC)
+CFLAGS_LIB_PBAT += $(LIBCU8_INC) $(LIBPBAT_INC)
 
 OBJ_FILES_LIB_PBAT := $(SRC_FILES_LIB_PBAT:.c=.o)
 
-all: libpBat.a
+all: config libpBat.a
+
+%.o: %.c config
+	$(CC) $(CFLAGS_LIB_PBAT) -c -o $@ $<
 
 libpBat.a: $(OBJ_FILES_LIB_PBAT)
 	$(AR) r $@ $(OBJ_FILES_LIB_PBAT)
@@ -40,5 +43,8 @@ libpBat.a: $(OBJ_FILES_LIB_PBAT)
 
 clean:
 	rm -f $(OBJ_FILES_LIB_PBAT) libpBat.a
+
+config:
+	$(MAKE) -C ../ config
 
 .PHONY: all libpBat.a clean
