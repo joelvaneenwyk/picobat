@@ -28,7 +28,7 @@ LDFLAGS_PBAT += $(LDFLAGS) $(MICROGETTEXT_LD) $(LIBPBAT_LD) \
 				$(LPTHREAD_LD) $(LM_LD) $(LDL_LD)
 
 
-ifeq ($(fn_WIN32),1)
+ifeq ($(OS),Windows_NT)
 	SRC_RC = rc/res.rc
 	OBJ_RC = rc/res.o
 	LDFLAGS_PBAT += -lshlwapi

@@ -29,7 +29,7 @@ ifneq (,$(wildcard $(ROOTDIR)/femto-config.mk))
     include $(ROOTDIR)/femto-config.mk
 endif
 
-ifeq ($(fn_WIN32),1)
+ifeq ($(OS),Windows_NT)
 	LDFLAGS_PBAT += -lshlwapi
 endif
 

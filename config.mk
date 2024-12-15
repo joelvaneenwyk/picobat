@@ -40,7 +40,7 @@ CC := $(shell command -v cc || command -v gcc)
 CFLAGS ?= -O2
 LDFLAGS ?= -O2 -s -static
 
-ifeq ($(fn_WIN32),1)
+ifeq ($(OS),Windows_NT)
 	LDFLAGS += -lshlwapi
 endif
 
