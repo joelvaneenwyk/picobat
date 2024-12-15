@@ -29,6 +29,10 @@ SRC_FILES_TEA := \
 
 OBJ_FILES_TEA = $(SRC_FILES_TEA:.c=.o)
 
+ifeq ($(fn_WIN32),1)
+	LDFLAGS_TEA += -lshlwapi
+endif
+
 all: tea
 
 %.o: %.c
