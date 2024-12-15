@@ -17,9 +17,6 @@
 #
 
 ROOTDIR = ..
-ifneq (,$(wildcard $(ROOTDIR)/femto-config.mk))
-    include $(ROOTDIR)/femto-config.mk
-endif
 include $(ROOTDIR)/config.mk
 
 ifdef lib_m
@@ -34,7 +31,7 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 all: libfasteval.a
 
 clean:
-	rm -f $(OBJ_FILES) lib/scanner.c lib/parser.c lib/parser.h libfasteval.a
+	rm -f $(OBJ_FILES) libfasteval.a
 
 bin:
 
