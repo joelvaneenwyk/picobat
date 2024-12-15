@@ -581,9 +581,17 @@ extern "C" {
         return __strverscmp((*dira)->d_name, (*dirb)->d_name);
     }
 
+    #ifndef readdir
     #define readdir(dirp) __readdir(dirp)
+    #endif /* readdir */
+
+    #ifndef closedir
     #define closedir(dirp) __closedir(dirp)
+    #endif /* closedir */
+
+    #ifndef opendir
     #define opendir(fd) __opendir(fd)
+    #endif /* opendir */
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
