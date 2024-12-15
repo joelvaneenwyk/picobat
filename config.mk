@@ -36,6 +36,7 @@ WINDRES ?= windres
 LEX ?= flex
 YACC ?= yacc
 
+CC := $(shell command -v cc || command -v gcc)
 CFLAGS ?= -O2
 LDFLAGS ?= -O2 -s -static
 
