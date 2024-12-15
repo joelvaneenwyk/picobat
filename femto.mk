@@ -100,8 +100,10 @@ $(NOOPTIONSX):
 	@echo "$(subst no-,use_,$(basename $@))=0" >> femto-config.mk
 
 localmk:
-	@echo Removing femto-config.mk
-	@echo "" > femto-config.mk;
+	if [ ! -f femto-config.mk ]; then \
+		echo Clearing femto-config.mk; \
+		echo "" > femto-config.mk; \
+	fi;
 
 $(SUBCONF):
 	$(MAKE) -C $(basename $@) config
@@ -109,8 +111,8 @@ $(SUBCONF):
 config: localmk $(PROGRAMS) $(LIBS) $(FUNCTIONS) $(FLAGS) $(DEFAULTOPTIONSX) $(SUBCONF)
 	$(MAKE) config.h
 
-config.h: femto-subst
-	./femto-subst < config.h.in > config.h
+%.h: %.h.in femto-subst
+	./femto-subst < $< > $@
 
 $(SUBCLEAN):
 	$(MAKE) -C $(basename $@) femto-clean
@@ -119,9 +121,11 @@ femto-clean: $(SUBCLEAN)
 	rm -f femto-test.out femto-subst femto-config.mk config.h config.c
 
 femto-subst:
-	echo \#!/bin/sh > femto-subst
-	echo sed $(foreach v,$(CONFIGVARS),-e 's,[@]$(v)[@],$($(v)),g') >> femto-subst
-	chmod +x femto-subst
+	if [ ! -f femto-subst ]; then \
+		echo '#!/bin/sh' > femto-subst; \
+		echo "sed $(foreach v,$(CONFIGVARS),-e 's,[@]$(v)[@],$($(v)),g')" >> femto-subst; \
+		chmod +x femto-subst; \
+	fi;
 
-.PHONY: config config.h femto-clean femto-subst localmk $(SUBCONF) $(FUNCTIONS) $(PROGRAMS) $(LIBS) \
+.PHONY: config femto-clean localmk $(SUBCONF) $(FUNCTIONS) $(PROGRAMS) $(LIBS) \
 	$(FLAGS) $(NOOPTIONS) $(NOOPTIONSX) $(USEOPTIONS) $(USEOPTIONSX) femto-subst
