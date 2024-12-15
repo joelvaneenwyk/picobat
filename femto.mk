@@ -100,10 +100,8 @@ $(NOOPTIONSX):
 	@echo "$(subst no-,use_,$(basename $@))=0" >> femto-config.mk
 
 localmk:
-	if [ ! -f femto-config.mk ]; then \
-		echo Clearing femto-config.mk; \
-		echo "" > femto-config.mk; \
-	fi;
+	echo Clearing femto-config.mk
+	echo "" > femto-config.mk
 
 $(SUBCONF):
 	$(MAKE) -C $(basename $@) config
