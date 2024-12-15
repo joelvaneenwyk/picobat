@@ -29,6 +29,10 @@ SRC_FILES_TEA := \
 
 OBJ_FILES_TEA = $(SRC_FILES_TEA:.c=.o)
 
+ifeq ($(OS),Windows_NT)
+	LDFLAGS_PBAT += -lshlwapi
+endif
+
 all: tea
 
 %.o: %.c
