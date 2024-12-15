@@ -101,6 +101,12 @@ tasks:
         silent: true
         ignore_error: true
 
+  build-wsl:
+    aliases: [wsl]
+    silent: true
+    cmds:
+      - cmd: wsl make clean && wsl make
+
   build-msbuild-all:
     aliases: [msbuild-all]
     silent: true
