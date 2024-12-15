@@ -19,9 +19,6 @@
 ROOTDIR = ..
 include $(ROOTDIR)/config.mk
 
-ifeq ($(fn_WIN32),1)
-	LDFLAGS += -lshlwapi
-endif
 
 CFLAGS_PBATIZE += $(CFLAGS) $(MICROGETTEXT_INC) $(LIBPBAT_INC) \
 				$(LIBMATHEVAL_INC) $(LIBCU8_INC)
@@ -29,6 +26,10 @@ CFLAGS_PBATIZE += $(CFLAGS) $(MICROGETTEXT_INC) $(LIBPBAT_INC) \
 LDFLAGS_PBATIZE += $(LDFLAGS) $(MICROGETTEXT_LD) $(LIBPBAT_LD) \
 				$(LIBMATHEVAL_LD) $(LIBCU8_LD) \
 				$(LPTHREAD_LD) $(LM_LD) $(LDL_LD)
+
+ifeq ($(fn_WIN32),1)
+	LDFLAGS_PBATIZE += -lshlwapi
+endif
 
 SRC_FILES_PBATIZE = pbatize.c pairs.c
 OBJ_FILES_PBATIZE := $(SRC_FILES_PBATIZE:.c=.o)
