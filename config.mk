@@ -40,6 +40,10 @@ CC := $(shell command -v cc || command -v gcc)
 CFLAGS ?= -O2
 LDFLAGS ?= -O2 -s -static
 
+ifeq ($(fn_WIN32),1)
+	LDFLAGS += -lshlwapi
+endif
+
 BINDIR ?= $(ROOTDIR)/bin
 
 # microgettext
