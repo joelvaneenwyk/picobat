@@ -35,13 +35,13 @@ endif
 
 all: tea
 
-%.o: %.c
+%.o: %.c pbat
 	$(CC) $(CFLAGS_TEA) -c -o $@ $<
 
-tea: pbat $(OBJ_FILES_TEA)
+tea: $(OBJ_FILES_TEA)
 	$(CC) -o tea$(EXEC_SUFFIX) $(OBJ_FILES_TEA) $(LDFLAGS_TEA)
 
-pbat: libpbat
+pbat:
 	$(MAKE) -C ../pbat
 
 libpbat: libcu8 libfasteval microgettext
@@ -66,4 +66,4 @@ clean:
 bin: tea
 	cp tea$(EXEC_SUFFIX) $(BINDIR)/cmd/
 
-.PHONY: all clean bin
+.PHONY: all clean bin pbat
