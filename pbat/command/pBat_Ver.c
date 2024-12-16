@@ -56,7 +56,15 @@ int pBat_CmdVer(char* lpArg)
         const char *CurrentWindowsVersion;
         DATA.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 
+// Disable deprecated warning
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4996)
+#endif
         GetVersionEx(&DATA);
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
         pBat_CmdVerCheckWinVer((char **)&CurrentWindowsVersion,
                                 (int) DATA.dwMajorVersion,
                                 (int) DATA.dwMinorVersion);

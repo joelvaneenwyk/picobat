@@ -46,7 +46,7 @@ __LIBCU8__IMP __cdecl intptr_t __libcu8_findfirst (const char* file,
                                                 strlen(file)+1, &cvt)))
         return -1;
 
-    handle = __libcu8_wfindfirst(wcs, (struct __libcu8_data_t *)inf);
+    handle = __libcu8_wfindfirst(wcs, (__libcu8_data_t *)inf);
 
     if (handle != -1
         && (name = (char*)libcu8_xconvert(LIBCU8_FROM_U16, (char*)info.name,
@@ -87,7 +87,7 @@ __LIBCU8__IMP __cdecl int __libcu8_findnext (intptr_t handle,
     struct __libcu8_finddata_t* inf =
             (struct __libcu8_finddata_t*) findinf;
 
-    ret = __libcu8_wfindnext (handle, (struct __libcu8_data_t *)&info);
+    ret = __libcu8_wfindnext (handle, (__libcu8_data_t *)&info);
 
     printf("Called findnext !\n");
 

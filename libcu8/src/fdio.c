@@ -31,16 +31,102 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <wchar.h>
-#if defined(WIN32)
-#include <io.h>
-#include <windows.h>
-#endif
+
 #include <fcntl.h>
 #include <errno.h>
 #include <assert.h>
 #include <stdarg.h>
 
 #include "internals.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <string.h>
+#include <wchar.h>
+
+#ifdef _WIN32
+#include <io.h>
+#include <share.h>
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
+
+FILE* _libcu8_wfopen(const wchar_t* filename, const wchar_t* mode) {
+#ifdef _WIN32
+    return _wfopen(filename, mode);
+#else
+    char filename_mb[1024];
+    char mode_mb[16];
+    wcstombs(filename_mb, filename, sizeof(filename_mb));
+    wcstombs(mode_mb, mode, sizeof(mode_mb));
+    return fopen(filename_mb, mode_mb);
+#endif
+}
+
+int _libcu8_wopen(const wchar_t* filename, int oflag, int pmode) {
+#ifdef _WIN32
+    return _wopen(filename, oflag, pmode);
+#else
+    char filename_mb[1024];
+    wcstombs(filename_mb, filename, sizeof(filename_mb));
+    return open(filename_mb, oflag, pmode);
+#endif
+}
+
+int _libcu8_wsopen(const wchar_t* filename, int oflag, int shflag, int pmode) {
+#ifdef _WIN32
+    return _wsopen(filename, oflag, shflag, pmode);
+#else
+    char filename_mb[1024];
+    wcstombs(filename_mb, filename, sizeof(filename_mb));
+    return open(filename_mb, oflag, pmode);
+#endif
+}
+
+int _libcu8_wcreat(const wchar_t* filename, int pmode) {
+#ifdef _WIN32
+    return _wcreat(filename, pmode);
+#else
+    char filename_mb[1024];
+    wcstombs(filename_mb, filename, sizeof(filename_mb));
+    return creat(filename_mb, pmode);
+#endif
+}
+
+int _libcu8_wremove(const wchar_t* filename) {
+#ifdef _WIN32
+    return _wremove(filename);
+#else
+    char filename_mb[1024];
+    wcstombs(filename_mb, filename, sizeof(filename_mb));
+    return remove(filename_mb);
+#endif
+}
+
+int _libcu8_wunlink(const wchar_t* filename) {
+#ifdef _WIN32
+    return _wunlink(filename);
+#else
+    char filename_mb[1024];
+    wcstombs(filename_mb, filename, sizeof(filename_mb));
+    return unlink(filename_mb);
+#endif
+}
+
+int _libcu8_wrename(const wchar_t* oldname, const wchar_t* newname) {
+#ifdef _WIN32
+    return _wrename(oldname, newname);
+#else
+    char oldname_mb[1024];
+    char newname_mb[1024];
+    wcstombs(oldname_mb, oldname, sizeof(oldname_mb));
+    wcstombs(newname_mb, newname, sizeof(newname_mb));
+    return rename(oldname_mb, newname_mb);
+#endif
+}
 
 __LIBCU8__IMP __cdecl FILE* libcu8_fopen(const char* __restrict__ name, const char* __restrict__ mode)
 {
@@ -66,7 +152,7 @@ __LIBCU8__IMP __cdecl FILE* libcu8_fopen(const char* __restrict__ name, const ch
 
     }
 
-    ret = _wfopen(wfile, wmode);
+    ret = _libcu8_wfopen(wfile, wmode);
 
     fd = fileno(ret);
 
@@ -95,7 +181,7 @@ __LIBCU8__IMP __cdecl int libcu8_open(char* name, int oflags, ...)
                                           &len)))
         return -1;
 
-    if (oflags & _O_CREAT) {
+    if (oflags & O_CREAT) {
 
         va_start(args, oflags);
         pmode = va_arg(args, int);
@@ -103,7 +189,7 @@ __LIBCU8__IMP __cdecl int libcu8_open(char* name, int oflags, ...)
 
     }
 
-    fd = _wopen(wcs, oflags, pmode);
+    fd = _libcu8_wopen(wcs, oflags, pmode);
 
     free(wcs);
 
@@ -129,7 +215,7 @@ __LIBCU8__IMP __cdecl int libcu8_sopen(char* name, int oflags, int shflags, int 
                                           &len)))
         return -1;
 
-    fd = _wsopen(wcs, oflags, shflags, pmode);
+    fd = _libcu8_wsopen(wcs, oflags, shflags, pmode);
 
     free(wcs);
 
@@ -154,7 +240,7 @@ __LIBCU8__IMP __cdecl int libcu8_creat(char* name, int pmode)
                                           &len)))
         return -1;
 
-    fd = _wcreat(wcs, pmode);
+    fd = _libcu8_wcreat(wcs, pmode);
 
     free(wcs);
 
@@ -172,7 +258,11 @@ __LIBCU8__IMP __cdecl int libcu8_creat(char* name, int pmode)
 
 __LIBCU8__IMP __cdecl int libcu8_commit(int fd)
 {
-    _commit(fd);
+#ifdef _WIN32
+    return _commit(fd);
+#else
+    return fsync(fd);
+#endif
 
     libcu8_fd_buffers[fd].rcount = 0;
     libcu8_fd_buffers[fd].len = 0;
@@ -236,7 +326,7 @@ __LIBCU8__IMP __cdecl int libcu8_remove(const char* file)
                                           &len)))
         return -1;
 
-    ret = _wremove(wcs);
+    ret = _libcu8_wremove(wcs);
     free(wcs);
 
     return ret;
@@ -252,7 +342,7 @@ __LIBCU8__IMP __cdecl int libcu8_unlink(const char* file)
                                           &len)))
         return -1;
 
-    ret = _wunlink(wcs);
+    ret = _libcu8_wunlink(wcs);
     free(wcs);
 
     return ret;
@@ -269,7 +359,7 @@ __LIBCU8__IMP __cdecl int libcu8_rename(const char* oldn, const char* newn)
         && (wnew = (wchar_t*)libcu8_xconvert(LIBCU8_TO_U16, newn, strlen(newn)+1,
                                           &len))) {
 
-        ret = _wrename(wold, wnew);
+        ret = _libcu8_wrename(wold, wnew);
 
     } else
         ret = -1;

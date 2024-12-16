@@ -190,7 +190,7 @@ int pBat_CmdWc(char* line)
 {
     ESTR* param = pBat_EsInit_Cached();
     FILELIST *match = NULL,
-             *end,
+             *end = NULL,
              *dirs,
              *item;
     int mode = 0,

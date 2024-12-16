@@ -18,28 +18,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#pragma once
-
 #ifndef __DIRENT_H_9DE6B42C_8D0C_4D31_A8EF_8E4C30E6C46A__
 #define __DIRENT_H_9DE6B42C_8D0C_4D31_A8EF_8E4C30E6C46A__
 
-#ifndef WIN32
+#include <ctype.h>
+#include "libpBat.h"
+#include "libpBat-int.h"
+#include "../config.h"
 
+#if !defined(WIN32)
+
+#define PBAT_IMPLEMENT_DIRENT	0
 #include <dirent.h>
 
 #else /* _WIN32 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
+#define PBAT_IMPLEMENT_DIRENT	1
 #include <sys/types.h>
 #include <stdint.h>
 #include <errno.h>
 
-#include <Windows.h>
+#if !defined(_MSC_VER)
+#include <strings.h>
+#endif
 
+#include <Windows.h>
 #include <Shlwapi.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 #ifdef _MSC_VER
 #pragma comment(lib, "Shlwapi.lib")
@@ -113,15 +121,13 @@ extern "C" {
 #define FILE_NAME_NORMALIZED 0
 #endif /* FILE_NAME_NORMALIZED */
 
-    typedef void* DIR;
-
-    typedef struct ino_t
+    typedef struct _pbat_ino_t
     {
         unsigned long long serial;
         unsigned char fileid[16];
     } __ino_t;
 
-    struct dirent
+    typedef struct dirent
     {
         __ino_t d_ino;
         off_t d_off;
@@ -129,17 +135,17 @@ extern "C" {
         unsigned char d_namelen;
         unsigned char d_type;
         char d_name[NAME_MAX];
-    };
+    } __dirent;
 
-    struct __dir
+    typedef struct __dir
     {
         struct dirent* entries;
         intptr_t fd;
         long int count;
         long int index;
-    };
+    } __DIR_STRUCT, DIR;
 
-    static int closedir(DIR* dirp)
+    static int __closedir(__DIR_STRUCT* dirp)
     {
         struct __dir* data = NULL;
         if (!dirp) {
@@ -247,7 +253,7 @@ extern "C" {
         return value;
     }
 
-    static DIR* __internal_opendir(wchar_t* wname, int size)
+    static __DIR_STRUCT* __internal_opendir(wchar_t* wname, int size)
     {
         struct __dir* data = NULL;
         struct dirent* tmp_entries = NULL;
@@ -325,7 +331,7 @@ extern "C" {
 
         data->count = data->index;
         data->index = 0;
-        return (DIR*)data;
+        return (__DIR_STRUCT*)data;
     out_of_memory:
         if (data)
         {
@@ -349,9 +355,9 @@ extern "C" {
         return name;
     }
 
-    static DIR* opendir(const char* name)
+    static __DIR_STRUCT* __opendir(const char* name)
     {
-        DIR* dirp = NULL;
+        __DIR_STRUCT* dirp = NULL;
         wchar_t* wname = __get_buffer();
         int size = 0;
         if (!wname)
@@ -370,9 +376,9 @@ extern "C" {
         return dirp;
     }
 
-    static DIR* _wopendir(const wchar_t* name)
+    static __DIR_STRUCT* _wopendir(const wchar_t* name)
     {
-        DIR* dirp = NULL;
+        __DIR_STRUCT* dirp = NULL;
         wchar_t* wname = __get_buffer();
         int size = 0;
         if (!wname)
@@ -392,9 +398,9 @@ extern "C" {
         return dirp;
     }
 
-    static DIR* fdopendir(intptr_t fd)
+    static __DIR_STRUCT* fdopendir(intptr_t fd)
     {
-        DIR* dirp = NULL;
+        __DIR_STRUCT* dirp = NULL;
         wchar_t* wname = __get_buffer();
         typedef DWORD(__stdcall* pfnGetFinalPathNameByHandleW)(
             HANDLE hFile, LPWSTR lpszFilePath, DWORD cchFilePath, DWORD dwFlags);
@@ -431,7 +437,7 @@ extern "C" {
         return dirp;
     }
 
-    static struct dirent* readdir(DIR* dirp)
+    static struct dirent* __readdir(__DIR_STRUCT* dirp)
     {
         struct __dir* data = (struct __dir*)dirp;
         if (!data) {
@@ -445,7 +451,7 @@ extern "C" {
         return NULL;
     }
 
-    static int readdir_r(DIR* dirp, struct dirent* entry, struct dirent** result)
+    static int readdir_r(__DIR_STRUCT* dirp, struct dirent* entry, struct dirent** result)
     {
         struct __dir* data = (struct __dir*)dirp;
         if (!data) {
@@ -463,7 +469,7 @@ extern "C" {
         return 0;
     }
 
-    static void seekdir(DIR* dirp, long int offset)
+    static void seekdir(__DIR_STRUCT* dirp, long int offset)
     {
         if (dirp)
         {
@@ -472,12 +478,12 @@ extern "C" {
         }
     }
 
-    static void rewinddir(DIR* dirp)
+    static void rewinddir(__DIR_STRUCT* dirp)
     {
         seekdir(dirp, 0);
     }
 
-    static long int telldir(DIR* dirp)
+    static long int telldir(__DIR_STRUCT* dirp)
     {
         if (!dirp) {
             errno = EBADF;
@@ -486,7 +492,7 @@ extern "C" {
         return ((struct __dir*)dirp)->count;
     }
 
-    static intptr_t dirfd(DIR* dirp)
+    static intptr_t dirfd(__DIR_STRUCT* dirp)
     {
         if (!dirp) {
             errno = EINVAL;
@@ -501,17 +507,17 @@ extern "C" {
     {
         struct dirent** entries = NULL, ** tmp_entries = NULL;
         long int i = 0, index = 0, count = 16;
-        DIR* d = opendir(dirp);
+        __DIR_STRUCT* d = __opendir(dirp);
         struct __dir* data = (struct __dir*)d;
         if (!data) {
-            closedir(d);
+            __closedir(d);
             __seterrno(ENOENT);
             return -1;
         }
         entries = (struct dirent**)malloc(sizeof(struct dirent*) * count);
         if (!entries)
         {
-            closedir(d);
+            __closedir(d);
             __seterrno(ENOMEM);
             return -1;
         }
@@ -522,7 +528,7 @@ extern "C" {
                 entries[index] = (struct dirent*)malloc(sizeof(struct dirent));
                 if (!entries[index])
                 {
-                    closedir(d);
+                    __closedir(d);
                     for (i = 0; i < index; ++i)
                         free(entries[index]);
                     free(entries);
@@ -535,7 +541,7 @@ extern "C" {
                     tmp_entries = (struct dirent**)realloc(entries, sizeof(struct dirent*) * count * 2);
                     if (!tmp_entries)
                     {
-                        closedir(d);
+                        __closedir(d);
                         for (i = 0; i < index; ++i)
                             free(entries[index - 1]);
                         free(entries);
@@ -550,7 +556,7 @@ extern "C" {
         qsort(entries, index, sizeof(struct dirent*), (int (*)(const void *, const void *))compar);        entries[index] = NULL;
         if (namelist)
             *namelist = entries;
-        closedir(d);
+        __closedir(d);
         return 0;
     }
 
@@ -575,6 +581,17 @@ extern "C" {
         return __strverscmp((*dira)->d_name, (*dirb)->d_name);
     }
 
+    #ifndef readdir
+    #define readdir(dirp) __readdir(dirp)
+    #endif /* readdir */
+
+    #ifndef closedir
+    #define closedir(dirp) __closedir(dirp)
+    #endif /* closedir */
+
+    #ifndef opendir
+    #define opendir(fd) __opendir(fd)
+    #endif /* opendir */
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

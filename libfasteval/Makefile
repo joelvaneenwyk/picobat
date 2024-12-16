@@ -17,10 +17,7 @@
 #
 
 ROOTDIR = ..
-ifneq (,$(wildcard ./femto-config.mk))
-    include femto-config.mk
-endif
-include ../config.mk
+include $(ROOTDIR)/config.mk
 
 ifdef lib_m
 LDFLAGS += -lm
@@ -34,7 +31,7 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 all: libfasteval.a
 
 clean:
-	rm -f $(OBJ_FILES) lib/scanner.c lib/parser.c lib/parser.h libfasteval.a
+	rm -f $(OBJ_FILES) libfasteval.a
 
 bin:
 
@@ -47,15 +44,15 @@ lib/scanner.c: lib/scanner.l lib/parser.c
 
 lib/parser.c: lib/parser.y
 	$(YACC) -d -p evaluator_ -o $@ $^
-	
+
 # stuff to check
 PROGRAMS =
 FUNCTIONS =
 LIBS = m
 OPTIONS =
-DEFAULTOPTIONS = 
-SUBCONFIG = 
-ADDITIONALVARS = 
+DEFAULTOPTIONS =
+SUBCONFIG =
+ADDITIONALVARS =
 
 include ../femto.mk
 

@@ -6,6 +6,7 @@
     "*.tea": "plaintext",
     "*.tpl": "plaintext"
   },
+  "clangd.fallbackFlags": ["-I", "${workspaceFolder}/libcu8/include/", "-I", "${workspaceFolder}/libpbat/"],
   "[c][cpp]": {
     "editor.formatOnType": false,
     "editor.formatOnPaste": false,

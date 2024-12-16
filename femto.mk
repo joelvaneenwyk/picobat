@@ -19,8 +19,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-ifneq (,$(wildcard ./femto-config.mk))
-	include femto-config.mk
+SRCDIR ?= .
+
+ifneq (,$(wildcard $(SRCDIR)/femto-config.mk))
+	include $(SRCDIR)/femto-config.mk
 endif
 
 USEOPTIONS =$(addprefix use-,$(OPTIONS))
@@ -98,8 +100,8 @@ $(NOOPTIONSX):
 	@echo "$(subst no-,use_,$(basename $@))=0" >> femto-config.mk
 
 localmk:
-	@echo Removing femto-config.mk
-	@echo "" > femto-config.mk;
+	echo Clearing femto-config.mk
+	echo "" > femto-config.mk
 
 $(SUBCONF):
 	$(MAKE) -C $(basename $@) config
@@ -107,8 +109,8 @@ $(SUBCONF):
 config: localmk $(PROGRAMS) $(LIBS) $(FUNCTIONS) $(FLAGS) $(DEFAULTOPTIONSX) $(SUBCONF)
 	$(MAKE) config.h
 
-config.h: femto-subst
-	./femto-subst < config.h.in > config.h
+%.h: %.h.in femto-subst
+	./femto-subst < $< > $@
 
 $(SUBCLEAN):
 	$(MAKE) -C $(basename $@) femto-clean
@@ -116,10 +118,12 @@ $(SUBCLEAN):
 femto-clean: $(SUBCLEAN)
 	rm -f femto-test.out femto-subst femto-config.mk config.h config.c
 
-femto-subst: femto-config.mk
-	echo \#!/bin/sh > femto-subst
-	echo sed $(foreach v,$(CONFIGVARS),-e 's,[@]$(v)[@],$($(v)),g') >> femto-subst
-	chmod +x femto-subst
+femto-subst:
+	if [ ! -f femto-subst ]; then \
+		echo '#!/bin/sh' > femto-subst; \
+		echo "sed $(foreach v,$(CONFIGVARS),-e 's,[@]$(v)[@],$($(v)),g')" >> femto-subst; \
+		chmod +x femto-subst; \
+	fi;
 
-.PHONY: config config.h femto-clean localmk $(SUBCONF) $(FUNCTIONS) $(PROGRAMS) $(LIBS) \
+.PHONY: config femto-clean localmk $(SUBCONF) $(FUNCTIONS) $(PROGRAMS) $(LIBS) \
 	$(FLAGS) $(NOOPTIONS) $(NOOPTIONSX) $(USEOPTIONS) $(USEOPTIONSX) femto-subst

@@ -22,17 +22,20 @@ include $(ROOTDIR)/config.mk
 SRC_FILES_LIB_PBAT := \
 	./cmdlist/pBat_CmdList.c ./console/pBat_Console.c \
 	./console/pBat_ConsoleANSI.c ./console/pBat_ConsoleWin.c \
-	./console/pBat_ConsoleDummy.c ./dir/pBat_Attr.c ./dir/pBat_Dir.c \
+	./console/pBat_ConsoleDummy.c ./dir/pBat_Attr.c ./dir/pBat_DirEntry.c \
 	./dir/pBat_UnicodeDir.c ./enc/pBat_Enc.c ./estr/pBat_Estr.c \
 	./stack/pBat_Stack.c ./thread/pBat_Thread.c ./file/pBat_StdFile.c \
 	./file/pBat_Win32File.c ./init/pBat_Init.c ./cmdlib/pBat_String.c \
 	./sleep/pBat_Sleep.c
 
-CFLAGS += $(LIBCU8_INC) $(LIBPBAT_INC)
+CFLAGS_LIB_PBAT += $(LIBCU8_INC) $(LIBPBAT_INC)
 
 OBJ_FILES_LIB_PBAT := $(SRC_FILES_LIB_PBAT:.c=.o)
 
-all: libpBat.a
+all: config libpBat.a
+
+%.o: %.c config
+	$(CC) $(CFLAGS_LIB_PBAT) -c -o $@ $<
 
 libpBat.a: $(OBJ_FILES_LIB_PBAT)
 	$(AR) r $@ $(OBJ_FILES_LIB_PBAT)
@@ -40,5 +43,8 @@ libpBat.a: $(OBJ_FILES_LIB_PBAT)
 
 clean:
 	rm -f $(OBJ_FILES_LIB_PBAT) libpBat.a
+
+config:
+	$(MAKE) -C ../ config
 
 .PHONY: all libpBat.a clean

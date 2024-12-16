@@ -28,7 +28,7 @@
 #include "../../config.h"
 
 
-#if defined(WIN32) && defined(PBAT_USE_LIBCU8) && PBAT_USE_LIBCU8==1
+#if PBAT_DIR_UNICODE==1
 #include <libcu8.h>
 #include <windows.h>
 #include <shlwapi.h>
@@ -193,7 +193,7 @@ static FILELIST* pBat_AddMatch(wchar_t* wname, FILELIST* files, struct match_arg
 
         free(name);
 
-        return (((void*)files)+1);
+        return (((char*)files)+1);
 
     }
 

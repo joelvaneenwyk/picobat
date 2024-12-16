@@ -21,7 +21,9 @@
 #include <string.h>
 #include <errno.h>
 
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #include <sys/types.h>
 #include "pBat_Stream.h"
 #include "pBat_Core.h"

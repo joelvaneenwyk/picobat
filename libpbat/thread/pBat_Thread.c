@@ -177,7 +177,7 @@ LIBPBAT void     pBat_AbortThread(THREAD* lpThId)
 
 LIBPBAT void     pBat_EndThread(void* iReturn)
 {
-    ExitThread((DWORD)iReturn);
+    ExitThread((DWORD)(size_t)iReturn);
 }
 
 LIBPBAT int      pBat_WaitForThread(THREAD* thId, void** lpRet)

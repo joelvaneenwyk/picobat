@@ -11,21 +11,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu, windows]
-        options:
-          - use-libcu8
-          - no-libcu8
-        include:
-          - { os: ubuntu, sys: linux, env: x86_64 }
-          - { os: windows, sys: mingw64, env: x86_64 }
-          # - { os: windows, sys: mingw32, env: i686 }
-          # - { os: windows, sys: ucrt64,  env: ucrt-x86_64 }
-          # - { os: windows, sys: clang64, env: clang-x86_64 }
-
-    runs-on: '${{ matrix.os }}-latest'
-
-    # e.g., '⚙️ make use-libcu8 // ubuntu-linux-x86_64'
-    name: '⚙️ ${{ matrix.sys }}-${{ matrix.env }} // make ${{ matrix.options }}'
+        sys: [linux, windows, mingw64, mingw32, ucrt64, clang64]
+        options: [use-libcu8, no-libcu8]
+    name: '⚙️ ${{ matrix.sys }} // ${{ matrix.options }}'
+    runs-on: ${{ matrix.sys == 'linux' && 'ubuntu-latest' || 'windows-latest' }}
 
     permissions:
       contents: write
@@ -35,7 +24,7 @@ jobs:
     defaults:
       run:
         # set shell to be either bash or msys2 depending on runner
-        shell: ${{ matrix.os == 'windows' && 'msys2 {0}' || 'bash' }}
+        shell: ${{ matrix.sys == 'linux' && 'bash' || matrix.sys == 'windows' && 'cmd' || 'msys2 {0}' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -43,28 +32,52 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Install dependencies
-        if: matrix.os == 'ubuntu'
+      - name: Setup MSBuild
+        if: matrix.sys == 'windows'
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Install Linux dependencies 🐧
+        if: matrix.sys == 'linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             gettext bison flex
 
+      - name: Install Windows dependencies
+        if: matrix.sys == 'windows'
+        run: choco install make
+
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
-        if: matrix.os == 'windows'
+        if: matrix.sys != 'linux' && matrix.sys != 'windows'
+        env:
+          MSYS_ENV: ${{ matrix.sys == 'mingw32' && 'i686' || matrix.sys == 'ucrt64' && 'ucrt-x86_64' || matrix.sys == 'clang64' && 'clang-x86_64' || 'x86_64' }}
         with:
           msystem: ${{ matrix.sys }}
           install: >-
             git zip
             base-devel
-            mingw-w64-${{ matrix.env }}-toolchain
-            mingw-w64-${{ matrix.env }}-dlfcn
+            mingw-w64-${{ env.MSYS_ENV }}-toolchain
+            mingw-w64-${{ env.MSYS_ENV }}-dlfcn
 
+      # Required to generate 'config.h' and other dependencies used even in all builds including those
+      # using Visual Studio (MSBuild).
       - name: Configure
         run: |
           make config ${{ matrix.options }}
 
-      - name: Make Distribution
+      - name: MSBuild
+        if: matrix.sys == 'windows'
+        run: msbuild picobat.sln /p:Configuration=Release
+
+      - name: Test
+        if: matrix.sys != 'windows' && matrix.sys != 'linux'
         run: |
-          LDFLAGS='-static -s' make dist --keep-going
+          make -C libcu8/test
+
+      - name: Make Distribution
+        if: matrix.sys != 'windows' && matrix.sys != 'linux'
+        env:
+          LDFLAGS: -static -s
+        run: |
+          make dist --keep-going

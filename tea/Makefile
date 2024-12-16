@@ -29,21 +29,39 @@ SRC_FILES_TEA := \
 
 OBJ_FILES_TEA = $(SRC_FILES_TEA:.c=.o)
 
+ifeq ($(OS),Windows_NT)
+	LDFLAGS_TEA += -lshlwapi
+endif
+
 all: tea
 
 %.o: %.c
 	$(CC) $(CFLAGS_TEA) -c -o $@ $<
 
-tea: $(OBJ_FILES_TEA) ../pbat/pbat
+tea: pbat $(OBJ_FILES_TEA)
 	$(CC) -o tea$(EXEC_SUFFIX) $(OBJ_FILES_TEA) $(LDFLAGS_TEA)
 
-../pbat/pbat:
+pbat: libpbat
 	$(MAKE) -C ../pbat
 
+libpbat: libcu8 libfasteval microgettext
+	$(MAKE) -C ../libpbat
+
+libcu8: config
+	$(MAKE) -C ../libcu8
+
+libfasteval:
+	$(MAKE) -C ../libfasteval
+
+microgettext:
+	$(MAKE) -C ../microgettext
+
+config:
+	$(MAKE) -C ../ config
+
 clean:
-	rm -f $(OBJ_FILES_TEA)
-	rm -f tea$(EXEC_SUFFIX)
-	rm -rf ./x64/ ./tea/
+	rm -f $(OBJ_FILES_TEA) tea$(EXEC_SUFFIX)
+	rm -rf ./x64/ ./tea/ ./Debug/ ./Release/
 
 bin: tea
 	cp tea$(EXEC_SUFFIX) $(BINDIR)/cmd/

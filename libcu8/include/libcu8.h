@@ -45,35 +45,130 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <sys/stat.h>
-#if defined(WIN32)
-#include <io.h>
-#include <windows.h>
+
+/* for WC_NO_BEST_FIT_CHARS */
+#ifndef WINVER
+#define WINVER 0x0500
+#endif
+
+#ifndef STRICT
+#define STRICT
+#endif
+
+#if defined(_WIN32) || defined(WIN32) || defined(__MINGW32__) || defined(__MINGW64__)
+	#include <windows.h>
+
+	#ifndef TEXT
+	#define TEXT(text) text
+	#endif
+
+	#ifndef LoadLibrary
+	#define LoadLibrary(name) LoadLibraryA(name)
+	#endif
+
+	#define _stricmp _stricmp
+	#define _strnicmp _strnicmp
 #else
-#include <unistd.h>
-#include <stdint.h>
+	#include <dlfcn.h>
+	#include <strings.h>
+
+	#ifndef TEXT
+	#define TEXT(text) text
+	#endif
+
+	#ifndef LoadLibrary
+	#define LoadLibrary(name) dlopen(name, RTLD_LAZY)
+	#endif
+
+	#define stricmp(a, b) strcasecmp(a, b)
+	#define strnicmp(a , b, c) strncasecmp(a, b, c)
+
+	#define _stricmp strcasecmp
+	#define _strnicmp strncasecmp
+#endif
+
+#if !defined(__linux__)
+#	include <io.h>
+#	include <windows.h>
+#else
+#	include <unistd.h>
+#	include <stdint.h>
+#	include <string.h>
+#	include <dirent.h>
+#endif	/* defined(WIN32) */
+
 #include <errno.h>
 #include <string.h>
-#endif
-#include <dirent.h>
+#include <stdlib.h>
 #include <stdio.h>
 
-#if !defined(_MSC_VER)
+#if !defined(__restrict__)
+#define __restrict__
+#endif
+
+#if !defined(restrict)
+#define restrict
+#endif
+
+
+#if !defined(__cdecl)
     #define __cdecl
 #endif
 
-#if !defined(WIN32)
-typedef short SHORT;
-typedef unsigned short WORD;
-typedef unsigned long DWORD;
-typedef struct _RTL_CRITICAL_SECTION_DEBUG *PRTL_CRITICAL_SECTION_DEBUG;
-typedef long LONG;
-typedef void* HANDLE;
-typedef unsigned long ULONG_PTR;
-typedef int BOOL;
-typedef wchar_t WCHAR;
-typedef char CHAR;
+#if defined(__x86_32__) || defined(__i386__) || defined(_M_IX86) || defined(__32BIT__)
+#	define __LIBCU8_IS_32BIT_PLATFORM
+#endif
 
-#define _O_CREAT 0x0100
+#if !defined(WIN32) && !defined(_MINWINDEF_)
+typedef char CHAR;
+typedef char* LPSTR;
+typedef unsigned char* LPBYTE;
+typedef const char* LPCCH;
+typedef const char* LPCSTR;
+typedef const void* LPCVOID;
+typedef const wchar_t* LPCWCH;
+typedef const wchar_t* LPCWSTR;
+typedef unsigned char BYTE;
+typedef unsigned int UINT;
+typedef unsigned int* LPINT;
+typedef unsigned long DWORD;
+typedef unsigned long ULONG_PTR;
+typedef unsigned long* LPDWORD;
+typedef unsigned short WORD;
+
+typedef int BOOL;
+typedef BOOL* LPBOOL;
+
+typedef long LONG;
+typedef short SHORT;
+typedef void* FARPROC;
+typedef void* HANDLE;
+typedef void* HMODULE;
+typedef wchar_t WCHAR;
+typedef wchar_t* LPWSTR;
+typedef void* PVOID;
+
+typedef void* LPSECURITY_ATTRIBUTES;
+typedef struct _RTL_CRITICAL_SECTION_DEBUG *PRTL_CRITICAL_SECTION_DEBUG;
+typedef struct _OVERLAPPED {
+    ULONG_PTR Internal;
+    ULONG_PTR InternalHigh;
+    union {
+        struct {
+            DWORD Offset;
+            DWORD OffsetHigh;
+        } DUMMYSTRUCTNAME;
+        PVOID Pointer;
+    } DUMMYUNIONNAME;
+    HANDLE hEvent;
+} OVERLAPPED, *LPOVERLAPPED;
+
+typedef DWORD LCID;
+
+#define O_CREAT  0x0100
+#define O_WRONLY 0x0001  // Open for write-only access
+#define O_TRUNC  0x0200  // Truncate file to zero length
+
 #define ERROR_NO_MORE_FILES 18L
 
 #define FALSE 0
@@ -104,18 +199,12 @@ typedef long HRESULT;
 #define WINAPI
 #endif
 
-typedef void* HMODULE;
-typedef DWORD LCID;
-typedef unsigned long* LPDWORD;
-typedef unsigned char* LPCSTR;
-typedef unsigned int* LPINT;
-typedef unsigned char* LPBYTE;
-typedef wchar_t* LPWSTR;
-typedef const wchar_t* LPCWSTR;
-typedef char* LPSTR;
-
-typedef unsigned int UINT;
-typedef unsigned char BYTE;
+#define GENERIC_WRITE O_WRONLY
+#define CREATE_ALWAYS (O_CREAT | O_TRUNC)
+#define FILE_ATTRIBUTE_NORMAL 0
+#define HANDLE int
+#define INVALID_HANDLE_VALUE -1
+#define DWORD ssize_t
 
 #define MAX_DEFAULTCHAR 2
 #define MAX_LEADBYTES 12
@@ -402,14 +491,6 @@ __LIBCU8__IMP __cdecl void (*libcu8_completion_handler_free)(char*);
 typedef void (*libcu8_completion_handler_t)(const char*, char**);
 typedef void (*libcu8_completion_handler_free_t)(char*);
 
-#ifdef dirent
-#undef dirent
-#endif
-
-#ifdef DIR
-#undef DIR
-#endif
-
 #ifdef opendir
 #undef opendir
 #endif
@@ -422,15 +503,18 @@ typedef void (*libcu8_completion_handler_free_t)(char*);
 #undef readdir
 #endif
 
-
 #ifndef HANDLE
 typedef void* HANDLE;
 #endif
 
-struct libcu8_dirent {
+#ifdef dirent
+#undef dirent
+#endif
+
+typedef struct libcu8_dirent {
     char* d_name;
     int ret;
-};
+} dirent;
 
 typedef struct libcu8_DIR {
     HANDLE h;
@@ -440,9 +524,6 @@ typedef struct libcu8_DIR {
 __LIBCU8__IMP __cdecl libcu8_DIR* libcu8_opendir(const char* dir);
 __LIBCU8__IMP __cdecl int libcu8_closedir(libcu8_DIR* pdir);
 __LIBCU8__IMP __cdecl struct libcu8_dirent* libcu8_readdir(libcu8_DIR* pdir);
-
-#define DIR libcu8_DIR
-#define dirent libcu8_dirent
 
 #ifndef __LIBCU8__DLL
 #define readdir(pdir) libcu8_readdir(pdir)

@@ -63,7 +63,7 @@ int pBat_GetFileFullPath(char* full, const char* p, size_t size)
     return 0;
 }
 
-void __inline__ pBat_MakeFullPath(char* full, const char* p, size_t size)
+void pBat_MakeFullPath(char* full, const char* p, size_t size)
 {
     char* partial = TRANS(p);
 
@@ -111,7 +111,7 @@ void __inline__ pBat_MakeFullPathEs(ESTR* full, const char* p)
     pBat_EsCat(full, partial);
 }
 
-__inline__ char* pBat_EsToFullPath(ESTR* full)
+char* pBat_EsToFullPath(ESTR* full)
 {
     size_t len, size;
     const char* p = TRANS(full->str);
@@ -166,7 +166,7 @@ __inline__ char* pBat_EsToFullPath(ESTR* full)
     return full->str;
 }
 
-__inline__ char* pBat_FullPathDup(const char* p)
+char* pBat_FullPathDup(const char* p)
 {
     char *ret, *path = TRANS(p);
     size_t needed = strlen(path) + 1;

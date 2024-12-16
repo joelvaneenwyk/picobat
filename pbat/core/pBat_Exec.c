@@ -187,9 +187,9 @@ int pBat_RunFile(EXECINFO* info, int* error)
     DWORD dwFlags;
 
     wchar_t *wfullline,
-            *wfilename,
-            *wcurrdir,
-            *wenvblock;
+            *wfilename=NULL,
+            *wcurrdir=NULL,
+            *wenvblock=NULL;
 
     envblock = pBat_GetEnvBlock(lpeEnv, &size);
 

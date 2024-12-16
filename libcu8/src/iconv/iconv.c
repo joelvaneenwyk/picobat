@@ -4,19 +4,6 @@
  * This file is placed in the public domain.
  */
 
-/* for WC_NO_BEST_FIT_CHARS */
-#ifndef WINVER
-# define WINVER 0x0500
-#endif
-
-#define STRICT
-#ifdef WIN32
-#include <windows.h>
-#endif
-#include <errno.h>
-#include <string.h>
-#include <stdlib.h>
-
 #include "libcu8.h"
 
 #ifdef __GNUC__
@@ -25,7 +12,6 @@
 #define UNUSED
 #endif
 
-/* WORKAROUND: */
 #ifndef UNDER_CE
 #define GetProcAddressA GetProcAddress
 #endif
@@ -54,6 +40,117 @@ typedef unsigned short ushort;
 typedef unsigned int uint;
 
 typedef void* iconv_t;
+
+#ifdef __linux__
+#include <pthread.h>
+
+// Placeholder for CreateFileA
+HANDLE CreateFileA(
+    LPCSTR lpFileName,
+    DWORD dwDesiredAccess,
+    DWORD dwShareMode,
+    LPSECURITY_ATTRIBUTES lpSecurityAttributes,
+    DWORD dwCreationDisposition,
+    DWORD dwFlagsAndAttributes,
+    HANDLE hTemplateFile
+) {
+    // Implement a simple file open using POSIX functions
+    int fd = open(lpFileName, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    return (HANDLE)(intptr_t)fd;
+}
+
+// Placeholder for WriteFile
+BOOL WriteFile(
+    HANDLE hFile,
+    LPCVOID lpBuffer,
+    DWORD nNumberOfBytesToWrite,
+    LPDWORD lpNumberOfBytesWritten,
+    LPOVERLAPPED lpOverlapped
+) {
+    ssize_t result = write((int)(intptr_t)hFile, lpBuffer, nNumberOfBytesToWrite);
+    if (result == -1) {
+        return FALSE;
+    }
+    *lpNumberOfBytesWritten = (DWORD)result;
+    return TRUE;
+}
+
+// Placeholder for CloseHandle
+BOOL CloseHandle(HANDLE hObject) {
+    return close((int)(intptr_t)hObject) == 0;
+}
+
+// Placeholder for EnterCriticalSection
+void EnterCriticalSection(pthread_mutex_t* lpCriticalSection) {
+    pthread_mutex_lock(lpCriticalSection);
+}
+
+// Placeholder for LeaveCriticalSection
+void LeaveCriticalSection(pthread_mutex_t* lpCriticalSection) {
+    pthread_mutex_unlock(lpCriticalSection);
+}
+
+// Placeholder for WideCharToMultiByte
+int WideCharToMultiByte(
+    UINT CodePage,
+    DWORD dwFlags,
+    LPCWCH lpWideCharStr,
+    int cchWideChar,
+    LPSTR lpMultiByteStr,
+    int cbMultiByte,
+    LPCCH lpDefaultChar,
+    LPBOOL lpUsedDefaultChar
+) {
+    // Simple conversion using wcstombs
+    return wcstombs(lpMultiByteStr, lpWideCharStr, cbMultiByte);
+}
+
+// Placeholder for GetLastError
+DWORD GetLastError() {
+    return errno;
+}
+
+// Placeholder for MultiByteToWideChar
+int MultiByteToWideChar(
+    UINT CodePage,
+    DWORD dwFlags,
+    LPCCH lpMultiByteStr,
+    int cbMultiByte,
+    LPWSTR lpWideCharStr,
+    int cchWideChar
+) {
+    // Simple conversion using mbstowcs
+    return mbstowcs(lpWideCharStr, lpMultiByteStr, cchWideChar);
+}
+
+// Placeholder for IsDBCSLeadByteEx
+BOOL IsDBCSLeadByteEx(UINT CodePage, BYTE TestChar) {
+    // Simplified implementation
+    return FALSE;
+}
+
+// Placeholder for GetProcAddress
+FARPROC GetProcAddress(HMODULE hModule, LPCSTR lpProcName) {
+    // Simplified implementation
+    return NULL;
+}
+
+// Placeholder for GetACP
+UINT GetACP() {
+    return 0;
+}
+
+// Placeholder for IsValidCodePage
+BOOL IsValidCodePage(UINT CodePage) {
+    return TRUE;
+}
+
+// Placeholder for GetCPInfo
+BOOL GetCPInfo(UINT CodePage, LPCPINFO lpCPInfo) {
+    // Simplified implementation
+    return TRUE;
+}
+#endif
 
 iconv_t iconv_open(const char *tocode, const char *fromcode);
 int iconv_close(iconv_t cd);
@@ -788,10 +885,8 @@ win_iconv_open(rec_iconv_t *cd, const char *tocode, const char *fromcode)
         return FALSE;
     cd->iconv_close = win_iconv_close;
     cd->iconv = win_iconv;
-#if defined(WIN32)
+#if defined(_MSC_VER) && !defined(__linux__)
     cd->_errno = _errno;
-#else
-    cd->_errno = errno;
 #endif
     cd->cd = (iconv_t)cd;
     return TRUE;
@@ -941,11 +1036,11 @@ make_csconv(const char *_name, csconv_t *cv)
     /* check for option "enc_name//opt1//opt2" */
     while ((p = strrstr(name, "//")) != NULL)
     {
-        if (_stricmp(p + 2, "nocompat") == 0)
+        if (stricmp(p + 2, "nocompat") == 0)
             use_compat = FALSE;
-        else if (_stricmp(p + 2, "translit") == 0)
+        else if (stricmp(p + 2, "translit") == 0)
             flag |= FLAG_TRANSLIT;
-        else if (_stricmp(p + 2, "ignore") == 0)
+        else if (stricmp(p + 2, "ignore") == 0)
             flag |= FLAG_IGNORE;
         *p = 0;
     }
@@ -960,17 +1055,17 @@ make_csconv(const char *_name, csconv_t *cv)
     {
         cv->mbtowc = utf16_mbtowc;
         cv->wctomb = utf16_wctomb;
-        if (_stricmp(name, "UTF-16") == 0 || _stricmp(name, "UTF16") == 0 ||
-          _stricmp(name, "UCS-2") == 0 || _stricmp(name, "UCS2") == 0 ||
-	  _stricmp(name,"UCS-2-INTERNAL") == 0)
+        if (stricmp(name, "UTF-16") == 0 || stricmp(name, "UTF16") == 0 ||
+          stricmp(name, "UCS-2") == 0 || stricmp(name, "UCS2") == 0 ||
+	  stricmp(name,"UCS-2-INTERNAL") == 0)
             cv->flags |= FLAG_USE_BOM;
     }
     else if (cv->codepage == 12000 || cv->codepage == 12001)
     {
         cv->mbtowc = utf32_mbtowc;
         cv->wctomb = utf32_wctomb;
-        if (_stricmp(name, "UTF-32") == 0 || _stricmp(name, "UTF32") == 0 ||
-          _stricmp(name, "UCS-4") == 0 || _stricmp(name, "UCS4") == 0)
+        if (stricmp(name, "UTF-32") == 0 || stricmp(name, "UTF32") == 0 ||
+          stricmp(name, "UCS-4") == 0 || stricmp(name, "UCS4") == 0)
             cv->flags |= FLAG_USE_BOM;
     }
     else if (cv->codepage == 65001)
@@ -1045,7 +1140,7 @@ name_to_codepage(const char *name)
         return atoi(name + 2); /* XX123 for debug */
 
     for (i = 0; codepage_alias[i].name != NULL; ++i)
-        if (_stricmp(name, codepage_alias[i].name) == 0)
+        if (stricmp(name, codepage_alias[i].name) == 0)
             return codepage_alias[i].codepage;
     return -1;
 }

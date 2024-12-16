@@ -40,15 +40,15 @@
 #include <stdarg.h>
 
 #include "iconv/iconv.h"
-
 #include "internals.h"
 
-#include <libcu8.h>
-
-#ifdef WIN32
+#if !defined(__linux__)
+extern char **_environ;
+extern wchar_t **_wenviron;
 #define ENVIRON_PTR (const char *const *)_environ
 #define WENVIRON_PTR (const wchar_t * const*)_wenviron
 #else
+extern char **__environ;
 #define ENVIRON_PTR (const char *const *)__environ
 #define WENVIRON_PTR (const char *const *)__environ
 #endif
@@ -77,7 +77,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnle(int mode, const char* file, ...)
 {
     va_list args;
     const char* argv[1024];
-    const char* *env;
+    const char* const* env;
     int i=0;
     intptr_t ret;
 
@@ -120,7 +120,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnlpe(int mode, const char* file, ...)
 {
     va_list args;
     const char* argv[1024];
-    const char* *env;
+    const char* const* env;
     int i=0;
     intptr_t ret;
 
@@ -148,7 +148,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnv(int mode, const char* file,
 __LIBCU8__IMP __cdecl intptr_t libcu8_spawnve(int mode, const char* file,
                             const char* const *argv, const char *const *envp)
 {
-    wchar_t *wfile, **wargv;
+    wchar_t *wfile=NULL, **wargv;
     size_t cvt;
     int i=0, j=0, ret;
 
@@ -188,7 +188,7 @@ error :
 
     if (j)
         for (i = 0; i < j; j++)
-            free(argv[i]);
+            free((char*)argv[i]);
 
     free(wargv);
 
@@ -205,7 +205,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnvpe(int mode, const char* file,
                                                     const char* const *argv,
                                                     const char *const *envp)
 {
-    wchar_t *wfile, **wargv;
+    wchar_t *wfile=NULL, **wargv;
     size_t cvt;
     int i=0, j=0, ret;
 
@@ -236,7 +236,7 @@ __LIBCU8__IMP __cdecl intptr_t libcu8_spawnvpe(int mode, const char* file,
     free(wfile);
 
     for (i=0; i < j; i++)
-        free(wargv[i]);
+        free((char*)wargv[i]);
 
     free(wargv);
 
@@ -249,7 +249,7 @@ error :
 
     if (j)
         for (i = 0; i < j; j++)
-            free(argv[i]);
+            free((char*)argv[i]);
 
 
     return -1;

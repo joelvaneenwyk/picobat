@@ -18,7 +18,9 @@
  *
  */
 
+#ifndef _MSC_VER
 #include <strings.h>
+#endif
 
 #include <libpBat.h>
 

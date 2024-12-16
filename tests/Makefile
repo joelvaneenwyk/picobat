@@ -17,21 +17,19 @@
 #
 
 ROOTDIR=..
-BINDIR?=$(ROOTDIR)/bin
+BINDIR?=$(ROOTDIR)/pbat
 PBAT=$(BINDIR)/pbat
 TESTS=$(shell find . -name "*.bat")
 TESTS.OUT=$(TESTS:.bat=.out)
 
+all: test
 
-# do nothing
-all:
-
-test: test-clean $(TESTS.OUT)
+test: test-clean pbat $(TESTS.OUT)
 
 test-clean:
-	rm -Rf $(TESTS.OUT)
+	rm -Rf $(TESTS.OUT) block
 
-.bat.out:
+%.out: %.bat
 	@echo Running test :  $<
 	@$(PBAT) run-test.cmd $< $@
 	@cmp $@ $@.ok; \
@@ -39,5 +37,9 @@ test-clean:
 		0) echo "	OK";true;; \
 		*) echo "	ERROR";false;; \
 	esac;
+
+pbat:
+	$(MAKE) -C ../pbat
+
 .PHONY: test test-clean
 .SUFFIXES: .bat .out

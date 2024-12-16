@@ -92,7 +92,7 @@ int pBat_CmdType(char* lpLine)
 
 	FILELIST *pBegin=NULL,
              *pTmp=NULL,
-             *pEnd;
+             *pEnd=NULL;
 
     int status=0, nSize=0;
     char *buf=NULL;

@@ -17,21 +17,38 @@
 #
 
 ROOTDIR = ..
-include ../config.mk
+include $(ROOTDIR)/config.mk
 
-CFLAGS += $(LIBPBAT_INC)
-LDFLAGS += $(LIBPBAT_LD)
-SRC_FILES = pbatize.c pairs.c
+
+CFLAGS_PBATIZE += $(CFLAGS) $(MICROGETTEXT_INC) $(LIBPBAT_INC) \
+				$(LIBMATHEVAL_INC) $(LIBCU8_INC)
+
+LDFLAGS_PBATIZE += $(LDFLAGS) $(MICROGETTEXT_LD) $(LIBPBAT_LD) \
+				$(LIBMATHEVAL_LD) $(LIBCU8_LD) \
+				$(LPTHREAD_LD) $(LM_LD) $(LDL_LD)
+
+ifeq ($(OS),Windows_NT)
+	LDFLAGS_PBATIZE += -lshlwapi
+endif
+
+SRC_FILES_PBATIZE = pbatize.c pairs.c
+OBJ_FILES_PBATIZE := $(SRC_FILES_PBATIZE:.c=.o)
 
 all: pbatize
 
-pbatize:
-	$(CC) -o pbatize$(EXEC_SUFFIX) $(SRC_FILES) $(LDFLAGS) $(CFLAGS)
+%.o: %.c pbat
+	$(CC) $(CFLAGS_PBATIZE) -c -o $@ $<
+
+pbatize: $(OBJ_FILES_PBATIZE)
+	$(CC) $(CFLAGS_PBATIZE) -o pbatize$(EXEC_SUFFIX) $(OBJ_FILES_PBATIZE) $(LDFLAGS_PBATIZE)
 
 clean:
 	rm -f pbatize$(EXEC_SUFFIX)
 
 bin: pbatize
 	cp pbatize$(EXEC_SUFFIX) $(BINDIR)/cmd/
+
+pbat:
+	$(MAKE) -C ../pbat
 
 .PHONY: all clean bin

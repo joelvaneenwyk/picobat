@@ -18,7 +18,7 @@
 
 
 ROOTDIR = ..
-include ../config.mk
+include $(ROOTDIR)/config.mk
 
 CFLAGS_PBAT += $(CFLAGS) $(MICROGETTEXT_INC) $(LIBPBAT_INC) \
 				$(LIBMATHEVAL_INC) $(LIBCU8_INC)
@@ -28,7 +28,7 @@ LDFLAGS_PBAT += $(LDFLAGS) $(MICROGETTEXT_LD) $(LIBPBAT_LD) \
 				$(LPTHREAD_LD) $(LM_LD) $(LDL_LD)
 
 
-ifeq ($(fn_WIN32),1)
+ifeq ($(OS),Windows_NT)
 	SRC_RC = rc/res.rc
 	OBJ_RC = rc/res.o
 	LDFLAGS_PBAT += -lshlwapi
@@ -75,7 +75,7 @@ OBJ_FILES_PBAT := $(SRC_FILES_PBAT:.c=.o) $(OBJ_RC)
 
 all: pbat
 
-%.o: %.c
+%.o: %.c libpbat
 	$(CC) $(CFLAGS_PBAT) -c -o $@ $<
 
 clean:
@@ -85,10 +85,10 @@ clean:
 bin: pbat
 	cp pbat$(EXEC_SUFFIX) $(BINDIR)/
 
-pbat: $(OBJ_FILES_PBAT) libpbat libcu8
+pbat: $(OBJ_FILES_PBAT)
 	$(CC) $(CFLAGS_PBAT) -o pbat$(EXEC_SUFFIX) $(OBJ_FILES_PBAT) $(LDFLAGS_PBAT)
 
-libpbat: libfasteval microgettext
+libpbat: config libfasteval microgettext libcu8
 	$(MAKE) -C ../libpbat
 
 libcu8:
@@ -99,6 +99,9 @@ libfasteval:
 
 microgettext:
 	$(MAKE) -C ../microgettext
+
+config:
+	$(MAKE) -C ../ config
 
 .rc.o:
 	$(WINDRES) -o $@ -i $<

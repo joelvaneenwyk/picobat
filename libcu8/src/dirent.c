@@ -28,20 +28,13 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <wchar.h>
-#if defined(WIN32)
-#include <io.h>
-#include <windows.h>
-#endif
-#include <fcntl.h>
-#include <errno.h>
 #include <assert.h>
 
 #include "internals.h"
-
-#include <libcu8.h>
 
 /* this is an posix-compatible dirent.h layer added to libcu8 to prevent
    programs from using non-utf8 aware version of dirent.h for windows
@@ -50,9 +43,9 @@
    for the moment. We do not provide readdir_r but readdir is thread safe
    anyway */
 
-__LIBCU8__IMP __cdecl DIR* libcu8_opendir(const char* dir)
+__LIBCU8__IMP __cdecl libcu8_DIR* libcu8_opendir(const char* dir)
 {
-    struct DIR* pdir;
+    libcu8_DIR* pdir;
     wchar_t* wdir;
     HANDLE handle;
     char* exp;
@@ -118,7 +111,7 @@ __LIBCU8__IMP __cdecl DIR* libcu8_opendir(const char* dir)
     }
 
 
-    if ((pdir = malloc(sizeof(struct DIR))) == NULL) {
+    if ((pdir = malloc(sizeof(libcu8_DIR))) == NULL) {
 
         /* failed to alloc a DIR structure */
         errno = ENOMEM;
@@ -134,7 +127,7 @@ __LIBCU8__IMP __cdecl DIR* libcu8_opendir(const char* dir)
     return pdir;
 }
 
-__LIBCU8__IMP __cdecl int libcu8_closedir(DIR* pdir)
+__LIBCU8__IMP __cdecl int libcu8_closedir(libcu8_DIR* pdir)
 {
     if (pdir->ent.d_name != NULL)
         free(pdir->ent.d_name);
@@ -146,7 +139,7 @@ __LIBCU8__IMP __cdecl int libcu8_closedir(DIR* pdir)
     return 0;
 }
 
-__LIBCU8__IMP __cdecl struct dirent* libcu8_readdir(DIR* pdir)
+__LIBCU8__IMP __cdecl struct libcu8_dirent* libcu8_readdir(libcu8_DIR* pdir)
 {
     WIN32_FIND_DATAW data;
     size_t cnt;

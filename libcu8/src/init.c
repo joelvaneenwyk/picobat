@@ -48,7 +48,6 @@
 
 #include "internals.h"
 #include "config.h"
-#include <libcu8.h>
 
 #if 0
 #define REPLACE_FN( )
@@ -157,19 +156,24 @@ typedef struct {
 int newmode;
 } _startupinfo;
 
+#if defined(_WIN32) && !defined(_MSC_VER)
 extern int __wgetmainargs(int*, wchar_t***, wchar_t***, int, _startupinfo*);
+#define HAS_GET_MAIN_ARGS	1
+#endif
 
 int libcu8_get_argv(const char*** pargv)
 {
-    wchar_t **wargv, **wenv;
-    char **argv;
-    int argc, i;
+    wchar_t **wargv=NULL, **wenv=NULL;
+    char **argv=NULL;
+    int argc=0, i;
     size_t converted;
     _startupinfo stinfo;
 
+#ifdef HAS_GET_MAIN_ARGS
     __wgetmainargs(&argc, &wargv, &wenv, 0, &stinfo);
+#endif
 
-    if (!(argv = malloc((argc + 1) * sizeof(char*)))) {
+    if (!(argv = (char**)malloc((argc + 1) * sizeof(char*)))) {
 
         errno = ENOMEM;
         return -1;

@@ -42,14 +42,12 @@
 
 #include "internals.h"
 
-#include <libcu8.h>
-
 __LIBCU8__IMP __cdecl int libcu8_getcwd(char* dir, size_t size)
 {
     wchar_t* wdir;
     char* ret;
     size_t conv;
-    int code;
+    int code = -1;
 
     /* alloc at most n wchar since it is the most character that
        dir can possibly hold */
