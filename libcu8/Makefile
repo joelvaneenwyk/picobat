@@ -24,28 +24,34 @@ ifneq (,$(wildcard $(SRCDIR)/femto-config.mk))
     include $(SRCDIR)/femto-config.mk
 endif
 
-CFLAGS += $(LIBCU8_INC) -I./include
+CFLAGS_LIB_CU8 += $(LIBCU8_INC) -I./include
 
-SRC_FILES = src/init.c src/encoding.c src/read.c src/write.c \
+SRC_FILES_CU8 = src/init.c src/encoding.c src/read.c src/write.c \
 			src/fdio.c src/spawn.c src/stat.c src/dup.c src/find.c src/dir.c \
 			src/dirent.c src/iconv/iconv.c
 
-OBJ_FILES = $(SRC_FILES:.c=.o)
+OBJ_FILES_CU8 = $(SRC_FILES_CU8:.c=.o)
 
 all: libcu8.a
 
+%.o: %.c config
+	$(CC) $(CFLAGS_LIB_CU8) -c -o $@ $<
+
 clean:
-	rm -f $(OBJ_FILES) libcu8.a
+	rm -f $(OBJ_FILES_CU8) libcu8.a
 	$(MAKE) -C test clean
 
 test:
 	$(MAKE) -C test run-tests
 
-libcu8.a: $(OBJ_FILES)
-	$(AR) r $@ $(OBJ_FILES)
+libcu8.a: $(OBJ_FILES_CU8)
+	$(AR) r $@ $(OBJ_FILES_CU8)
 	$(RANLIB) $@
 
 bin:
+
+config:
+	$(MAKE) -C ../ config
 
 # stuff to check
 PROGRAMS =
@@ -57,7 +63,5 @@ OPTIONS =
 DEFAULTOPTIONS =
 SUBCONFIG =
 ADDITIONALVARS =
-
-include $(ROOTDIR)/femto.mk
 
 .PHONY: all bin clean $(SUBDIRS) $(SUBDIRS_CLEAN) po-merge test
