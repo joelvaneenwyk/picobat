@@ -40,7 +40,7 @@ jobs:
 
       - name: Make ${{ matrix.target }}
         run: |
-          make -C ${{ matrix.target }}
+          make -C "${{ matrix.target }}"
 
   build:
     needs: make
