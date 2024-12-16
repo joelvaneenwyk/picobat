@@ -38,9 +38,9 @@ jobs:
             mingw-w64-${{ env.MSYS_ENV }}-toolchain
             mingw-w64-${{ env.MSYS_ENV }}-dlfcn
 
-      - name: Build {{ matrix.target }}
+      - name: Make ${{ matrix.target }}
         run: |
-          make -C {{ matrix.target }}
+          make -C ${{ matrix.target }}
 
   build:
     needs: make
