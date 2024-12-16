@@ -51,4 +51,4 @@ bin: pbatize
 pbat:
 	$(MAKE) -C ../pbat
 
-.PHONY: all clean bin
+.PHONY: all clean pbat bin
