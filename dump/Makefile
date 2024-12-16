@@ -19,18 +19,25 @@
 ROOTDIR = ..
 include ../config.mk
 
-SRC_FILES=dump.c
+SRC_FILES_DUMP=dump.c
+OBJ_FILES_DUMP = $(SRC_FILES_DUMP:.c=.o)
+
+SRC_FILES_DUMP_GEN=dump_h_gen.c
+OBJ_FILES_DUMP_GEN = $(SRC_FILES_DUMP_GEN:.c=.o)
 
 all: dump$(EXEC_SUFFIX)
 
-dump_h_gen$(EXEC_SUFFIX):	dump_h_gen.c
-	$(CC) -o dump_h_gen$(EXEC_SUFFIX) $(LDFLAGS) $(CFLAGS) dump_h_gen.c
+%.o: %.c config
+	$(CC) $(CFLAGS_TEA) -c -o $@ $<
+
+dump_h_gen$(EXEC_SUFFIX): $(OBJ_FILES_DUMP_GEN)
+	$(CC) -o dump_h_gen$(EXEC_SUFFIX) $(LDFLAGS) $(CFLAGS) $(OBJ_FILES_DUMP_GEN)
 
 dump.h: dump_h_gen
 	./dump_h_gen$(EXEC_SUFFIX) > dump.h
 
-dump$(EXEC_SUFFIX): dump.h $(SRC_FILES)
-	$(CC) -o dump$(EXEC_SUFFIX) $(LDFLAGS) $(CFLAGS) $(SRC_FILES)
+dump$(EXEC_SUFFIX): dump.h $(OBJ_FILES_DUMP)
+	$(CC) -o dump$(EXEC_SUFFIX) $(LDFLAGS) $(CFLAGS) $(OBJ_FILES_DUMP)
 
 clean:
 	rm -f dump$(EXEC_SUFFIX) dump_h_gen$(EXEC_SUFFIX) dump.h
@@ -38,4 +45,7 @@ clean:
 bin: dump
 	cp dump$(EXEC_SUFFIX) $(BINDIR)/cmd/
 
-.PHONY: all clean bin
+config:
+	$(MAKE) -C ../ config
+
+.PHONY: all clean config bin
