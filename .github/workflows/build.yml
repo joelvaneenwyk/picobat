@@ -18,8 +18,7 @@ jobs:
     runs-on: 'windows-latest'
     defaults:
       run:
-        # set shell to be either bash or msys2 depending on runner
-        shell: ${{ matrix.sys == 'linux' && 'bash' || matrix.sys == 'windows' && 'cmd' || 'msys2 {0}' }}
+        shell: msys2 {0}
 
     steps:
       - uses: actions/checkout@v4
@@ -29,9 +28,8 @@ jobs:
 
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
-        if: matrix.sys != 'linux' && matrix.sys != 'windows'
         env:
-          MSYS_ENV: ${{ matrix.sys == 'mingw32' && 'i686' || matrix.sys == 'ucrt64' && 'ucrt-x86_64' || matrix.sys == 'clang64' && 'clang-x86_64' || 'x86_64' }}
+          MSYS_ENV: x86_64
         with:
           msystem: ${{ matrix.sys }}
           install: >-
@@ -40,10 +38,9 @@ jobs:
             mingw-w64-${{ env.MSYS_ENV }}-toolchain
             mingw-w64-${{ env.MSYS_ENV }}-dlfcn
 
-      - name: Build '{{ matrix.target }}'
-        if: matrix.sys != 'windows' && matrix.sys != 'linux'
+      - name: Build {{ matrix.target }}
         run: |
-          make -C "{{ matrix.target }}"
+          make -C {{ matrix.target }}
 
   build:
     needs: make
