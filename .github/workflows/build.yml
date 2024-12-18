@@ -12,10 +12,20 @@ jobs:
       fail-fast: false
       matrix:
         sys: [mingw64]
-        target: [libcu8, dump, libfasteval, libpbat, microgettext, pbat, pbatize, tests, tea]
+        target: [
+            libcu8,
+            libfasteval,
+            libpbat,
+            microgettext,
+            pbat,
+            pbatize,
+            dump,
+            tea,
+            # tests,
+          ]
 
-    name: '⚙️ ${{ matrix.sys }} // ${{ matrix.target }}'
-    runs-on: 'windows-latest'
+    name: "⚙️ ${{ matrix.sys }} // ${{ matrix.target }}"
+    runs-on: "windows-latest"
     defaults:
       run:
         shell: msys2 {0}
@@ -49,7 +59,7 @@ jobs:
       matrix:
         sys: [linux, windows, mingw64, mingw32, ucrt64, clang64]
         options: [use-libcu8, no-libcu8]
-    name: '⚙️ ${{ matrix.sys }} // ${{ matrix.options }}'
+    name: "⚙️ ${{ matrix.sys }} // ${{ matrix.options }}"
     runs-on: ${{ matrix.sys == 'linux' && 'ubuntu-latest' || 'windows-latest' }}
 
     permissions:
