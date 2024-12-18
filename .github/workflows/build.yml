@@ -7,13 +7,59 @@ on:
   workflow_dispatch:
 
 jobs:
+  make:
+    strategy:
+      fail-fast: false
+      matrix:
+        sys: [mingw64]
+        target: [
+            libcu8,
+            libfasteval,
+            libpbat,
+            microgettext,
+            pbat,
+            pbatize,
+            dump,
+            tea,
+            # tests,
+          ]
+
+    name: "⚙️ ${{ matrix.sys }} // ${{ matrix.target }}"
+    runs-on: "windows-latest"
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        env:
+          MSYS_ENV: x86_64
+        with:
+          msystem: ${{ matrix.sys }}
+          install: >-
+            git zip
+            base-devel
+            mingw-w64-${{ env.MSYS_ENV }}-toolchain
+            mingw-w64-${{ env.MSYS_ENV }}-dlfcn
+
+      - name: Make ${{ matrix.target }}
+        run: |
+          make -C "${{ matrix.target }}"
+
   build:
+    needs: make
     strategy:
       fail-fast: false
       matrix:
         sys: [linux, windows, mingw64, mingw32, ucrt64, clang64]
         options: [use-libcu8, no-libcu8]
-    name: '⚙️ ${{ matrix.sys }} // ${{ matrix.options }}'
+    name: "⚙️ ${{ matrix.sys }} // ${{ matrix.options }}"
     runs-on: ${{ matrix.sys == 'linux' && 'ubuntu-latest' || 'windows-latest' }}
 
     permissions:

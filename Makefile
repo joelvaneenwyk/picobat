@@ -35,6 +35,7 @@ endif
 
 SUBDIRS = microgettext libpbat libfasteval $(SUBDIRS_ADD) pbat pbatize dump tea \
 			scripts modules $(SUBDIR_PO)
+TARGETS = pbat pbatize dump tea
 TPLFILES = README.tpl
 TEAFILES = $(TPLFILES:.tpl=.tea) WHATSNEW.tea GUIDELINES.tea THANKS.tea
 TEXTFILES = $(TEAFILES:.tea=.txt)
@@ -53,13 +54,19 @@ PACKAGE_URL = http://picobat.org
 PACKAGE_BUGREPORT = darkbatcher@picobat.org
 VERSION = $(shell date +%Y | sed s/0//).$(shell date +%m)
 
-all: config $(SUBDIRS) $(MDFILES) $(TEAFILES)
+all: targets $(MDFILES) $(TEAFILES)
 
 clean: $(SUBDIRS_CLEAN)
 	rm -f $(TEXTFILES) config.c config.h femto-config.mk femto-subst femto-test.out *.zip README.tpl.tea README.tea README.tpl.tea.md dump.h
 	rm -rf $(BINDIR) ./x64/ ./picobat-*/ ./obj/
 
-$(SUBDIRS):
+# Rule to build subdirectories
+targets: config
+	for dir in $(TARGETS); do \
+		$(MAKE) -C $$dir; \
+	done
+
+$(SUBDIRS): config
 	$(MAKE) -C $@
 
 $(SUBDIRS_CLEAN):
@@ -133,5 +140,5 @@ man/en_US/readme.tea: README.tpl
 README.md: README.tpl.tea.md
 	cp README.tpl.tea.md README.md
 
-.PHONY: all bin bindir clean $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(MDFILES)
+.PHONY: all bin bindir clean targets $(SUBDIRS) $(SUBDIRS_CLEAN) textfiles dist $(MDFILES)
 .SUFFIXES: .txt .md .tea .tpl .tpl.md .tpl.tea .tpl.tea.md

@@ -17,8 +17,11 @@
 #
 
 ROOTDIR=..
-BINDIR?=$(ROOTDIR)/pbat
-PBAT=$(BINDIR)/pbat
+include $(ROOTDIR)/config.mk
+
+BINDIR = $(ROOTDIR)/pbat
+PBAT = $(BINDIR)/pbat$(EXEC_SUFFIX)
+
 TESTS=$(shell find . -name "*.bat")
 TESTS.OUT=$(TESTS:.bat=.out)
 
@@ -29,7 +32,7 @@ test: test-clean pbat $(TESTS.OUT)
 test-clean:
 	rm -Rf $(TESTS.OUT) block
 
-%.out: %.bat
+%.out: %.bat pbat
 	@echo Running test :  $<
 	@$(PBAT) run-test.cmd $< $@
 	@cmp $@ $@.ok; \
@@ -41,5 +44,5 @@ test-clean:
 pbat:
 	$(MAKE) -C ../pbat
 
-.PHONY: test test-clean
+.PHONY: test test-clean pbat
 .SUFFIXES: .bat .out

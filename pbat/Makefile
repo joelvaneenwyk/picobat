@@ -88,7 +88,7 @@ bin: pbat
 pbat: $(OBJ_FILES_PBAT)
 	$(CC) $(CFLAGS_PBAT) -o pbat$(EXEC_SUFFIX) $(OBJ_FILES_PBAT) $(LDFLAGS_PBAT)
 
-libpbat: config libfasteval microgettext libcu8
+libpbat: libfasteval microgettext libcu8
 	$(MAKE) -C ../libpbat
 
 libcu8:
@@ -99,9 +99,6 @@ libfasteval:
 
 microgettext:
 	$(MAKE) -C ../microgettext
-
-config:
-	$(MAKE) -C ../ config
 
 .rc.o:
 	$(WINDRES) -o $@ -i $<

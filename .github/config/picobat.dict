@@ -147,6 +147,7 @@ lpps
 LPSTREAMSTACK
 lpthread
 LPTHREAD
+lshlwapi
 makefiles
 Makefiles
 MANFILES

@@ -32,7 +32,7 @@ CFLAGS_LIB_PBAT += $(LIBCU8_INC) $(LIBPBAT_INC)
 
 OBJ_FILES_LIB_PBAT := $(SRC_FILES_LIB_PBAT:.c=.o)
 
-all: config libpBat.a
+all: libpBat.a
 
 %.o: %.c config
 	$(CC) $(CFLAGS_LIB_PBAT) -c -o $@ $<
@@ -47,4 +47,4 @@ clean:
 config:
 	$(MAKE) -C ../ config
 
-.PHONY: all libpBat.a clean
+.PHONY: all libpBat.a config clean
